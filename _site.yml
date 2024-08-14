@@ -1,0 +1,16 @@
+name: "OCEAN_5098"
+navbar:
+  title: "OCEAN_5098"
+  left:
+    - text: "Home"
+      href: index.html
+    - text: "Environment"
+      href: environment.html      
+    - text: "Manipulation"
+      menu:
+        - text: "Basics"
+          href: basics.html    
+        - text: "dplyr"
+          href: dplyr.html
+        - text: "tidyr"
+          href: dplyr.html   
