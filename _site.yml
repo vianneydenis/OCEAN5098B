@@ -14,4 +14,11 @@ navbar:
         - text: "dplyr"
           href: dplyr.html
         - text: "tidyr"
-          href: dplyr.html   
+          href: dplyr.html
+          
+output:
+  html_document:
+    code_folding: show
+    theme: flatly
+    css: styles.css
+    highlight: rstudio
