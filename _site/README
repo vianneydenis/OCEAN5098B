@@ -1,9 +1,0 @@
-
-CHECK: https://nceas.github.io/training-rmarkdown-website/tutorial.html
-
-
-rmarkdown::clean_site(, preview = TRUE)
-rmarkdown::clean_site(, preview = FALSE)
-rmarkdown::render_site()
-
-
