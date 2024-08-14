@@ -1,4 +1,5 @@
 name: "OCEAN_5098"
+output_dir: "docs"
 navbar:
   title: "OCEAN_5098"
   left:
