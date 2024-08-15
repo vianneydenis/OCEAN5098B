@@ -10,11 +10,11 @@ navbar:
     - text: "Manipulation"
       menu:
         - text: "Basics"
-          href: basics.html    
+          href: TEMP_basics.html    
         - text: "dplyr"
-          href: dplyr.html
+          href: TEMP_dplyr.html
         - text: "tidyr"
-          href: dplyr.html
+          href: TEMP_tidyr.html
           
 output:
   html_document:

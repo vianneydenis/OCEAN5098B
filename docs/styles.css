@@ -40,21 +40,18 @@ d-article {
 }
 
 p.comment {
-background-color: #94F99B;
-padding: 10px;
-border: 1px solid black;
-margin-left: 25px;
-border-radius: 5px;
-font-style: normal;
+padding: 20px;
+background-color: #067068;
+color: white;
+margin-bottom: 15px;
 }
 
+
 p.alert {
-background-color: #F0756D;
-padding: 10px;
-border: 1px solid black;
-margin-left: 25px;
-border-radius: 5px;
-font-style: normal;
+padding: 20px;
+background-color: #92200e;
+color: white;
+margin-bottom: 15px;
 }
 
 

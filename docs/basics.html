@@ -11,7 +11,7 @@
 
 
 
-<title>basics.knit</title>
+<title>Basics</title>
 
 <script src="site_libs/header-attrs-2.25/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
@@ -31,6 +31,10 @@
        pre:not([class]) { background-color: white }</style>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <script src="site_libs/navigation-1.1/codefolding.js"></script>
+<script src="site_libs/clipboard-2.0.6/clipboard.min.js"></script>
+<link href="site_libs/xaringanExtra-clipboard-0.2.6/xaringanExtra-clipboard.css" rel="stylesheet" />
+<script src="site_libs/xaringanExtra-clipboard-0.2.6/xaringanExtra-clipboard.js"></script>
+<script>window.xaringanExtraClipboard(null, {"button":"Copy Code","success":"Copied!","error":"Press Ctrl+C to Copy"})</script>
 
 <style type="text/css">
   code{white-space: pre-wrap;}
@@ -43,6 +47,114 @@
 
 
 
+<style type="text/css">
+  code {
+    white-space: pre;
+  }
+  .sourceCode {
+    overflow: visible;
+  }
+</style>
+<style type="text/css" data-origin="pandoc">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; } /* Alert */
+code span.an { color: #008000; } /* Annotation */
+code span.at { } /* Attribute */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #0000ff; } /* ControlFlow */
+code span.ch { color: #008080; } /* Char */
+code span.cn { color: #585cf6; } /* Constant */
+code span.co { color: #4c886b; } /* Comment */
+code span.cv { color: #008000; } /* CommentVar */
+code span.do { color: #008000; } /* Documentation */
+code span.dv { color: #0000cd; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #0000cd; } /* Float */
+code span.im { } /* Import */
+code span.in { color: #008000; } /* Information */
+code span.kw { color: #0000ff; } /* Keyword */
+code span.op { color: #687687; } /* Operator */
+code span.ot { color: #ff4000; } /* Other */
+code span.pp { color: #ff4000; } /* Preprocessor */
+code span.sc { color: #008080; } /* SpecialChar */
+code span.ss { color: #008080; } /* SpecialString */
+code span.st { color: #036a07; } /* String */
+code span.va { } /* Variable */
+code span.vs { color: #008080; } /* VerbatimString */
+code span.wa { color: #008000; font-weight: bold; } /* Warning */
+
+.sourceCode .row {
+  width: 100%;
+}
+.sourceCode {
+  overflow-x: auto;
+}
+.code-folding-btn {
+  margin-right: -30px;
+}
+</style>
+<script>
+// apply pandoc div.sourceCode style to pre.sourceCode instead
+(function() {
+  var sheets = document.styleSheets;
+  for (var i = 0; i < sheets.length; i++) {
+    if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
+    try { var rules = sheets[i].cssRules; } catch (e) { continue; }
+    var j = 0;
+    while (j < rules.length) {
+      var rule = rules[j];
+      // check if there is a div.sourceCode rule
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") {
+        j++;
+        continue;
+      }
+      var style = rule.style.cssText;
+      // check if color or background-color is set
+      if (rule.style.color === '' && rule.style.backgroundColor === '') {
+        j++;
+        continue;
+      }
+      // replace div.sourceCode by a pre.sourceCode rule
+      sheets[i].deleteRule(j);
+      sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
+    }
+  }
+})();
+</script>
 
 
 
@@ -249,13 +361,13 @@ $(document).ready(function () {
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="basics.html">Basics</a>
+      <a href="TEMP_basics.html">Basics</a>
     </li>
     <li>
-      <a href="dplyr.html">dplyr</a>
+      <a href="TEMP_dplyr.html">dplyr</a>
     </li>
     <li>
-      <a href="dplyr.html">tidyr</a>
+      <a href="TEMP_tidyr.html">tidyr</a>
     </li>
   </ul>
 </li>
@@ -279,11 +391,342 @@ $(document).ready(function () {
 
 
 
+<h1 class="title toc-ignore">Basics</h1>
 
 </div>
 
 
-
+<a href="data:text/x-markdown;base64,LS0tDQp0aXRsZTogIkJhc2ljcyINCi0tLQ0KDQpgYGB7ciBldmFsID0gVFJVRSwgIG1lc3NhZ2U9RiwgaW5jbHVkZT1GLCB3YXJuaW5nPUYsIHB1cmw9RiwgcmVzdWx0cz0iaGlkZSJ9DQprbml0cjo6cHVybCgnYmFzaWNzLlJtZCcsIGRvY3VtZW50YXRpb24gPSBGKQ0KYGBgDQoNCmBgYHtyIGVjaG89RkFMU0UsIHB1cmw9Rn0NCnhmdW46OmVtYmVkX2ZpbGUoJ2Jhc2ljcy5SbWQnKQ0KYGBgDQoNCmBgYHtyIGVjaG89RkFMU0UsIHB1cmw9Rn0NCnhmdW46OmVtYmVkX2ZpbGUoJ2Jhc2ljcy5SJykNCmBgYA0KDQpgYGB7ciBlY2hvPUZBTFNFfQ0KeGFyaW5nYW5FeHRyYTo6dXNlX2NsaXBib2FyZCgpDQpgYGANCg0KLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0NCg0KV2hlbiBhIGRhdGEgc2V0IGlzIG1hbmlwdWxhdGVkLCB0aGUgZGF0YSBpcyBjaGFuZ2VkIHNvIHRoYXQgaXQgaXMgZWFzaWVyIHRvIHJlYWQgYW5kL29yIHRoZSBlbnRpcmUgZGF0YSBzZXQgaXMgbWFkZSBjbGVhcmVyIGZvciBzdWJzZXF1ZW50IGFuYWx5emVzLiBJbiBnZW5lcmFsLCBkYXRhIGlzIG1hbmlwdWxhdGVkIGJlZm9yZSBpdCBpcyB2aXN1YWxpemVkIGFuZC9vciBhbmFseXplZC4gVGhlIHRlcm0gImRhdGEgbWFuaXB1bGF0aW9uIiBpcyBvZnRlbiB1c2VkIGluIGNvbmp1bmN0aW9uIHdpdGggdGhlIHRlcm0gImRhdGEgZXhwbG9yYXRpb24iLCB3aGljaCBpbnZvbHZlcyBvcmdhbml6aW5nIGRhdGEgd2l0aCBhbiBhdmFpbGFibGUgc2V0IG9mIHZhcmlhYmxlcy4gTWFjaGluZSBkYXRhIGNvbGxlY3Rpb24gaXMgc29tZXRpbWVzIGZyYXVnaHQgd2l0aCBlcnJvcnMgYW5kIGluYWNjdXJhY2llcy4gRGF0YSBtYW5pcHVsYXRpb24gaXMgYWxzbyB1c2VkIHRvIGVsaW1pbmF0ZSB0aGVzZSBpbmFjY3VyYWNpZXMgYW5kIG1ha2UgdGhlIGRhdGEgbW9yZSBhY2N1cmF0ZSBhbmQgcHJlY2lzZS4NCg0KIyBEYXRhc2V0DQoNClRoZSBgZGF0YXNldHNgIHBhY2thZ2UgcHJvdmlkZXMgZGF0YXNldHMuIEl0IGlzIHBhcnQgb2YgdGhlIGJhc2ljIGluc3RhbGxhdGlvbiBvZiBSIGFuZCB5b3UgZG8gbm90IG5lZWQgdG8gaW5zdGFsbCB0aGUgcGFja2FnZSAoaWYgeW91IGFjY2VwdCB0aGUgZGVmYXVsdCBvcHRpb24gd2hlbiBpbnN0YWxsaW5nIFIpLiBUaGVzZSBkYXRhc2V0cyBhcmUgdXNlZCBpbiBtYW55IGV4YW1wbGVzIGJ5IHRoZSBoZWxwIGluIFIuIEFtb25nIHRoZXNlIGRhdGFzZXRzLCBgaXJpc2AgKGA/aXJpc2ApIHByb3ZpZGVzIG1lYXN1cmVtZW50cyBvZiB0aGUgdmFyaWFibGVzIHNlcGFsIGxlbmd0aCBhbmQgd2lkdGggb3IgcGV0YWwgbGVuZ3RoIGFuZCB3aWR0aCBmb3IgNTAgZmxvd2VycyBvZiBlYWNoIG9mIHRocmVlIGlyaXMgc3BlY2llcy4gVGhlIGBTcGVjaWVzYCBpcyBhIGNhdGVnb3JpY2FsIHZhcmlhYmxlIHdpdGggdGhyZWUgbGV2ZWxzOiAqc2V0b3NhKiwgKnZlcnNpY29sb3IqLCBhbmQgKnZpcmdpbmljYSouIFRoZSBmbG93ZXIgZGltZW5zaW9ucyBhcmUgcXVhbnRpdGF0aXZlIGFuZCBjb250aW51b3VzIHZhcmlhYmxlcyBleHByZXNzZWQgaW4gY2VudGltZXRlcnMuDQoNCmBgYHtyLCAgZXZhbD1UfQ0Kcm0obGlzdD1scygpKSAjIGNsZWFuIG1lbW9yeQ0KbGlicmFyeSAoZGF0YXNldHMpICMgbG9hZCBwYWNrYWdlDQpkYXRhKGlyaXMpICMgaW1wb3J0IGRhdGFzZXQNCmhlYWQgKGlyaXMpICMgdmlzdWFsaXplICdoZWFkJyBkYXRhc2V0DQojICdkYXRhJyBhdXRvbWF0aWNhbGx5ICBjcmVhdGVzIHRoZSBvYmplY3QgJ2lyaXMnDQpgYGANCg0KU3VtbWFyaXplIHRoaXMgZGF0YXNldDogDQoNCmBgYHtyLCAgZXZhbD1UfQ0Kc3VtbWFyeShpcmlzKSAjICBvYmplY3Qgc3VtbWFyeQ0KYGBgDQoNCllvdSBjYW4gZXhhbWluZSB0aGUgYGNsYXNzYCAodHlwZSkgb2YgdGhlIG9iamVjdCB5b3UgYXJlIG1hbmlwdWxhdGluZy4gRXhhbWluaW5nIGl0cyBzdHJ1Y3R1cmUgYHN0cmAgaXMgaW1wb3J0YW50IHRvIHVuZGVyc3RhbmQgdGhlIHZhcmlhYmxlcyB5b3UgYXJlIGRlYWxpbmcgd2l0aC4NCg0KYGBge3IsICBldmFsPVR9DQpzdHIoaXJpcykgIyBleGFtaW5lIHRoZSBzdHJ1Y3R1cmUgb2YgdGhlIG9iamVjdA0KYGBgDQoNClRoZSBvYmplY3QgYGlyaXNgIGlzIGEgYGRhdGEuZnJhbWVgIGFuZCBjb25zaXN0cyBvZiA1IHZhcmlhYmxlcyAoYFNlcGFsLkxlbmd0aGAsIGBTZXBhbC5XaWR0aGAsIGBQZXRhbC5MZW5ndGhgLCBgUGV0YWwuV2lkdGhgKSBhbmQgMTUwIG9ic2VydmF0aW9ucy4gRm91ciB2YXJpYWJsZXMgYXJlIG51bWVyaWNhbCwgb25lIGlzIGEgZmFjdG9yIHdpdGggMyBsZXZlbHMgKGBTcGVjaWVzYCkuIFRoZXJlIGFyZSBhbHNvIG90aGVyIG9iamVjdCB0eXBlcyBhbmQgc3RydWN0dXJlcyAoaW50ZWdlciwgbWF0cml4LCBldGMuKSwgYnV0IG1vcmUgb24gdGhhdCBsYXRlciAodGhpcyBpcyBhIGJvcmluZyBzZWN0aW9uIG9mIHRoaXMgY291cnNlKS4NCg0KU3VtbWFyaXppbmcgeW91ciBkYXRhc2V0IGFuZCBleGFtaW5pbmcgaXRzIHN0cnVjdHVyZSB3aWxsIGFsbG93IHlvdSB0byBpZGVudGlmeSBwb3NzaWJsZSBlcnJvcnMgaW4geW91ciBkYXRhc2V0IChpbmNsdWRpbmcgZm9ybWF0IGVycm9ycyB0aGF0IG1heSBoYXZlIG9jY3VycmVkIHdoZW4gaW1wb3J0aW5nIHRoZSBkYXRhc2V0LCByZW1lbWJlciBgcmVlZl9maXNoLnR4dGAgZGF0YXNldCkuIFlvdSBjYW4gZml4IGZvcm1hdCBlcnJvcnMgd2l0aCBgcmVhZC50YWJsZWAgb3Igb3RoZXJzIHNpbWlsYXIgZnVuY3Rpb25zLiBBbHRlcm5hdGl2ZWx5LCB5b3UgY2FuIGBmaXhgIGl0IGluIGEgc3ByZWFkc2hlZXQuDQoNCmBgYHtyLCAgZXZhbD1GQUxTRX0NCmZpeChpcmlzKSAjIHNwcmVhZHNoZWV0DQpgYGANCg0KIyBTZWxlY3Rpb24NCg0KIyMgQ29sdW1uIGFuZCByb3cNCg0KU3VwcG9zZSB0aGVyZSBpcyBhbiBvbmxpbmUgZGF0YXNldCB0aGF0IGRvY3VtZW50cyB0aGUgaGVpZ2h0IGFuZCBzaG9lIHNpemUgb2YgMTAgc3R1ZGVudHMgaW4gVGFpd2FuICh3ZSBjb3VsZCBjcmVhdGUgb3VyIG93biBkYXRhc2V0LCBidXQgd2Ugd2FudCB0byBpbXBvcnQgb25lIGZyb20gdGhlIHByZXZpb3VzIHllYXIgdGhhdCBpcyBhdmFpbGFibGUgb25saW5lKToNCg0KDQpgYGB7ciwgIGV2YWw9Rn0NCnN0dWRlbnRzPC1yZWFkLnRhYmxlKCdodHRwczovL3d3dy5kaXBpbnRvdGhlcmVlZi5jb20vdXBsb2Fkcy8zLzcvMy81LzM3MzU5MjQ1L3N0dWRlbnRzLnR4dCcsaGVhZGVyPVQsIHNlcD0iXHQiLCBkZWM9Jy4nKSAjIHJlYWQgZGF0YSBzZXQgZnJvbSB1cmwNCnN0cihzdHVkZW50cykgDQpgYGANCg0KYGBge3IsICBldmFsPVQsIGVjaG89Rn0NCnN0dWRlbnRzPC1yZWFkLnRhYmxlKCdodHRwczovL3d3dy5kaXBpbnRvdGhlcmVlZi5jb20vdXBsb2Fkcy8zLzcvMy81LzM3MzU5MjQ1L3N0dWRlbnRzLnR4dCcsaGVhZGVyPVQsIHNlcD0iXHQiLCBkZWM9Jy4nKSAjIHJlYWQgZGF0YSBzZXQgZnJvbSB1cmwNCnN0cihzdHVkZW50cykgDQpgYGANCg0KDQpgciBrbml0cjo6YXNpc19vdXRwdXQoIlxVMUY0NDkiKWAgKkNvbW1lbnQgb24gdGhlIHN0cnVjdHVyZSBvZiB0aGlzIGRhdGFzZXQqDQoNCkEgc2luZ2xlIGNvbHVtbiAoaGVpZ2h0KSBpcyByZXF1aXJlZCBmb3IgZnVydGhlciBwcm9jZXNzaW5nLiBUaGlzIGlzIGFjaGlldmVkIHdpdGggdGhlIG9wZXJhdG9yIGAkYCAuIEEgY29sdW1uIGNhbiBiZSBzZWxlY3RlZCBieSBwdXR0aW5nIHRvZ2V0aGVyIG9uIHRoZSBzYW1lIGxpbmU6DQoNCi0gdGhlIG5hbWUgb2YgdGhlIG9iamVjdCBgc3R1ZGVudHNgDQotIHRoZSBvcGVyYXRvciBgJGANCi0gdGhlIG5hbWUgb2YgdGhlIGNvbHVtbiwgZWl0aGVyIGBoZWlnaHRgLCBgc2hvZXNpemVgLCBgZ2VuZGVyYCwgYHBvcHVsYXRpb25gDQoNClRvIHNlbGVjdCB0aGUgY29sdW1uIGBoZWlnaHRgIGhlcmUsIHdlIGNhbiBzaW1wbHkgdXNlIGBzdHVkZW50cyRoZWlnaHRgLiBOb3RlIHRoYXQgdGhlIHNhbWUgY29sdW1uIGNhbiBiZSBleHRyYWN0ZWQgdXNpbmcgKipzdWJzY3JpcHQqKiB3aGljaCBpcyBpbmRpY2F0ZWQgaW4gKipzcXVhcmUgYnJhY2tldHMqKiBhZnRlciB0aGUgb2JqZWN0IG5hbWUsIGUuZy4gYG9iamVjdCBbbm8uIHJvdywgbm8uIGNvbHVtbl1gLiBTbyB0byBzZWxlY3QgdGhlIGZpcnN0IGNvbHVtbiBvZiBvdXIgb2JqZWN0IGBzdHVkZW50c2AsIHlvdSBjYW4gYWxzbyB1c2U6IGBzdHVkZW50c1ssMV1gDQoNCmBgYHtyLCAgZXZhbD1UfQ0KIyBzdHVkZW50c1ssMV0NCnN0dWRlbnRzJGhlaWdodA0KYGBgDQoNCkEgbGluZSAocm93KSBjYW4gb25seSBiZSBleHRyYWN0ZWQgd2l0aCBhIHN1YnNjcmlwdCAuIFNvIHRvIGV4dHJhY3QgdGhlIGZpcnN0IGxpbmUgb2YgdGhlIGRhdGEgZnJhbWU6DQoNCmBgYHtyLCAgZXZhbD1UfQ0Kc3R1ZGVudHNbMSxdDQpgYGANCg0KTm93IHRoYXQgeW91IGtub3cgaG93IHRvIHNlbGVjdCBjb2x1bW5zIGFuZCByb3dzLCB5b3Ugd2lsbCB1bmRlcnN0YW5kIHRoZSBmb2xsb3dpbmcgcGllY2UgKGNodW5rKSBvZiBjb2RlOg0KDQpgYGB7ciwgIGV2YWw9RkFMU0V9DQpzdHVkZW50c1sxLDFdICMgZWxlbWVudCBpbiB0aGUgZmlyc3Qgcm93LCBmaXJzdCBjb2x1bW4NCnN0dWRlbnRzJGhlaWdodFsxXSAjIGZpcnN0IGVsZW1lbnQgaW4gb3VyIHZlY3RvciBoZWlnaHQNCmBgYA0KDQo8c3BhbiBzdHlsZT0iY29sb3I6IHJlZCI+ICoqUmVtZW1iZXI6KiogYG9iamVjdFtuby4gcm93LCBuby4gY29sdW1uXWA8L3NwYW4+DQoNCiMjIFN1YnNldA0KDQpUaGUgcHVycG9zZSBvZiBzdWJzZXR0aW5nIGlzIHRvIGV4dHJhY3QgaW5mb3JtYXRpb24gYWNjb3JkaW5nIHRvIGEgc3BlY2lmaWMgY29uZGl0aW9uLiBGb3IgZXhhbXBsZSwgd2Ugb25seSB3YW50IHRvIHNlbGVjdCAgYGZlbWFsZWAgc3R1ZGVudHMgZnJvbSB0aGUgZGF0YXNldGBzdHVkZW50c2AuIFN1Y2ggYSBzZWxlY3Rpb24gY2FuIGJlIGRvbmUgYnkgKmZpbHRlcmluZyogYHN0dWRlbnRzYCBiYXNlZCBvbiB0aGUgaW5mb3JtYXRpb24gYGdlbmRlcmAuIExldCdzIGV4YW1pbmUgdGhlIGxvZ2ljIGJlaGluZCB0aGlzOg0KDQoxLiBBZGQgYSBjb25kaXRpb24gYW5kIGNoZWNrIHdoZXRoZXIgdGhlIG9ic2VydmF0aW9uIChyb3cpIGFwcGxpZXMgdG8gZmVtYWxlIHN0dWRlbnRzIG9yIG5vdDoNCg0KYGBge3IsICBldmFsPVR9DQpzdHVkZW50cyRnZW5kZXI9PSJmZW1hbGUiICMgY29uZGl0aW9uDQpgYGANCg0KMi4gTGV0J3MgcHV0IHRoaXMgY29uZGl0aW9uIGludG8gYSAqZmlsdGVyKi4gTGV0J3MgY2FsbCBpdCBgZicsIHNpbmNlIGl0IHN0YW5kcyBmb3IgYGZlbWFsZWA6DQoNCmBgYHtyLCAgZXZhbD1UfQ0KZjwtc3R1ZGVudHMkZ2VuZGVyPT0iZmVtYWxlIiAjIGZpbHRlcg0KYGBgIA0KDQozLiBBcHBseSB0aGlzICpmaWx0ZXIqIGBmYCB1c2luZyBzdWJzY3JpcHQuIFdlIG9ubHkgd2FudCB0byBleHRyYWN0L3NlbGVjdCB0aGUgKipyb3dzKiogdGhhdCBjb250YWluIGRhdGEgZm9yIGBmZW1hbGVgIHN0dWRlbnRzLiBUaGUgcmVzdWx0aW5nIGRhdGEgc2V0IHdpbGwgYmUgaW5zZXJ0ZWQgaW50byBhIG5ldyBvYmplY3QgY2FsbGVkIGBmZW1hbGVzYDoNCg0KYGBge3IsICBldmFsPVR9DQpmZW1hbGVzPC1zdHVkZW50c1tmLF0gIyBzZWxlY3Rpb24NCmZlbWFsZXMNCmBgYA0KDQpPdXIgc3Vic2V0IGNvbnNpc3RzIG9mIGEgc2VsZWN0aW9uIG9mIHRoZSBmaXZlIGZlbWFsZSBzdHVkZW50cy4gVGhlIG9yaWdpbmFsIGRhdGFzZXQgYHN0dWRlbnRzYCBoYWQgdGVuIG9ic2VydmF0aW9ucywgYW5kIEkgY2FuIGNoZWNrIHRoaXMgY2hhbmdlIGJ5IGNhbGxpbmcgdGhlIGRpbWVuc2lvbnMgb2YgdGhlIG5ldyBvYmplY3QgYGZlbWFsZXNgOmBkaW0oZmVtYWxlcylgLiBUaGUgbmV3IGRhdGFzZXQgaXMgYSBgZGF0YS5mcmFtZWAgd2l0aCA1IG9ic2VydmF0aW9ucyBhbmQgNCBjb2x1bW5zLiBUaGUgY29sdW1uIG5hbWVzIGBjb2xuYW1lcyhmZW1hbGVzKWAgcmVtYWluZWQgdW5jaGFuZ2VkLCBidXQgSSBub3cgb25seSBoYXZlIDUgbmFtZXMgZm9yIHRoZSByb3dzIGByb3duYW1lcyhmZW1hbGVzKWAuIFRoZSByb3dzIGNhbiBiZSByZW5hbWVkIGJ5IGNvbWJpbmluZyBgY2AgdGhlIG5hbWVzIG9mIHRoZSBmZW1hbGVzIGludG8gYSAqKnZlY3RvcioqLg0KDQpgYGB7ciwgIGV2YWw9VH0NCnJvd25hbWVzKGZlbWFsZXMpPC1jKCdWYW5lc3NhJywgJ1ZpY2t5JywgJ01pY2hlbGxlJywgJ0pveWNlJywgJ1ZpY3RvcmlhJykNCmZlbWFsZXMNCmBgYCANCg0KPHAgY2xhc3M9ImNvbW1lbnQiPg0KKipQcmFjdGljZSAyLjEqKiBVc2luZyB0aGUgYGlyaXNgIGRhdGEgc2V0LCBjcmVhdGUgdGhyZWUgc21hbGxlciBkYXRhIHNldHMgY29ycmVzcG9uZGluZyB0byB0aGUgdGhyZWUgc3BlY2llcyBkZXNpZ25hdGVkIGluIHRoZSBjb2x1bW4gYFNwZWNpZXNgLiBEbyBub3QgbG9vayBhdCB0aGUgc29sdXRpb24gYmVmb3JlIHRyeWluZy4NCjwvcD4NCg0KYGBge3IsIGNsYXNzLnNvdXJjZSA9ICJmb2xkLWhpZGUiLCAgZXZhbD1GQUxTRX0NCiMgTk9UIFJVTjogIGxldmVscyhpcmlzJFNwZWNpZXMpDQpzZXRmPC1pcmlzJFNwZWNpZXM9PSJzZXRvc2EiDQpzZXRvc2E8LWlyaXNbc2V0ZixdDQp2ZXJmPC1pcmlzJFNwZWNpZXM9PSJ2ZXJzaWNvbG9yIg0KdmVyc2ljb2xvcjwtaXJpc1t2ZXJmLF0gDQp2aXJmPC1pcmlzJFNwZWNpZXM9PSJ2aXJnaW5pY2EiDQp2aXJnaW5pY2E8LWlyaXNbdmlyZixdIA0KYGBgDQoNCiMjIFNhbXBsZQ0KDQpUaGUgYHNhbXBsZWAgZnVuY3Rpb24gY2FuIGJlIHVzZWQgdG8gc2VsZWN0IG9uZSBvZiB1cyAoc2VlIHNlbGVjdGlvbiBvZiBvbmUgc3R1ZGVudCBpbiBbSG9tZV0oLi9pbmRleC5odG1sKSkuIEluIGdlbmVyYWwsIHRoZSBgc2FtcGxlYCBmdW5jdGlvbiBpcyB1c2VkIHRvIGdlbmVyYXRlIGEgc2FtcGxlIG9mIGEgY2VydGFpbiBzaXplIGV4dHJhY3RlZCBmcm9tIGEgdmVjdG9yIG9yIGEgZGF0YSBzZXQ7IGVpdGhlciB3aXRoIG9yIHdpdGhvdXQgcmVwbGFjZW1lbnQuDQoNClRoZSBiYXNpYyBzeW50YXggb2YgdGhlIGBzYW1wbGVgIGZ1bmN0aW9uIGlzIGFzIGZvbGxvd3M6DQoNCmBgYHtyIGNsYXNzLnNvdXJjZSA9ICJmb2xkLXNob3ciLCAgZXZhbD1GQUxTRX0NCnNhbXBsZShkYXRhLCBzaXplLCByZXBsYWNlID0gRkFMU0UsIHByb2IgPSBOVUxMKQ0KIyBjaGVjayBpbiBkZXRhaWwgc291cmNlIGNvZGUgDQojIFZpZXcoc2FtcGxlKSBPUiBnZXRBbnl3aGVyZShzYW1wbGUoKSkgDQpgYGANCg0KKidzYW1wbGUnIGlzIGEgZnVuY3Rpb24gYWxyZWFkeSBjb21waWxlZCwgYnV0IHdlIGNvdWxkIGhhdmUgYnVpbGQgb3VyIG93biBieSBjb21iaW5pbmcgc2V2ZXJhbCBzdGVwcyBhcyB3ZSBkaWQgYmVmb3JlIGZvciBzdWJzZXR0aW5nLiBZb3UgY2FuIGNoZWNrIGluIGRldGFpbCB3aGF0IGV4YWN0bHkgdGhlIGZ1bmN0aW9uIGRvZXMgYnkgY2hlY2tpbmcgaXRzIHNvdXJjZSBjb2RlOiBgVmlldyhzYW1wbGUpYCBPUiBgZ2V0QW55d2hlcmUoc2FtcGxlKCkpYC4gVGhpcyBpcyBpbXBvcnRhbnQgaWYgeW91IHdhbnQgdG8gIG1ha2UgYSBjaGFuZ2UgdG8gYW4gZXhpc3RpbmcgZnVuY3Rpb24uDQoNClRoZXJlZm9yZSwgZm9yIGEgcmFuZG9tIHNlbGVjdGlvbiBvZiB0d28gaW5kaXZpZHVhbHMgaW4gb3VyIGBmZW1hbGVzYCBkYXRhc2V0LCB0aGUgc3RlcHMgYXJlOiAoMSkgZGV0ZXJtaW5pbmcgdGhlIHNpemUgb2YgdGhlIHRhcmdldCB2ZWN0b3I7ICgyKSBjcmVhdGluZyBhIGZpbHRlciB3aXRoIHJhbmRvbWx5IHNlbGVjdGVkIGluZGl2aWR1YWxzOyAoMykgYXBwbHlpbmcgdGhlIGZpbHRlciB0byB0aGUgZGF0YXNldDoNCg0KDQpgYGB7ciwgIGV2YWw9VH0NCiMgTk9UIFJVTiBucm93KGZlbWFsZXMpDQoxOm5yb3coZmVtYWxlcykgIyBjcmVhdGUgYSB2ZWN0b3IgZnJvbSAxIHRvIHRoZSBudW1iZXIgb2Ygcm93IGluICdmZW1hbGVzJw0Kc2Y8LXNhbXBsZSgxOm5yb3coZmVtYWxlcyksIDIpICMgZmlsdGVyIHdpdGggdHdvIHJhbmRvbWx5IHNlbGVjdGVkIGZlbWFsZSBzdHVkZW50cw0Kc2YgIyB0aGUgc2VsZWN0aW9uDQpmZW1hbGVzW3NmLF0gIyBhcHBseSB0aGUgZmlsdGVyIG9uIG91ciBvcmlnaW5hbCBkYXRhc2V0DQpgYGANCg0KIyBTb3J0aW5nDQoNClNvcnRpbmcgYSBkYXRhIGZyYW1lIGlzIGRvbmUgYnkgY29tYmluaW5nIHRoZSBmdW5jdGlvbiBgb3JkZXJgIHdpdGggYSBzdWJzY3JpcHQuIEp1c3QgYXMgd2l0aCBzdWJzZXR0aW5nLCB3ZSBtdXN0IGZpcnN0IGNyZWF0ZSBhIHZlY3RvciB0aGF0IHNwZWNpZmllcyB0aGUgb3JkZXIgaW4gd2hpY2ggdGhlIHJvd3Mgb2YgdGhlIHRhYmxlIG11c3QgYmUgYXJyYW5nZWQuIExldCdzIGBvcmRlcmAgdGhlIGBzdHVkZW50c2AgYnkgaW5jcmVhc2luZyBgaGVpZ2h0YDoNCg0KYGBge3IsICBldmFsPUZBTFNFfQ0KIyBOT1QgUlVOOiBjaGVjayBkYXRhc2V0OyBpbmQgbm8uMSBzaG91bGQgbW92ZSBhdCBwb3NpdGlvbiBuby4gNQ0KaW5kMTwtb3JkZXIgKHN0dWRlbnRzJGhlaWdodCkgIyBjcmVhdGUgYSB2ZWN0b3Igd2l0aCBvcmRlcg0Kc3R1ZGVudHMgW2luZDEsXSAjIHNvcnRpbmcgZGF0YSBzZXQgd2l0aCAgd2l0aCBmaWx0ZXINCiMgTk9UIFJVTjogaW5kIG5vLjEgbW92ZWQgYXQgcG9zaXRpb24gbm8uIDUNCmBgYA0KDQpCb3RoIGNhbiBiZSBjb21iaW5lZCBpbiBvbmUgbGluZSB0byBiZSBtb3JlIGNvbmNpc2UgKGFuZCBlbGVnYW50KS4gWWVzLCB3ZSBjYW4gdGFsayBhYm91dCB0aGUgYmVhdXR5IG9mIHRoZSBSIHNjcmlwdDoNCg0KYGBge3IsICBldmFsPVR9DQpzdHVkZW50c1tvcmRlcihzdHVkZW50cyRoZWlnaHQpLF0NCmBgYA0KDQpZb3UgY2FuIG5vdyBndWVzcyB3aGF0IHRoZSBmb2xsb3dpbmcgdmVjdG9ycyB3aWxsIGRvOiANCg0KYGBge3IsICBldmFsPUZBTFNFfQ0KaW5kMjwtb3JkZXIoLXN0dWRlbnRzJGhlaWdodCkNCmBgYA0KDQpJdCBpcyB0aGUgZXF1aXZhbGVudCBvZiBgaW5kMzwtb3JkZXIoc3R1ZGVudHMkaGVpZ2h0LGRlY3JlYXNpbmcgPVQpYA0KDQoNCiMgUmVjb2RpbmcNCg0KUmVjb2RpbmcgaXMgdGhlIHJlcGxhY2VtZW50IG9mIHZhbHVlcyB3aXRoIG90aGVyIHZhbHVlcy4gVmFsdWVzIGluIGEgdmFyaWFibGUgY2FuIGJlIHJlY29kZWQgdXNpbmcgdGhlIGBpZmVsc2VgIGZ1bmN0aW9uLiBMZXQgdXMgcmVjb2RlIHRoZSB2YXJpYWJsZSBgZ2VuZGVyYCB2YXJpYWJsZSBpbiBgc3R1ZGVudHNgIHdpdGggY29sb3IgbmFtZXMuIFdlIHJlcGxhY2UgdGhlIGluZm9ybWF0aW9uIGBtYWxlYCB3aXRoIGBibHVlYCBhbmQgdGhlIGluZm9ybWF0aW9uIGBmZW1hbGVgIHdpdGggYHJlZGAuIE5vdGUgdGhhdCB3ZSB1c2UgdGhlIG9wZXJhdG9yIGA9PWAgaGVyZSwgd2hpY2ggbWVhbnMgJ2VxdWFsIHRvJy4gRXNzZW50aWFsbHksIGl0IGlzIGEgbWF0dGVyIG9mIHNwZWNpZnlpbmcgYSBjZXJ0YWluIGNvbmRpdGlvbiBhbmQgc2V0dGluZyBhIHRhc2sgaWYgdGhpcyBjb25kaXRpb24gaXMgbWV0IGFuZCBhbiBhbHRlcm5hdGl2ZSB0YXNrIGlmIHRoaXMgY29uZGl0aW9uIGlzIG5vdCBtZXQ6DQoNCi0gQ29uZGl0aW9uYWwgZWxlbWVudCBzZWxlY3Rpb24NCg0KYGBge3IsICBldmFsPVR9DQojIElmIGBjb25kaXRpb25gIHRoZW4gZ2l2ZSAnYmx1ZScuIElmIG5vdCB0aGVuIGdpdmVzICdyZWQnLg0KY29sb3JzPC1pZmVsc2Uoc3R1ZGVudHMkZ2VuZGVyPT0nbWFsZScsICdibHVlJywncmVkJykgDQpjb2xvcnMNCmBgYA0KDQotIENyZWF0ZSBhIG5ldyBjb2x1bW4NCg0KYGBge3IsICBldmFsPVR9DQpzdHVkZW50cyRjb2xvcnM8LWlmZWxzZShzdHVkZW50cyRnZW5kZXI9PSdtYWxlJywnYmx1ZScsJ3JlZCcpICMgY3JlYXRlIGEgbmV3IGNvbHVtbg0KYGBgDQoNCi0gUmVwbGFjZSBhbiBleGlzdGluZyBjb2x1bW4NCg0KYGBge3IsICBldmFsPUZ9DQpzdHVkZW50cyRnZW5kZXI8LWlmZWxzZShzdHVkZW50cyRnZW5kZXI9PSdtYWxlJywgJ2JsdWUnLCdyZWQnKSAjIHJlcGxhY2UgYW4gZXhpc3RpbmcgY29sdW1uDQpgYGANCg0KTW9yZSBvcGVyYXRvcnMsIHdoaWNoIGNhbiBiZSBjb21iaW5lZCB0b2dldGhlcjoNCg0KLSBgPT1gIGVxdWFsIHRvIA0KDQotIGA+PWAgZXF1YWwgdG8gb3IgZ3JlYXRlciB0aGFuDQoNCi0gYDw9YCBlcXVhbCB0byBvciBsZXNzIHRoYW4NCg0KLSBgIT1gIG5vdCBlcXVhbCB0bw0KDQotIGAmYCBhbmQNCg0KLSBgfGAgb3INCg0KRXhhbXBsZXM6DQoNCmBgYHtyLCAgZXZhbD1GfQ0Kc3R1ZGVudHMkaGVpZ2h0IDw9IDE2NSAjIHN0dWRlbnRzIHNob3J0ZXIgb3IgZXF1YWwgdG8gMTY1IGNtDQpzdHVkZW50cyRzaG9lc2l6ZSA8IDM3ICMgc3R1ZGVudHMgd2l0aCBzaG9lcyBzaXplIHNtYWxsZXIgdGhhbiAzNw0Kc3R1ZGVudHMkaGVpZ2h0IDw9IDE2NSAmIHN0dWRlbnRzJHNob2VzaXplIDwgMzcgIyBzdHVkZW50cyBlcXVhbCBvciBzaG90ZXIgdGhhbiAxNjUgYW5kIHNob2VzIHNpemUgc21hbGxlciB0aGFuIDM3DQojIE5PVCBSVU46IHN0dWRlbnRzJGR1YWwuY29uZDwtaWZlbHNlKHN0dWRlbnRzJGhlaWdodDw9MTY1ICYgc3R1ZGVudHMkc2hvZXNpemU8MzcsJ2JsdWUnLCdyZWQnKSANCmBgYA0KDQpMZXQncyBmaW5hbGx5IHB1dCBhbGwgdGhpcyBpbiBwcmFjdGljZS4gDQoNCjxwIGNsYXNzPSJjb21tZW50Ij4NCioqUHJhY3RpY2UgMi4yKiogVXNpbmcgdGhlIGBpcmlzYCBkYXRhc2V0IGNyZWF0ZSBhIG5ldyB2YXJpYWJsZSB3aXRoIGZsb3dlciBjb2xvcnMuIElyaXMgc2V0b3NhIGlzIHB1cnBsZS5JcmlzIHZlcnNpY29sb3IgaXMgYmx1ZS4gSXJpcyB2aXJnaW5pY2EgaXMgcGluay4gU29ydCBpbmRpdmlkdWFscyBieSBkZWNyZWFzaW5nIGBTZXBhbC5XaWR0aGAuIFdoYXQgY2FuIHlvdSBoeXBvdGhlc2l6ZSBvbiB0aGUgc2l6ZSBvZiBzZXBhbCBmb3IgdGhlc2UgdGhyZWUgc3BlY2llcy4gR2V0IGJhY2sgdGhlIGRhdGEgc2V0IGZvciB0aGUgc3BlY2llcyBoYXZpbmcgdGhlIHNtYWxsZXN0IHNlcGFsIHdpZHRoLiBEZWxldGUgdGhlIHZhcmlhYmxlIGBjb2xvcmAgaW4gdGhpcyBzdWJzZXQ8L3NwYW4+KiANCjwvcD4NCg0KDQpgYGB7ciwgY2xhc3Muc291cmNlID0gImZvbGQtaGlkZSIsICBldmFsPUZBTFNFfQ0KIyBEaWQgeW91IG1ha2UgaXQ/IEFzayBmb3IgcGFzc3dvcmQgaWYgeW91IGRpZCB0byBjb25maXJtIHlvdXIgcmVzdWx0cy4gT3RoZXJ3aXNlIGtlZXAgdHJ5aW5nISANCmBgYA0KDQo8Zm9ybSBpZD0iZm9ybSIgb25zdWJtaXQ9InJldHVybiBmYWxzZTsiPg0KICA8aW5wdXQgdHlwZT0icGFzc3dvcmQiIGlkPSJ1c2VySW5wdXQiIC8+DQogIDxpbnB1dCB0eXBlPSJzdWJtaXQiIG9uY2xpY2s9Im90aGVybmFtZSgpOyIgLz4NCjwvZm9ybT4NCg0KPHAgaWQ9ImhpZGRlbl9jbHVlIj48L3A+DQoNCg0KPHNjcmlwdD4NCmZ1bmN0aW9uIG90aGVybmFtZSgpIHsNCiAgICB2YXIgcGFzczEgPSAxMjM0NTsNCiAgICB2YXIgaW5wdXQgPSBkb2N1bWVudC5nZXRFbGVtZW50QnlJZCgidXNlcklucHV0IikudmFsdWU7DQogICAgaWYgKGlucHV0ID09IHBhc3MxKSB7DQogICAgICAgIGRvY3VtZW50LmdldEVsZW1lbnRCeUlkKCJoaWRkZW5fY2x1ZSIpLnRleHRDb250ZW50ID0gImlyaXMkY29sb3I8LWlmZWxzZShpcmlzJFNwZWNpZXM9PSdzZXRvc2EnLCdwdXJwbGUnLCBpZmVsc2UoaXJpcyRTcGVjaWVzPT0ndmVyc2ljb2xvcicsJ2JsdWUnLCdwaW5rJykpOyBpcmlzW29yZGVyKGlyaXMkU2VwYWwuV2lkdGgsIGRlY3JlYXNpbmcgPSBUKSxdIjsNCiAgICB9DQp9DQo8L3NjcmlwdD4NCg0KYHIga25pdHI6OmFzaXNfb3V0cHV0KCJcVTFGNDQ5IilgICpUbyBkZWxldGUgYSB2YXJpYWJsZSwgdGhpcyB2YXJpYWJsZSB3aWxsIHJlY2VpdmVkIGBOVUxMYC4gVGh1cyAnaXJpcyRjb2xvcjwtTlVMTCcgd2lsbCBkZWxldGUgdGhlIGNvbG9yIGNvbHVtbiBqdXN0IGNyZWF0ZWQqDQoNClRob3NlIGFyZSBmdW5jdGlvbnMgaW4gUiAnYmFzZScgcGFja2FnZS4gU2VlIGFsc28gYD9zdWJzZXRgLCBgP3dpdGhgLCBgP3dpdGhpbmAsIGV0Yy4gT3RoZXIgcGFja2FnZXMgc3VjaCBhcyBgZGF0YS50YWJsZWAsIGByZXNoYXBlMmAsIGBkcGx5cmAsIGB0aWR5cmAsIGV0Yy4gb2ZmZXIgdXNlZnVsIGZ1bmN0aW9uYWxpdHkgZm9yIG1hbmlwdWxhdGluZyBkYXRhIHNldC4gTGV0J3MgdGFsayBhYm91dCB0aGUgYHRpZHl2ZXJzZWAgbmV4dCB3ZWVrLiA=" download="basics.Rmd">Download basics.Rmd</a>
+<a href="data:text/plain;base64,eGFyaW5nYW5FeHRyYTo6dXNlX2NsaXBib2FyZCgpDQoNCnJtKGxpc3Q9bHMoKSkgIyBjbGVhbiBtZW1vcnkNCmxpYnJhcnkgKGRhdGFzZXRzKSAjIGxvYWQgcGFja2FnZQ0KZGF0YShpcmlzKSAjIGltcG9ydCBkYXRhc2V0DQpoZWFkIChpcmlzKSAjIHZpc3VhbGl6ZSAnaGVhZCcgZGF0YXNldA0KIyAnZGF0YScgYXV0b21hdGljYWxseSAgY3JlYXRlcyB0aGUgb2JqZWN0ICdpcmlzJw0KDQpzdW1tYXJ5KGlyaXMpICMgIG9iamVjdCBzdW1tYXJ5DQoNCnN0cihpcmlzKSAjIGV4YW1pbmUgdGhlIHN0cnVjdHVyZSBvZiB0aGUgb2JqZWN0DQoNCiMjIGZpeChpcmlzKSAjIHNwcmVhZHNoZWV0DQoNCiMjIHN0dWRlbnRzPC1yZWFkLnRhYmxlKCdodHRwczovL3d3dy5kaXBpbnRvdGhlcmVlZi5jb20vdXBsb2Fkcy8zLzcvMy81LzM3MzU5MjQ1L3N0dWRlbnRzLnR4dCcsaGVhZGVyPVQsIHNlcD0iXHQiLCBkZWM9Jy4nKSAjIHJlYWQgZGF0YSBzZXQgZnJvbSB1cmwNCiMjIHN0cihzdHVkZW50cykNCg0Kc3R1ZGVudHM8LXJlYWQudGFibGUoJ2h0dHBzOi8vd3d3LmRpcGludG90aGVyZWVmLmNvbS91cGxvYWRzLzMvNy8zLzUvMzczNTkyNDUvc3R1ZGVudHMudHh0JyxoZWFkZXI9VCwgc2VwPSJcdCIsIGRlYz0nLicpICMgcmVhZCBkYXRhIHNldCBmcm9tIHVybA0Kc3RyKHN0dWRlbnRzKSANCg0KIyBzdHVkZW50c1ssMV0NCnN0dWRlbnRzJGhlaWdodA0KDQpzdHVkZW50c1sxLF0NCg0KIyMgc3R1ZGVudHNbMSwxXSAjIGVsZW1lbnQgaW4gdGhlIGZpcnN0IHJvdywgZmlyc3QgY29sdW1uDQojIyBzdHVkZW50cyRoZWlnaHRbMV0gIyBmaXJzdCBlbGVtZW50IGluIG91ciB2ZWN0b3IgaGVpZ2h0DQoNCnN0dWRlbnRzJGdlbmRlcj09ImZlbWFsZSIgIyBjb25kaXRpb24NCg0KZjwtc3R1ZGVudHMkZ2VuZGVyPT0iZmVtYWxlIiAjIGZpbHRlcg0KDQpmZW1hbGVzPC1zdHVkZW50c1tmLF0gIyBzZWxlY3Rpb24NCmZlbWFsZXMNCg0Kcm93bmFtZXMoZmVtYWxlcyk8LWMoJ1ZhbmVzc2EnLCAnVmlja3knLCAnTWljaGVsbGUnLCAnSm95Y2UnLCAnVmljdG9yaWEnKQ0KZmVtYWxlcw0KDQojIyAjIE5PVCBSVU46ICBsZXZlbHMoaXJpcyRTcGVjaWVzKQ0KIyMgc2V0ZjwtaXJpcyRTcGVjaWVzPT0ic2V0b3NhIg0KIyMgc2V0b3NhPC1pcmlzW3NldGYsXQ0KIyMgdmVyZjwtaXJpcyRTcGVjaWVzPT0idmVyc2ljb2xvciINCiMjIHZlcnNpY29sb3I8LWlyaXNbdmVyZixdDQojIyB2aXJmPC1pcmlzJFNwZWNpZXM9PSJ2aXJnaW5pY2EiDQojIyB2aXJnaW5pY2E8LWlyaXNbdmlyZixdDQoNCiMjIHNhbXBsZShkYXRhLCBzaXplLCByZXBsYWNlID0gRkFMU0UsIHByb2IgPSBOVUxMKQ0KIyMgIyBjaGVjayBpbiBkZXRhaWwgc291cmNlIGNvZGUNCiMjICMgVmlldyhzYW1wbGUpIE9SIGdldEFueXdoZXJlKHNhbXBsZSgpKQ0KDQojIE5PVCBSVU4gbnJvdyhmZW1hbGVzKQ0KMTpucm93KGZlbWFsZXMpICMgY3JlYXRlIGEgdmVjdG9yIGZyb20gMSB0byB0aGUgbnVtYmVyIG9mIHJvdyBpbiAnZmVtYWxlcycNCnNmPC1zYW1wbGUoMTpucm93KGZlbWFsZXMpLCAyKSAjIGZpbHRlciB3aXRoIHR3byByYW5kb21seSBzZWxlY3RlZCBmZW1hbGUgc3R1ZGVudHMNCnNmICMgdGhlIHNlbGVjdGlvbg0KZmVtYWxlc1tzZixdICMgYXBwbHkgdGhlIGZpbHRlciBvbiBvdXIgb3JpZ2luYWwgZGF0YXNldA0KDQojIyAjIE5PVCBSVU46IGNoZWNrIGRhdGFzZXQ7IGluZCBuby4xIHNob3VsZCBtb3ZlIGF0IHBvc2l0aW9uIG5vLiA1DQojIyBpbmQxPC1vcmRlciAoc3R1ZGVudHMkaGVpZ2h0KSAjIGNyZWF0ZSBhIHZlY3RvciB3aXRoIG9yZGVyDQojIyBzdHVkZW50cyBbaW5kMSxdICMgc29ydGluZyBkYXRhIHNldCB3aXRoICB3aXRoIGZpbHRlcg0KIyMgIyBOT1QgUlVOOiBpbmQgbm8uMSBtb3ZlZCBhdCBwb3NpdGlvbiBuby4gNQ0KDQpzdHVkZW50c1tvcmRlcihzdHVkZW50cyRoZWlnaHQpLF0NCg0KIyMgaW5kMjwtb3JkZXIoLXN0dWRlbnRzJGhlaWdodCkNCg0KIyBJZiBgY29uZGl0aW9uYCB0aGVuIGdpdmUgJ2JsdWUnLiBJZiBub3QgdGhlbiBnaXZlcyAncmVkJy4NCmNvbG9yczwtaWZlbHNlKHN0dWRlbnRzJGdlbmRlcj09J21hbGUnLCAnYmx1ZScsJ3JlZCcpIA0KY29sb3JzDQoNCnN0dWRlbnRzJGNvbG9yczwtaWZlbHNlKHN0dWRlbnRzJGdlbmRlcj09J21hbGUnLCdibHVlJywncmVkJykgIyBjcmVhdGUgYSBuZXcgY29sdW1uDQoNCiMjIHN0dWRlbnRzJGdlbmRlcjwtaWZlbHNlKHN0dWRlbnRzJGdlbmRlcj09J21hbGUnLCAnYmx1ZScsJ3JlZCcpICMgcmVwbGFjZSBhbiBleGlzdGluZyBjb2x1bW4NCg0KIyMgc3R1ZGVudHMkaGVpZ2h0IDw9IDE2NSAjIHN0dWRlbnRzIHNob3J0ZXIgb3IgZXF1YWwgdG8gMTY1IGNtDQojIyBzdHVkZW50cyRzaG9lc2l6ZSA8IDM3ICMgc3R1ZGVudHMgd2l0aCBzaG9lcyBzaXplIHNtYWxsZXIgdGhhbiAzNw0KIyMgc3R1ZGVudHMkaGVpZ2h0IDw9IDE2NSAmIHN0dWRlbnRzJHNob2VzaXplIDwgMzcgIyBzdHVkZW50cyBlcXVhbCBvciBzaG90ZXIgdGhhbiAxNjUgYW5kIHNob2VzIHNpemUgc21hbGxlciB0aGFuIDM3DQojIyAjIE5PVCBSVU46IHN0dWRlbnRzJGR1YWwuY29uZDwtaWZlbHNlKHN0dWRlbnRzJGhlaWdodDw9MTY1ICYgc3R1ZGVudHMkc2hvZXNpemU8MzcsJ2JsdWUnLCdyZWQnKQ0KDQojIyAjIERpZCB5b3UgbWFrZSBpdD8gQXNrIGZvciBwYXNzd29yZCBpZiB5b3UgZGlkIHRvIGNvbmZpcm0geW91ciByZXN1bHRzLiBPdGhlcndpc2Uga2VlcCB0cnlpbmchDQo=" download="basics.R">Download basics.R</a>
+<hr />
+<p>When a data set is manipulated, the data is changed so that it is
+easier to read and/or the entire data set is made clearer for subsequent
+analyzes. In general, data is manipulated before it is visualized and/or
+analyzed. The term “data manipulation” is often used in conjunction with
+the term “data exploration”, which involves organizing data with an
+available set of variables. Machine data collection is sometimes fraught
+with errors and inaccuracies. Data manipulation is also used to
+eliminate these inaccuracies and make the data more accurate and
+precise.</p>
+<div id="dataset" class="section level1">
+<h1>Dataset</h1>
+<p>The <code>datasets</code> package provides datasets. It is part of
+the basic installation of R and you do not need to install the package
+(if you accept the default option when installing R). These datasets are
+used in many examples by the help in R. Among these datasets,
+<code>iris</code> (<code>?iris</code>) provides measurements of the
+variables sepal length and width or petal length and width for 50
+flowers of each of three iris species. The <code>Species</code> is a
+categorical variable with three levels: <em>setosa</em>,
+<em>versicolor</em>, and <em>virginica</em>. The flower dimensions are
+quantitative and continuous variables expressed in centimeters.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="fu">rm</span>(<span class="at">list=</span><span class="fu">ls</span>()) <span class="co"># clean memory</span></span>
+<span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a><span class="fu">library</span> (datasets) <span class="co"># load package</span></span>
+<span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a><span class="fu">data</span>(iris) <span class="co"># import dataset</span></span>
+<span id="cb1-4"><a href="#cb1-4" tabindex="-1"></a><span class="fu">head</span> (iris) <span class="co"># visualize &#39;head&#39; dataset</span></span></code></pre></div>
+<pre><code>##   Sepal.Length Sepal.Width Petal.Length Petal.Width Species
+## 1          5.1         3.5          1.4         0.2  setosa
+## 2          4.9         3.0          1.4         0.2  setosa
+## 3          4.7         3.2          1.3         0.2  setosa
+## 4          4.6         3.1          1.5         0.2  setosa
+## 5          5.0         3.6          1.4         0.2  setosa
+## 6          5.4         3.9          1.7         0.4  setosa</code></pre>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a><span class="co"># &#39;data&#39; automatically  creates the object &#39;iris&#39;</span></span></code></pre></div>
+<p>Summarize this dataset:</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a><span class="fu">summary</span>(iris) <span class="co">#  object summary</span></span></code></pre></div>
+<pre><code>##   Sepal.Length    Sepal.Width     Petal.Length    Petal.Width   
+##  Min.   :4.300   Min.   :2.000   Min.   :1.000   Min.   :0.100  
+##  1st Qu.:5.100   1st Qu.:2.800   1st Qu.:1.600   1st Qu.:0.300  
+##  Median :5.800   Median :3.000   Median :4.350   Median :1.300  
+##  Mean   :5.843   Mean   :3.057   Mean   :3.758   Mean   :1.199  
+##  3rd Qu.:6.400   3rd Qu.:3.300   3rd Qu.:5.100   3rd Qu.:1.800  
+##  Max.   :7.900   Max.   :4.400   Max.   :6.900   Max.   :2.500  
+##        Species  
+##  setosa    :50  
+##  versicolor:50  
+##  virginica :50  
+##                 
+##                 
+## </code></pre>
+<p>You can examine the <code>class</code> (type) of the object you are
+manipulating. Examining its structure <code>str</code> is important to
+understand the variables you are dealing with.</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" tabindex="-1"></a><span class="fu">str</span>(iris) <span class="co"># examine the structure of the object</span></span></code></pre></div>
+<pre><code>## &#39;data.frame&#39;:    150 obs. of  5 variables:
+##  $ Sepal.Length: num  5.1 4.9 4.7 4.6 5 5.4 4.6 5 4.4 4.9 ...
+##  $ Sepal.Width : num  3.5 3 3.2 3.1 3.6 3.9 3.4 3.4 2.9 3.1 ...
+##  $ Petal.Length: num  1.4 1.4 1.3 1.5 1.4 1.7 1.4 1.5 1.4 1.5 ...
+##  $ Petal.Width : num  0.2 0.2 0.2 0.2 0.2 0.4 0.3 0.2 0.2 0.1 ...
+##  $ Species     : Factor w/ 3 levels &quot;setosa&quot;,&quot;versicolor&quot;,..: 1 1 1 1 1 1 1 1 1 1 ...</code></pre>
+<p>The object <code>iris</code> is a <code>data.frame</code> and
+consists of 5 variables (<code>Sepal.Length</code>,
+<code>Sepal.Width</code>, <code>Petal.Length</code>,
+<code>Petal.Width</code>) and 150 observations. Four variables are
+numerical, one is a factor with 3 levels (<code>Species</code>). There
+are also other object types and structures (integer, matrix, etc.), but
+more on that later (this is a boring section of this course).</p>
+<p>Summarizing your dataset and examining its structure will allow you
+to identify possible errors in your dataset (including format errors
+that may have occurred when importing the dataset, remember
+<code>reef_fish.txt</code> dataset). You can fix format errors with
+<code>read.table</code> or others similar functions. Alternatively, you
+can <code>fix</code> it in a spreadsheet.</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" tabindex="-1"></a><span class="fu">fix</span>(iris) <span class="co"># spreadsheet</span></span></code></pre></div>
+</div>
+<div id="selection" class="section level1">
+<h1>Selection</h1>
+<div id="column-and-row" class="section level2">
+<h2>Column and row</h2>
+<p>Suppose there is an online dataset that documents the height and shoe
+size of 10 students in Taiwan (we could create our own dataset, but we
+want to import one from the previous year that is available online):</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" tabindex="-1"></a>students<span class="ot">&lt;-</span><span class="fu">read.table</span>(<span class="st">&#39;https://www.dipintothereef.com/uploads/3/7/3/5/37359245/students.txt&#39;</span>,<span class="at">header=</span>T, <span class="at">sep=</span><span class="st">&quot;</span><span class="sc">\t</span><span class="st">&quot;</span>, <span class="at">dec=</span><span class="st">&#39;.&#39;</span>) <span class="co"># read data set from url</span></span>
+<span id="cb9-2"><a href="#cb9-2" tabindex="-1"></a><span class="fu">str</span>(students) </span></code></pre></div>
+<pre><code>## &#39;data.frame&#39;:    10 obs. of  4 variables:
+##  $ height    : int  167 164 166 162 158 175 181 180 177 173
+##  $ shoesize  : int  38 39 38 37 36 42 44 43 43 41
+##  $ gender    : chr  &quot;female&quot; &quot;female&quot; &quot;female&quot; &quot;female&quot; ...
+##  $ population: chr  &quot;taiwan&quot; &quot;taiwan&quot; &quot;taiwan&quot; &quot;taiwan&quot; ...</code></pre>
+<p>👉 <em>Comment on the structure of this dataset</em></p>
+<p>A single column (height) is required for further processing. This is
+achieved with the operator <code>$</code> . A column can be selected by
+putting together on the same line:</p>
+<ul>
+<li>the name of the object <code>students</code></li>
+<li>the operator <code>$</code></li>
+<li>the name of the column, either <code>height</code>,
+<code>shoesize</code>, <code>gender</code>, <code>population</code></li>
+</ul>
+<p>To select the column <code>height</code> here, we can simply use
+<code>students$height</code>. Note that the same column can be extracted
+using <strong>subscript</strong> which is indicated in <strong>square
+brackets</strong> after the object name,
+e.g. <code>object [no. row, no. column]</code>. So to select the first
+column of our object <code>students</code>, you can also use:
+<code>students[,1]</code></p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" tabindex="-1"></a><span class="co"># students[,1]</span></span>
+<span id="cb11-2"><a href="#cb11-2" tabindex="-1"></a>students<span class="sc">$</span>height</span></code></pre></div>
+<pre><code>##  [1] 167 164 166 162 158 175 181 180 177 173</code></pre>
+<p>A line (row) can only be extracted with a subscript . So to extract
+the first line of the data frame:</p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" tabindex="-1"></a>students[<span class="dv">1</span>,]</span></code></pre></div>
+<pre><code>##   height shoesize gender population
+## 1    167       38 female     taiwan</code></pre>
+<p>Now that you know how to select columns and rows, you will understand
+the following piece (chunk) of code:</p>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" tabindex="-1"></a>students[<span class="dv">1</span>,<span class="dv">1</span>] <span class="co"># element in the first row, first column</span></span>
+<span id="cb15-2"><a href="#cb15-2" tabindex="-1"></a>students<span class="sc">$</span>height[<span class="dv">1</span>] <span class="co"># first element in our vector height</span></span></code></pre></div>
+<p><span style="color: red"> <strong>Remember:</strong>
+<code>object[no. row, no. column]</code></span></p>
+</div>
+<div id="subset" class="section level2">
+<h2>Subset</h2>
+<p>The purpose of subsetting is to extract information according to a
+specific condition. For example, we only want to select
+<code>female</code> students from the dataset<code>students</code>. Such
+a selection can be done by <em>filtering</em> <code>students</code>
+based on the information <code>gender</code>. Let’s examine the logic
+behind this:</p>
+<ol style="list-style-type: decimal">
+<li>Add a condition and check whether the observation (row) applies to
+female students or not:</li>
+</ol>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" tabindex="-1"></a>students<span class="sc">$</span>gender<span class="sc">==</span><span class="st">&quot;female&quot;</span> <span class="co"># condition</span></span></code></pre></div>
+<pre><code>##  [1]  TRUE  TRUE  TRUE  TRUE  TRUE FALSE FALSE FALSE FALSE FALSE</code></pre>
+<ol start="2" style="list-style-type: decimal">
+<li>Let’s put this condition into a <em>filter</em>. Let’s call it
+<code>f', since it stands for</code>female`:</li>
+</ol>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" tabindex="-1"></a>f<span class="ot">&lt;-</span>students<span class="sc">$</span>gender<span class="sc">==</span><span class="st">&quot;female&quot;</span> <span class="co"># filter</span></span></code></pre></div>
+<ol start="3" style="list-style-type: decimal">
+<li>Apply this <em>filter</em> <code>f</code> using subscript. We only
+want to extract/select the <strong>rows</strong> that contain data for
+<code>female</code> students. The resulting data set will be inserted
+into a new object called <code>females</code>:</li>
+</ol>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" tabindex="-1"></a>females<span class="ot">&lt;-</span>students[f,] <span class="co"># selection</span></span>
+<span id="cb19-2"><a href="#cb19-2" tabindex="-1"></a>females</span></code></pre></div>
+<pre><code>##   height shoesize gender population
+## 1    167       38 female     taiwan
+## 2    164       39 female     taiwan
+## 3    166       38 female     taiwan
+## 4    162       37 female     taiwan
+## 5    158       36 female     taiwan</code></pre>
+<p>Our subset consists of a selection of the five female students. The
+original dataset <code>students</code> had ten observations, and I can
+check this change by calling the dimensions of the new object
+<code>females</code>:<code>dim(females)</code>. The new dataset is a
+<code>data.frame</code> with 5 observations and 4 columns. The column
+names <code>colnames(females)</code> remained unchanged, but I now only
+have 5 names for the rows <code>rownames(females)</code>. The rows can
+be renamed by combining <code>c</code> the names of the females into a
+<strong>vector</strong>.</p>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" tabindex="-1"></a><span class="fu">rownames</span>(females)<span class="ot">&lt;-</span><span class="fu">c</span>(<span class="st">&#39;Vanessa&#39;</span>, <span class="st">&#39;Vicky&#39;</span>, <span class="st">&#39;Michelle&#39;</span>, <span class="st">&#39;Joyce&#39;</span>, <span class="st">&#39;Victoria&#39;</span>)</span>
+<span id="cb21-2"><a href="#cb21-2" tabindex="-1"></a>females</span></code></pre></div>
+<pre><code>##          height shoesize gender population
+## Vanessa     167       38 female     taiwan
+## Vicky       164       39 female     taiwan
+## Michelle    166       38 female     taiwan
+## Joyce       162       37 female     taiwan
+## Victoria    158       36 female     taiwan</code></pre>
+<p class="comment">
+<strong>Practice 2.1</strong> Using the <code>iris</code> data set,
+create three smaller data sets corresponding to the three species
+designated in the column <code>Species</code>. Do not look at the
+solution before trying.
+</p>
+<div class="sourceCode" id="cb23"><pre
+class="sourceCode r fold-hide"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" tabindex="-1"></a><span class="co"># NOT RUN:  levels(iris$Species)</span></span>
+<span id="cb23-2"><a href="#cb23-2" tabindex="-1"></a>setf<span class="ot">&lt;-</span>iris<span class="sc">$</span>Species<span class="sc">==</span><span class="st">&quot;setosa&quot;</span></span>
+<span id="cb23-3"><a href="#cb23-3" tabindex="-1"></a>setosa<span class="ot">&lt;-</span>iris[setf,]</span>
+<span id="cb23-4"><a href="#cb23-4" tabindex="-1"></a>verf<span class="ot">&lt;-</span>iris<span class="sc">$</span>Species<span class="sc">==</span><span class="st">&quot;versicolor&quot;</span></span>
+<span id="cb23-5"><a href="#cb23-5" tabindex="-1"></a>versicolor<span class="ot">&lt;-</span>iris[verf,] </span>
+<span id="cb23-6"><a href="#cb23-6" tabindex="-1"></a>virf<span class="ot">&lt;-</span>iris<span class="sc">$</span>Species<span class="sc">==</span><span class="st">&quot;virginica&quot;</span></span>
+<span id="cb23-7"><a href="#cb23-7" tabindex="-1"></a>virginica<span class="ot">&lt;-</span>iris[virf,] </span></code></pre></div>
+</div>
+<div id="sample" class="section level2">
+<h2>Sample</h2>
+<p>The <code>sample</code> function can be used to select one of us (see
+selection of one student in <a href="./index.html">Home</a>). In
+general, the <code>sample</code> function is used to generate a sample
+of a certain size extracted from a vector or a data set; either with or
+without replacement.</p>
+<p>The basic syntax of the <code>sample</code> function is as
+follows:</p>
+<div class="sourceCode" id="cb24"><pre
+class="sourceCode r fold-show"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" tabindex="-1"></a><span class="fu">sample</span>(data, size, <span class="at">replace =</span> <span class="cn">FALSE</span>, <span class="at">prob =</span> <span class="cn">NULL</span>)</span>
+<span id="cb24-2"><a href="#cb24-2" tabindex="-1"></a><span class="co"># check in detail source code </span></span>
+<span id="cb24-3"><a href="#cb24-3" tabindex="-1"></a><span class="co"># View(sample) OR getAnywhere(sample()) </span></span></code></pre></div>
+<p>*‘sample’ is a function already compiled, but we could have build our
+own by combining several steps as we did before for subsetting. You can
+check in detail what exactly the function does by checking its source
+code: <code>View(sample)</code> OR <code>getAnywhere(sample())</code>.
+This is important if you want to make a change to an existing
+function.</p>
+<p>Therefore, for a random selection of two individuals in our
+<code>females</code> dataset, the steps are: (1) determining the size of
+the target vector; (2) creating a filter with randomly selected
+individuals; (3) applying the filter to the dataset:</p>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" tabindex="-1"></a><span class="co"># NOT RUN nrow(females)</span></span>
+<span id="cb25-2"><a href="#cb25-2" tabindex="-1"></a><span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(females) <span class="co"># create a vector from 1 to the number of row in &#39;females&#39;</span></span></code></pre></div>
+<pre><code>## [1] 1 2 3 4 5</code></pre>
+<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" tabindex="-1"></a>sf<span class="ot">&lt;-</span><span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(females), <span class="dv">2</span>) <span class="co"># filter with two randomly selected female students</span></span>
+<span id="cb27-2"><a href="#cb27-2" tabindex="-1"></a>sf <span class="co"># the selection</span></span></code></pre></div>
+<pre><code>## [1] 1 2</code></pre>
+<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" tabindex="-1"></a>females[sf,] <span class="co"># apply the filter on our original dataset</span></span></code></pre></div>
+<pre><code>##         height shoesize gender population
+## Vanessa    167       38 female     taiwan
+## Vicky      164       39 female     taiwan</code></pre>
+</div>
+</div>
+<div id="sorting" class="section level1">
+<h1>Sorting</h1>
+<p>Sorting a data frame is done by combining the function
+<code>order</code> with a subscript. Just as with subsetting, we must
+first create a vector that specifies the order in which the rows of the
+table must be arranged. Let’s <code>order</code> the
+<code>students</code> by increasing <code>height</code>:</p>
+<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" tabindex="-1"></a><span class="co"># NOT RUN: check dataset; ind no.1 should move at position no. 5</span></span>
+<span id="cb31-2"><a href="#cb31-2" tabindex="-1"></a>ind1<span class="ot">&lt;-</span><span class="fu">order</span> (students<span class="sc">$</span>height) <span class="co"># create a vector with order</span></span>
+<span id="cb31-3"><a href="#cb31-3" tabindex="-1"></a>students [ind1,] <span class="co"># sorting data set with  with filter</span></span>
+<span id="cb31-4"><a href="#cb31-4" tabindex="-1"></a><span class="co"># NOT RUN: ind no.1 moved at position no. 5</span></span></code></pre></div>
+<p>Both can be combined in one line to be more concise (and elegant).
+Yes, we can talk about the beauty of the R script:</p>
+<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" tabindex="-1"></a>students[<span class="fu">order</span>(students<span class="sc">$</span>height),]</span></code></pre></div>
+<pre><code>##    height shoesize gender population
+## 5     158       36 female     taiwan
+## 4     162       37 female     taiwan
+## 2     164       39 female     taiwan
+## 3     166       38 female     taiwan
+## 1     167       38 female     taiwan
+## 10    173       41   male     taiwan
+## 6     175       42   male     taiwan
+## 9     177       43   male     taiwan
+## 8     180       43   male     taiwan
+## 7     181       44   male     taiwan</code></pre>
+<p>You can now guess what the following vectors will do:</p>
+<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" tabindex="-1"></a>ind2<span class="ot">&lt;-</span><span class="fu">order</span>(<span class="sc">-</span>students<span class="sc">$</span>height)</span></code></pre></div>
+<p>It is the equivalent of
+<code>ind3&lt;-order(students$height,decreasing =T)</code></p>
+</div>
+<div id="recoding" class="section level1">
+<h1>Recoding</h1>
+<p>Recoding is the replacement of values with other values. Values in a
+variable can be recoded using the <code>ifelse</code> function. Let us
+recode the variable <code>gender</code> variable in
+<code>students</code> with color names. We replace the information
+<code>male</code> with <code>blue</code> and the information
+<code>female</code> with <code>red</code>. Note that we use the operator
+<code>==</code> here, which means ‘equal to’. Essentially, it is a
+matter of specifying a certain condition and setting a task if this
+condition is met and an alternative task if this condition is not
+met:</p>
+<ul>
+<li>Conditional element selection</li>
+</ul>
+<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" tabindex="-1"></a><span class="co"># If `condition` then give &#39;blue&#39;. If not then gives &#39;red&#39;.</span></span>
+<span id="cb35-2"><a href="#cb35-2" tabindex="-1"></a>colors<span class="ot">&lt;-</span><span class="fu">ifelse</span>(students<span class="sc">$</span>gender<span class="sc">==</span><span class="st">&#39;male&#39;</span>, <span class="st">&#39;blue&#39;</span>,<span class="st">&#39;red&#39;</span>) </span>
+<span id="cb35-3"><a href="#cb35-3" tabindex="-1"></a>colors</span></code></pre></div>
+<pre><code>##  [1] &quot;red&quot;  &quot;red&quot;  &quot;red&quot;  &quot;red&quot;  &quot;red&quot;  &quot;blue&quot; &quot;blue&quot; &quot;blue&quot; &quot;blue&quot; &quot;blue&quot;</code></pre>
+<ul>
+<li>Create a new column</li>
+</ul>
+<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" tabindex="-1"></a>students<span class="sc">$</span>colors<span class="ot">&lt;-</span><span class="fu">ifelse</span>(students<span class="sc">$</span>gender<span class="sc">==</span><span class="st">&#39;male&#39;</span>,<span class="st">&#39;blue&#39;</span>,<span class="st">&#39;red&#39;</span>) <span class="co"># create a new column</span></span></code></pre></div>
+<ul>
+<li>Replace an existing column</li>
+</ul>
+<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" tabindex="-1"></a>students<span class="sc">$</span>gender<span class="ot">&lt;-</span><span class="fu">ifelse</span>(students<span class="sc">$</span>gender<span class="sc">==</span><span class="st">&#39;male&#39;</span>, <span class="st">&#39;blue&#39;</span>,<span class="st">&#39;red&#39;</span>) <span class="co"># replace an existing column</span></span></code></pre></div>
+<p>More operators, which can be combined together:</p>
+<ul>
+<li><p><code>==</code> equal to</p></li>
+<li><p><code>&gt;=</code> equal to or greater than</p></li>
+<li><p><code>&lt;=</code> equal to or less than</p></li>
+<li><p><code>!=</code> not equal to</p></li>
+<li><p><code>&amp;</code> and</p></li>
+<li><p><code>|</code> or</p></li>
+</ul>
+<p>Examples:</p>
+<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" tabindex="-1"></a>students<span class="sc">$</span>height <span class="sc">&lt;=</span> <span class="dv">165</span> <span class="co"># students shorter or equal to 165 cm</span></span>
+<span id="cb39-2"><a href="#cb39-2" tabindex="-1"></a>students<span class="sc">$</span>shoesize <span class="sc">&lt;</span> <span class="dv">37</span> <span class="co"># students with shoes size smaller than 37</span></span>
+<span id="cb39-3"><a href="#cb39-3" tabindex="-1"></a>students<span class="sc">$</span>height <span class="sc">&lt;=</span> <span class="dv">165</span> <span class="sc">&amp;</span> students<span class="sc">$</span>shoesize <span class="sc">&lt;</span> <span class="dv">37</span> <span class="co"># students equal or shoter than 165 and shoes size smaller than 37</span></span>
+<span id="cb39-4"><a href="#cb39-4" tabindex="-1"></a><span class="co"># NOT RUN: students$dual.cond&lt;-ifelse(students$height&lt;=165 &amp; students$shoesize&lt;37,&#39;blue&#39;,&#39;red&#39;) </span></span></code></pre></div>
+<p>Let’s finally put all this in practice.</p>
+<p class="comment">
+<strong>Practice 2.2</strong> Using the <code>iris</code> dataset create
+a new variable with flower colors. Iris setosa is purple.Iris versicolor
+is blue. Iris virginica is pink. Sort individuals by decreasing
+<code>Sepal.Width</code>. What can you hypothesize on the size of sepal
+for these three species. Get back the data set for the species having
+the smallest sepal width. Delete the variable <code>color</code> in this
+subset</span>*
+</p>
+<div class="sourceCode" id="cb40"><pre
+class="sourceCode r fold-hide"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" tabindex="-1"></a><span class="co"># Did you make it? Ask for password if you did to confirm your results. Otherwise keep trying! </span></span></code></pre></div>
+<form id="form" onsubmit="return false;">
+<input type="password" id="userInput" />
+<input type="submit" onclick="othername();" />
+</form>
+<p id="hidden_clue">
+</p>
+<script>
+function othername() {
+    var pass1 = 12345;
+    var input = document.getElementById("userInput").value;
+    if (input == pass1) {
+        document.getElementById("hidden_clue").textContent = "iris$color<-ifelse(iris$Species=='setosa','purple', ifelse(iris$Species=='versicolor','blue','pink')); iris[order(iris$Sepal.Width, decreasing = T),]";
+    }
+}
+</script>
+<p>👉 <em>To delete a variable, this variable will received
+<code>NULL</code>. Thus ‘iris$color&lt;-NULL’ will delete the color
+column just created</em></p>
+<p>Those are functions in R ‘base’ package. See also
+<code>?subset</code>, <code>?with</code>, <code>?within</code>, etc.
+Other packages such as <code>data.table</code>, <code>reshape2</code>,
+<code>dplyr</code>, <code>tidyr</code>, etc. offer useful functionality
+for manipulating data set. Let’s talk about the <code>tidyverse</code>
+next week.</p>
+</div>
 
 
 

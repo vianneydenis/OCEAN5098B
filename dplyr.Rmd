@@ -1,0 +1,174 @@
+---
+title: "dplyr"
+---
+
+```{r eval = TRUE,  message=F, include= FALSE, warning=F, purl=F, results="hide"}
+knitr::purl('dplyr.Rmd', documentation = 0)
+```
+
+```{r echo=FALSE, purl=F}
+xfun::embed_file('dplyr.Rmd')
+```
+
+
+```{r echo=FALSE, purl=F}
+xfun::embed_file('dplyr.R')
+```
+
+```{r echo=FALSE}
+xaringanExtra::use_clipboard()
+```
+
+-----------------------
+
+# Background
+
+```{r class.source = "fold-show",  eval=T}
+library (dplyr)
+```
+
+As stated in the description of the package (`?dplyr`), `dplyr` is all about data manipulation **_"dplyr: A grammar of data manipulation"_**. It is part of the `tidyverse` universe, a series of packages that have made their mark in the art of dataset manipulation and transformation. The `dplyr` package has many features to speed up  the exploration and transformation of data. To learn more about `dplyr`, you can explore the vignette: `browseVignettes(package = "dplyr")`. You can also visit the following [website](https://dplyr.tidyverse.org/) for more information about the `dplyr` package. Some important functions from this package are covered in the following sections.
+
+
+# Summarize
+
+The `summarise` function is used to gain insights (mean, median, mode, etc.) from a data set. It reduces several values to a single value. For example:
+
+```{r,  eval=T}
+summarised <- summarise(iris, Mean.Width = mean(Sepal.Width))
+head(summarised)
+```
+
+The original `iris` dataset is a data frame of dimensions (`dim(iris)`) 150 observations by 5 variables. The function `summarise` summarises it into a data frame consisting of 1 observation and 1 variable (the `mean(Sepal.width)`).
+
+# Manipulate
+
+## `select`
+
+The `select` function is used to select data based on the name of a column. Several syntaxes are possible. For example:
+
+```{r class.source = "fold-show",  eval=T}
+# by column names
+selection1 <- select(iris, Sepal.Length, Sepal.Width, Petal.Length)
+head(selection1) 
+
+# by column range
+selection2 <- select(iris, Sepal.Length:Petal.Length)
+head(selection2, 4)
+
+# by column range number
+selection3 <- select(iris,c(2:5))
+head(selection3)
+```
+
+Use `-` to hide a particular column
+
+```{r,  eval=F}
+selection4 <- dplyr::select(iris, -Sepal.Length, -Sepal.Width)
+```
+
+Note the use of the notation `::` in the last code chunk. The use of `::` is to call a function from a specific package without necessarily loading the package. The main advantage is to avoid possible conflicts between functions. In fact, it can happen that different packages use the same name for different functions. `dplyr::select` indicates that we want to use the `select` function from the `dplyr` package. It is quite common to use this syntax when several packages need to be used in parallel.
+
+
+## `filter`
+
+The `filter` function is used to filter rows with matching criteria. The idea is the same as seen before (see [Basics](./basics.html)). It works in the same way as the `select` function (i.e. we pass a data frame together with a comma-separated condition).
+
+- Single condition:
+
+```{r,  eval=T}
+# Select setosa species
+filtered1 <- filter(iris, Species == "setosa" )
+head(filtered1,3)
+```
+
+- Dual conditions:
+
+```{r,  eval=T}
+# Select versicolor species with Sepal width more than 3
+filtered2 <- filter(iris, Species == "versicolor", Sepal.Width > 3)
+tail(filtered2)
+```
+
+## `mutate`
+
+The function `mutate` is to create new columns (variables) while preserving existing columns in a data set. For example:
+
+```{r,  eval=T}
+#To create a column “Greater.Half” which stores a logical vector (T/F)
+mutated1 <- mutate(iris, Greater.Half = Sepal.Width > 0.5 * Sepal.Length)
+tail(mutated1)
+```
+
+> To check how many flowers fall in this condition, the function `table` from the `base` package produces a contingency table with the no. of individual where the condition is `TRUE` and `FALSE`:
+
+
+```{css, echo=FALSE}
+.extra {
+  background-color: lightgreen;
+  border: 3px solid green;
+  font-weight: bold;
+}
+```
+
+
+```{r,  eval=T, class.source="extra"}
+table(mutated1$Greater.Half)
+```
+
+## `arrange`
+
+The `arrange` function is used to sort rows by variables in ascending (default) or descending order. For example:
+
+```{r,  eval=T}
+# Sepal Width by ascending order
+arranged1 <- arrange(iris, Sepal.Width)
+head(arranged1)
+
+# Sepal Width by descending order
+arranged2 <- arrange(iris, desc(Sepal.Width))
+head(arranged2)
+```
+
+## `group_by`
+
+The `group_by` function groups observations within a data set according to one or more variables. Data operations are often performed on groups defined by variables. `ungroup` removes grouping. For example, to `summarise` a data set, `group_by` by `Species`:
+
+```{r,  eval=T}
+# Mean sepal width by Species
+gp <- group_by(iris, Species)
+gp.mean <- summarise(gp,Mean.Sepal = mean(Sepal.Width))
+gp.mean
+```
+
+This creates a `tibble` (a data frame with stricter validation and better formatting), see `?tibble::tibble`, which returns the mean of the `Mean.Sepal` width for the three flowers `Species`. 
+
+# Pipe operator
+
+
+The use of the above functions is simple and straightforward. However, the use of this synthax quickly shows its limits when the operations become more complicated. The use of the pipe operator `%>%` makes it possible to link several functions together. It can be used with functions such as `filter`, `select`, `arrange`, `summarise`, `group_by`, etc.
+
+Here is an example:
+
+```{r,  eval=T}
+#To select the rows with conditions
+iris %>% filter(Species == "setosa",Sepal.Width > 3.8)
+```
+
+To find mean `Sepal.Length` by `Species`, we use the pipe operator as following:
+
+```{css, echo=FALSE}
+.important {
+  background-color: lightpink;
+  border: 3px solid red;
+  font-weight: bold;
+}
+```
+
+```{r,  eval=T, class.source="important"}
+iris  %>% 
+  group_by(Species) %>% 
+  summarise(Mean.Length = mean(Sepal.Length))
+```
+
+The use of the pipe operator `%>%` has now imposed itself for the manipulation and transformation of data in R. The R language is not fixed and with its development this syntax has become very common. It is now an integral part of most R scripts you will find online.

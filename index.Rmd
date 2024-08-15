@@ -17,11 +17,17 @@ Welcome to the website of *OCEAN 5098*. This course will help you familiarize yo
 > `r knitr::asis_output("\U1F4DD")` The syllabus for this course is available on NTU Cool, but it can also be downloaded [HERE](.\documents\OCEAN5098_syllabus.pdf). However, the timetable, content and assessment mode are susceptible to change.
 
 
-```{r nice-tab, fig.cap="Location of IONTU"}
+<style>
+.html-widget {
+    margin: auto;
+}
+</style>
+
+```{r nice-tab, fig.cap="Location of IONTU", fig.align='center'}
 library(leaflet)
 leaflet() %>%
   addTiles() %>%
-  addMarkers(lng=121.53698079935072, lat=25.021273839061028, popup="The birthplace of R")
+  addMarkers(lng=121.53698079935072, lat=25.021273839061028, popup="Where we will meet every Tuesday!")
 ```
 
 

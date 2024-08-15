@@ -1,0 +1,775 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+
+
+<title>tidyr</title>
+
+<script src="site_libs/header-attrs-2.25/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/flatly.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<script src="site_libs/navigation-1.1/codefolding.js"></script>
+<script src="site_libs/clipboard-2.0.6/clipboard.min.js"></script>
+<link href="site_libs/xaringanExtra-clipboard-0.2.6/xaringanExtra-clipboard.css" rel="stylesheet" />
+<script src="site_libs/xaringanExtra-clipboard-0.2.6/xaringanExtra-clipboard.js"></script>
+<script>window.xaringanExtraClipboard(null, {"button":"Copy Code","success":"Copied!","error":"Press Ctrl+C to Copy"})</script>
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+
+
+<style type="text/css">
+  code {
+    white-space: pre;
+  }
+  .sourceCode {
+    overflow: visible;
+  }
+</style>
+<style type="text/css" data-origin="pandoc">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; } /* Alert */
+code span.an { color: #008000; } /* Annotation */
+code span.at { } /* Attribute */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #0000ff; } /* ControlFlow */
+code span.ch { color: #008080; } /* Char */
+code span.cn { color: #585cf6; } /* Constant */
+code span.co { color: #4c886b; } /* Comment */
+code span.cv { color: #008000; } /* CommentVar */
+code span.do { color: #008000; } /* Documentation */
+code span.dv { color: #0000cd; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #0000cd; } /* Float */
+code span.im { } /* Import */
+code span.in { color: #008000; } /* Information */
+code span.kw { color: #0000ff; } /* Keyword */
+code span.op { color: #687687; } /* Operator */
+code span.ot { color: #ff4000; } /* Other */
+code span.pp { color: #ff4000; } /* Preprocessor */
+code span.sc { color: #008080; } /* SpecialChar */
+code span.ss { color: #008080; } /* SpecialString */
+code span.st { color: #036a07; } /* String */
+code span.va { } /* Variable */
+code span.vs { color: #008080; } /* VerbatimString */
+code span.wa { color: #008000; font-weight: bold; } /* Warning */
+
+.sourceCode .row {
+  width: 100%;
+}
+.sourceCode {
+  overflow-x: auto;
+}
+.code-folding-btn {
+  margin-right: -30px;
+}
+</style>
+<script>
+// apply pandoc div.sourceCode style to pre.sourceCode instead
+(function() {
+  var sheets = document.styleSheets;
+  for (var i = 0; i < sheets.length; i++) {
+    if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
+    try { var rules = sheets[i].cssRules; } catch (e) { continue; }
+    var j = 0;
+    while (j < rules.length) {
+      var rule = rules[j];
+      // check if there is a div.sourceCode rule
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") {
+        j++;
+        continue;
+      }
+      var style = rule.style.cssText;
+      // check if color or background-color is set
+      if (rule.style.color === '' && rule.style.backgroundColor === '') {
+        j++;
+        continue;
+      }
+      // replace div.sourceCode by a pre.sourceCode rule
+      sheets[i].deleteRule(j);
+      sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
+    }
+  }
+})();
+</script>
+
+
+
+
+<link rel="stylesheet" href="styles.css" type="text/css" />
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "\e258";
+  font-family: 'Glyphicons Halflings';
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+<style type="text/css">
+.code-folding-btn { margin-bottom: 4px; }
+</style>
+
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">OCEAN_5098</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Home</a>
+</li>
+<li>
+  <a href="environment.html">Environment</a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Manipulation
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="TEMP_basics.html">Basics</a>
+    </li>
+    <li>
+      <a href="TEMP_dplyr.html">dplyr</a>
+    </li>
+    <li>
+      <a href="TEMP_tidyr.html">tidyr</a>
+    </li>
+  </ul>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+<div class="btn-group pull-right float-right">
+<button type="button" class="btn btn-default btn-xs btn-secondary btn-sm dropdown-toggle" data-toggle="dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span>Code</span> <span class="caret"></span></button>
+<ul class="dropdown-menu dropdown-menu-right" style="min-width: 50px;">
+<li><a id="rmd-show-all-code" href="#">Show All Code</a></li>
+<li><a id="rmd-hide-all-code" href="#">Hide All Code</a></li>
+</ul>
+</div>
+
+
+
+<h1 class="title toc-ignore">tidyr</h1>
+
+</div>
+
+
+<a href="data:text/x-markdown;base64,LS0tDQp0aXRsZTogInRpZHlyIg0KLS0tDQoNCmBgYHtyIGV2YWwgPSBUUlVFLCAgbWVzc2FnZT1GLCBpbmNsdWRlPUZBTFNFLCB3YXJuaW5nPUYsIHB1cmw9RiwgcmVzdWx0cz0iaGlkZSJ9DQprbml0cjo6cHVybCgndGlkeXIuUm1kJywgZG9jdW1lbnRhdGlvbiA9IDApDQpgYGANCg0KYGBge3IgZWNobz1GQUxTRSwgcHVybD1GfQ0KeGZ1bjo6ZW1iZWRfZmlsZSgndGlkeXIuUm1kJykNCmBgYA0KDQpgYGB7ciBlY2hvPUZBTFNFLCBwdXJsPUZ9DQp4ZnVuOjplbWJlZF9maWxlKCd0aWR5ci5SJykNCmBgYA0KDQpgYGB7ciBlY2hvPUZBTFNFLCBwdXJsPUZ9DQp4ZnVuOjplbWJlZF9maWxlKCdkYXRhL3R3X2NvcmFscy50eHQnKQ0KYGBgDQoNCg0KYGBge3IgZWNobz1GQUxTRSwgcHVybD1GfQ0KeGZ1bjo6ZW1iZWRfZmlsZSgnZGF0YS9tZXRvby50eHQnKQ0KYGBgDQoNCmBgYHtyIGVjaG89RkFMU0V9DQp4YXJpbmdhbkV4dHJhOjp1c2VfY2xpcGJvYXJkKCkNCmBgYA0KDQotLS0tLS0tLS0tLS0tLS0tLS0tLS0tLQ0KDQpEYXRhIHRhYmxlcyBjb21lIGluIGRpZmZlcmVudCBzaXplcyBhbmQgc2hhcGVzOyB0aGV5IGNhbiBjb25zaXN0IG9mIGEgdmVyeSBzaW1wbGUgdHdvLWNvbHVtbiBkYXRhIHNldCBvciBtYW55IGNvbHVtbnMgYW5kIOKAnHN1Yi1jb2x1bW5z4oCdLiBVbmRlcnN0YW5kaW5nIHRoZWlyIHN0cnVjdHVyZSBhbmQgbGVhcm5pbmcgaG93IHRvIHRyYW5zZm9ybSB0aGVtIGludG8gYSB1c2FibGUgZm9ybWF0IGlzIGNydWNpYWwgZm9yIGVmZmVjdGl2ZSBhbmQgZXJyb3ItZnJlZSBhbmFseXNpcy4gVGhlIGdvYWwgb2YgYHRpZHlyYCBpcyB0byBoZWxwIHlvdSBnZXQgKip0aWR5IGRhdGEqKi4gYHRpZHlyYCBpcyB0aGUgcGFja2FnZSBieSBleGNlbGxlbmNlIHRvIHJlb3JnYW5pemUgdGhlIHN0cnVjdHVyZSBvZiBhIHRhYmxlLiBUaWR5IGRhdGEgaXMgZGF0YSB3aGVyZToNCg0KMS4gRXZlcnkgY29sdW1uIGlzIGEgdmFyaWFibGUgDQoNCjIuIEV2ZXJ5IHJvdyBpcyBhbiBvYnNlcnZhdGlvbg0KDQozLiBFdmVyeSBjZWxsIGlzIGEgc2luZ2xlIHZhbHVlcy4NCg0KDQpUaWR5IGRhdGEgZGVzY3JpYmVzIGEgc3RhbmRhcmQgbWV0aG9kIG9mIHN0b3JpbmcgZGF0YSB0aGF0IGlzIHVzZWQgdGhyb3VnaG91dCB0aGUgW3RpZHl2ZXJzZV0oaHR0cHM6Ly93d3cudGlkeXZlcnNlLm9yZy8pIHdoZXJldmVyIHBvc3NpYmxlLiBCeSBtYWtpbmcgc3VyZSB5b3VyIGRhdGEgaXMgdGlkeSwgeW91IHNwZW5kIGxlc3MgdGltZSBmaWRkbGluZyB3aXRoIHRoZSB0b29scyBhbmQgbW9yZSB0aW1lIG9uIHlvdXIgYW5hbHlzaXMuIEEgKipjaGVhdHNoZWV0KiogZm9yIGB0aWR5cmAgaXMgYXZhaWxhYmxlIFtoZXJlXShodHRwczovL2dpdGh1Yi5jb20vcnN0dWRpby9jaGVhdHNoZWV0cy9ibG9iL21hc3Rlci9kYXRhLWltcG9ydC5wZGYpLg0KDQpUaGUgZnVuY3Rpb25zIG9mIGB0aWR5cmAgY2FuIGJlIGRpdmlkZWQgaW50byBmaXZlIG1haW4gY2F0ZWdvcmllczoNCg0KLSAqKnBpdm90aW5nKiosIHdoaWNoIGNvbnZlcnRzIGJldHdlZW4gbG9uZyBhbmQgd2lkZSBzaGFwZXM6IEJvdGggYHBpdm90X2xvbmdlcigpYCBhbmQgYHBpdm90X3dpZGVyKClgIHJlcGxhY2VkIHN1cGVyc2VkZWQgZnVuY3Rpb25zIGBzcHJlYWQoKWAgYW5kIGBnYXRoZXIoKWAuIFNlZSBgdmlnbmV0dGUoInBpdm90IilgIGZvciBtb3JlIGRldGFpbHMuDQoNCi0gKipyZWN0YW5nbGluZyoqLCB3aGljaCB0dXJucyBkZWVwbHkgbmVzdGVkIGxpc3RzIChsaWtlIGZyb20gSlNPTiBbSmF2YVNjcmlwdCBPYmplY3QgTm90YXRpb25dKSBpbnRvIG5lYXQgdGliYmxlcy4gU2VlIGZvbmN0aW9ucyBgdW5uZXN0X2xvbmdlcigpYCwgYHVubmVzdF93aWRlcigpYCwgYGhvaXN0KClgLCBhbmQgYHZpZ25ldHRlKCJyZWN0YW5nbGUiKWAgZm9yIG1vcmUgZGV0YWlscy4NCg0KLSAqKm5lc3RpbmcqKiBjb252ZXJ0cyBncm91cGVkIGRhdGEgaW50byBhIGZvcm0gd2hlcmUgZWFjaCBncm91cCBiZWNvbWVzIGEgc2luZ2xlIHJvdyB3aXRoIGEgbmVzdGVkIGRhdGEgZnJhbWUsIHdoaWxlIHVubmVzdGluZyBkb2VzIHRoZSBvcHBvc2l0ZS4gU2VlIGZvbmN0aW9ucyBgbmVzdCgpYCwgYHVubmVzdCgpYCwgYW5kIGB2aWduZXR0ZSgibmVzdCIpYCBmb3IgbW9yZSBkZXRhaWxzLg0KDQotICoqc3BsaXR0aW5nIGFuZCBjb21iaW5pbmcqKiBjaGFyYWN0ZXIgY29sdW1ucy4gVXNlIGBzZXBhcmF0ZSgpYCBhbmQgYGV4dHJhY3QoKWAgdG8gc3BsaXQgYSBzaW5nbGUgY2hhcmFjdGVyIGNvbHVtbiBpbnRvIG11bHRpcGxlIGNvbHVtbnM7IHVzZSBgdW5pdGUoKWAgdG8gY29tYmluZSBtdWx0aXBsZSBjb2x1bW5zIGludG8gYSBzaW5nbGUgY2hhcmFjdGVyIGNvbHVtbi4NCg0KLSBNYWtlICoqaW1wbGljaXQgbWlzc2luZyB2YWx1ZXMqKiBleHBsaWNpdCB3aXRoIGBjb21wbGV0ZSgpYDsgbWFrZSBleHBsaWNpdCBtaXNzaW5nIHZhbHVlcyBpbXBsaWNpdCB3aXRoIGBkcm9wX25hKClgOyByZXBsYWNlIG1pc3NpbmcgdmFsdWVzIHdpdGggdGhlIG5leHQvcHJldmlvdXMgdmFsdWUgd2l0aCBgZmlsbCgpYCwgb3IgYSBrbm93biB2YWx1ZSB3aXRoIGByZXBsYWNlX25hKClgLg0KDQoNClRob3NlIGZ1bmN0aW9ucyBmaW5kIHRoZWlyIHVzZSBpbiBmYXN0ZW5pbmcgIGRhdGEgZXhwbG9yYXRpb24gYW5kIHRyYW5zZm9ybWF0aW9uLg0KDQoNCmBgYHtyIGNsYXNzLnNvdXJjZSA9ICJmb2xkLXNob3ciLCAgZXZhbD1UfQ0KbGlicmFyeSAodGlkeXIpDQpgYGANCg0KIyBQaXZvdGluZw0KDQpEYWkgJiBIb3JuZyAoMjAwOSkgc3VtbWFyaXplIHRoZSBjb3JhbCBkaXZlcnNpdHkgYXJvdW5kIFRhaXdhbi4gYFRXX2NvcmFsc2Agc2hvd3MgcmljaG5lc3MgaW4gc2NsZXJhY3RpbmlhbiBjb3JhbHMgIGJ5IGNvcmFsIHJlZWYgcmVnaW9uOg0KDQpgYGB7ciwgIGV2YWw9VH0NClRXX2NvcmFsczwtcmVhZC50YWJsZSgnRGF0YS90d19jb3JhbHMudHh0JywgaGVhZGVyPVQsIHNlcD0nXHQnLCBkZWM9Jy4nKSANClRXX2NvcmFscw0KYGBgDQoNClRoaXMgdGFibGUgaXMgYSAqKndpZGUgdGFibGUqKi4gSXQgY2FuIGVhc2lseSBiZSByZWZvcm1hdHRlZCBpbnRvIGEgbG9uZyB0YWJsZSBieSBjb21iaW5pbmcgdGhlIHBpcGUgb3BlcmF0b3IgYCU+JWAgd2l0aCBgcGl2b3RfbG9uZ2VyYCBhcyBmb2xsb3dzOg0KDQpgYGB7ciwgIGV2YWw9VH0NClRXX2NvcmFsc19sb25nIDwtIFRXX2NvcmFscyAlPiUNCiAgcGl2b3RfbG9uZ2VyKFNvdXRoZXJuX1RXOk5vcnRoZXJuX0lzLCBuYW1lc190byA9ICJSZWdpb24iLCB2YWx1ZXNfdG8gPSAiUmljaG5lc3MiKQ0KIyBUV19jb3JhbHNfbG9uZyA8LVRXX2NvcmFscyAlPiUgcGl2b3RfbG9uZ2VyKGNvbHMgPSBldmVyeXRoaW5nKCksIG5hbWVzX3RvID0gIlJlZ2lvbiIsIHZhbHVlc190byA9ICJSaWNobmVzcyIpIA0KVFdfY29yYWxzX2xvbmcgDQpgYGANCg0KVGhlIHJldmVyc2Ugb3BlcmF0aW9uIGNhbiBiZSBtYWRlIHVzaW5nIGBwaXZvdF93aWRlcmAgaW4gb3JkZXIgdG8gcmVjcmVhdGUgdGhlIHdpZGUgdmVyc2lvbiBvZiBvdXIgdGFibGU6IA0KDQpgYGB7ciwgIGV2YWw9VH0NClRXX2NvcmFsc193aWRlIDwtIFRXX2NvcmFsc19sb25nICU+JQ0KICBwaXZvdF93aWRlciggbmFtZXNfZnJvbSA9IFJlZ2lvbiwgdmFsdWVzX2Zyb20gPSBSaWNobmVzcykgDQpUV19jb3JhbHNfd2lkZQ0KYGBgDQoNCjxzcGFuIHN0eWxlPSJjb2xvcjogcmVkIj4qKk5vdGUqKjogVGhlIHBpcGUgb3BlcmF0b3IgYCU+JWAgaXMgb3B0aW9uYWwsIGJ1dCBpdCBpcyBnZW5lcmFsbHkgbW9yZSBlbGVnYW50IGFuZCB5b3Ugd2lsbCBkaXNjb3ZlciBpdHMgaW1wb3J0YW5jZSBhcyB5b3VyIHByb2dyYW1taW5nIHNraWxscyBtYXR1cmUgYW5kIHRoZSBkYXRhIHNldHMgYmVjb21lIG1vcmUgY29tcGxleCwgYXMgZGVzY3JpYmVkIGJlbG93Ljwvc3Bhbj4NCg0KSGVyZSBpcyBhIHN1YnNldCBvZiBtZWRpYW4gaW5jb21lIGJ5IGdlbmRlciBhbmQgd29yayBleHBlcmllbmNlIGZvciAyMDE3IGluIGZvdXIgVVMgc3RhdGVzIGNvbXBhcmVkIHRvIFRhaXdhbiAocmVhbCBkYXRhKS4NCg0KYGBge3IsICBldmFsPVR9DQppbmNvbWU8LXJlYWQudGFibGUoJ0RhdGEvbWV0b28udHh0JyxoZWFkZXI9VCwgc2VwPSJcdCIsIGRlYz0iLiIsIG5hLnN0cmluZ3MgPSAibi9hIikNCmluY29tZQ0KYGBgDQoNCkF0IGZpcnN0IGdsYW5jZSwgaXQgbG9va3MgbGlrZSB3ZSBoYXZlIHRocmVlIHZhcmlhYmxlcyBhcyBpbiB0aGUgcHJldmlvdXMgZXhhbXBsZSwgYnV0IG9uIGNsb3NlciBpbnNwZWN0aW9uIHdlIHNlZSB0aGF0IHdlIGNhbiByZWFkIHR3byB2YXJpYWJsZXMgZnJvbSB0aGUgY29sdW1uIG5hbWVzOiBHZW5kZXIgKGBtYWxlYCBhbmQgYGZlbWFsZWApIGFuZCBXb3JrIEV4cGVyaWVuY2UgKGBmdWxsdGltZWAgYW5kIGBvdGhlcmApLg0KDQp0aGUgZnVuY3Rpb24gYHBpdm90X2xvbmdlcmAgaGFzIG9uZSBhcmd1bWVudCBgbmFtZXNfc2VwYCwgd2hpY2ggaXMgcGFzc2VkIHRoZSBjaGFyYWN0ZXIgdXNlZCB0byBkZWxpbWl0IHRoZSB0d28gdmFyaWFibGUgdmFsdWVzLiBJbiBvdXIgZXhhbXBsZSwgdGhpcyBjaGFyYWN0ZXIgaXMgYF9gLiBTaW5jZSB0aGUgY29sdW1uIHZhbHVlcyBhcmUgc3BsaXQgYmV0d2VlbiB0d28gdmFyaWFibGVzLCB3ZSBtdXN0IGFsc28gcGFzcyB0d28gY29sdW1uIG5hbWVzIHRvIHRoZSBhcmd1bWVudCBgbmFtZXNfdG9gLg0KDQpgYGB7ciwgIGV2YWw9VH0NCmluY29tZV9sb25nIDwtIGluY29tZSAlPiUgIHBpdm90X2xvbmdlcihjb2xzID0gLXN0YXRlLCANCiAgICAgICAgICAgICAgICAgICAgICAgICBuYW1lc190byA9IGMoImdlbmRlciIsIndvcmsiKSwgDQogICAgICAgICAgICAgICAgICAgICAgICAgbmFtZXNfc2VwID0gIl8iLCANCiAgICAgICAgICAgICAgICAgICAgICAgICB2YWx1ZXNfdG8gPSAiaW5jb21lIikNCiAgICAgICAgICAgICAgICAgICAgICAgICANCmluY29tZV9sb25nDQpgYGANCg0KT2J2aW91c2x5LCB0aGUgcmV2ZXJzZSBpcyBwb3NzaWJsZSB1c2luZyBgcGl2b3Rfd2lkZXJgOg0KDQpgYGB7ciwgIGV2YWw9VH0NCmluY29tZV9sb25nICU+JSBwaXZvdF93aWRlcihuYW1lc19mcm9tID0gYyhnZW5kZXIsd29yayksIA0KICAgICAgICAgICAgdmFsdWVzX2Zyb20gPSBpbmNvbWUsDQogICAgICAgICAgICBuYW1lc19zZXAgPSAiLiIpDQpgYGANCg0KDQoqQXMgYSBwYWNrYWdlIGV2b2x2ZXMsIHNvbWUgZnVuY3Rpb25zIG1heSBiZSAqKmRlcHJlY2lhdGVkKiouIFRoZSBmdW5jdGlvbiBtYXkgc3RpbGwgd29yaywgYnV0IGl0IGlzIHJlY29tbWVuZGVkIHRvIHN3aXRjaCB0byB0aGUgbmV3IGZ1bmN0aW9uIHRoYXQgdGFrZXMgb3ZlciB0aGUgdGFzay4gVGhlIGB0aWR5cmAgcGFja2FnZSBpcyBhIGdvb2QgZXhhbXBsZSBvZiB0aGlzIGV2b2x1dGlvbi4gVGhlIGBnYXRoZXJgIGZ1bmN0aW9uIGlzIHN1cGVyc2VkZWQgYW5kIHN0aWxsIGV4aXN0cyAoSSBhbSBnZXR0aW5nIG9sZGVyIGFuZCBzdGlsbCB1c2UgdGhlIG9sZCBmdW5jdGlvbikuIEl0IGlzIG5vdyByZWNvbW1lbmRlZCB0byBzd2l0Y2ggdG8gYHBpdm90X2xvbmdlcigpYCB3aGljaCBpcyBzdGlsbCB1bmRlciBhY3RpdmUgZGV2ZWxvcG1lbnQuIFNvIGBkZiAlPiUgZ2F0aGVyKCJrZXkiLCAidmFsdWUiLCB4LCB5LCB6KWAgaXMgbm93IGVxdWl2YWxlbnQgdG8gYGRmICU+JSBwaXZvdF9sb25nZXIoYyh4LCB5LCB6KSwgbmFtZXNfdG8gPSAia2V5IiwgdmFsdWVzX3RvID0gInZhbHVlIilgLg0KDQoNCiMgU3BsaXR0aW5nDQoNClRoZSBgdGlkeXJgIHBhY2thZ2Ugb2ZmZXJzIGZ1cnRoZXIgZnVuY3Rpb25zIHRoYXQgYXJlIG5vdCBkaXJlY3RseSByZWxhdGVkIHRvIHBpdm90aW5nLg0KDQojIyBDb2x1bW5zDQoNCkZvciBleGFtcGxlLCBpZiB5b3Ugd2FudCB0byBzcGxpdCBhIGNvbHVtbiBpbnRvIHR3byBvciBtb3JlIGNvbHVtbnMgYmFzZWQgb24gYSBkZWxpbWl0ZWQgdmFsdWUsIHlvdSBjYW4gdXNlIHRoZSBgc2VwYXJhdGVgIGZ1bmN0aW9uLg0KDQotIExldCdzIGNyZWF0ZSBhIHRhYmxlIHdpdGggYSB2YXJpYWJsZSBjYWxsZWQgYHZhcjFgOg0KDQpgYGB7ciwgIGV2YWw9VH0NCiMgTGV0J3MgZmlyc3QgY3JlYXRlIGEgZGVsaW1pdGVkIHRhYmxlDQppbmNvbWVfbG9uZ192YXIgPC0gaW5jb21lICU+JSAgcGl2b3RfbG9uZ2VyKGNvbHMgPSAtMSwgDQogICAgICAgICAgICAgICAgICAgICAgICAgbmFtZXNfdG8gPSAidmFyMSIsIA0KICAgICAgICAgICAgICAgICAgICAgICAgIHZhbHVlc190byA9ICJpbmNvbWUiKQ0KaW5jb21lX2xvbmdfdmFyDQpgYGANCg0KDQotIFNwbGl0IGB2YXIxYCBpbnRvIHR3byBuZXcgY29sdW1uczoNCg0KYGBge3IsICBldmFsPVR9DQojIFNwbGl0IHZhcjEgY29sdW1uIGludG8gdHdvIGNvbHVtbnMNCmluY29tZV9zZXAgPC0gaW5jb21lX2xvbmdfdmFyICU+JSAgc2VwYXJhdGUoY29sID0gdmFyMSwgDQogICAgICAgICAgICAgICAgICAgIHNlcCA9ICJfIiwgDQogICAgICAgICAgICAgICAgICAgIGludG8gPSBjKCJnZW5kZXIiLCAid29yayIpKQ0KaW5jb21lX3NlcA0KYGBgDQoNCiMjIFJvd3MgDQoNClNwbGl0IGB2YXIxYCBpbnRvIHR3byByb3dzLCBidXQgdGhhdCdzIG5vdCB2ZXJ5IHVzZWZ1bCBoZXJlIC0ganVzdCBmb3IgdGhlIGRlbW86DQoNCmBgYHtyLCAgZXZhbD1UfQ0KaW5jb21lX2xvbmdfdmFyICU+JSBzZXBhcmF0ZV9yb3dzKHZhcjEsIHNlcCA9ICJfIikNCmBgYA0KDQpJbiB0aGUgcGFja2FnZSBgdGlkeXJgLCBjaGVjayBgdW5jb3VudGAsIHdoaWNoIHJlcGxpY2F0ZXMgcm93cyBieSBjb3VudDsgYHVuaXRlYCwgd2hpY2ggY29tYmluZXMgZWxlbWVudHMgZnJvbSBtYW55IGNvbHVtbnMgaW50byBhIHNpbmdsZSBjb2x1bW4sIGV0Yy4gVGhlcmUgaXMgYSBsb3Qgb2YgIGRvY3VtZW50YXRpb24gb25saW5lIG9uIGhvdyB0byB1c2UgYHRpZHlyYHBhY2thZ2UuIEl0IGlzIGEgdmVyeSBoYW5keSBwYWNrYWdlIGlmIHlvdSBuZWVkIHRvIHJlcGVhdCBhIGZvcm1hdHRpbmcgdGFzayBmb3IgYSBsYXJnZSBkYXRhIHNldC4gWW91IGNhbiBhbHNvIGxlYXJuIG1vcmUgYWJvdXQgdGlkeSBkYXRhIGJ5IGxvb2tpbmcgYXQgYHZpZ25ldHRlKCJ0aWR5LWRhdGEiKWAgYW5kIHZpc2l0IFt0aWR5dmVyc2VdKGh0dHBzOi8vd3d3LnRpZHl2ZXJzZS5vcmcvKSBmb3IgbW9yZSBleGFtcGxlcyBvZiByZXNoYXBpbmcgZGF0YXNldHMuDQoNCg0KPHAgY2xhc3M9ImFsZXJ0Ij4NCioqYHIga25pdHI6OmFzaXNfb3V0cHV0KCJcVTI2QTAiKWAgUHJhY3RpY2UgMi4zKiogVGhlIGRhdGFzZXQgYHJhaXJ1b2hvYCBpcyBhdmFpbGFibGUgYXQgdGhlIGZvbGxvd2luZyBbbGlua10oaHR0cHM6Ly93d3cuZGlwaW50b3RoZXJlZWYuY29tL3VwbG9hZHMvMy83LzMvNS8zNzM1OTI0NS9yYWlydW9oby50eHQpLiBJdCBjb250YWlucyBkYXRhIG9uIDggZGF5cyBsZW5ndGggb2YgRWFzdGVyIGdyYXNzIGV4cG9zZWQgdG8gZGlmZmVyZW50IHRyZWF0bWVudHMuDQpUaGUgNiB2YXJpYWJsZXMgKipgZGF5M2AqKiB0byAqKmBkYXk4YCoqIGFyZSB0aGUgbWVhbiBsZW5ndGggb2YgdGhlIGdyYXNzIG9uIHRoZSByZXNwZWN0aXZlIGRheS4gKipgZ2VybWluYXRlYCoqIGlzIHRoZSBudW1iZXIgb2YgZ2VybWluYXRlZCBzZWVkcy4qKmBiZWRgKiogaXMgYSBmYWN0b3Igd2l0aCBmb3VyIGxldmVscyAoYG1vdWxkMWAsYG1vdWxkMmAsIGBwYXBlcjRgLCBgcGFwZXI4YCkgaW5kaWNhdGluZyB3aGVyZSB0aGUgZ3Jhc3MgZ3JldyBhbmQgaG93IHRoaWNrIGl0IHdhcy4gKipgdHJlYXRlbWVudGAqKiBoYXMgdHdvIGxldmVscyBgd2F0ZXJgIGFuZCBgbnV0cmllbnRgIGluZGljYXRpbmcgdGhlIGlycmlnYXRpb24gc2NoZW1lIChwdXJlIHdhdGVyIG9yIGVucmljaGVkIHdpdGggbnV0cmllbnRzKS4gKipgc3BhdGlhbDFgKiogYW5kICoqYHNwYXRpYWwyYCoqIGFyZSB0aGUgdmVydGljYWwgYW5kIGhvcml6b250YWwgcG9zaXRpb24gb2YgdGhlIHBsb3QgcmVzcGVjdGl2ZWx5LiBUaGUgdmFyaWFibGVzIGByb3dgIGFuZCBgY29sdW1uYCBhcmUgbWVhbmluZ2xlc3MgYW5kIHNob3VsZCBiZSByZW1vdmVkLg0KPC9wPg0KDQoNCjxwIGNsYXNzPSJhbGVydCI+DQoqKkluc3RydWN0aW9uOioqIEluIHRoZSB2YXJpYWJsZSBgdHJlYXRlbWVudGAsIGBudXRyaWVudGAgaXMgbWlzbGVhZGluZywgYXMgaXQgcmVmZXJzIHRvIG51dHJpZW50LSBlbnJpY2hlZCB3YXRlci4gUmVwbGFjZSBgbnV0cmllbnRgIHdpdGggYGVucmljaGVkYCBpbiB0aGUgZGF0YXNldC4gUmVmb3JtYXQgdGhlIHRhYmxlIHNvIHRoYXQgdGhlIGBkYXlgIGlzIGFzIGEgc2luZ2xlIHZhcmlhYmxlIChmYWN0b3IpIHdpdGggNiBsZXZlbHMgKGBkYXkzYCwgYGRheTRgLCBgZGF5NWAsIGBkYXk2YCwgYGRheTdgLCBgZGF5OGApLiBBbm90aGVyIHZhcmlhYmxlIGBsZW5ndGhgICBpcyBjcmVhdGVkIHRvIGdldCB0aGUgbGVuZ3RoIG9mIHRoZSBncmFzcyBvbiB0aGUgZ2l2ZW4gZGF5LiBUaGUgdmFyaWFibGVzIGBTcGF0aWFsMWAgYW5kIGBTcGF0aWFsMmAgYXJlIG1lcmdlZCB0byBvYnRhaW4gdGhlIGZvbGxvd2luZyBmb3JtYXQgZm9yIHRoZSBzcGF0aWFsIGNvb3JkaW5hdGVzIG9mIGFuIG9ic2VydmF0aW9uIGB1cHBlcl9sZWZ0YC4gUmVtb3ZlIHRoZSB2YXJpYWJsZXMgYHJvd2AgYW5kIGBjb2x1bW5gLiBUaGlzIGhvbWV3b3JrIG11c3QgYmUgcHJlcGFyZWQgaW4gKi5SbWQqIGZvcm1hdCwgd2hpY2ggeW91IHdpbGwga25pdCBhcyBhICouaHRtbCogZmlsZS4gWW91IHdpbGwgKipwdXNoKiogeW91ciBmaWxlcyBpbiBhIHB1YmxpYyByZXBvc2l0b3J5IGFjY2Vzc2libGUgdmlhIHlvdXIgR2l0aHViIGFjY291bnQuIFlvdSB3aWxsIGVtYWlsIG1lIFt2aWFubmV5ZGVuaXNAZy5udHUuZWR1LnR3XSB3aXRoIHRoZSBhZGRyZXNzIChVUkwpIG9mIHRoaXMgcmVwb3NpdG9yeSAoZS5nLiBodHRwczovL2dpdGh1Yi5jb20vdmlhbm5leWRlbmlzL09DRUFONTA5OEIuZ2l0KSAqKmJlZm9yZSBuZXh0IE1vbmRheSoqIHNvIHRoYXQgSSBjYW4gcmV2aWV3IHlvdXIgd29yay4gVGhlICoqdGl0bGUgb2YgeW91ciBlbWFpbCoqIHNob3VsZCBiZTogYFByYWN0aWNlIDIuMyAoeW91ciBuYW1lOiB5b3VyIHN0dWRlbnQgbnVtYmVyKWAuIA0KPC9wPg==" download="tidyr.Rmd">Download tidyr.Rmd</a>
+<a href="data:text/plain;base64,eGFyaW5nYW5FeHRyYTo6dXNlX2NsaXBib2FyZCgpDQoNCmxpYnJhcnkgKHRpZHlyKQ0KDQpUV19jb3JhbHM8LXJlYWQudGFibGUoJ0RhdGEvdHdfY29yYWxzLnR4dCcsIGhlYWRlcj1ULCBzZXA9J1x0JywgZGVjPScuJykgDQpUV19jb3JhbHMNCg0KVFdfY29yYWxzX2xvbmcgPC0gVFdfY29yYWxzICU+JQ0KICBwaXZvdF9sb25nZXIoU291dGhlcm5fVFc6Tm9ydGhlcm5fSXMsIG5hbWVzX3RvID0gIlJlZ2lvbiIsIHZhbHVlc190byA9ICJSaWNobmVzcyIpDQojIFRXX2NvcmFsc19sb25nIDwtVFdfY29yYWxzICU+JSBwaXZvdF9sb25nZXIoY29scyA9IGV2ZXJ5dGhpbmcoKSwgbmFtZXNfdG8gPSAiUmVnaW9uIiwgdmFsdWVzX3RvID0gIlJpY2huZXNzIikgDQpUV19jb3JhbHNfbG9uZyANCg0KVFdfY29yYWxzX3dpZGUgPC0gVFdfY29yYWxzX2xvbmcgJT4lDQogIHBpdm90X3dpZGVyKCBuYW1lc19mcm9tID0gUmVnaW9uLCB2YWx1ZXNfZnJvbSA9IFJpY2huZXNzKSANClRXX2NvcmFsc193aWRlDQoNCmluY29tZTwtcmVhZC50YWJsZSgnRGF0YS9tZXRvby50eHQnLGhlYWRlcj1ULCBzZXA9Ilx0IiwgZGVjPSIuIiwgbmEuc3RyaW5ncyA9ICJuL2EiKQ0KaW5jb21lDQoNCmluY29tZV9sb25nIDwtIGluY29tZSAlPiUgIHBpdm90X2xvbmdlcihjb2xzID0gLXN0YXRlLCANCiAgICAgICAgICAgICAgICAgICAgICAgICBuYW1lc190byA9IGMoImdlbmRlciIsIndvcmsiKSwgDQogICAgICAgICAgICAgICAgICAgICAgICAgbmFtZXNfc2VwID0gIl8iLCANCiAgICAgICAgICAgICAgICAgICAgICAgICB2YWx1ZXNfdG8gPSAiaW5jb21lIikNCiAgICAgICAgICAgICAgICAgICAgICAgICANCmluY29tZV9sb25nDQoNCmluY29tZV9sb25nICU+JSBwaXZvdF93aWRlcihuYW1lc19mcm9tID0gYyhnZW5kZXIsd29yayksIA0KICAgICAgICAgICAgdmFsdWVzX2Zyb20gPSBpbmNvbWUsDQogICAgICAgICAgICBuYW1lc19zZXAgPSAiLiIpDQoNCiMgTGV0J3MgZmlyc3QgY3JlYXRlIGEgZGVsaW1pdGVkIHRhYmxlDQppbmNvbWVfbG9uZ192YXIgPC0gaW5jb21lICU+JSAgcGl2b3RfbG9uZ2VyKGNvbHMgPSAtMSwgDQogICAgICAgICAgICAgICAgICAgICAgICAgbmFtZXNfdG8gPSAidmFyMSIsIA0KICAgICAgICAgICAgICAgICAgICAgICAgIHZhbHVlc190byA9ICJpbmNvbWUiKQ0KaW5jb21lX2xvbmdfdmFyDQoNCiMgU3BsaXQgdmFyMSBjb2x1bW4gaW50byB0d28gY29sdW1ucw0KaW5jb21lX3NlcCA8LSBpbmNvbWVfbG9uZ192YXIgJT4lICBzZXBhcmF0ZShjb2wgPSB2YXIxLCANCiAgICAgICAgICAgICAgICAgICAgc2VwID0gIl8iLCANCiAgICAgICAgICAgICAgICAgICAgaW50byA9IGMoImdlbmRlciIsICJ3b3JrIikpDQppbmNvbWVfc2VwDQoNCmluY29tZV9sb25nX3ZhciAlPiUgc2VwYXJhdGVfcm93cyh2YXIxLCBzZXAgPSAiXyIpDQo=" download="tidyr.R">Download tidyr.R</a>
+<a href="data:text/plain;base64,U291dGhlcm5fVFcJTm9ydGhlcm5fVFcJRWFzdGVybl9UVwlMdWRhbwlMYW55dQlYaWFvbGl1cWl1CVBlbmdodV9Ob3J0aAlQZW5naHVfRWFzdAlQZW5naHVfSW5uZXIJUGVuZ2h1IFNvdXRoCURvbmdzaGEJVGFpcGluZwlOb3J0aGVybl9Jcw0KMjgwCTEzNgkyMTAJMjUwCTI0OAkyMzkJMTA3CTg0CTc1CTk5CTIyOQkxNjMJMTEyDQo=" download="tw_corals.txt">Download tw_corals.txt</a>
+<a href="data:text/plain;base64,c3RhdGUJbWFsZV9mdWxsdGltZQltYWxlX290aGVyCWZlbWFsZV9mdWxsdGltZQlmZW1hbGVfb3RoZXINCk1haW5lCTQxOTQJMTUwOAkzMzM3CTExNDgNCk1hc3NhY2h1c2V0dHMJNTUwNQkxNTQ3CTQ0ODYJMTI0OA0KTmV3SGFtcHNoaXJlCTQ5OTYJMTY4OQkzODQ4CTEyNjANClZlcm1vbnQJNDIxMAkxNDc1CTM1MTYJMTIwMQ0KVGFpd2FuCTE4MDYJbi9hCTE1MTAJbi9hDQo=" download="metoo.txt">Download metoo.txt</a>
+<hr />
+<p>Data tables come in different sizes and shapes; they can consist of a
+very simple two-column data set or many columns and “sub-columns”.
+Understanding their structure and learning how to transform them into a
+usable format is crucial for effective and error-free analysis. The goal
+of <code>tidyr</code> is to help you get <strong>tidy data</strong>.
+<code>tidyr</code> is the package by excellence to reorganize the
+structure of a table. Tidy data is data where:</p>
+<ol style="list-style-type: decimal">
+<li><p>Every column is a variable</p></li>
+<li><p>Every row is an observation</p></li>
+<li><p>Every cell is a single values.</p></li>
+</ol>
+<p>Tidy data describes a standard method of storing data that is used
+throughout the <a href="https://www.tidyverse.org/">tidyverse</a>
+wherever possible. By making sure your data is tidy, you spend less time
+fiddling with the tools and more time on your analysis. A
+<strong>cheatsheet</strong> for <code>tidyr</code> is available <a
+href="https://github.com/rstudio/cheatsheets/blob/master/data-import.pdf">here</a>.</p>
+<p>The functions of <code>tidyr</code> can be divided into five main
+categories:</p>
+<ul>
+<li><p><strong>pivoting</strong>, which converts between long and wide
+shapes: Both <code>pivot_longer()</code> and <code>pivot_wider()</code>
+replaced superseded functions <code>spread()</code> and
+<code>gather()</code>. See <code>vignette("pivot")</code> for more
+details.</p></li>
+<li><p><strong>rectangling</strong>, which turns deeply nested lists
+(like from JSON [JavaScript Object Notation]) into neat tibbles. See
+fonctions <code>unnest_longer()</code>, <code>unnest_wider()</code>,
+<code>hoist()</code>, and <code>vignette("rectangle")</code> for more
+details.</p></li>
+<li><p><strong>nesting</strong> converts grouped data into a form where
+each group becomes a single row with a nested data frame, while
+unnesting does the opposite. See fonctions <code>nest()</code>,
+<code>unnest()</code>, and <code>vignette("nest")</code> for more
+details.</p></li>
+<li><p><strong>splitting and combining</strong> character columns. Use
+<code>separate()</code> and <code>extract()</code> to split a single
+character column into multiple columns; use <code>unite()</code> to
+combine multiple columns into a single character column.</p></li>
+<li><p>Make <strong>implicit missing values</strong> explicit with
+<code>complete()</code>; make explicit missing values implicit with
+<code>drop_na()</code>; replace missing values with the next/previous
+value with <code>fill()</code>, or a known value with
+<code>replace_na()</code>.</p></li>
+</ul>
+<p>Those functions find their use in fastening data exploration and
+transformation.</p>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode r fold-show"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="fu">library</span> (tidyr)</span></code></pre></div>
+<div id="pivoting" class="section level1">
+<h1>Pivoting</h1>
+<p>Dai &amp; Horng (2009) summarize the coral diversity around Taiwan.
+<code>TW_corals</code> shows richness in scleractinian corals by coral
+reef region:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a>TW_corals<span class="ot">&lt;-</span><span class="fu">read.table</span>(<span class="st">&#39;Data/tw_corals.txt&#39;</span>, <span class="at">header=</span>T, <span class="at">sep=</span><span class="st">&#39;</span><span class="sc">\t</span><span class="st">&#39;</span>, <span class="at">dec=</span><span class="st">&#39;.&#39;</span>) </span>
+<span id="cb2-2"><a href="#cb2-2" tabindex="-1"></a>TW_corals</span></code></pre></div>
+<pre><code>##   Southern_TW Northern_TW Eastern_TW Ludao Lanyu Xiaoliuqiu Penghu_North
+## 1         280         136        210   250   248        239          107
+##   Penghu_East Penghu_Inner Penghu.South Dongsha Taiping Northern_Is
+## 1          84           75           99     229     163         112</code></pre>
+<p>This table is a <strong>wide table</strong>. It can easily be
+reformatted into a long table by combining the pipe operator
+<code>%&gt;%</code> with <code>pivot_longer</code> as follows:</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a>TW_corals_long <span class="ot">&lt;-</span> TW_corals <span class="sc">%&gt;%</span></span>
+<span id="cb4-2"><a href="#cb4-2" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(Southern_TW<span class="sc">:</span>Northern_Is, <span class="at">names_to =</span> <span class="st">&quot;Region&quot;</span>, <span class="at">values_to =</span> <span class="st">&quot;Richness&quot;</span>)</span>
+<span id="cb4-3"><a href="#cb4-3" tabindex="-1"></a><span class="co"># TW_corals_long &lt;-TW_corals %&gt;% pivot_longer(cols = everything(), names_to = &quot;Region&quot;, values_to = &quot;Richness&quot;) </span></span>
+<span id="cb4-4"><a href="#cb4-4" tabindex="-1"></a>TW_corals_long </span></code></pre></div>
+<pre><code>## # A tibble: 13 × 2
+##    Region       Richness
+##    &lt;chr&gt;           &lt;int&gt;
+##  1 Southern_TW       280
+##  2 Northern_TW       136
+##  3 Eastern_TW        210
+##  4 Ludao             250
+##  5 Lanyu             248
+##  6 Xiaoliuqiu        239
+##  7 Penghu_North      107
+##  8 Penghu_East        84
+##  9 Penghu_Inner       75
+## 10 Penghu.South       99
+## 11 Dongsha           229
+## 12 Taiping           163
+## 13 Northern_Is       112</code></pre>
+<p>The reverse operation can be made using <code>pivot_wider</code> in
+order to recreate the wide version of our table:</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" tabindex="-1"></a>TW_corals_wide <span class="ot">&lt;-</span> TW_corals_long <span class="sc">%&gt;%</span></span>
+<span id="cb6-2"><a href="#cb6-2" tabindex="-1"></a>  <span class="fu">pivot_wider</span>( <span class="at">names_from =</span> Region, <span class="at">values_from =</span> Richness) </span>
+<span id="cb6-3"><a href="#cb6-3" tabindex="-1"></a>TW_corals_wide</span></code></pre></div>
+<pre><code>## # A tibble: 1 × 13
+##   Southern_TW Northern_TW Eastern_TW Ludao Lanyu Xiaoliuqiu Penghu_North
+##         &lt;int&gt;       &lt;int&gt;      &lt;int&gt; &lt;int&gt; &lt;int&gt;      &lt;int&gt;        &lt;int&gt;
+## 1         280         136        210   250   248        239          107
+## # ℹ 6 more variables: Penghu_East &lt;int&gt;, Penghu_Inner &lt;int&gt;,
+## #   Penghu.South &lt;int&gt;, Dongsha &lt;int&gt;, Taiping &lt;int&gt;, Northern_Is &lt;int&gt;</code></pre>
+<p><span style="color: red"><strong>Note</strong>: The pipe operator
+<code>%&gt;%</code> is optional, but it is generally more elegant and
+you will discover its importance as your programming skills mature and
+the data sets become more complex, as described below.</span></p>
+<p>Here is a subset of median income by gender and work experience for
+2017 in four US states compared to Taiwan (real data).</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" tabindex="-1"></a>income<span class="ot">&lt;-</span><span class="fu">read.table</span>(<span class="st">&#39;Data/metoo.txt&#39;</span>,<span class="at">header=</span>T, <span class="at">sep=</span><span class="st">&quot;</span><span class="sc">\t</span><span class="st">&quot;</span>, <span class="at">dec=</span><span class="st">&quot;.&quot;</span>, <span class="at">na.strings =</span> <span class="st">&quot;n/a&quot;</span>)</span>
+<span id="cb8-2"><a href="#cb8-2" tabindex="-1"></a>income</span></code></pre></div>
+<pre><code>##           state male_fulltime male_other female_fulltime female_other
+## 1         Maine          4194       1508            3337         1148
+## 2 Massachusetts          5505       1547            4486         1248
+## 3  NewHampshire          4996       1689            3848         1260
+## 4       Vermont          4210       1475            3516         1201
+## 5        Taiwan          1806         NA            1510           NA</code></pre>
+<p>At first glance, it looks like we have three variables as in the
+previous example, but on closer inspection we see that we can read two
+variables from the column names: Gender (<code>male</code> and
+<code>female</code>) and Work Experience (<code>fulltime</code> and
+<code>other</code>).</p>
+<p>the function <code>pivot_longer</code> has one argument
+<code>names_sep</code>, which is passed the character used to delimit
+the two variable values. In our example, this character is
+<code>_</code>. Since the column values are split between two variables,
+we must also pass two column names to the argument
+<code>names_to</code>.</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" tabindex="-1"></a>income_long <span class="ot">&lt;-</span> income <span class="sc">%&gt;%</span>  <span class="fu">pivot_longer</span>(<span class="at">cols =</span> <span class="sc">-</span>state, </span>
+<span id="cb10-2"><a href="#cb10-2" tabindex="-1"></a>                         <span class="at">names_to =</span> <span class="fu">c</span>(<span class="st">&quot;gender&quot;</span>,<span class="st">&quot;work&quot;</span>), </span>
+<span id="cb10-3"><a href="#cb10-3" tabindex="-1"></a>                         <span class="at">names_sep =</span> <span class="st">&quot;_&quot;</span>, </span>
+<span id="cb10-4"><a href="#cb10-4" tabindex="-1"></a>                         <span class="at">values_to =</span> <span class="st">&quot;income&quot;</span>)</span>
+<span id="cb10-5"><a href="#cb10-5" tabindex="-1"></a>                         </span>
+<span id="cb10-6"><a href="#cb10-6" tabindex="-1"></a>income_long</span></code></pre></div>
+<pre><code>## # A tibble: 20 × 4
+##    state         gender work     income
+##    &lt;chr&gt;         &lt;chr&gt;  &lt;chr&gt;     &lt;int&gt;
+##  1 Maine         male   fulltime   4194
+##  2 Maine         male   other      1508
+##  3 Maine         female fulltime   3337
+##  4 Maine         female other      1148
+##  5 Massachusetts male   fulltime   5505
+##  6 Massachusetts male   other      1547
+##  7 Massachusetts female fulltime   4486
+##  8 Massachusetts female other      1248
+##  9 NewHampshire  male   fulltime   4996
+## 10 NewHampshire  male   other      1689
+## 11 NewHampshire  female fulltime   3848
+## 12 NewHampshire  female other      1260
+## 13 Vermont       male   fulltime   4210
+## 14 Vermont       male   other      1475
+## 15 Vermont       female fulltime   3516
+## 16 Vermont       female other      1201
+## 17 Taiwan        male   fulltime   1806
+## 18 Taiwan        male   other        NA
+## 19 Taiwan        female fulltime   1510
+## 20 Taiwan        female other        NA</code></pre>
+<p>Obviously, the reverse is possible using
+<code>pivot_wider</code>:</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" tabindex="-1"></a>income_long <span class="sc">%&gt;%</span> <span class="fu">pivot_wider</span>(<span class="at">names_from =</span> <span class="fu">c</span>(gender,work), </span>
+<span id="cb12-2"><a href="#cb12-2" tabindex="-1"></a>            <span class="at">values_from =</span> income,</span>
+<span id="cb12-3"><a href="#cb12-3" tabindex="-1"></a>            <span class="at">names_sep =</span> <span class="st">&quot;.&quot;</span>)</span></code></pre></div>
+<pre><code>## # A tibble: 5 × 5
+##   state         male.fulltime male.other female.fulltime female.other
+##   &lt;chr&gt;                 &lt;int&gt;      &lt;int&gt;           &lt;int&gt;        &lt;int&gt;
+## 1 Maine                  4194       1508            3337         1148
+## 2 Massachusetts          5505       1547            4486         1248
+## 3 NewHampshire           4996       1689            3848         1260
+## 4 Vermont                4210       1475            3516         1201
+## 5 Taiwan                 1806         NA            1510           NA</code></pre>
+<p>*As a package evolves, some functions may be
+<strong>depreciated</strong>. The function may still work, but it is
+recommended to switch to the new function that takes over the task. The
+<code>tidyr</code> package is a good example of this evolution. The
+<code>gather</code> function is superseded and still exists (I am
+getting older and still use the old function). It is now recommended to
+switch to <code>pivot_longer()</code> which is still under active
+development. So <code>df %&gt;% gather("key", "value", x, y, z)</code>
+is now equivalent to
+<code>df %&gt;% pivot_longer(c(x, y, z), names_to = "key", values_to = "value")</code>.</p>
+</div>
+<div id="splitting" class="section level1">
+<h1>Splitting</h1>
+<p>The <code>tidyr</code> package offers further functions that are not
+directly related to pivoting.</p>
+<div id="columns" class="section level2">
+<h2>Columns</h2>
+<p>For example, if you want to split a column into two or more columns
+based on a delimited value, you can use the <code>separate</code>
+function.</p>
+<ul>
+<li>Let’s create a table with a variable called <code>var1</code>:</li>
+</ul>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" tabindex="-1"></a><span class="co"># Let&#39;s first create a delimited table</span></span>
+<span id="cb14-2"><a href="#cb14-2" tabindex="-1"></a>income_long_var <span class="ot">&lt;-</span> income <span class="sc">%&gt;%</span>  <span class="fu">pivot_longer</span>(<span class="at">cols =</span> <span class="sc">-</span><span class="dv">1</span>, </span>
+<span id="cb14-3"><a href="#cb14-3" tabindex="-1"></a>                         <span class="at">names_to =</span> <span class="st">&quot;var1&quot;</span>, </span>
+<span id="cb14-4"><a href="#cb14-4" tabindex="-1"></a>                         <span class="at">values_to =</span> <span class="st">&quot;income&quot;</span>)</span>
+<span id="cb14-5"><a href="#cb14-5" tabindex="-1"></a>income_long_var</span></code></pre></div>
+<pre><code>## # A tibble: 20 × 3
+##    state         var1            income
+##    &lt;chr&gt;         &lt;chr&gt;            &lt;int&gt;
+##  1 Maine         male_fulltime     4194
+##  2 Maine         male_other        1508
+##  3 Maine         female_fulltime   3337
+##  4 Maine         female_other      1148
+##  5 Massachusetts male_fulltime     5505
+##  6 Massachusetts male_other        1547
+##  7 Massachusetts female_fulltime   4486
+##  8 Massachusetts female_other      1248
+##  9 NewHampshire  male_fulltime     4996
+## 10 NewHampshire  male_other        1689
+## 11 NewHampshire  female_fulltime   3848
+## 12 NewHampshire  female_other      1260
+## 13 Vermont       male_fulltime     4210
+## 14 Vermont       male_other        1475
+## 15 Vermont       female_fulltime   3516
+## 16 Vermont       female_other      1201
+## 17 Taiwan        male_fulltime     1806
+## 18 Taiwan        male_other          NA
+## 19 Taiwan        female_fulltime   1510
+## 20 Taiwan        female_other        NA</code></pre>
+<ul>
+<li>Split <code>var1</code> into two new columns:</li>
+</ul>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" tabindex="-1"></a><span class="co"># Split var1 column into two columns</span></span>
+<span id="cb16-2"><a href="#cb16-2" tabindex="-1"></a>income_sep <span class="ot">&lt;-</span> income_long_var <span class="sc">%&gt;%</span>  <span class="fu">separate</span>(<span class="at">col =</span> var1, </span>
+<span id="cb16-3"><a href="#cb16-3" tabindex="-1"></a>                    <span class="at">sep =</span> <span class="st">&quot;_&quot;</span>, </span>
+<span id="cb16-4"><a href="#cb16-4" tabindex="-1"></a>                    <span class="at">into =</span> <span class="fu">c</span>(<span class="st">&quot;gender&quot;</span>, <span class="st">&quot;work&quot;</span>))</span>
+<span id="cb16-5"><a href="#cb16-5" tabindex="-1"></a>income_sep</span></code></pre></div>
+<pre><code>## # A tibble: 20 × 4
+##    state         gender work     income
+##    &lt;chr&gt;         &lt;chr&gt;  &lt;chr&gt;     &lt;int&gt;
+##  1 Maine         male   fulltime   4194
+##  2 Maine         male   other      1508
+##  3 Maine         female fulltime   3337
+##  4 Maine         female other      1148
+##  5 Massachusetts male   fulltime   5505
+##  6 Massachusetts male   other      1547
+##  7 Massachusetts female fulltime   4486
+##  8 Massachusetts female other      1248
+##  9 NewHampshire  male   fulltime   4996
+## 10 NewHampshire  male   other      1689
+## 11 NewHampshire  female fulltime   3848
+## 12 NewHampshire  female other      1260
+## 13 Vermont       male   fulltime   4210
+## 14 Vermont       male   other      1475
+## 15 Vermont       female fulltime   3516
+## 16 Vermont       female other      1201
+## 17 Taiwan        male   fulltime   1806
+## 18 Taiwan        male   other        NA
+## 19 Taiwan        female fulltime   1510
+## 20 Taiwan        female other        NA</code></pre>
+</div>
+<div id="rows" class="section level2">
+<h2>Rows</h2>
+<p>Split <code>var1</code> into two rows, but that’s not very useful
+here - just for the demo:</p>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" tabindex="-1"></a>income_long_var <span class="sc">%&gt;%</span> <span class="fu">separate_rows</span>(var1, <span class="at">sep =</span> <span class="st">&quot;_&quot;</span>)</span></code></pre></div>
+<pre><code>## # A tibble: 40 × 3
+##    state         var1     income
+##    &lt;chr&gt;         &lt;chr&gt;     &lt;int&gt;
+##  1 Maine         male       4194
+##  2 Maine         fulltime   4194
+##  3 Maine         male       1508
+##  4 Maine         other      1508
+##  5 Maine         female     3337
+##  6 Maine         fulltime   3337
+##  7 Maine         female     1148
+##  8 Maine         other      1148
+##  9 Massachusetts male       5505
+## 10 Massachusetts fulltime   5505
+## # ℹ 30 more rows</code></pre>
+<p>In the package <code>tidyr</code>, check <code>uncount</code>, which
+replicates rows by count; <code>unite</code>, which combines elements
+from many columns into a single column, etc. There is a lot of
+documentation online on how to use <code>tidyr</code>package. It is a
+very handy package if you need to repeat a formatting task for a large
+data set. You can also learn more about tidy data by looking at
+<code>vignette("tidy-data")</code> and visit <a
+href="https://www.tidyverse.org/">tidyverse</a> for more examples of
+reshaping datasets.</p>
+<p class="alert">
+<strong>⚠ Practice 2.3</strong> The dataset <code>rairuoho</code> is
+available at the following <a
+href="https://www.dipintothereef.com/uploads/3/7/3/5/37359245/rairuoho.txt">link</a>.
+It contains data on 8 days length of Easter grass exposed to different
+treatments. The 6 variables <strong><code>day3</code></strong> to
+<strong><code>day8</code></strong> are the mean length of the grass on
+the respective day. <strong><code>germinate</code></strong> is the
+number of germinated seeds.<strong><code>bed</code></strong> is a factor
+with four levels (<code>mould1</code>,<code>mould2</code>,
+<code>paper4</code>, <code>paper8</code>) indicating where the grass
+grew and how thick it was. <strong><code>treatement</code></strong> has
+two levels <code>water</code> and <code>nutrient</code> indicating the
+irrigation scheme (pure water or enriched with nutrients).
+<strong><code>spatial1</code></strong> and
+<strong><code>spatial2</code></strong> are the vertical and horizontal
+position of the plot respectively. The variables <code>row</code> and
+<code>column</code> are meaningless and should be removed.
+</p>
+<p class="alert">
+<strong>Instruction:</strong> In the variable <code>treatement</code>,
+<code>nutrient</code> is misleading, as it refers to nutrient- enriched
+water. Replace <code>nutrient</code> with <code>enriched</code> in the
+dataset. Reformat the table so that the <code>day</code> is as a single
+variable (factor) with 6 levels (<code>day3</code>, <code>day4</code>,
+<code>day5</code>, <code>day6</code>, <code>day7</code>,
+<code>day8</code>). Another variable <code>length</code> is created to
+get the length of the grass on the given day. The variables
+<code>Spatial1</code> and <code>Spatial2</code> are merged to obtain the
+following format for the spatial coordinates of an observation
+<code>upper_left</code>. Remove the variables <code>row</code> and
+<code>column</code>. This homework must be prepared in <em>.Rmd</em>
+format, which you will knit as a <em>.html</em> file. You will
+<strong>push</strong> your files in a public repository accessible via
+your Github account. You will email me [<a
+href="mailto:vianneydenis@g.ntu.edu.tw"
+class="email">vianneydenis@g.ntu.edu.tw</a>] with the address (URL) of
+this repository (e.g. <a
+href="https://github.com/vianneydenis/OCEAN5098B.git"
+class="uri">https://github.com/vianneydenis/OCEAN5098B.git</a>)
+<strong>before next Monday</strong> so that I can review your work. The
+<strong>title of your email</strong> should be:
+<code>Practice 2.3 (your name: your student number)</code>.
+</p>
+</div>
+</div>
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+<script>
+$(document).ready(function () {
+  window.initializeCodeFolding("show" === "show");
+});
+</script>
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
