@@ -1,5 +1,7 @@
 xaringanExtra::use_clipboard()
 
+knitr::include_graphics("illustrations/iris.png")
+
 rm(list=ls()) # clean memory
 library (datasets) # load package
 data(iris) # import dataset

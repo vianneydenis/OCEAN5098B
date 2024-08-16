@@ -1,0 +1,1141 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+
+
+<title>Data types and structures</title>
+
+<script src="site_libs/header-attrs-2.25/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/flatly.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<script src="site_libs/navigation-1.1/codefolding.js"></script>
+<script src="site_libs/clipboard-2.0.6/clipboard.min.js"></script>
+<link href="site_libs/xaringanExtra-clipboard-0.2.6/xaringanExtra-clipboard.css" rel="stylesheet" />
+<script src="site_libs/xaringanExtra-clipboard-0.2.6/xaringanExtra-clipboard.js"></script>
+<script>window.xaringanExtraClipboard(null, {"button":"Copy Code","success":"Copied!","error":"Press Ctrl+C to Copy"})</script>
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+
+
+<style type="text/css">
+  code {
+    white-space: pre;
+  }
+  .sourceCode {
+    overflow: visible;
+  }
+</style>
+<style type="text/css" data-origin="pandoc">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; } /* Alert */
+code span.an { color: #008000; } /* Annotation */
+code span.at { } /* Attribute */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #0000ff; } /* ControlFlow */
+code span.ch { color: #008080; } /* Char */
+code span.cn { color: #585cf6; } /* Constant */
+code span.co { color: #4c886b; } /* Comment */
+code span.cv { color: #008000; } /* CommentVar */
+code span.do { color: #008000; } /* Documentation */
+code span.dv { color: #0000cd; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #0000cd; } /* Float */
+code span.im { } /* Import */
+code span.in { color: #008000; } /* Information */
+code span.kw { color: #0000ff; } /* Keyword */
+code span.op { color: #687687; } /* Operator */
+code span.ot { color: #ff4000; } /* Other */
+code span.pp { color: #ff4000; } /* Preprocessor */
+code span.sc { color: #008080; } /* SpecialChar */
+code span.ss { color: #008080; } /* SpecialString */
+code span.st { color: #036a07; } /* String */
+code span.va { } /* Variable */
+code span.vs { color: #008080; } /* VerbatimString */
+code span.wa { color: #008000; font-weight: bold; } /* Warning */
+
+.sourceCode .row {
+  width: 100%;
+}
+.sourceCode {
+  overflow-x: auto;
+}
+.code-folding-btn {
+  margin-right: -30px;
+}
+</style>
+<script>
+// apply pandoc div.sourceCode style to pre.sourceCode instead
+(function() {
+  var sheets = document.styleSheets;
+  for (var i = 0; i < sheets.length; i++) {
+    if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
+    try { var rules = sheets[i].cssRules; } catch (e) { continue; }
+    var j = 0;
+    while (j < rules.length) {
+      var rule = rules[j];
+      // check if there is a div.sourceCode rule
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") {
+        j++;
+        continue;
+      }
+      var style = rule.style.cssText;
+      // check if color or background-color is set
+      if (rule.style.color === '' && rule.style.backgroundColor === '') {
+        j++;
+        continue;
+      }
+      // replace div.sourceCode by a pre.sourceCode rule
+      sheets[i].deleteRule(j);
+      sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
+    }
+  }
+})();
+</script>
+
+
+
+
+<link rel="stylesheet" href="styles.css" type="text/css" />
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "\e258";
+  font-family: 'Glyphicons Halflings';
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+<style type="text/css">
+.code-folding-btn { margin-bottom: 4px; }
+</style>
+
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">OCEAN_5098</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Home</a>
+</li>
+<li>
+  <a href="environment.html">Environment</a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Manipulation
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="TEMP_basics.html">Basics</a>
+    </li>
+    <li>
+      <a href="TEMP_dplyr.html">dplyr</a>
+    </li>
+    <li>
+      <a href="TEMP_tidyr.html">tidyr</a>
+    </li>
+  </ul>
+</li>
+<li>
+  <a href="types.html">Types &amp; structures</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+<div class="btn-group pull-right float-right">
+<button type="button" class="btn btn-default btn-xs btn-secondary btn-sm dropdown-toggle" data-toggle="dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span>Code</span> <span class="caret"></span></button>
+<ul class="dropdown-menu dropdown-menu-right" style="min-width: 50px;">
+<li><a id="rmd-show-all-code" href="#">Show All Code</a></li>
+<li><a id="rmd-hide-all-code" href="#">Hide All Code</a></li>
+</ul>
+</div>
+
+
+
+<h1 class="title toc-ignore">Data types and structures</h1>
+
+</div>
+
+
+<a href="data:text/x-markdown;base64,LS0tDQp0aXRsZTogIkRhdGEgdHlwZXMgYW5kIHN0cnVjdHVyZXMiDQotLS0NCg0KYGBge3IgZXZhbCA9IFRSVUUsICBtZXNzYWdlPUYsIGluY2x1ZGU9RkFMU0UsIHdhcm5pbmc9RiwgcHVybD1GLCByZXN1bHRzPSJoaWRlIn0NCmtuaXRyOjpwdXJsKCd0eXBlcy5SbWQnLCBkb2N1bWVudGF0aW9uID0gMCkNCmBgYA0KDQpgYGB7ciBlY2hvPUZBTFNFLCBwdXJsPUZ9DQp4ZnVuOjplbWJlZF9maWxlKCd0eXBlcy5SbWQnKQ0KYGBgDQoNCmBgYHtyIGVjaG89RkFMU0UsIHB1cmw9Rn0NCnhmdW46OmVtYmVkX2ZpbGUoJ3R5cGVzLlInKQ0KYGBgDQoNCmBgYHtyIGVjaG89RkFMU0V9DQp4YXJpbmdhbkV4dHJhOjp1c2VfY2xpcGJvYXJkKCkNCmBgYA0KDQotLS0tLS0tLS0tLS0tLS0tLS0tLS0tLQ0KDQpQcmV2aW91c2x5IHdlIHVzZWQgYHN0cmAgdG8gbGVhcm4gdGhlICoqc3RydWN0dXJlKiogb2YgYW4gb2JqZWN0LiBLbm93aW5nIHRoZSB0eXBlIGFuZCBzdHJ1Y3R1cmUgb2YgdGhlIGRhdGEgeW91IGFyZSB3b3JraW5nIG9uIGlzIGNydWNpYWwgZm9yIGFueSBmdXJ0aGVyIGFuYWx5c2lzLiBOZXZlcnRoZWxlc3MsIHRoaXMgc3RlcCBpcyBvZnRlbiBza2lwcGVkLCB3aGljaCBjYW4gbGVhZCB0byBzZXJpb3VzIHByb2JsZW1zIGluIHRoZSBmb2xsb3dpbmcgc3RlcHMuIFRoaXMgc2VjdGlvbiBpbnRyb2R1Y2VzIHNvbWUgY29tbW9uIGRhdGEgdHlwZXMgYW5kICBzdHJ1Y3R1cmVzICB0aGF0IGFyZSBmcmVxdWVudGx5IGVuY291bnRlcmVkIGluIHRoaXMgY291cnNlLg0KDQojIENvcmUgZGF0YSB0eXBlcw0KDQpUaGVzZSBkYXRhIHR5cGVzLCBvciAqKm1vZGVzKiosIGRldGVybWluZSBob3cgdGhlIHZhbHVlcyBhcmUgc3RvcmVkIGluIHRoZSBjb21wdXRlci4gWW91IGNhbiBkZXRlcm1pbmUgdGhlIG1vZGUgb2YgYW4gb2JqZWN0IHdpdGggdGhlIGB0eXBlb2ZgIGZ1bmN0aW9uLiBOb3RlIHRoYXQgUiBhbHNvIGhhcyBhIGJ1aWx0LWluIGBtb2RlYCBmdW5jdGlvbiB0aGF0IHNlcnZlcyB0aGUgc2FtZSBwdXJwb3NlLCB3aXRoIHRoZSBvbmx5IGV4Y2VwdGlvbiB0aGF0IGl0IGRvZXMgbm90IGRpc3Rpbmd1aXNoIGJldHdlZW4gKippbnRlZ2VycyoqIGFuZCAqKmRvdWJsZXMqKiAoc2VlIG1lYW5pbmdzIGJlbG93KS4NCg0KIyMgTnVtZXJpYw0KDQpUaGUgKipudW1lcmljKiogZGF0YSB0eXBlIGlzIHByb2JhYmx5IHRoZSBzaW1wbGVzdC4gSXQgY29uc2lzdHMgb2YgbnVtYmVycyBzdWNoIGFzICoqaW50ZWdlcnMqKiAoaXdob2xlLXZhbHVlZCBwb3NpdGl2ZSBvciBuZWdhdGl2ZSBudW1iZXIgb3IgMCwgZS5nLiAxICwtMyAsMzMgLDApIG9yICoqZG91YmxlcyoqIChlLmcuIDAuMywgMTIuNCwgLTAuMDQsIDEuMCkuIEZvciBleGFtcGxlLCB0byBjcmVhdGUgYSBudW1lcmljIChkb3VibGUpIHZlY3Rvciwgd2UgY2FuIHdyaXRlOg0KDQpgYGB7ciwgIGV2YWw9VH0NCnggPC0gYygxLjAsIC0zLjQsIDIsIDE0MC4xKSAjIG51bWVyaWMgYW5kIGRvdWJsZQ0KdHlwZW9mKHgpIA0KbW9kZSh4KQ0KYGBgDQoNCk5vdGUgdGhhdCByZW1vdmluZyB0aGUgZnJhY3Rpb25hbCBwYXJ0IG9mIGEgbnVtYmVyIHdoZW4gY3JlYXRpbmcgYSBudW1lcmljIG9iamVjdCBkb2VzIG5vdCBuZWNlc3NhcmlseSBjcmVhdGUgYW4gaW50ZWdlci4gRm9yIGV4YW1wbGUsIGNyZWF0aW5nIGFuIGFwcGFyZW50IGludGVnZXIgb2JqZWN0IHJlc3VsdHMgaW4gYSBkb3VibGUgd2l0aCBgdHlwZW9mYCA6DQoNCmBgYHtyLCAgZXZhbD1UfQ0KeCA8LSA0DQp0eXBlb2YoeCkNCmBgYA0KDQpUbyBmb3JjZSBSIHRvIHJlY29nbml6ZSBhIHZhbHVlIGFzIGFuIGludGVnZXIsIGFkZCBhIGNhcGl0YWwgYExgIHRvIHRoZSBudW1iZXIuDQoNCmBgYHtyLCAgZXZhbD1UfQ0KeCA8LSA0TA0KdHlwZW9mKHgpDQpgYGANCg0KIyMgQ2hhcmFjdGVyDQoNClRoZSBkYXRhIHR5cGUgKipjaGFyYWN0ZXIqKiBjb25zaXN0cyBvZiBsZXR0ZXJzIG9yIHdvcmRzIHN1Y2ggYXMgImEiLCAiZiIsICJwcm9qZWN0IiwgImJpcmRzIi4NCg0KYGBge3IsICBldmFsPVR9DQp4IDwtIGMoImJ1YnVsIiwgIm1hZ3BpZSIsICJzcG9vbmJpbGwiLCAiYmFyYmV0IikNCnR5cGVvZih4KQ0KYGBgDQoNCkNoYXJhY3RlcnMgY2FuIGFsc28gY29uc2lzdCBvZiBudW1iZXJzIHRoYXQgYXJlIHJlcHJlc2VudGVkIGFzIGNoYXJhY3RlcnMuIFRoZSBkaXN0aW5jdGlvbiBiZXR3ZWVuIGEgY2hhcmFjdGVyIHJlcHJlc2VudGF0aW9uIG9mIGEgbnVtYmVyIGFuZCBhIG51bWVyaWNhbCByZXByZXNlbnRhdGlvbiBpcyBpbXBvcnRhbnQuIEZvciBleGFtcGxlLCBpZiB3ZSBoYXZlIHR3byBudW1lcmljIHZlY3RvcnMgYHhgIGFuZCBgeWAgc3VjaCBhczoNCg0KDQpgYGB7ciwgIGV2YWw9VH0NCnggPC0gMw0KeSA8LSA1LjMNCnggKyB5DQpgYGANCg0KSWYgd2UgcmVwZWF0IHRoZXNlIHN0ZXBzLCBidXQgaW5zdGVhZCBvZiByZXByZXNlbnRpbmcgYHhgIGFuZCBgeWAgYXMgKipudW1lcmljKiogYW5kICoqZG91YmxlcyoqIHdlIGVudGVyICczJyBhbmQgJzUuMycgYXMgKipjaGFyYWN0ZXJzKiouIFdoZW4gd2UgdHJ5IHRvIGFkZCB0aGVtIHVwLCB3ZSB3aWxsIGxvZ2ljYWxseSBnZXQgYW4gZXJyb3I6DQoNCg0KYGBge3IsICBldmFsPVR9DQp4IDwtICIzIg0KeSA8LSAiNS4zIg0KDQojIG5vdCBydW46ICB4KyB5DQoNCiMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjDQojIEVycm9yIGluIHggKyB5OiBub24tbnVtZXJpYyBhcmd1bWVudCB0byBiaW5hcnkgb3BlcmF0b3IgIw0KIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMNCg0KYGBgDQoNCk5vdGUgdGhlIHVzZSBvZiBxdW90YXRpb24gbWFya3MgdG8gZm9yY2UgKipkb3VibGUqKiB0byBiZSByZWNvZ25pemVkIGFzICoqY2hhcmFjdGVyKiouIEJlIGNhcmVmdWwgdGhhdCBzb21lIGZ1bmN0aW9ucyBsaWtlIGBwbG90YCBhdXRvbWF0aWNhbGx5IGNvbnZlcnQgKipjaGFyYWN0ZXIqKiB0byAqKmRvdWJsZSoqLiBUcnkgYHBsb3QoeCx5KWAsIGl0IHdvcmtzIQ0KDQojIyBMb2dpY2FsDQoNCkxvZ2ljYWwgdmFsdWVzIGNhbiB0YWtlIG9uZSBvZiB0d28gdmFsdWVzL2NvbmRpdGlvbnM6IGBUUlVFYCBvciBgRkFMU0VgLiBUaGVzZSBjYW4gYWxzbyBiZSByZXByZXNlbnRlZCBhcyBgMWAgb3IgYDBgLCB3aGljaCBhcmUgbGF0ZXIgYXNzaWduZWQgYXMgKipsb2dpY2FsKiogdmFsdWVzLiBGb3IgZXhhbXBsZSwgdG8gY3JlYXRlIGEgbG9naWNhbCB2ZWN0b3Igd2l0aCA0IGVsZW1lbnRzLCB5b3UgY2FuIGVudGVyIHRoZSBmb2xsb3dpbmc6DQoNCmBgYHtyLCAgZXZhbD1UfQ0KIyBmdWxsIHRleHQ6DQp4IDwtIGMoVFJVRSwgRkFMU0UsIEZBTFNFLCBUUlVFKQ0KIyBvciBpbiBzaG9ydDoNCnggPC0gYyhULCBGLCBGLCBUKQ0KYGBgDQoNCm9yDQoNCmBgYHtyLCAgZXZhbD1UfQ0KeDE8LWMoMSwwLDAsMSkNCngyIDwtIGFzLmxvZ2ljYWwoYygxLDAsMCwxKSkNCiMgT1I6IHgzIDwtIGFzLmxvZ2ljYWwoYygxLDAsMCwxKSkNCmBgYA0KDQpOb3RlIHRoYXQgYHR5cGVvZmAgcmV0dXJucyAqKmxvZ2ljYWwqKiBpbiBib3RoIGNhc2VzLiBBbHNvIG5vdGUgdGhhdCB0aGUgYDFgIGFuZCBgMGAgaW4gdGhlIGxhc3QgZXhhbXBsZSBhcmUgY29udmVydGVkIGludGVybmFsbHkgaW50byBgVFJVRWAgYW5kIGBGQUxTRWAgdXNpbmcgdGhlIGZ1bmN0aW9uIGBhcy5sb2dpY2FsYCAoPSBjcmVhdGUgYSBsb2dpY2FsIHZlY3RvcikuDQoNCiMgRGVyaXZlZCBkYXRhIHR5cGVzDQoNClRoZXNlIGRhdGEgdHlwZXMgYXJlIHN0b3JlZCBlaXRoZXIgYXMgbnVtZXJpYywgY2hhcmFjdGVyIG9yIGxvZ2ljYWwsIGJ1dCBoYXZlIGFkZGl0aW9uYWwgKmF0dHJpYnV0ZSogaW5mb3JtYXRpb24gdGhhdCBhbGxvd3MgdGhlc2Ugb2JqZWN0cyB0byBiZSBoYW5kbGVkIGluIGEgc3BlY2lhbCB3YXkgYnkgY2VydGFpbiBmdW5jdGlvbnMuIFRoZXNlIGF0dHJpYnV0ZXMgZGVmaW5lIHRoZSAqKmNsYXNzKiogb2YgYW4gb2JqZWN0IGFuZCBjYW4gYmUgZXh0cmFjdGVkIGZyb20gYW4gb2JqZWN0IHVzaW5nIHRoZSBgY2xhc3NgIGZ1bmN0aW9uLg0KDQojIyBGYWN0b3INCg0KKipGYWN0b3IqKiBpcyB1c2VkIHRvIGdyb3VwIHZhcmlhYmxlcyBpbnRvIGEgZml4ZWQgbnVtYmVyIG9mIHVuaXF1ZSBjYXRlZ29yaWVzIG9yICoqbGV2ZWxzKiouIEZvciBleGFtcGxlLCBhIGRhdGEgc2V0IGNhbiBiZSBncm91cGVkIGJ5ICpnZW5kZXIqIG9yICptb250aCogb2YgeWVhci4gU3VjaCBkYXRhIGlzIHVzdWFsbHkgbG9hZGVkIGludG8gUiBhcyBhICoqbnVtZXJpYyoqIG9yICoqY2hhcmFjdGVyKiogZGF0YSB0eXBlIGFuZCBtdXN0IHRoZW4gYmUgY29udmVydGVkIGludG8gYSBmYWN0b3IgdXNpbmcgdGhlIGBhcy5mYWN0b3JgIGZ1bmN0aW9uIChpZiB0aGlzIGhhcyBub3QgYmVlbiBkb25lIGF1dG9tYXRpY2FsbHkgd2hlbiBpbXBvcnRpbmcgdGhlIGRhdGEpLg0KDQpgYGB7ciwgIGV2YWw9VH0NCmEgPC0gYygiTSIsICJGIiwgIkYiLCAiVSIsICJGIiwgIk0iLCAiTSIsICJNIiwgIkYiLCAiVSIpDQp0eXBlb2YoYSkgIyBtb2RlIGNoYXJhY3Rlcg0KY2xhc3MoYSkjIGNsYXNzIGNoYXJhY3Rlcg0KYS5mYWN0IDwtIGFzLmZhY3RvcihhKQ0KY2xhc3MoYS5mYWN0KSMgY2xhc3MgZmFjdG9yDQpgYGANCg0KKipOb3RlKio6IGBhYCBoYXMgbm90IGNoYW5nZWQgdGhlIG1vZGUuIFRoZSBkYXRhIGlzIHN0aWxsIG9mIHRoZSB0eXBlIGBjaGFyYWN0ZXJgLiBIb3dldmVyLCBpdCBtYXkgc2VlbSBzdHJhbmdlIGF0IGZpcnN0LCBidXQgdGhlIGRlcml2ZWQgb2JqZWN0IGBhLmZhY3RgIGlzIG5vdyBzdG9yZWQgYXMgYW4gYGludGVnZXJgIQ0KDQpgYGB7ciwgIGV2YWw9VH0NCm1vZGUoYS5mYWN0KQ0KdHlwZW9mKGEuZmFjdCkNCmBgYA0KDQpIb3dldmVyLCB3aGVuIHdlIGRpc3BsYXkgdGhlIGNvbnRlbnQgb2YgYGEuZmFjdGAgd2Ugc2VlIGNoYXJhY3RlciB2YWx1ZXMuDQoNCmBgYHtyLCAgZXZhbD1UfQ0KYS5mYWN0DQpgYGANCg0KKirngrrku4DpurwqKiAod2h5KT9XZWxsLCBgYS5mYWN0YCBpcyBhIG1vcmUgY29tcGxpY2F0ZWQgb2JqZWN0IHRoYW4gdGhlIHNpbXBsZSBvYmplY3RzIGNyZWF0ZWQgc28gZmFyLiBJbiBmYWN0LCAqKmZhY3RvcioqIHN0b3JlcyBhZGRpdGlvbmFsIGluZm9ybWF0aW9uIG5vdCB2aXNpYmxlIGluIGl0cyBvdXRwdXQuIFRoaXMgaGlkZGVuIGluZm9ybWF0aW9uIGlzIHN0b3JlZCBpbiAqKmF0dHJpYnV0ZXMqKi4gVG8gc2VlIHRoZXNlIGhpZGRlbiBhdHRyaWJ1dGVzLCB1c2UgdGhlIGBhdHRyaWJ1dGVzYCBmdW5jdGlvbi4NCg0KYGBge3IsICBldmFsPVR9DQphdHRyaWJ1dGVzKGEuZmFjdCkNCmBgYA0KDQpUaGVyZSBhcmUgdHdvIGF0dHJpYnV0ZXM6IGBsZXZlbHNgIGFuZCBgY2xhc3NgLiBUaGUgYGxldmVsc2AgYXR0cmlidXRlIGxpc3RzIHRoZSB0aHJlZSB1bmlxdWUgdmFsdWVzIGluIGBhLmZhY3RgLiBUaGUgb3JkZXIgaW4gd2hpY2ggdGhlc2UgbGV2ZWxzIGFyZSBsaXN0ZWQgcmVmbGVjdHMgdGhlaXIgKm51bWVyaWMqIHJlcHJlc2VudGF0aW9uIFtzZWUgYHN0ciAoYS5mYWN0KWAgYW5kIHRoZSBudW1lcmljIHNlcXVlbmNlIGdlbmVyYXRlZDogYDIgMSAxIDMgLi4uYF0uIFNvIGVzc2VudGlhbGx5LCBgYS5mYWN0YCBzdG9yZXMgZWFjaCB2YWx1ZSBhcyBhbiBpbnRlZ2VyIHRoYXQgcmVmZXJzIHRvIG9uZSBvZiB0aGUgdGhyZWUgdW5pcXVlIGxldmVscy4gVGhlIHVuaXF1ZSBsZXZlbHMgb2YgYSBmYWN0b3IgYW5kIHRoZSBvcmRlciBpbiB3aGljaCB0aGV5IGFyZSBzdG9yZWQgY2FuIGJlIGV4dHJhY3RlZCB1c2luZyB0aGUgYGxldmVsc2AgZnVuY3Rpb24uDQoNCmBgYHtyLCAgZXZhbD1UfQ0KbGV2ZWxzKGEuZmFjdCkNCmBgYA0KDQpSZW1lbWJlciB0aGF0IHRoZSBvcmRlciBpbiB3aGljaCB0aGUgbGV2ZWxzIGFyZSBkaXNwbGF5ZWQgY29ycmVzcG9uZHMgdG8gdGhlaXIgaW50ZWdlciByZXByZXNlbnRhdGlvbi4gSWYgdGhleSBhcmUgdG8gYmUgIGRpc3BsYXllZCBpbiBhIGRpZmZlcmVudCBvcmRlciAoZS5nLiBmaXJzdCBVLCB0aGVuIEYsIHRoZW4gTSksIHdlIG11c3QgY2hhbmdlIGl0IGJ5IHJlY3JlYXRpbmcgdGhlIGZhY3RvciBvYmplY3QgYXMgZm9sbG93czoNCg0KYGBge3IsICBldmFsPVR9DQpmYWN0b3IoYSwgbGV2ZWxzPWMoIlUiLCJGIiwiTSIpKQ0KYGBgDQoNClRoaXMgZGV0YWlsIGlzIGNydWNpYWwgd2hlbiB5b3UgYXJlIHRyeWluZyB0byByZWFycmFuZ2UgZWxlbWVudHMgaW4gYSBwbG90LCBzbyB5b3UgbmVlZCB0byByZW1lbWJlciBpdC4NCg0KPHAgY2xhc3M9ImNvbW1lbnQiPg0KKipQcmFjdGljZSAzLjEqKiBVbmRlcnN0YW5kaW5nIHRoZSBmYWN0b3JzIGFuZCB0aGVpciBsZXZlbHMgaXMgY3J1Y2lhbCwgZXNwZWNpYWxseSBpZiB5b3UgYXJlIGNyZWF0aW5nIHN1Ymdyb3VwcyBvciBwbG90cy4gTGV0J3MgZmluZCBvdXQgdG9nZXRoZXIgd2h5IHRoaXMgaXMgc28gYnkgdXNpbmcgdGhlIGBpcmlzYCBkYXRhc2V0LiBTdWJzZXQgc3BlY2llcyBgc2V0b3NhYCBhbmQgYHZpcmdpbmljYWAgaW50byBhIG5ldyBkYXRhc2V0IHRoYXQgeW91IGNhbGwgYGlyaXMuc2VsYC4gQ2hlY2sgdGhlIGBsZXZlbHNgIGluIHRoZSB2YXJpYWJsZSBgaXJpcy5zZWwkU3BlY2llc2AuIENvbmNsdWRlIG9uIHRoZSBwb3NzaWJsZSBjb25zZXF1ZW5jZXM/DQo8L3A+DQoNCmBgYHtyLCBjbGFzcy5zb3VyY2UgPSAiZm9sZC1oaWRlIiwgIGV2YWw9Rn0NCmlyaXMuc2VsPC0gc3Vic2V0KGlyaXMsIFNwZWNpZXMgPT0gInNldG9zYSIgfCBTcGVjaWVzID09ICJ2aXJnaW5pY2EiKQ0KbGV2ZWxzKGlyaXMuc2VsJFNwZWNpZXMpICAjIDMgc3BlY2llcyBhcmUgc3RpbGwgdGhlcmUNCmBgYA0KDQoNCj4gVG8gZGVsZXRlIGEgbGV2ZWwgYWZ0ZXIgYSBzdWJzZXQsIHlvdSBjYW4gdXNlIHRoZSBgZHJvcGxldmVsc2AgZnVuY3Rpb24gZm9yIGEgc3BlY2lmaWMgdmFyaWFibGUuIFRyeSBpdCB3aXRoIHRoZSB2YXJpYWJsZSBgaXJpcy5zZWwkU3BlY2llc2AgYW5kIGNvbXBhcmUgdGhlIHJlc3VsdHMgd2l0aCB0aGUgaGVscCBvZiBib3hwbG90cyAoYD9ib3hwbG90YCkuDQoNCg0KSXQgaXMgbm93IHRpbWUgdG8gY2hhbmdlIHRoZSByb3cgbmFtZXMgaW4gb3VyIHN1YnNldDoNCg0KYGBge3IsICBldmFsPUZ9DQpyb3duYW1lcyhpcmlzLnNlbCkgPSBzZXEobGVuZ3RoPW5yb3coaXJpcy5zZWwpKQ0KYGBgDQoNCjxzcGFuIHN0eWxlPSJjb2xvcjogcmVkIj4qKkFMV0FZUyoqLCAqKkFMV0FZUyoqLCAgQ0hFQ0sgVEhFIERBVEEgVFlQRSBBTkQgU1RSVUNUVVJFIE9GIFlPVVIgREFUQSBTRVQhPC9zcGFuPg0KDQojIyBEYXRlDQoNCkRhdGUgdmFsdWVzIGFyZSBzdG9yZWQgYXMgbnVtYmVycy4gQnV0IHRvIGJlIHByb3Blcmx5IGludGVycHJldGVkIGFzIGEgZGF0ZSBvYmplY3QgaW4gUiwgdGhlaXIgYXR0cmlidXRlIG11c3QgYmUgZXhwbGljaXRseSBkZWZpbmVkIGFzICoqZGF0ZSoqLiBgYmFzZWAgb2ZmZXJzIG1hbnkgd2F5cyB0byBjb252ZXJ0IGFuZCBtYW5pcHVsYXRlIGRhdGVzIGFuZCB0aW1lcywgYnV0IGEgcGFja2FnZSBjYWxsZWQgYGx1YnJpZGF0ZWAgW3NlZSBgbGlicmFyeSAobHVicmlkYXRlKWBdIG1ha2VzIHdvcmtpbmcgd2l0aCBkYXRlcy90aW1lcyBtdWNoIGVhc2llci4gV29ya2luZyB3aXRoIGRhdGVzIGNvdWxkIGJlIHRoZSBzdWJqZWN0IG9mIGEgc2VwYXJhdGUgdG9waWMsIGFuZCBpdCB3aWxsIG5vIGJlIGNvdmVyZWQgaGVyZS4NCg0KIyMgTkFzIGFuZCBOVUxMcw0KDQpZb3Ugb2Z0ZW4gZmluZCBtaXNzaW5nIG9yIHVua25vd24gdmFsdWVzIGluIGRhdGEgc2V0cyB0aGF0IHlvdSBtYXkgYmUgdGVtcHRlZCB0byBhc3NpZ24gKiowKiouIEhvd2V2ZXIsIHRoaXMgY2FuIGJlIHZlcnkgd3JvbmcgYW5kIGxlYWQgdG8gbWFueSB1bmRlc2lyYWJsZSByZXN1bHRzIHdoZW4gYW5hbHl6aW5nIHRoZSBkYXRhLiBSIGhhcyB0d28gcGxhY2Vob2xkZXJzIGZvciBzdWNoIGVsZW1lbnRzOiBgTkFgIGFuZCBgTlVMTGAuDQoNCmBgYHtyIGNsYXNzLnNvdXJjZSA9ICJmb2xkLXNob3ciLCAgZXZhbD1UfQ0KeCA8LSBjKDIzLCBOQSwgMS4yLCA1KQ0KYGBgDQoNCmBOQWAgKE5vdCBBdmFpbGFibGUpIGlzIGFuIGluZGljYXRvciBmb3IgYSBtaXNzaW5nIHZhbHVlLiBJdCBpbmRpY2F0ZXMgdGhhdCBhIHZhbHVlIHNob3VsZCBiZSBhdmFpbGFibGUgYnV0IGlzIHVua25vd24uDQoNCg0KYGBge3IgY2xhc3Muc291cmNlID0gImZvbGQtc2hvdyIsICBldmFsPVR9DQp5IDwtIGMoMjMsIE5VTEwsIDEuMiwgNSkNCmBgYA0KDQpUaGUgYE5VTExgIG9iamVjdCBhbHNvIHN0YW5kcyBmb3IgbWlzc2luZyB2YWx1ZXMsIGJ1dCBpdHMgaW50ZXJwcmV0YXRpb24gaXMgc2xpZ2h0bHkgZGlmZmVyZW50LCBhcyBpdCBpbXBsaWVzIHRoYXQgdGhlIHZhbHVlIGRvZXMgbm90IGV4aXN0IG9yIHRoYXQgaXTigJlzIG5vdCBtZWFzdXJhYmxlLg0KDQpUaGUgZGlmZmVyZW5jZSBiZXR3ZWVuIGBOQWAgYW5kIGBOVUxMYCBtYXkgc2VlbSBzdWJ0bGUsIGJ1dCB0aGVpciBpbnRlcnByZXRhdGlvbiBpbiBzb21lIGZ1bmN0aW9ucyBjYW4gbGVhZCB0byBkaWZmZXJlbnQgb3V0Y29tZXMuIEZvciBleGFtcGxlLCB3aGVuIGNvbXB1dGluZyB0aGUgbWVhbiBvZiBgeGAsIFIgcmV0dXJucyBhbiBgTkFgIHZhbHVlOg0KDQpgYGB7ciBjbGFzcy5zb3VyY2UgPSAiZm9sZC1zaG93IiwgIGV2YWw9VH0NCm1lYW4oeCkNCmBgYA0KDQpUaGlzIHNlcnZlcyBhcyBhIGNvbnRyb2wgdG8gcmVtaW5kIHRoZSB1c2VyIHRoYXQgb25lIG9mIHRoZSBlbGVtZW50cyBpcyBtaXNzaW5nLiBUaGlzIGNhbiBiZSBjaXJjdW12ZW50ZWQgYnkgc2V0dGluZyB0aGUgYG5hLnJtYCBwYXJhbWV0ZXIgdG8gYFRSVUVgIGFzIGluIGBtZWFuKHgsIG5hLnJtPVQpYCBpbiB3aGljaCBjYXNlIFIgaWdub3JlcyB0aGUgbWlzc2luZyB2YWx1ZS4NCg0KQSBgTlVMTGAgb2JqZWN0LCBvbiB0aGUgb3RoZXIgaGFuZCwgaXMgdHJlYXRlZCBkaWZmZXJlbnRseS4gU2luY2UgYE5VTExgIGltcGxpZXMgdGhhdCBhIHZhbHVlIHNob3VsZCBub3QgZXhpc3QsIFIgbm8gbG9uZ2VyIHNlZXMgdGhlIG5lZWQgdG8gdHJlYXQgc3VjaCBhbiBlbGVtZW50IGFzIHF1ZXN0aW9uYWJsZSBhbmQgYWxsb3dzIHRoZSBtZWFuIHZhbHVlIHRvIGJlIGNhbGN1bGF0ZWQ6DQoNCmBgYHtyIGNsYXNzLnNvdXJjZSA9ICJmb2xkLXNob3ciLCAgZXZhbD1UfQ0KbWVhbih5KQ0KYGBgDQoNCkl0IGhhcHBlbnMgbW9yZSBvZnRlbiB0aGF0IGRhdGEgdGFibGVzIHdpdGggbWlzc2luZyBlbGVtZW50cyBhcmUgZmlsbGVkIHdpdGggYE5BYCB0aGFuIHdpdGggYE5VTExgLiBTbyBpZiB5b3UgaGF2ZSBubyBwYXJ0aWN1bGFyIHJlYXNvbiB0byB1c2UgYE5VTExgIGFzIGEgbWlzc2luZyB2YWx1ZSwgdXNlIGBOQWAgaW5zdGVhZC4NCg0KIyBEYXRhIHN0cnVjdHVyZXMNCg0KTW9zdCBvZiB0aGUgZGF0YSBzZXRzIHdlIHdvcmsgd2l0aCBjb25zaXN0IG9mIGJhdGNoZXMgb2YgdmFsdWVzIHN1Y2ggYXMgYSAqKnRhYmxlKiogKGUuZy4gdGVtcGVyYXR1cmUgdmFsdWVzKSBvciBhIGxpc3Qgb2YgcmVzdWx0cyAoZS5nLiBhbm51YWwgc3VydmV5KS4gVGhlc2UgYmF0Y2hlcyBvZiBkYXRhIGFyZSBzdG9yZWQgaW4gUiBpbiBvbmUgb2Ygc2V2ZXJhbCBkYXRhIHN0cnVjdHVyZXMuIFRoZXNlIGluY2x1ZGUgKiooYXRvbWljKSB2ZWN0b3JzKiosICoqZGF0YSBmcmFtZXMqKiwgKiptYXRyaWNlcyoqIGFuZCAqKmxpc3RzKiouDQoNCg0KYGBge3IsIGVjaG89RkFMU0UsIGZpZy5hbGlnbj0nY2VudGVyJywgZmlnLmNhcD0iU29tZSBjb21tb24gZGF0YSBzdHJ1Y3R1cmVzIiwgb3V0LndpZHRoID0gJzUwJSd9DQprbml0cjo6aW5jbHVkZV9ncmFwaGljcygiaWxsdXN0cmF0aW9ucy9kYXRhX3N0cnVjdHVyZXMucG5nIikNCmBgYA0KDQoNCg0KIyMgKEF0b21pYykgdmVjdG9ycw0KDQpUaGUgKiphdG9taWMgdmVjdG9yKiogKG9yICoqdmVjdG9yKiogZm9yIHNob3J0KSBpcyB0aGUgc2ltcGxlc3QgZGF0YSBzdHJ1Y3R1cmUgaW4gUiwgY29uc2lzdGluZyBvZiBhbiBvcmRlcmVkIHNldCBvZiB2YWx1ZXMgb2YgdGhlIHNhbWUgdHlwZSBhbmQvb3IgY2xhc3MgKGUuZy4gbnVtZXJpYywgY2hhcmFjdGVyLCBkYXRlLCBldGPigKYpLiBBcyBiZWZvcmUsIGEgdmVjdG9yIGNhbiBzaW1wbHkgYmUgY3JlYXRlZCB3aXRoIHRoZSBjb21iaW5hdGlvbiBmdW5jdGlvbiBgYygpYCBhcyBpbiA6DQoNCmBgYHtyIGNsYXNzLnNvdXJjZSA9ICJmb2xkLXNob3ciLCAgZXZhbD1UfQ0KeCA8LSBjKDY3NCAsIDQxODYgLCA1MzA4ICwgNTA4MyAsIDYxNDAgLCA2MzgxKQ0KeA0KYGBgDQoNCkFzIHdlIGhhdmUgYWxyZWFkeSBzZWVuLCBhIHZlY3RvciBvYmplY3QgaXMgYW4gKippbmRleGFibGUqKiBjb2xsZWN0aW9uIG9mIHZhbHVlcyB0aGF0IHByb3ZpZGVzIGFjY2VzcyB0byBhIHBhcnRpY3VsYXIgaW5kZXggbnVtYmVyIChzdWJzY3JpcHQpLiBSZW1pbWJlciwgdG8gYWNjZXNzIHRoZSB0aGlyZCBlbGVtZW50IG9mIGB4YCwgdHlwZToNCg0KDQpgYGB7ciBjbGFzcy5zb3VyY2UgPSAiZm9sZC1zaG93IiwgIGV2YWw9VH0NCnhbM10NCmBgYA0KDQpBbHNvIHNlZW4gYmVmb3JlLCBidXQgeW91IGNhbiBzZWxlY3QgYSBzdWJzZXQgb2YgZWxlbWVudHMgYnkgaW5kZXggdmFsdWVzIHVzaW5nIHRoZSBgYygpYDoNCg0KYGBge3IgY2xhc3Muc291cmNlID0gImZvbGQtc2hvdyIsICBldmFsPVR9DQp4W2MoMSwzLDQpXQ0KYGBgDQoNCklmIHlvdSBhcmUgaW50ZXJlc3RlZCBpbiBhIHJhbmdlIG9mIGluZGV4ZWQgdmFsdWVzLCBzdWNoIGFzIGluZGV4IDIgdG8gNCwgdXNlIHRoZSBvcGVyYXRvciBgOmA6DQoNCmBgYHtyIGNsYXNzLnNvdXJjZSA9ICJmb2xkLXNob3ciLCAgZXZhbD1UfQ0KeFsyOjRdDQpgYGANCg0KWW91IGNhbiBhbHNvIGFzc2lnbiBuZXcgdmFsdWVzIHRvIGEgc3BlY2lmaWMgaW5kZXguIEZvciBleGFtcGxlLCB3ZSBjYW4gcmVwbGFjZSB0aGUgc2Vjb25kIHZhbHVlIGluIHRoZSB2ZWN0b3IgYHhgIHdpdGggYDBgOg0KDQpgYGB7ciBjbGFzcy5zb3VyY2UgPSAiZm9sZC1zaG93IiwgIGV2YWw9VH0NCnhbMl0gPC0gMA0KeA0KYGBgDQoNCk5vdGUgdGhhdCBhIHZlY3RvciBjYW4gc3RvcmUgYW55IHR5cGUgb2YgZGF0YSwgc3VjaCBhcyBjaGFyYWN0ZXJzLg0KDQpgYGB7ciBjbGFzcy5zb3VyY2UgPSAiZm9sZC1zaG93IiwgIGV2YWw9VH0NCnggPC0gYygiYWxsIiwgImIiLCAib2xpdmUiKQ0KeA0KYGBgDQoNCkhvd2V2ZXIsICoqYSB2ZWN0b3IgY2FuIG9ubHkgYmUgb2Ygb25lIHR5cGUqKi4gRm9yIGV4YW1wbGUsIHlvdSBjYW5ub3QgbWl4IG51bWVyaWMgYW5kIGNoYXJhY3RlciB0eXBlcyBhcyBmb2xsb3dzOg0KDQpgYGB7ciBjbGFzcy5zb3VyY2UgPSAiZm9sZC1zaG93IiwgIGV2YWw9VH0NCnggPC0gYyggMS4yLCA1LCAiUnQiLCAiMjAwMCIpDQpgYGANCg0KSW4gc3VjaCBhIHNpdHVhdGlvbiwgUiBjb252ZXJ0cyB0aGUgZWxlbWVudCB0eXBlcyB0byB0aGUgKipoaWdoZXN0IGNvbW1vbiBtb2RlKiosIGluIHRoZSBvcmRlciAqKk5VTEwqKiA8ICoqbG9naWNhbCoqIDwgKippbnRlZ2VyKiogPCAqKmRvdWJsZSoqIDwgKipjaGFyYWN0ZXIqKi4gSW4gb3VyIHdvcmtpbmcgZXhhbXBsZSwgdGhlIGVsZW1lbnRzIGFyZSBjb252ZXJ0ZWQgdG8gY2hhcmFjdGVyczoNCg0KYGBge3IgY2xhc3Muc291cmNlID0gImZvbGQtc2hvdyIsICBldmFsPVR9DQp0eXBlb2YoeCkNCmBgYA0KDQojIyBNYXRyaWNlcyBhbmQgYXJyYXlzDQoNCk1hdHJpY2VzIGluIFIgY2FuIGJlIHRob3VnaHQgb2YgYXMgdmVjdG9ycyB0aGF0IGFyZSBpbmRleGVkIHdpdGggdHdvIGluZGljZXMgaW5zdGVhZCBvZiBvbmUuIEZvciBleGFtcGxlLCB0aGUgZm9sbG93aW5nIGxpbmUgb2YgY29kZSBnZW5lcmF0ZXMgYSAzIHggMyBtYXRyaXggd2l0aCByYW5kb21seSBnZW5lcmF0ZWQgdmFsdWVzLiBUaGUgcGFyYW1ldGVycyBgbnJvd2AgYW5kIGBuY29sYCBkZWZpbmUgdGhlIGRpbWVuc2lvbiBvZiB0aGUgbWF0cml4IGFuZCB0aGUgZnVuY3Rpb24gYHJ1bmlmYCBnZW5lcmF0ZXMgbmluZSByYW5kb20gbnVtYmVycyBiZXR3ZWVuIDAgYW5kIDEwIHRoYXQgZmlsbCB0aGlzIG1hdHJpeC4NCg0KYGBge3IgY2xhc3Muc291cmNlID0gImZvbGQtc2hvdyIsICBldmFsPVR9DQptIDwtIG1hdHJpeChydW5pZig5LDAsMTApLCBucm93ID0gMywgbmNvbCA9IDMpDQptDQpgYGANCg0KDQpJZiBhIHZlY3RvciBvZiBoaWdoZXIgZGltZW5zaW9ucyBpcyBkZXNpcmVkLCB1c2UgdGhlIGBhcnJheWAgZnVuY3Rpb24gdG8gY3JlYXRlIHRoZSBuLWRpbWVuc2lvbmFsIG9iamVjdC4gQSAzeDN4MyBhcnJheSBjYW4gYmUgY3JlYXRlZCBhcyBmb2xsb3dzOg0KDQpgYGB7ciBjbGFzcy5zb3VyY2UgPSAiZm9sZC1zaG93IiwgIGV2YWw9VH0NCm0gPC0gYXJyYXkocnVuaWYoMjcsMCwxMCksIGMoMywzLDMpKQ0KbQ0KYGBgDQoNCk1hdHJpY2VzIGFuZCBhcnJheXMgY2FuIHN0b3JlIG51bWVyaWMgb3IgY2hhcmFjdGVyIGRhdGEgdHlwZXMsIGJ1dCBub3QgYm90aC4gVGhleSBhcmUgZGVyaXZlZCBkaXJlY3RseSBmcm9tIHRoZSB2ZWN0b3Igc3RydWN0dXJlLCBidXQgaGF2ZSBhIGhpZ2hlciBudW1iZXIgb2YgZGltZW5zaW9ucy4NCg0KIyMgRGF0YSBmcmFtZXMNCg0KQSAqKmRhdGEgZnJhbWUqKiBpcyB0aGUgY2xvc2VzdCB0aGluZyB3ZSBoYXZlIHRvIGEgdGFibGUuIEl0IGlzIGFuIGV4dGVuc2lvbiBvZiB0aGUgbWF0cml4IG9iamVjdCwgYmVjYXVzZSB1bmxpa2UgYSBtYXRyaXgsIGEgZGF0YSBmcmFtZSBjYW4gKm1peCogdGhlIGRhdGEgdHlwZXMgYWNyb3NzIGNvbHVtbnMgKGUuZy4gYm90aCAqKm51bWVyaWMqKiBhbmQgKipjaGFyYWN0ZXIqKiBjb2x1bW5zIGNhbiBjb2V4aXN0IGluIGEgZGF0YSBmcmFtZSksIGJ1dCB0aGUgZGF0YSB0eXBlIHJlbWFpbnMgdGhlIHNhbWUgYWNyb3NzIHJvd3MuDQoNCg0KYGBge3IgY2xhc3Muc291cmNlID0gImZvbGQtc2hvdyIsICBldmFsPVR9DQpuYW1lICAgPC0gYygiYTEiLCAiYTIiLCAiYjMiKQ0KdmFsdWUxIDwtIGMoMjMsIDQsIDEyKQ0KdmFsdWUyIDwtIGMoMSwgNDUsIDUpDQpkYXQgICAgPC0gZGF0YS5mcmFtZShuYW1lLCB2YWx1ZTEsIHZhbHVlMikNCmRhdA0Kc3RyKGRhdCkgIyBwcm92aWRlIHN0cnVjdHVyZQ0KYXR0cmlidXRlcyhkYXQpICMgcHJvdmlkZSBhdHRyaWJ1dGVzDQpuYW1lcyhkYXQpICMgZXh0cmFjdCBjb2x1bSBuYW1lcw0Kcm93bmFtZXMoZGF0KSAjIGV4dHJhY3Qgcm93IG5hbWVzDQpgYGANCg0KIyMgTGlzdHMNCg0KQSAqKmxpc3QqKiBpcyBhbiBvcmRlcmVkIHNldCBvZiBjb21wb25lbnRzIHN0b3JlZCBpbiBhIDFEIHZlY3Rvci4gU3RyaWN0bHkgc3BlYWtpbmcsIGl0IGlzIGEgZGlmZmVyZW50IGtpbmQgb2YgdmVjdG9yLCBhICoqcmVjdXJzaXZlIHZlY3RvcioqLCB3aGVyZSBlYWNoIHZlY3RvciBlbGVtZW50IGNhbiBoYXZlIGEgZGlmZmVyZW50IGRhdGEgdHlwZSBhbmQgc3RydWN0dXJlLiBUaGlzIG1lYW5zIHRoYXQgKiplYWNoIGVsZW1lbnQgb2YgYSBsaXN0KiogY2FuIGNvbnRhaW4gY29tcGxleCBvYmplY3RzIHN1Y2ggYXMgKiptYXRyaXgqKiwgKipkYXRhIGZyYW1lKiogYW5kIGV2ZW4gaW4gc29tZSBjYXNlcyBvdGhlciAqKmxpc3QqKiBvYmplY3RzIGVtYmVkZGVkIGluIHRoZSAqKmxpc3QqKiEgVGhpbmsgb2YgYSBsaXN0IGFzIGEgc2luZ2xlLWNvbHVtbiBzcHJlYWRzaGVldCB3aGVyZSBlYWNoIGNlbGwgY29udGFpbnMgYSBzaW5nbGUgbnVtYmVyLCBhIHRocmVlLXBhcmFncmFwaCByZWNvcmQsIG9yIGV2ZW4gYSBmaXZlLWNvbHVtbiB0YWJsZS4NCg0KQSBsaXN0IGlzIGNyZWF0ZWQgd2l0aCB0aGUgYGxpc3RgIGZ1bmN0aW9uLiBGb3IgZXhhbXBsZSwgdGhlIGZvbGxvd2luZyBsaXN0IGNvbnNpc3RzIG9mIHRocmVlIGNvbXBvbmVudHM6IGEgdHdvLWNvbHVtbiBkYXRhIGZyYW1lIChyZWZlcnJlZCB0byBhcyBjb21wb25lbnQgYEFgKSwgYSBsb2dpY2FsIHZlY3RvciB3aXRoIHR3byBlbGVtZW50cyAocmVmZXJyZWQgdG8gYXMgY29tcG9uZW50IGBCYCkgYW5kIGEgY2hhcmFjdGVyIHZlY3RvciB3aXRoIHRocmVlIGVsZW1lbnRzIChyZWZlcnJlZCB0byBhcyBjb21wb25lbnQgYENgKS4NCg0KDQpgYGB7ciBjbGFzcy5zb3VyY2UgPSAiZm9sZC1zaG93IiwgIGV2YWw9VH0NCkEgPC0gZGF0YS5mcmFtZSgNCiAgICAgeCA9IGMoNy4zLCAyOS40LCAyOS40LCAyLjksIDEyLjMsIDcuNSwgMzYuMCwgNC44LCAxOC44LCA0LjIpLA0KICAgICB5ID0gYyg1LjIsIDI2LjYsIDMxLjIsIDIuMiwgMTMuOCwgNy44LCAzNS4yLCA4LjYsIDIwLjMsIDEuMSkgKQ0KQiA8LSBjKFRSVUUsIEZBTFNFKQ0KQyA8LSBjKCJhcHBsZXMiLCAib3JhbmdlcyIsICJyb3VuZCIpDQpteS5saXN0IDwtIGxpc3QoQSA9IEEsIEIgPSBCLCBDID0gQykNCmBgYA0KDQpZb3UgY2FuIHZpZXcgZWFjaCBjb21wb25lbnTigJlzIHN0cnVjdHVyZSB1c2luZyB0aGUgYHN0cmAgZnVuY3Rpb24uDQoNCg0KYGBge3IgY2xhc3Muc291cmNlID0gImZvbGQtc2hvdyIsICBldmFsPVR9DQpzdHIobXkubGlzdCkNCm5hbWVzKG15Lmxpc3QpDQpgYGANCg0KRWFjaCBjb21wb25lbnQgb2YgYSBsaXN0IGNhbiBiZSBleHRyYWN0ZWQgdXNpbmcgdGhlIGAkYCBzeW1ib2wgZm9sbG93ZWQgYnkgdGhhdCBjb21wb25lbnTigJlzIG5hbWUuIEZvciBleGFtcGxlLCB0byBhY2Nlc3MgY29tcG9uZW50IEEgZnJvbSBsaXN0IGBteS5saXN0YCwgdHlwZToNCg0KDQpgYGB7ciBjbGFzcy5zb3VyY2UgPSAiZm9sZC1zaG93IiwgIGV2YWw9VH0NCm15Lmxpc3QkQQ0KYGBgDQoNCllvdSBjYW4gYWxzbyBhY2Nlc3MgdGhlIHNhbWUgY29tcG9uZW50IHZpYSBpdHMgbnVtZXJpY2FsIGluZGV4LiBTaW5jZSBBIGlzIHRoZSBmaXJzdCBjb21wb25lbnQgaW4gYGxzdGAsIGl0cyBudW1lcmljYWwgaW5kZXggaXMgYDFgLg0KDQpgYGB7ciBjbGFzcy5zb3VyY2UgPSAiZm9sZC1zaG93IiwgIGV2YWw9VH0NCm15Lmxpc3RbWzFdXQ0KY2xhc3MobXkubGlzdFtbMV1dKQ0KYGBgDQoNCk5vdGUgdGhhdCBjb21wb25lbnRzIGRvIG5vdCBuZWVkIG5hbWVzLiBGb3IgZXhhbXBsZSwgd2UgY291bGQgaGF2ZSBjcmVhdGVkIGEgbGlzdCBsaWtlIHRoaXMgKG5vdGUgdGhlIG9taXNzaW9uIG9mIGBBPWAsIGBCPWAsIGV0Y+KApik6DQoNCg0KYGBge3IgY2xhc3Muc291cmNlID0gImZvbGQtc2hvdyIsICBldmFsPVR9DQpteS5saXN0Lm5vdGFncyA8LSBsaXN0KEEsIEIsIEQpDQpteS5saXN0Lm5vdGFncw0KYGBgDQoNCldoZW4gbGlzdHMgZG8gbm90IGhhdmUgY29tcG9uZW50IG5hbWVzLCB0aGUgYG5hbWVzYCBmdW5jdGlvbiB3aWxsIHJldHVybiBOVUxMLg0KDQpgYGB7ciBjbGFzcy5zb3VyY2UgPSAiZm9sZC1zaG93IiwgIGV2YWw9VH0NCm5hbWVzKG15Lmxpc3Qubm90YWdzKQ0KYGBgDQoNCg0KWW91IHdpbGwgbm90aWNlIHRoYXQgbWFueSBmdW5jdGlvbnMgaW4gUiByZXR1cm4gbGlzdCBvYmplY3RzIGFzIG91dHB1dC4gRm9yIGV4YW1wbGUsIGlmIHdlIGZpdCBhIGxpbmVhciBtb2RlbCBiZXR3ZWVuIHRoZSBlbGVtZW50cyBgeGAgYW5kIGB5YCAoaW4gdGhlIGRhdGEgZnJhbWUgYEFgKSwgdGhlIG91dHB1dCBvZiB0aGlzIG1vZGVsIChoZXJlIE0pIGlzIGEgbGlzdDoNCg0KDQpgYGB7ciBjbGFzcy5zb3VyY2UgPSAiZm9sZC1zaG93IiwgIGV2YWw9VH0NCk0gPC0gbG0oIHkgfiB4LCBBKQ0Kc3RyKE0pDQpuYW1lcyhNKQ0KYGBgDQoNClRoZSBsaXN0IGBNYCBpcyBtb3JlIGNvbXBsZXggdGhhbiB0aGUgc2ltcGxlIGxpc3QgYG15Lmxpc3RgIHRoYXQgd2FzIGNyZWF0ZWQgYmVmb3JlLiBOb3Qgb25seSBkb2VzIGl0IGhhdmUgbW9yZSBjb21wb25lbnRzLCBidXQgaXQgYWxzbyBzdG9yZXMgYSBncmVhdGVyKiByYW5nZSBvZiBkYXRhIHR5cGVzIGFuZCBzdHJ1Y3R1cmVzLiBGb3IgZXhhbXBsZSwgdGhlIGVsZW1lbnQgYHFyYCBpcyBpdHNlbGYgYSBsaXN0IHdpdGggZml2ZSBlbGVtZW50cyENCg0KYGBge3IgY2xhc3Muc291cmNlID0gImZvbGQtc2hvdyIsICBldmFsPVR9DQpzdHIoTSRxcikNCmBgYA0KDQpTbyBpZiB3ZSB3YW50IHRvIGFjY2VzcyB0aGUgZWxlbWVudCByYW5rIGluIHRoZSBjb21wb25lbnQgYHFyYCBvZiB0aGUgbGlzdCBgTWAsIHdlIGNhbiB1c2U6DQoNCmBgYHtyIGNsYXNzLnNvdXJjZSA9ICJmb2xkLXNob3ciLCAgZXZhbD1UfQ0KTSRxciRyYW5rDQpgYGANCg0KVGhpcyBzdHJ1Y3R1cmUgb2YgdGhlIG91dHB1dCBvZiBhIGZ1bmN0aW9uIGlzIGNvbW1vbi4gSXQgaXMgc3BlY2lmaWVkIHdpdGggYGxtYCBpbiB0aGUgaGVscCBvZiB0aGUgZnVuY3Rpb24gKGA/bG1gKTogKiJvYmplY3Qgb2YgY2xhc3MgImxtIiBpcyBhICoqbGlzdCoqIGNvbnRhaW5pbmcgYXQgbGVhc3QgdGhlIGZvbGxvd2luZyBjb21wb25lbnRzIioNCg0KIyBDb2VyY2luZyBkYXRhDQoNCkRhdGEgY2FuIGJlIGNvbnZlcnRlZCBmcm9tIG9uZSB0eXBlIHRvIGFub3RoZXIuIEZvciBleGFtcGxlLCB0byBjb252ZXJ0IHRoZSBmb2xsb3dpbmcgdmVjdG9yIG9iamVjdCBmcm9tIGNoYXJhY3RlciB0byBudW1lcmljLCB1c2UgdGhlIGZ1bmN0aW9uIGBhcy5udW1lcmljYC4NCg0KYGBge3IgY2xhc3Muc291cmNlID0gImZvbGQtc2hvdyIsICBldmFsPVR9DQp5ICAgPC0gYygiMjMuOCIsICI2IiwgIjEwMC4wMSIsIjYiKQ0KeS5jIDwtIGFzLm51bWVyaWMoeSkNCnkuYw0KYGBgDQoNClRoZSBmdW5jdGlvbiBgYXMubnVtZXJpY2AgY29udmVydHMgdGhlIHZlY3RvciBpbnRvIGEgZG91YmxlICh5b3UgY291bGQgYWxzbyBoYXZlIHVzZWQgdGhlIGZ1bmN0aW9uIGBhcy5kb3VibGVgKS4gSWYgeW91IGNvbnZlcnQgYHlgIHRvIGFuIGludGVnZXIsIFIgd2lsbCByZW1vdmUgYWxsIGRlY2ltYWxzIGZyb20gdGhlIG51bWJlci4NCg0KYGBge3IgY2xhc3Muc291cmNlID0gImZvbGQtc2hvdyIsICBldmFsPVR9DQphcy5pbnRlZ2VyKHkpDQpgYGANCg0KVG8gY29udmVydCBhIG51bWJlciB0byBhIGNoYXJhY3RlciB1c2UgYGFzLmNoYXJhY3RlcmANCg0KYGBge3IgY2xhc3Muc291cmNlID0gImZvbGQtc2hvdyIsICBldmFsPVR9DQpudW1jaGFyIDwtIGFzLmNoYXJhY3Rlcih5LmMpDQpudW1jaGFyDQpgYGANCg0KWW91IGNhbiBhbHNvIGNvZXJjZSBhIG51bWJlciBvciBhIGNoYXJhY3RlciBpbnRvIGEgZmFjdG9yLg0KDQpgYGB7ciBjbGFzcy5zb3VyY2UgPSAiZm9sZC1zaG93IiwgIGV2YWw9VH0NCm51bWZhYyA8LSBhcy5mYWN0b3IoeSkNCm51bWZhYw0KYGBgDQoNCmBgYHtyIGNsYXNzLnNvdXJjZSA9ICJmb2xkLXNob3ciLCAgZXZhbD1UfQ0KY2hhcmZhYyA8LSBhcy5mYWN0b3IoeS5jKQ0KY2hhcmZhYw0KYGBgDQoNCg0KVGhlcmUgYXJlIG1hbnkgb3RoZXIgY29lcmNpb24gZnVuY3Rpb25zIGluIFIsIGEgc3VtbWFyeSBvZiBzb21lIG9mIHRoZSBtb3N0IGNvbW1vbiBvbmVzIHdlIHdpbGwgdXNlIGluIHRoaXMgY291cnNlLCBhbmQgb3RoZXJzOg0KDQoNCmBgYHtyIGNsYXNzLnNvdXJjZSA9ICJmb2xkLXNob3ciLCAgZXZhbD1GfQ0KYXMubnVtZXJpYyAgIyBDb2VyY2UgdG8gbnVtZXJpYw0KYXMuZG91YmxlCSMgQ29lcmNlIHRvIGRvdWJsZQ0KYXMuaW50ZWdlcgkjIENvZXJjZSB0byBpbnRlZ2VyDQphcy5jaGFyYWN0ZXIgIwlDb2VyY2UgdG8gY2hhcmFjdGVyDQphcy5sb2dpY2FsCSMgQ29lcmNlIHRvIEJvb2xlYW4gKGxvZ2ljYWw6IFRSVUUgfCBGQUxTRSkNCmFzLmZhY3RvcgkjIENvZXJjZSB0byBmYWN0b3INCmFzLkRhdGUgICMgQ29lcmNlIHRvIGRhdGUNCmFzLmRhdGEuZnJhbWUgICMgQ29lcmNlIHRvIGRhdGEgZnJhbWUNCmFzLmxpc3QgIyBDb2VyY2UgdG8gbGlzdA0KYGBgDQoNCi0tLS0tLS0tLQ0KDQoNCjxwIGNsYXNzPSJhbGVydCI+DQoqKmByIGtuaXRyOjphc2lzX291dHB1dCgiXFUyNkEwIilgIFByYWN0aWNlIDMuMioqIENyZWF0ZSB0aGUgZm9sbG93aW5nIGRhdGEgZnJhbWUgZnJvbSBzY3JhdGNoLiBJbiB0aGlzIHNob3J0IGFuZCBub3QgdmVyeSBzY2llbnRpZmljIGV4cGVyaW1lbnQsIHRoZSBncm93dGggY29uZGl0aW9ucyBvZiBmaXZlIHBsYW50IGluZGl2aWR1YWxzIGFyZSB0byBiZSB0ZXN0ZWQuIFRoZSBoZWlnaHQgb2YgdGhlIHBsYW50cyB3aWxsIGJlIG1lYXN1cmVkIGF0IHRoZSBiZWdpbm5pbmcgb2YgdGhlIGV4cGVyaW1lbnQgYW5kIGFmdGVyIG9uZSB3ZWVrLiBUaGUgYGhlaWdodGAgaXMgYSBkb3VibGU7IHRoZSB0aW1lIG9mIHRoZSBtZWFzdXJlbWVudCAoYHN0YXJ0X2V4cGVyaW1lbnRgIGFuZCBgZW5kX2V4cGVyaW1lbnRgKSBhbmQgdGhlIGluZGl2aWR1YWwgcGxhbnRzIChgcGxhbnQgMWAsIGBwbGFudCAyYCxgcGxhbnQgM2AsYHBsYW50IDRgIGFuZCBgcGxhbnQgNWApIGFyZSAqKmNoYXJhY3RlcioqIHZlY3RvcnMuIFJlZm9ybWF0IHRoaXMgZGF0YSBmcmFtZSB0byBvYnRhaW4gdGhlIGBoZWlnaHRgIGludG8gb25lIHNpbmdsZSBjb2x1bW4gYW5kIHRoZSBgdGltZWAgb2YgdGhlIG1lYXN1cmVtZW50IGFzIGEgZmFjdG9yIHdpdGggdHdvIGxldmVscy4gWW91IHNhdmUgdGhpcyAqKmRhdGEgZnJhbWUqKiBhcyB0aGUgZmlyc3QgZWxlbWVudCBvZiBhIGxpc3QgbmFtZWQgKipgbXkuZXhwZXJpbWVudGAqKi4gVGhlIHNlY29uZCBlbGVtZW50IG9mIHRoaXMgbGlzdCB3aWxsIGJlIGFub3RoZXIgbGlzdCBjYWxsZWQgKipgZ3Jvd3RoYCoqLCBpbiB3aGljaCB0aHJlZSBlbGVtZW50cyBhcmUgc3RvcmVkOiBbMV0gYSAqKmNoYXJhY3RlciB2ZWN0b3IqKiBleHRyYWN0aW5nIHRoZSByb3cgbmFtZXMgb2YgdGhlIHByZXZpb3VzbHkgY3JlYXRlZCB0YWJsZSA7IFsyXSBhICoqbnVtZXJpYyB2ZWN0b3IqKiAoZG91YmxlKSBpbmRpY2F0aW5nIHRoZSBjaGFuZ2UgaW4gaGVpZ2h0IG9mIGVhY2ggcGxhbnQgKGNhbiBiZSBwb3NpdGl2ZSBvciBuZWdhdGl2ZSwgYnV0IHdpbGwgYmUgY2FsY3VsYXRlZCBhcyBhIHBlcmNlbnRhZ2Ugb2YgdGhlIGluaXRpYWwgaGVpZ2h0KTsgWzNdIGEgY29tYmluYXRpb24gb2YgdGhlc2UgdHdvIGVsZW1lbnRzIGluIGEgKip0YWJsZSB3aXRoIHR3byBjb2x1bW5zKio6IGBwbGFudHNgIGFuZCBgZ3Jvd3RoYC4gVGhlIHRoaXJkIGVsZW1lbnQgb2YgdGhlICoqYG15LmV4cGVyaW1lbnRgKiogbGlzdCB3aWxsIGJlIGFuIGFyYml0cmFyeSBtZXNzYWdlIGFib3V0IHRoZSBncm93dGggc3RhdHVzIG9mIHRoZXNlIHBsYW50cy4gWW91IHdpbGwgcHV0IGJvdGggeW91ciAqLlJtZCogYW5kICouaHRtbCogZmlsZXMgaW4gYSBwdWJsaWMgcmVwb3NpdG9yeSBhY2Nlc3NpYmxlIHRocm91Z2ggeW91ciBHaXRodWIgYWNjb3VudC4gWW91IHdpbGwgZW1haWwgbWUgW3ZpYW5uZXlkZW5pc0BnLm50dS5lZHUudHddIHdpdGggdGhlIGFkZHJlc3MgKFVSTCkgb2YgdGhpcyByZXBvc2l0b3J5IChlLmcuIGh0dHBzOi8vZ2l0aHViLmNvbS92aWFubmV5ZGVuaXMvT0NFQU41MDk4Qi5naXQpICoqYmVmb3JlIG5leHQgTW9uZGF5Kiogc28gdGhhdCBJIGNhbiByZXZpZXcgeW91ciB3b3JrLiBUaGUgKip0aXRsZSBvZiB5b3VyIGVtYWlsKiogc2hvdWxkIGJlOiBgUHJhY3RpY2UgMy4yICh5b3VyIG5hbWU6IHlvdXIgc3R1ZGVudCBuby4pLiBFTkpPWSA7KQ0KPC9wPg0KDQoNCmBgYHtyLCBlY2hvPUZBTFNFfQ0KcGxhbnRzIDwtIGMoJ3BsYW50IDEnLCdwbGFudCAyJywncGxhbnQgMycsJ3BsYW50IDQnLCdwbGFudCA1JykNCnRpbWUuZXhwPC0gYygnc3RhcnRfZXhwZXJpbWVudCcsICdlbmRfZXhwZXJpbWVudCcpDQpoZWlnaHQ8LSBjKDQsNSwzLDYsNyw5LDYsNSw0LDcpDQpteS5tYXRyaXg8LW1hdHJpeChoZWlnaHQsNSwyKQ0KbXkudGFibGU8LWRhdGEuZnJhbWUgKG15Lm1hdHJpeCwgcm93Lm5hbWVzPXBsYW50cykNCmNvbG5hbWVzKG15LnRhYmxlKTwtdGltZS5leHANCm15LnRhYmxlDQpgYGA=" download="types.Rmd">Download types.Rmd</a>
+<a href="data:text/plain;base64,eGFyaW5nYW5FeHRyYTo6dXNlX2NsaXBib2FyZCgpDQoNCnggPC0gYygxLjAsIC0zLjQsIDIsIDE0MC4xKSAjIG51bWVyaWMgYW5kIGRvdWJsZQ0KdHlwZW9mKHgpIA0KbW9kZSh4KQ0KDQp4IDwtIDQNCnR5cGVvZih4KQ0KDQp4IDwtIDRMDQp0eXBlb2YoeCkNCg0KeCA8LSBjKCJidWJ1bCIsICJtYWdwaWUiLCAic3Bvb25iaWxsIiwgImJhcmJldCIpDQp0eXBlb2YoeCkNCg0KeCA8LSAzDQp5IDwtIDUuMw0KeCArIHkNCg0KeCA8LSAiMyINCnkgPC0gIjUuMyINCg0KIyBub3QgcnVuOiAgeCsgeQ0KDQojIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIw0KIyBFcnJvciBpbiB4ICsgeTogbm9uLW51bWVyaWMgYXJndW1lbnQgdG8gYmluYXJ5IG9wZXJhdG9yICMNCiMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjDQoNCg0KIyBmdWxsIHRleHQ6DQp4IDwtIGMoVFJVRSwgRkFMU0UsIEZBTFNFLCBUUlVFKQ0KIyBvciBpbiBzaG9ydDoNCnggPC0gYyhULCBGLCBGLCBUKQ0KDQp4MTwtYygxLDAsMCwxKQ0KeDIgPC0gYXMubG9naWNhbChjKDEsMCwwLDEpKQ0KIyBPUjogeDMgPC0gYXMubG9naWNhbChjKDEsMCwwLDEpKQ0KDQphIDwtIGMoIk0iLCAiRiIsICJGIiwgIlUiLCAiRiIsICJNIiwgIk0iLCAiTSIsICJGIiwgIlUiKQ0KdHlwZW9mKGEpICMgbW9kZSBjaGFyYWN0ZXINCmNsYXNzKGEpIyBjbGFzcyBjaGFyYWN0ZXINCmEuZmFjdCA8LSBhcy5mYWN0b3IoYSkNCmNsYXNzKGEuZmFjdCkjIGNsYXNzIGZhY3Rvcg0KDQptb2RlKGEuZmFjdCkNCnR5cGVvZihhLmZhY3QpDQoNCmEuZmFjdA0KDQphdHRyaWJ1dGVzKGEuZmFjdCkNCg0KbGV2ZWxzKGEuZmFjdCkNCg0KZmFjdG9yKGEsIGxldmVscz1jKCJVIiwiRiIsIk0iKSkNCg0KIyMgaXJpcy5zZWw8LSBzdWJzZXQoaXJpcywgU3BlY2llcyA9PSAic2V0b3NhIiB8IFNwZWNpZXMgPT0gInZpcmdpbmljYSIpDQojIyBsZXZlbHMoaXJpcy5zZWwkU3BlY2llcykgICMgMyBzcGVjaWVzIGFyZSBzdGlsbCB0aGVyZQ0KDQojIyByb3duYW1lcyhpcmlzLnNlbCkgPSBzZXEobGVuZ3RoPW5yb3coaXJpcy5zZWwpKQ0KDQp4IDwtIGMoMjMsIE5BLCAxLjIsIDUpDQoNCnkgPC0gYygyMywgTlVMTCwgMS4yLCA1KQ0KDQptZWFuKHgpDQoNCm1lYW4oeSkNCg0Ka25pdHI6OmluY2x1ZGVfZ3JhcGhpY3MoImlsbHVzdHJhdGlvbnMvZGF0YV9zdHJ1Y3R1cmVzLnBuZyIpDQoNCnggPC0gYyg2NzQgLCA0MTg2ICwgNTMwOCAsIDUwODMgLCA2MTQwICwgNjM4MSkNCngNCg0KeFszXQ0KDQp4W2MoMSwzLDQpXQ0KDQp4WzI6NF0NCg0KeFsyXSA8LSAwDQp4DQoNCnggPC0gYygiYWxsIiwgImIiLCAib2xpdmUiKQ0KeA0KDQp4IDwtIGMoIDEuMiwgNSwgIlJ0IiwgIjIwMDAiKQ0KDQp0eXBlb2YoeCkNCg0KbSA8LSBtYXRyaXgocnVuaWYoOSwwLDEwKSwgbnJvdyA9IDMsIG5jb2wgPSAzKQ0KbQ0KDQptIDwtIGFycmF5KHJ1bmlmKDI3LDAsMTApLCBjKDMsMywzKSkNCm0NCg0KbmFtZSAgIDwtIGMoImExIiwgImEyIiwgImIzIikNCnZhbHVlMSA8LSBjKDIzLCA0LCAxMikNCnZhbHVlMiA8LSBjKDEsIDQ1LCA1KQ0KZGF0ICAgIDwtIGRhdGEuZnJhbWUobmFtZSwgdmFsdWUxLCB2YWx1ZTIpDQpkYXQNCnN0cihkYXQpICMgcHJvdmlkZSBzdHJ1Y3R1cmUNCmF0dHJpYnV0ZXMoZGF0KSAjIHByb3ZpZGUgYXR0cmlidXRlcw0KbmFtZXMoZGF0KSAjIGV4dHJhY3QgY29sdW0gbmFtZXMNCnJvd25hbWVzKGRhdCkgIyBleHRyYWN0IHJvdyBuYW1lcw0KDQpBIDwtIGRhdGEuZnJhbWUoDQogICAgIHggPSBjKDcuMywgMjkuNCwgMjkuNCwgMi45LCAxMi4zLCA3LjUsIDM2LjAsIDQuOCwgMTguOCwgNC4yKSwNCiAgICAgeSA9IGMoNS4yLCAyNi42LCAzMS4yLCAyLjIsIDEzLjgsIDcuOCwgMzUuMiwgOC42LCAyMC4zLCAxLjEpICkNCkIgPC0gYyhUUlVFLCBGQUxTRSkNCkMgPC0gYygiYXBwbGVzIiwgIm9yYW5nZXMiLCAicm91bmQiKQ0KbXkubGlzdCA8LSBsaXN0KEEgPSBBLCBCID0gQiwgQyA9IEMpDQoNCnN0cihteS5saXN0KQ0KbmFtZXMobXkubGlzdCkNCg0KbXkubGlzdCRBDQoNCm15Lmxpc3RbWzFdXQ0KY2xhc3MobXkubGlzdFtbMV1dKQ0KDQpteS5saXN0Lm5vdGFncyA8LSBsaXN0KEEsIEIsIEQpDQpteS5saXN0Lm5vdGFncw0KDQpuYW1lcyhteS5saXN0Lm5vdGFncykNCg0KTSA8LSBsbSggeSB+IHgsIEEpDQpzdHIoTSkNCm5hbWVzKE0pDQoNCnN0cihNJHFyKQ0KDQpNJHFyJHJhbmsNCg0KeSAgIDwtIGMoIjIzLjgiLCAiNiIsICIxMDAuMDEiLCI2IikNCnkuYyA8LSBhcy5udW1lcmljKHkpDQp5LmMNCg0KYXMuaW50ZWdlcih5KQ0KDQpudW1jaGFyIDwtIGFzLmNoYXJhY3Rlcih5LmMpDQpudW1jaGFyDQoNCm51bWZhYyA8LSBhcy5mYWN0b3IoeSkNCm51bWZhYw0KDQpjaGFyZmFjIDwtIGFzLmZhY3Rvcih5LmMpDQpjaGFyZmFjDQoNCiMjIGFzLm51bWVyaWMgICMgQ29lcmNlIHRvIG51bWVyaWMNCiMjIGFzLmRvdWJsZQkjIENvZXJjZSB0byBkb3VibGUNCiMjIGFzLmludGVnZXIJIyBDb2VyY2UgdG8gaW50ZWdlcg0KIyMgYXMuY2hhcmFjdGVyICMJQ29lcmNlIHRvIGNoYXJhY3Rlcg0KIyMgYXMubG9naWNhbAkjIENvZXJjZSB0byBCb29sZWFuIChsb2dpY2FsOiBUUlVFIHwgRkFMU0UpDQojIyBhcy5mYWN0b3IJIyBDb2VyY2UgdG8gZmFjdG9yDQojIyBhcy5EYXRlICAjIENvZXJjZSB0byBkYXRlDQojIyBhcy5kYXRhLmZyYW1lICAjIENvZXJjZSB0byBkYXRhIGZyYW1lDQojIyBhcy5saXN0ICMgQ29lcmNlIHRvIGxpc3QNCg0KcGxhbnRzIDwtIGMoJ3BsYW50IDEnLCdwbGFudCAyJywncGxhbnQgMycsJ3BsYW50IDQnLCdwbGFudCA1JykNCnRpbWUuZXhwPC0gYygnc3RhcnRfZXhwZXJpbWVudCcsICdlbmRfZXhwZXJpbWVudCcpDQpoZWlnaHQ8LSBjKDQsNSwzLDYsNyw5LDYsNSw0LDcpDQpteS5tYXRyaXg8LW1hdHJpeChoZWlnaHQsNSwyKQ0KbXkudGFibGU8LWRhdGEuZnJhbWUgKG15Lm1hdHJpeCwgcm93Lm5hbWVzPXBsYW50cykNCmNvbG5hbWVzKG15LnRhYmxlKTwtdGltZS5leHANCm15LnRhYmxlDQo=" download="types.R">Download types.R</a>
+<hr />
+<p>Previously we used <code>str</code> to learn the
+<strong>structure</strong> of an object. Knowing the type and structure
+of the data you are working on is crucial for any further analysis.
+Nevertheless, this step is often skipped, which can lead to serious
+problems in the following steps. This section introduces some common
+data types and structures that are frequently encountered in this
+course.</p>
+<div id="core-data-types" class="section level1">
+<h1>Core data types</h1>
+<p>These data types, or <strong>modes</strong>, determine how the values
+are stored in the computer. You can determine the mode of an object with
+the <code>typeof</code> function. Note that R also has a built-in
+<code>mode</code> function that serves the same purpose, with the only
+exception that it does not distinguish between <strong>integers</strong>
+and <strong>doubles</strong> (see meanings below).</p>
+<div id="numeric" class="section level2">
+<h2>Numeric</h2>
+<p>The <strong>numeric</strong> data type is probably the simplest. It
+consists of numbers such as <strong>integers</strong> (iwhole-valued
+positive or negative number or 0, e.g. 1 ,-3 ,33 ,0) or
+<strong>doubles</strong> (e.g. 0.3, 12.4, -0.04, 1.0). For example, to
+create a numeric (double) vector, we can write:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">1.0</span>, <span class="sc">-</span><span class="fl">3.4</span>, <span class="dv">2</span>, <span class="fl">140.1</span>) <span class="co"># numeric and double</span></span>
+<span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a><span class="fu">typeof</span>(x) </span></code></pre></div>
+<pre><code>## [1] &quot;double&quot;</code></pre>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a><span class="fu">mode</span>(x)</span></code></pre></div>
+<pre><code>## [1] &quot;numeric&quot;</code></pre>
+<p>Note that removing the fractional part of a number when creating a
+numeric object does not necessarily create an integer. For example,
+creating an apparent integer object results in a double with
+<code>typeof</code> :</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="dv">4</span></span>
+<span id="cb5-2"><a href="#cb5-2" tabindex="-1"></a><span class="fu">typeof</span>(x)</span></code></pre></div>
+<pre><code>## [1] &quot;double&quot;</code></pre>
+<p>To force R to recognize a value as an integer, add a capital
+<code>L</code> to the number.</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" tabindex="-1"></a>x <span class="ot">&lt;-</span> 4L</span>
+<span id="cb7-2"><a href="#cb7-2" tabindex="-1"></a><span class="fu">typeof</span>(x)</span></code></pre></div>
+<pre><code>## [1] &quot;integer&quot;</code></pre>
+</div>
+<div id="character" class="section level2">
+<h2>Character</h2>
+<p>The data type <strong>character</strong> consists of letters or words
+such as “a”, “f”, “project”, “birds”.</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;bubul&quot;</span>, <span class="st">&quot;magpie&quot;</span>, <span class="st">&quot;spoonbill&quot;</span>, <span class="st">&quot;barbet&quot;</span>)</span>
+<span id="cb9-2"><a href="#cb9-2" tabindex="-1"></a><span class="fu">typeof</span>(x)</span></code></pre></div>
+<pre><code>## [1] &quot;character&quot;</code></pre>
+<p>Characters can also consist of numbers that are represented as
+characters. The distinction between a character representation of a
+number and a numerical representation is important. For example, if we
+have two numeric vectors <code>x</code> and <code>y</code> such as:</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="dv">3</span></span>
+<span id="cb11-2"><a href="#cb11-2" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fl">5.3</span></span>
+<span id="cb11-3"><a href="#cb11-3" tabindex="-1"></a>x <span class="sc">+</span> y</span></code></pre></div>
+<pre><code>## [1] 8.3</code></pre>
+<p>If we repeat these steps, but instead of representing <code>x</code>
+and <code>y</code> as <strong>numeric</strong> and
+<strong>doubles</strong> we enter ‘3’ and ‘5.3’ as
+<strong>characters</strong>. When we try to add them up, we will
+logically get an error:</p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="st">&quot;3&quot;</span></span>
+<span id="cb13-2"><a href="#cb13-2" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="st">&quot;5.3&quot;</span></span>
+<span id="cb13-3"><a href="#cb13-3" tabindex="-1"></a></span>
+<span id="cb13-4"><a href="#cb13-4" tabindex="-1"></a><span class="co"># not run:  x+ y</span></span>
+<span id="cb13-5"><a href="#cb13-5" tabindex="-1"></a></span>
+<span id="cb13-6"><a href="#cb13-6" tabindex="-1"></a><span class="do">###########################################################</span></span>
+<span id="cb13-7"><a href="#cb13-7" tabindex="-1"></a><span class="co"># Error in x + y: non-numeric argument to binary operator #</span></span>
+<span id="cb13-8"><a href="#cb13-8" tabindex="-1"></a><span class="do">###########################################################</span></span></code></pre></div>
+<p>Note the use of quotation marks to force <strong>double</strong> to
+be recognized as <strong>character</strong>. Be careful that some
+functions like <code>plot</code> automatically convert
+<strong>character</strong> to <strong>double</strong>. Try
+<code>plot(x,y)</code>, it works!</p>
+</div>
+<div id="logical" class="section level2">
+<h2>Logical</h2>
+<p>Logical values can take one of two values/conditions:
+<code>TRUE</code> or <code>FALSE</code>. These can also be represented
+as <code>1</code> or <code>0</code>, which are later assigned as
+<strong>logical</strong> values. For example, to create a logical vector
+with 4 elements, you can enter the following:</p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" tabindex="-1"></a><span class="co"># full text:</span></span>
+<span id="cb14-2"><a href="#cb14-2" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="cn">TRUE</span>, <span class="cn">FALSE</span>, <span class="cn">FALSE</span>, <span class="cn">TRUE</span>)</span>
+<span id="cb14-3"><a href="#cb14-3" tabindex="-1"></a><span class="co"># or in short:</span></span>
+<span id="cb14-4"><a href="#cb14-4" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">c</span>(T, F, F, T)</span></code></pre></div>
+<p>or</p>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" tabindex="-1"></a>x1<span class="ot">&lt;-</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">1</span>)</span>
+<span id="cb15-2"><a href="#cb15-2" tabindex="-1"></a>x2 <span class="ot">&lt;-</span> <span class="fu">as.logical</span>(<span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">1</span>))</span>
+<span id="cb15-3"><a href="#cb15-3" tabindex="-1"></a><span class="co"># OR: x3 &lt;- as.logical(c(1,0,0,1))</span></span></code></pre></div>
+<p>Note that <code>typeof</code> returns <strong>logical</strong> in
+both cases. Also note that the <code>1</code> and <code>0</code> in the
+last example are converted internally into <code>TRUE</code> and
+<code>FALSE</code> using the function <code>as.logical</code> (= create
+a logical vector).</p>
+</div>
+</div>
+<div id="derived-data-types" class="section level1">
+<h1>Derived data types</h1>
+<p>These data types are stored either as numeric, character or logical,
+but have additional <em>attribute</em> information that allows these
+objects to be handled in a special way by certain functions. These
+attributes define the <strong>class</strong> of an object and can be
+extracted from an object using the <code>class</code> function.</p>
+<div id="factor" class="section level2">
+<h2>Factor</h2>
+<p><strong>Factor</strong> is used to group variables into a fixed
+number of unique categories or <strong>levels</strong>. For example, a
+data set can be grouped by <em>gender</em> or <em>month</em> of year.
+Such data is usually loaded into R as a <strong>numeric</strong> or
+<strong>character</strong> data type and must then be converted into a
+factor using the <code>as.factor</code> function (if this has not been
+done automatically when importing the data).</p>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" tabindex="-1"></a>a <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;M&quot;</span>, <span class="st">&quot;F&quot;</span>, <span class="st">&quot;F&quot;</span>, <span class="st">&quot;U&quot;</span>, <span class="st">&quot;F&quot;</span>, <span class="st">&quot;M&quot;</span>, <span class="st">&quot;M&quot;</span>, <span class="st">&quot;M&quot;</span>, <span class="st">&quot;F&quot;</span>, <span class="st">&quot;U&quot;</span>)</span>
+<span id="cb16-2"><a href="#cb16-2" tabindex="-1"></a><span class="fu">typeof</span>(a) <span class="co"># mode character</span></span></code></pre></div>
+<pre><code>## [1] &quot;character&quot;</code></pre>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" tabindex="-1"></a><span class="fu">class</span>(a)<span class="co"># class character</span></span></code></pre></div>
+<pre><code>## [1] &quot;character&quot;</code></pre>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" tabindex="-1"></a>a.fact <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(a)</span>
+<span id="cb20-2"><a href="#cb20-2" tabindex="-1"></a><span class="fu">class</span>(a.fact)<span class="co"># class factor</span></span></code></pre></div>
+<pre><code>## [1] &quot;factor&quot;</code></pre>
+<p><strong>Note</strong>: <code>a</code> has not changed the mode. The
+data is still of the type <code>character</code>. However, it may seem
+strange at first, but the derived object <code>a.fact</code> is now
+stored as an <code>integer</code>!</p>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" tabindex="-1"></a><span class="fu">mode</span>(a.fact)</span></code></pre></div>
+<pre><code>## [1] &quot;numeric&quot;</code></pre>
+<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" tabindex="-1"></a><span class="fu">typeof</span>(a.fact)</span></code></pre></div>
+<pre><code>## [1] &quot;integer&quot;</code></pre>
+<p>However, when we display the content of <code>a.fact</code> we see
+character values.</p>
+<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" tabindex="-1"></a>a.fact</span></code></pre></div>
+<pre><code>##  [1] M F F U F M M M F U
+## Levels: F M U</code></pre>
+<p><strong>為什麼</strong> (why)?Well, <code>a.fact</code> is a more
+complicated object than the simple objects created so far. In fact,
+<strong>factor</strong> stores additional information not visible in its
+output. This hidden information is stored in
+<strong>attributes</strong>. To see these hidden attributes, use the
+<code>attributes</code> function.</p>
+<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" tabindex="-1"></a><span class="fu">attributes</span>(a.fact)</span></code></pre></div>
+<pre><code>## $levels
+## [1] &quot;F&quot; &quot;M&quot; &quot;U&quot;
+## 
+## $class
+## [1] &quot;factor&quot;</code></pre>
+<p>There are two attributes: <code>levels</code> and <code>class</code>.
+The <code>levels</code> attribute lists the three unique values in
+<code>a.fact</code>. The order in which these levels are listed reflects
+their <em>numeric</em> representation [see <code>str (a.fact)</code> and
+the numeric sequence generated: <code>2 1 1 3 ...</code>]. So
+essentially, <code>a.fact</code> stores each value as an integer that
+refers to one of the three unique levels. The unique levels of a factor
+and the order in which they are stored can be extracted using the
+<code>levels</code> function.</p>
+<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" tabindex="-1"></a><span class="fu">levels</span>(a.fact)</span></code></pre></div>
+<pre><code>## [1] &quot;F&quot; &quot;M&quot; &quot;U&quot;</code></pre>
+<p>Remember that the order in which the levels are displayed corresponds
+to their integer representation. If they are to be displayed in a
+different order (e.g. first U, then F, then M), we must change it by
+recreating the factor object as follows:</p>
+<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" tabindex="-1"></a><span class="fu">factor</span>(a, <span class="at">levels=</span><span class="fu">c</span>(<span class="st">&quot;U&quot;</span>,<span class="st">&quot;F&quot;</span>,<span class="st">&quot;M&quot;</span>))</span></code></pre></div>
+<pre><code>##  [1] M F F U F M M M F U
+## Levels: U F M</code></pre>
+<p>This detail is crucial when you are trying to rearrange elements in a
+plot, so you need to remember it.</p>
+<p class="comment">
+<strong>Practice 3.1</strong> Understanding the factors and their levels
+is crucial, especially if you are creating subgroups or plots. Let’s
+find out together why this is so by using the <code>iris</code> dataset.
+Subset species <code>setosa</code> and <code>virginica</code> into a new
+dataset that you call <code>iris.sel</code>. Check the
+<code>levels</code> in the variable <code>iris.sel$Species</code>.
+Conclude on the possible consequences?
+</p>
+<div class="sourceCode" id="cb34"><pre
+class="sourceCode r fold-hide"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" tabindex="-1"></a>iris.sel<span class="ot">&lt;-</span> <span class="fu">subset</span>(iris, Species <span class="sc">==</span> <span class="st">&quot;setosa&quot;</span> <span class="sc">|</span> Species <span class="sc">==</span> <span class="st">&quot;virginica&quot;</span>)</span>
+<span id="cb34-2"><a href="#cb34-2" tabindex="-1"></a><span class="fu">levels</span>(iris.sel<span class="sc">$</span>Species)  <span class="co"># 3 species are still there</span></span></code></pre></div>
+<blockquote>
+<p>To delete a level after a subset, you can use the
+<code>droplevels</code> function for a specific variable. Try it with
+the variable <code>iris.sel$Species</code> and compare the results with
+the help of boxplots (<code>?boxplot</code>).</p>
+</blockquote>
+<p>It is now time to change the row names in our subset:</p>
+<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" tabindex="-1"></a><span class="fu">rownames</span>(iris.sel) <span class="ot">=</span> <span class="fu">seq</span>(<span class="at">length=</span><span class="fu">nrow</span>(iris.sel))</span></code></pre></div>
+<p><span style="color: red"><strong>ALWAYS</strong>,
+<strong>ALWAYS</strong>, CHECK THE DATA TYPE AND STRUCTURE OF YOUR DATA
+SET!</span></p>
+</div>
+<div id="date" class="section level2">
+<h2>Date</h2>
+<p>Date values are stored as numbers. But to be properly interpreted as
+a date object in R, their attribute must be explicitly defined as
+<strong>date</strong>. <code>base</code> offers many ways to convert and
+manipulate dates and times, but a package called <code>lubridate</code>
+[see <code>library (lubridate)</code>] makes working with dates/times
+much easier. Working with dates could be the subject of a separate
+topic, and it will no be covered here.</p>
+</div>
+<div id="nas-and-nulls" class="section level2">
+<h2>NAs and NULLs</h2>
+<p>You often find missing or unknown values in data sets that you may be
+tempted to assign <strong>0</strong>. However, this can be very wrong
+and lead to many undesirable results when analyzing the data. R has two
+placeholders for such elements: <code>NA</code> and
+<code>NULL</code>.</p>
+<div class="sourceCode" id="cb36"><pre
+class="sourceCode r fold-show"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">23</span>, <span class="cn">NA</span>, <span class="fl">1.2</span>, <span class="dv">5</span>)</span></code></pre></div>
+<p><code>NA</code> (Not Available) is an indicator for a missing value.
+It indicates that a value should be available but is unknown.</p>
+<div class="sourceCode" id="cb37"><pre
+class="sourceCode r fold-show"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">23</span>, <span class="cn">NULL</span>, <span class="fl">1.2</span>, <span class="dv">5</span>)</span></code></pre></div>
+<p>The <code>NULL</code> object also stands for missing values, but its
+interpretation is slightly different, as it implies that the value does
+not exist or that it’s not measurable.</p>
+<p>The difference between <code>NA</code> and <code>NULL</code> may seem
+subtle, but their interpretation in some functions can lead to different
+outcomes. For example, when computing the mean of <code>x</code>, R
+returns an <code>NA</code> value:</p>
+<div class="sourceCode" id="cb38"><pre
+class="sourceCode r fold-show"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" tabindex="-1"></a><span class="fu">mean</span>(x)</span></code></pre></div>
+<pre><code>## [1] NA</code></pre>
+<p>This serves as a control to remind the user that one of the elements
+is missing. This can be circumvented by setting the <code>na.rm</code>
+parameter to <code>TRUE</code> as in <code>mean(x, na.rm=T)</code> in
+which case R ignores the missing value.</p>
+<p>A <code>NULL</code> object, on the other hand, is treated
+differently. Since <code>NULL</code> implies that a value should not
+exist, R no longer sees the need to treat such an element as
+questionable and allows the mean value to be calculated:</p>
+<div class="sourceCode" id="cb40"><pre
+class="sourceCode r fold-show"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" tabindex="-1"></a><span class="fu">mean</span>(y)</span></code></pre></div>
+<pre><code>## [1] 9.733333</code></pre>
+<p>It happens more often that data tables with missing elements are
+filled with <code>NA</code> than with <code>NULL</code>. So if you have
+no particular reason to use <code>NULL</code> as a missing value, use
+<code>NA</code> instead.</p>
+</div>
+</div>
+<div id="data-structures" class="section level1">
+<h1>Data structures</h1>
+<p>Most of the data sets we work with consist of batches of values such
+as a <strong>table</strong> (e.g. temperature values) or a list of
+results (e.g. annual survey). These batches of data are stored in R in
+one of several data structures. These include <strong>(atomic)
+vectors</strong>, <strong>data frames</strong>,
+<strong>matrices</strong> and <strong>lists</strong>.</p>
+<div class="figure" style="text-align: center">
+<img src="illustrations/data_structures.png" alt="Some common data structures" width="50%" />
+<p class="caption">
+Some common data structures
+</p>
+</div>
+<div id="atomic-vectors" class="section level2">
+<h2>(Atomic) vectors</h2>
+<p>The <strong>atomic vector</strong> (or <strong>vector</strong> for
+short) is the simplest data structure in R, consisting of an ordered set
+of values of the same type and/or class (e.g. numeric, character, date,
+etc…). As before, a vector can simply be created with the combination
+function <code>c()</code> as in :</p>
+<div class="sourceCode" id="cb42"><pre
+class="sourceCode r fold-show"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">674</span> , <span class="dv">4186</span> , <span class="dv">5308</span> , <span class="dv">5083</span> , <span class="dv">6140</span> , <span class="dv">6381</span>)</span>
+<span id="cb42-2"><a href="#cb42-2" tabindex="-1"></a>x</span></code></pre></div>
+<pre><code>## [1]  674 4186 5308 5083 6140 6381</code></pre>
+<p>As we have already seen, a vector object is an
+<strong>indexable</strong> collection of values that provides access to
+a particular index number (subscript). Remimber, to access the third
+element of <code>x</code>, type:</p>
+<div class="sourceCode" id="cb44"><pre
+class="sourceCode r fold-show"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" tabindex="-1"></a>x[<span class="dv">3</span>]</span></code></pre></div>
+<pre><code>## [1] 5308</code></pre>
+<p>Also seen before, but you can select a subset of elements by index
+values using the <code>c()</code>:</p>
+<div class="sourceCode" id="cb46"><pre
+class="sourceCode r fold-show"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" tabindex="-1"></a>x[<span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">3</span>,<span class="dv">4</span>)]</span></code></pre></div>
+<pre><code>## [1]  674 5308 5083</code></pre>
+<p>If you are interested in a range of indexed values, such as index 2
+to 4, use the operator <code>:</code>:</p>
+<div class="sourceCode" id="cb48"><pre
+class="sourceCode r fold-show"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" tabindex="-1"></a>x[<span class="dv">2</span><span class="sc">:</span><span class="dv">4</span>]</span></code></pre></div>
+<pre><code>## [1] 4186 5308 5083</code></pre>
+<p>You can also assign new values to a specific index. For example, we
+can replace the second value in the vector <code>x</code> with
+<code>0</code>:</p>
+<div class="sourceCode" id="cb50"><pre
+class="sourceCode r fold-show"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1" tabindex="-1"></a>x[<span class="dv">2</span>] <span class="ot">&lt;-</span> <span class="dv">0</span></span>
+<span id="cb50-2"><a href="#cb50-2" tabindex="-1"></a>x</span></code></pre></div>
+<pre><code>## [1]  674    0 5308 5083 6140 6381</code></pre>
+<p>Note that a vector can store any type of data, such as
+characters.</p>
+<div class="sourceCode" id="cb52"><pre
+class="sourceCode r fold-show"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;all&quot;</span>, <span class="st">&quot;b&quot;</span>, <span class="st">&quot;olive&quot;</span>)</span>
+<span id="cb52-2"><a href="#cb52-2" tabindex="-1"></a>x</span></code></pre></div>
+<pre><code>## [1] &quot;all&quot;   &quot;b&quot;     &quot;olive&quot;</code></pre>
+<p>However, <strong>a vector can only be of one type</strong>. For
+example, you cannot mix numeric and character types as follows:</p>
+<div class="sourceCode" id="cb54"><pre
+class="sourceCode r fold-show"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">c</span>( <span class="fl">1.2</span>, <span class="dv">5</span>, <span class="st">&quot;Rt&quot;</span>, <span class="st">&quot;2000&quot;</span>)</span></code></pre></div>
+<p>In such a situation, R converts the element types to the
+<strong>highest common mode</strong>, in the order <strong>NULL</strong>
+&lt; <strong>logical</strong> &lt; <strong>integer</strong> &lt;
+<strong>double</strong> &lt; <strong>character</strong>. In our working
+example, the elements are converted to characters:</p>
+<div class="sourceCode" id="cb55"><pre
+class="sourceCode r fold-show"><code class="sourceCode r"><span id="cb55-1"><a href="#cb55-1" tabindex="-1"></a><span class="fu">typeof</span>(x)</span></code></pre></div>
+<pre><code>## [1] &quot;character&quot;</code></pre>
+</div>
+<div id="matrices-and-arrays" class="section level2">
+<h2>Matrices and arrays</h2>
+<p>Matrices in R can be thought of as vectors that are indexed with two
+indices instead of one. For example, the following line of code
+generates a 3 x 3 matrix with randomly generated values. The parameters
+<code>nrow</code> and <code>ncol</code> define the dimension of the
+matrix and the function <code>runif</code> generates nine random numbers
+between 0 and 10 that fill this matrix.</p>
+<div class="sourceCode" id="cb57"><pre
+class="sourceCode r fold-show"><code class="sourceCode r"><span id="cb57-1"><a href="#cb57-1" tabindex="-1"></a>m <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">runif</span>(<span class="dv">9</span>,<span class="dv">0</span>,<span class="dv">10</span>), <span class="at">nrow =</span> <span class="dv">3</span>, <span class="at">ncol =</span> <span class="dv">3</span>)</span>
+<span id="cb57-2"><a href="#cb57-2" tabindex="-1"></a>m</span></code></pre></div>
+<pre><code>##           [,1]     [,2]      [,3]
+## [1,] 3.8284166 7.541571 9.5470858
+## [2,] 0.5108847 8.264536 0.9997892
+## [3,] 2.5493661 2.215769 8.5010255</code></pre>
+<p>If a vector of higher dimensions is desired, use the
+<code>array</code> function to create the n-dimensional object. A 3x3x3
+array can be created as follows:</p>
+<div class="sourceCode" id="cb59"><pre
+class="sourceCode r fold-show"><code class="sourceCode r"><span id="cb59-1"><a href="#cb59-1" tabindex="-1"></a>m <span class="ot">&lt;-</span> <span class="fu">array</span>(<span class="fu">runif</span>(<span class="dv">27</span>,<span class="dv">0</span>,<span class="dv">10</span>), <span class="fu">c</span>(<span class="dv">3</span>,<span class="dv">3</span>,<span class="dv">3</span>))</span>
+<span id="cb59-2"><a href="#cb59-2" tabindex="-1"></a>m</span></code></pre></div>
+<pre><code>## , , 1
+## 
+##          [,1]     [,2]     [,3]
+## [1,] 6.854819 6.070506 5.619343
+## [2,] 9.553044 2.156003 9.319752
+## [3,] 9.885226 2.767044 8.562381
+## 
+## , , 2
+## 
+##          [,1]      [,2]     [,3]
+## [1,] 8.262001 0.4056216 3.237166
+## [2,] 7.924239 6.6749960 7.181568
+## [3,] 2.533201 0.4602914 9.019327
+## 
+## , , 3
+## 
+##           [,1]     [,2]     [,3]
+## [1,] 0.5540418 4.610431 2.277312
+## [2,] 9.5620534 1.433687 4.146243
+## [3,] 1.9885744 5.144280 3.111048</code></pre>
+<p>Matrices and arrays can store numeric or character data types, but
+not both. They are derived directly from the vector structure, but have
+a higher number of dimensions.</p>
+</div>
+<div id="data-frames" class="section level2">
+<h2>Data frames</h2>
+<p>A <strong>data frame</strong> is the closest thing we have to a
+table. It is an extension of the matrix object, because unlike a matrix,
+a data frame can <em>mix</em> the data types across columns (e.g. both
+<strong>numeric</strong> and <strong>character</strong> columns can
+coexist in a data frame), but the data type remains the same across
+rows.</p>
+<div class="sourceCode" id="cb61"><pre
+class="sourceCode r fold-show"><code class="sourceCode r"><span id="cb61-1"><a href="#cb61-1" tabindex="-1"></a>name   <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;a1&quot;</span>, <span class="st">&quot;a2&quot;</span>, <span class="st">&quot;b3&quot;</span>)</span>
+<span id="cb61-2"><a href="#cb61-2" tabindex="-1"></a>value1 <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">23</span>, <span class="dv">4</span>, <span class="dv">12</span>)</span>
+<span id="cb61-3"><a href="#cb61-3" tabindex="-1"></a>value2 <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">45</span>, <span class="dv">5</span>)</span>
+<span id="cb61-4"><a href="#cb61-4" tabindex="-1"></a>dat    <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(name, value1, value2)</span>
+<span id="cb61-5"><a href="#cb61-5" tabindex="-1"></a>dat</span></code></pre></div>
+<pre><code>##   name value1 value2
+## 1   a1     23      1
+## 2   a2      4     45
+## 3   b3     12      5</code></pre>
+<div class="sourceCode" id="cb63"><pre
+class="sourceCode r fold-show"><code class="sourceCode r"><span id="cb63-1"><a href="#cb63-1" tabindex="-1"></a><span class="fu">str</span>(dat) <span class="co"># provide structure</span></span></code></pre></div>
+<pre><code>## &#39;data.frame&#39;:    3 obs. of  3 variables:
+##  $ name  : chr  &quot;a1&quot; &quot;a2&quot; &quot;b3&quot;
+##  $ value1: num  23 4 12
+##  $ value2: num  1 45 5</code></pre>
+<div class="sourceCode" id="cb65"><pre
+class="sourceCode r fold-show"><code class="sourceCode r"><span id="cb65-1"><a href="#cb65-1" tabindex="-1"></a><span class="fu">attributes</span>(dat) <span class="co"># provide attributes</span></span></code></pre></div>
+<pre><code>## $names
+## [1] &quot;name&quot;   &quot;value1&quot; &quot;value2&quot;
+## 
+## $class
+## [1] &quot;data.frame&quot;
+## 
+## $row.names
+## [1] 1 2 3</code></pre>
+<div class="sourceCode" id="cb67"><pre
+class="sourceCode r fold-show"><code class="sourceCode r"><span id="cb67-1"><a href="#cb67-1" tabindex="-1"></a><span class="fu">names</span>(dat) <span class="co"># extract colum names</span></span></code></pre></div>
+<pre><code>## [1] &quot;name&quot;   &quot;value1&quot; &quot;value2&quot;</code></pre>
+<div class="sourceCode" id="cb69"><pre
+class="sourceCode r fold-show"><code class="sourceCode r"><span id="cb69-1"><a href="#cb69-1" tabindex="-1"></a><span class="fu">rownames</span>(dat) <span class="co"># extract row names</span></span></code></pre></div>
+<pre><code>## [1] &quot;1&quot; &quot;2&quot; &quot;3&quot;</code></pre>
+</div>
+<div id="lists" class="section level2">
+<h2>Lists</h2>
+<p>A <strong>list</strong> is an ordered set of components stored in a
+1D vector. Strictly speaking, it is a different kind of vector, a
+<strong>recursive vector</strong>, where each vector element can have a
+different data type and structure. This means that <strong>each element
+of a list</strong> can contain complex objects such as
+<strong>matrix</strong>, <strong>data frame</strong> and even in some
+cases other <strong>list</strong> objects embedded in the
+<strong>list</strong>! Think of a list as a single-column spreadsheet
+where each cell contains a single number, a three-paragraph record, or
+even a five-column table.</p>
+<p>A list is created with the <code>list</code> function. For example,
+the following list consists of three components: a two-column data frame
+(referred to as component <code>A</code>), a logical vector with two
+elements (referred to as component <code>B</code>) and a character
+vector with three elements (referred to as component
+<code>C</code>).</p>
+<div class="sourceCode" id="cb71"><pre
+class="sourceCode r fold-show"><code class="sourceCode r"><span id="cb71-1"><a href="#cb71-1" tabindex="-1"></a>A <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb71-2"><a href="#cb71-2" tabindex="-1"></a>     <span class="at">x =</span> <span class="fu">c</span>(<span class="fl">7.3</span>, <span class="fl">29.4</span>, <span class="fl">29.4</span>, <span class="fl">2.9</span>, <span class="fl">12.3</span>, <span class="fl">7.5</span>, <span class="fl">36.0</span>, <span class="fl">4.8</span>, <span class="fl">18.8</span>, <span class="fl">4.2</span>),</span>
+<span id="cb71-3"><a href="#cb71-3" tabindex="-1"></a>     <span class="at">y =</span> <span class="fu">c</span>(<span class="fl">5.2</span>, <span class="fl">26.6</span>, <span class="fl">31.2</span>, <span class="fl">2.2</span>, <span class="fl">13.8</span>, <span class="fl">7.8</span>, <span class="fl">35.2</span>, <span class="fl">8.6</span>, <span class="fl">20.3</span>, <span class="fl">1.1</span>) )</span>
+<span id="cb71-4"><a href="#cb71-4" tabindex="-1"></a>B <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="cn">TRUE</span>, <span class="cn">FALSE</span>)</span>
+<span id="cb71-5"><a href="#cb71-5" tabindex="-1"></a>C <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;apples&quot;</span>, <span class="st">&quot;oranges&quot;</span>, <span class="st">&quot;round&quot;</span>)</span>
+<span id="cb71-6"><a href="#cb71-6" tabindex="-1"></a>my.list <span class="ot">&lt;-</span> <span class="fu">list</span>(<span class="at">A =</span> A, <span class="at">B =</span> B, <span class="at">C =</span> C)</span></code></pre></div>
+<p>You can view each component’s structure using the <code>str</code>
+function.</p>
+<div class="sourceCode" id="cb72"><pre
+class="sourceCode r fold-show"><code class="sourceCode r"><span id="cb72-1"><a href="#cb72-1" tabindex="-1"></a><span class="fu">str</span>(my.list)</span></code></pre></div>
+<pre><code>## List of 3
+##  $ A:&#39;data.frame&#39;:   10 obs. of  2 variables:
+##   ..$ x: num [1:10] 7.3 29.4 29.4 2.9 12.3 7.5 36 4.8 18.8 4.2
+##   ..$ y: num [1:10] 5.2 26.6 31.2 2.2 13.8 7.8 35.2 8.6 20.3 1.1
+##  $ B: logi [1:2] TRUE FALSE
+##  $ C: chr [1:3] &quot;apples&quot; &quot;oranges&quot; &quot;round&quot;</code></pre>
+<div class="sourceCode" id="cb74"><pre
+class="sourceCode r fold-show"><code class="sourceCode r"><span id="cb74-1"><a href="#cb74-1" tabindex="-1"></a><span class="fu">names</span>(my.list)</span></code></pre></div>
+<pre><code>## [1] &quot;A&quot; &quot;B&quot; &quot;C&quot;</code></pre>
+<p>Each component of a list can be extracted using the <code>$</code>
+symbol followed by that component’s name. For example, to access
+component A from list <code>my.list</code>, type:</p>
+<div class="sourceCode" id="cb76"><pre
+class="sourceCode r fold-show"><code class="sourceCode r"><span id="cb76-1"><a href="#cb76-1" tabindex="-1"></a>my.list<span class="sc">$</span>A</span></code></pre></div>
+<pre><code>##       x    y
+## 1   7.3  5.2
+## 2  29.4 26.6
+## 3  29.4 31.2
+## 4   2.9  2.2
+## 5  12.3 13.8
+## 6   7.5  7.8
+## 7  36.0 35.2
+## 8   4.8  8.6
+## 9  18.8 20.3
+## 10  4.2  1.1</code></pre>
+<p>You can also access the same component via its numerical index. Since
+A is the first component in <code>lst</code>, its numerical index is
+<code>1</code>.</p>
+<div class="sourceCode" id="cb78"><pre
+class="sourceCode r fold-show"><code class="sourceCode r"><span id="cb78-1"><a href="#cb78-1" tabindex="-1"></a>my.list[[<span class="dv">1</span>]]</span></code></pre></div>
+<pre><code>##       x    y
+## 1   7.3  5.2
+## 2  29.4 26.6
+## 3  29.4 31.2
+## 4   2.9  2.2
+## 5  12.3 13.8
+## 6   7.5  7.8
+## 7  36.0 35.2
+## 8   4.8  8.6
+## 9  18.8 20.3
+## 10  4.2  1.1</code></pre>
+<div class="sourceCode" id="cb80"><pre
+class="sourceCode r fold-show"><code class="sourceCode r"><span id="cb80-1"><a href="#cb80-1" tabindex="-1"></a><span class="fu">class</span>(my.list[[<span class="dv">1</span>]])</span></code></pre></div>
+<pre><code>## [1] &quot;data.frame&quot;</code></pre>
+<p>Note that components do not need names. For example, we could have
+created a list like this (note the omission of <code>A=</code>,
+<code>B=</code>, etc…):</p>
+<div class="sourceCode" id="cb82"><pre
+class="sourceCode r fold-show"><code class="sourceCode r"><span id="cb82-1"><a href="#cb82-1" tabindex="-1"></a>my.list.notags <span class="ot">&lt;-</span> <span class="fu">list</span>(A, B, D)</span>
+<span id="cb82-2"><a href="#cb82-2" tabindex="-1"></a>my.list.notags</span></code></pre></div>
+<pre><code>## [[1]]
+##       x    y
+## 1   7.3  5.2
+## 2  29.4 26.6
+## 3  29.4 31.2
+## 4   2.9  2.2
+## 5  12.3 13.8
+## 6   7.5  7.8
+## 7  36.0 35.2
+## 8   4.8  8.6
+## 9  18.8 20.3
+## 10  4.2  1.1
+## 
+## [[2]]
+## [1]  TRUE FALSE
+## 
+## [[3]]
+## function (expr, name) 
+## .External(C_doD, expr, name)
+## &lt;bytecode: 0x0000021058cb5148&gt;
+## &lt;environment: namespace:stats&gt;</code></pre>
+<p>When lists do not have component names, the <code>names</code>
+function will return NULL.</p>
+<div class="sourceCode" id="cb84"><pre
+class="sourceCode r fold-show"><code class="sourceCode r"><span id="cb84-1"><a href="#cb84-1" tabindex="-1"></a><span class="fu">names</span>(my.list.notags)</span></code></pre></div>
+<pre><code>## NULL</code></pre>
+<p>You will notice that many functions in R return list objects as
+output. For example, if we fit a linear model between the elements
+<code>x</code> and <code>y</code> (in the data frame <code>A</code>),
+the output of this model (here M) is a list:</p>
+<div class="sourceCode" id="cb86"><pre
+class="sourceCode r fold-show"><code class="sourceCode r"><span id="cb86-1"><a href="#cb86-1" tabindex="-1"></a>M <span class="ot">&lt;-</span> <span class="fu">lm</span>( y <span class="sc">~</span> x, A)</span>
+<span id="cb86-2"><a href="#cb86-2" tabindex="-1"></a><span class="fu">str</span>(M)</span></code></pre></div>
+<pre><code>## List of 12
+##  $ coefficients : Named num [1:2] 0.0779 0.991
+##   ..- attr(*, &quot;names&quot;)= chr [1:2] &quot;(Intercept)&quot; &quot;x&quot;
+##  $ residuals    : Named num [1:10] -2.112 -2.612 1.988 -0.752 1.533 ...
+##   ..- attr(*, &quot;names&quot;)= chr [1:10] &quot;1&quot; &quot;2&quot; &quot;3&quot; &quot;4&quot; ...
+##  $ effects      : Named num [1:10] -48.07 -36.54 3.13 -0.66 2 ...
+##   ..- attr(*, &quot;names&quot;)= chr [1:10] &quot;(Intercept)&quot; &quot;x&quot; &quot;&quot; &quot;&quot; ...
+##  $ rank         : int 2
+##  $ fitted.values: Named num [1:10] 7.31 29.21 29.21 2.95 12.27 ...
+##   ..- attr(*, &quot;names&quot;)= chr [1:10] &quot;1&quot; &quot;2&quot; &quot;3&quot; &quot;4&quot; ...
+##  $ assign       : int [1:2] 0 1
+##  $ qr           :List of 5
+##   ..$ qr   : num [1:10, 1:2] -3.162 0.316 0.316 0.316 0.316 ...
+##   .. ..- attr(*, &quot;dimnames&quot;)=List of 2
+##   .. .. ..$ : chr [1:10] &quot;1&quot; &quot;2&quot; &quot;3&quot; &quot;4&quot; ...
+##   .. .. ..$ : chr [1:2] &quot;(Intercept)&quot; &quot;x&quot;
+##   .. ..- attr(*, &quot;assign&quot;)= int [1:2] 0 1
+##   ..$ qraux: num [1:2] 1.32 1.44
+##   ..$ pivot: int [1:2] 1 2
+##   ..$ tol  : num 1e-07
+##   ..$ rank : int 2
+##   ..- attr(*, &quot;class&quot;)= chr &quot;qr&quot;
+##  $ df.residual  : int 8
+##  $ xlevels      : Named list()
+##  $ call         : language lm(formula = y ~ x, data = A)
+##  $ terms        :Classes &#39;terms&#39;, &#39;formula&#39;  language y ~ x
+##   .. ..- attr(*, &quot;variables&quot;)= language list(y, x)
+##   .. ..- attr(*, &quot;factors&quot;)= int [1:2, 1] 0 1
+##   .. .. ..- attr(*, &quot;dimnames&quot;)=List of 2
+##   .. .. .. ..$ : chr [1:2] &quot;y&quot; &quot;x&quot;
+##   .. .. .. ..$ : chr &quot;x&quot;
+##   .. ..- attr(*, &quot;term.labels&quot;)= chr &quot;x&quot;
+##   .. ..- attr(*, &quot;order&quot;)= int 1
+##   .. ..- attr(*, &quot;intercept&quot;)= int 1
+##   .. ..- attr(*, &quot;response&quot;)= int 1
+##   .. ..- attr(*, &quot;.Environment&quot;)=&lt;environment: R_GlobalEnv&gt; 
+##   .. ..- attr(*, &quot;predvars&quot;)= language list(y, x)
+##   .. ..- attr(*, &quot;dataClasses&quot;)= Named chr [1:2] &quot;numeric&quot; &quot;numeric&quot;
+##   .. .. ..- attr(*, &quot;names&quot;)= chr [1:2] &quot;y&quot; &quot;x&quot;
+##  $ model        :&#39;data.frame&#39;:   10 obs. of  2 variables:
+##   ..$ y: num [1:10] 5.2 26.6 31.2 2.2 13.8 7.8 35.2 8.6 20.3 1.1
+##   ..$ x: num [1:10] 7.3 29.4 29.4 2.9 12.3 7.5 36 4.8 18.8 4.2
+##   ..- attr(*, &quot;terms&quot;)=Classes &#39;terms&#39;, &#39;formula&#39;  language y ~ x
+##   .. .. ..- attr(*, &quot;variables&quot;)= language list(y, x)
+##   .. .. ..- attr(*, &quot;factors&quot;)= int [1:2, 1] 0 1
+##   .. .. .. ..- attr(*, &quot;dimnames&quot;)=List of 2
+##   .. .. .. .. ..$ : chr [1:2] &quot;y&quot; &quot;x&quot;
+##   .. .. .. .. ..$ : chr &quot;x&quot;
+##   .. .. ..- attr(*, &quot;term.labels&quot;)= chr &quot;x&quot;
+##   .. .. ..- attr(*, &quot;order&quot;)= int 1
+##   .. .. ..- attr(*, &quot;intercept&quot;)= int 1
+##   .. .. ..- attr(*, &quot;response&quot;)= int 1
+##   .. .. ..- attr(*, &quot;.Environment&quot;)=&lt;environment: R_GlobalEnv&gt; 
+##   .. .. ..- attr(*, &quot;predvars&quot;)= language list(y, x)
+##   .. .. ..- attr(*, &quot;dataClasses&quot;)= Named chr [1:2] &quot;numeric&quot; &quot;numeric&quot;
+##   .. .. .. ..- attr(*, &quot;names&quot;)= chr [1:2] &quot;y&quot; &quot;x&quot;
+##  - attr(*, &quot;class&quot;)= chr &quot;lm&quot;</code></pre>
+<div class="sourceCode" id="cb88"><pre
+class="sourceCode r fold-show"><code class="sourceCode r"><span id="cb88-1"><a href="#cb88-1" tabindex="-1"></a><span class="fu">names</span>(M)</span></code></pre></div>
+<pre><code>##  [1] &quot;coefficients&quot;  &quot;residuals&quot;     &quot;effects&quot;       &quot;rank&quot;         
+##  [5] &quot;fitted.values&quot; &quot;assign&quot;        &quot;qr&quot;            &quot;df.residual&quot;  
+##  [9] &quot;xlevels&quot;       &quot;call&quot;          &quot;terms&quot;         &quot;model&quot;</code></pre>
+<p>The list <code>M</code> is more complex than the simple list
+<code>my.list</code> that was created before. Not only does it have more
+components, but it also stores a greater* range of data types and
+structures. For example, the element <code>qr</code> is itself a list
+with five elements!</p>
+<div class="sourceCode" id="cb90"><pre
+class="sourceCode r fold-show"><code class="sourceCode r"><span id="cb90-1"><a href="#cb90-1" tabindex="-1"></a><span class="fu">str</span>(M<span class="sc">$</span>qr)</span></code></pre></div>
+<pre><code>## List of 5
+##  $ qr   : num [1:10, 1:2] -3.162 0.316 0.316 0.316 0.316 ...
+##   ..- attr(*, &quot;dimnames&quot;)=List of 2
+##   .. ..$ : chr [1:10] &quot;1&quot; &quot;2&quot; &quot;3&quot; &quot;4&quot; ...
+##   .. ..$ : chr [1:2] &quot;(Intercept)&quot; &quot;x&quot;
+##   ..- attr(*, &quot;assign&quot;)= int [1:2] 0 1
+##  $ qraux: num [1:2] 1.32 1.44
+##  $ pivot: int [1:2] 1 2
+##  $ tol  : num 1e-07
+##  $ rank : int 2
+##  - attr(*, &quot;class&quot;)= chr &quot;qr&quot;</code></pre>
+<p>So if we want to access the element rank in the component
+<code>qr</code> of the list <code>M</code>, we can use:</p>
+<div class="sourceCode" id="cb92"><pre
+class="sourceCode r fold-show"><code class="sourceCode r"><span id="cb92-1"><a href="#cb92-1" tabindex="-1"></a>M<span class="sc">$</span>qr<span class="sc">$</span>rank</span></code></pre></div>
+<pre><code>## [1] 2</code></pre>
+<p>This structure of the output of a function is common. It is specified
+with <code>lm</code> in the help of the function (<code>?lm</code>):
+<em>“object of class”lm” is a <strong>list</strong> containing at least
+the following components”</em></p>
+</div>
+</div>
+<div id="coercing-data" class="section level1">
+<h1>Coercing data</h1>
+<p>Data can be converted from one type to another. For example, to
+convert the following vector object from character to numeric, use the
+function <code>as.numeric</code>.</p>
+<div class="sourceCode" id="cb94"><pre
+class="sourceCode r fold-show"><code class="sourceCode r"><span id="cb94-1"><a href="#cb94-1" tabindex="-1"></a>y   <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;23.8&quot;</span>, <span class="st">&quot;6&quot;</span>, <span class="st">&quot;100.01&quot;</span>,<span class="st">&quot;6&quot;</span>)</span>
+<span id="cb94-2"><a href="#cb94-2" tabindex="-1"></a>y.c <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(y)</span>
+<span id="cb94-3"><a href="#cb94-3" tabindex="-1"></a>y.c</span></code></pre></div>
+<pre><code>## [1]  23.80   6.00 100.01   6.00</code></pre>
+<p>The function <code>as.numeric</code> converts the vector into a
+double (you could also have used the function <code>as.double</code>).
+If you convert <code>y</code> to an integer, R will remove all decimals
+from the number.</p>
+<div class="sourceCode" id="cb96"><pre
+class="sourceCode r fold-show"><code class="sourceCode r"><span id="cb96-1"><a href="#cb96-1" tabindex="-1"></a><span class="fu">as.integer</span>(y)</span></code></pre></div>
+<pre><code>## [1]  23   6 100   6</code></pre>
+<p>To convert a number to a character use <code>as.character</code></p>
+<div class="sourceCode" id="cb98"><pre
+class="sourceCode r fold-show"><code class="sourceCode r"><span id="cb98-1"><a href="#cb98-1" tabindex="-1"></a>numchar <span class="ot">&lt;-</span> <span class="fu">as.character</span>(y.c)</span>
+<span id="cb98-2"><a href="#cb98-2" tabindex="-1"></a>numchar</span></code></pre></div>
+<pre><code>## [1] &quot;23.8&quot;   &quot;6&quot;      &quot;100.01&quot; &quot;6&quot;</code></pre>
+<p>You can also coerce a number or a character into a factor.</p>
+<div class="sourceCode" id="cb100"><pre
+class="sourceCode r fold-show"><code class="sourceCode r"><span id="cb100-1"><a href="#cb100-1" tabindex="-1"></a>numfac <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(y)</span>
+<span id="cb100-2"><a href="#cb100-2" tabindex="-1"></a>numfac</span></code></pre></div>
+<pre><code>## [1] 23.8   6      100.01 6     
+## Levels: 100.01 23.8 6</code></pre>
+<div class="sourceCode" id="cb102"><pre
+class="sourceCode r fold-show"><code class="sourceCode r"><span id="cb102-1"><a href="#cb102-1" tabindex="-1"></a>charfac <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(y.c)</span>
+<span id="cb102-2"><a href="#cb102-2" tabindex="-1"></a>charfac</span></code></pre></div>
+<pre><code>## [1] 23.8   6      100.01 6     
+## Levels: 6 23.8 100.01</code></pre>
+<p>There are many other coercion functions in R, a summary of some of
+the most common ones we will use in this course, and others:</p>
+<div class="sourceCode" id="cb104"><pre
+class="sourceCode r fold-show"><code class="sourceCode r"><span id="cb104-1"><a href="#cb104-1" tabindex="-1"></a>as.numeric  <span class="co"># Coerce to numeric</span></span>
+<span id="cb104-2"><a href="#cb104-2" tabindex="-1"></a>as.double   <span class="co"># Coerce to double</span></span>
+<span id="cb104-3"><a href="#cb104-3" tabindex="-1"></a>as.integer  <span class="co"># Coerce to integer</span></span>
+<span id="cb104-4"><a href="#cb104-4" tabindex="-1"></a>as.character <span class="co">#  Coerce to character</span></span>
+<span id="cb104-5"><a href="#cb104-5" tabindex="-1"></a>as.logical  <span class="co"># Coerce to Boolean (logical: TRUE | FALSE)</span></span>
+<span id="cb104-6"><a href="#cb104-6" tabindex="-1"></a>as.factor   <span class="co"># Coerce to factor</span></span>
+<span id="cb104-7"><a href="#cb104-7" tabindex="-1"></a>as.Date  <span class="co"># Coerce to date</span></span>
+<span id="cb104-8"><a href="#cb104-8" tabindex="-1"></a>as.data.frame  <span class="co"># Coerce to data frame</span></span>
+<span id="cb104-9"><a href="#cb104-9" tabindex="-1"></a>as.list <span class="co"># Coerce to list</span></span></code></pre></div>
+<hr />
+<p class="alert">
+<strong>⚠ Practice 3.2</strong> Create the following data frame from
+scratch. In this short and not very scientific experiment, the growth
+conditions of five plant individuals are to be tested. The height of the
+plants will be measured at the beginning of the experiment and after one
+week. The <code>height</code> is a double; the time of the measurement
+(<code>start_experiment</code> and <code>end_experiment</code>) and the
+individual plants (<code>plant 1</code>,
+<code>plant 2</code>,<code>plant 3</code>,<code>plant 4</code> and
+<code>plant 5</code>) are <strong>character</strong> vectors. Reformat
+this data frame to obtain the <code>height</code> into one single column
+and the <code>time</code> of the measurement as a factor with two
+levels. You save this <strong>data frame</strong> as the first element
+of a list named <strong><code>my.experiment</code></strong>. The second
+element of this list will be another list called
+<strong><code>growth</code></strong>, in which three elements are
+stored: [1] a <strong>character vector</strong> extracting the row names
+of the previously created table ; [2] a <strong>numeric vector</strong>
+(double) indicating the change in height of each plant (can be positive
+or negative, but will be calculated as a percentage of the initial
+height); [3] a combination of these two elements in a <strong>table with
+two columns</strong>: <code>plants</code> and <code>growth</code>. The
+third element of the <strong><code>my.experiment</code></strong> list
+will be an arbitrary message about the growth status of these plants.
+You will put both your <em>.Rmd</em> and <em>.html</em> files in a
+public repository accessible through your Github account. You will email
+me [<a href="mailto:vianneydenis@g.ntu.edu.tw"
+class="email">vianneydenis@g.ntu.edu.tw</a>] with the address (URL) of
+this repository (e.g. <a
+href="https://github.com/vianneydenis/OCEAN5098B.git"
+class="uri">https://github.com/vianneydenis/OCEAN5098B.git</a>)
+<strong>before next Monday</strong> so that I can review your work. The
+<strong>title of your email</strong> should be: `Practice 3.2 (your
+name: your student no.). ENJOY ;)
+</p>
+<pre><code>##         start_experiment end_experiment
+## plant 1                4              9
+## plant 2                5              6
+## plant 3                3              5
+## plant 4                6              4
+## plant 5                7              7</code></pre>
+</div>
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+<script>
+$(document).ready(function () {
+  window.initializeCodeFolding("show" === "show");
+});
+</script>
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

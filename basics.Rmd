@@ -26,6 +26,11 @@ When a data set is manipulated, the data is changed so that it is easier to read
 
 The `datasets` package provides datasets. It is part of the basic installation of R and you do not need to install the package (if you accept the default option when installing R). These datasets are used in many examples by the help in R. Among these datasets, `iris` (`?iris`) provides measurements of the variables sepal length and width or petal length and width for 50 flowers of each of three iris species. The `Species` is a categorical variable with three levels: *setosa*, *versicolor*, and *virginica*. The flower dimensions are quantitative and continuous variables expressed in centimeters.
 
+```{r, echo=FALSE, fig.align='center', fig.cap="Iris species data collection", out.width = '100%'}
+knitr::include_graphics("illustrations/iris.png")
+```
+
+
 ```{r,  eval=T}
 rm(list=ls()) # clean memory
 library (datasets) # load package
@@ -47,6 +52,11 @@ str(iris) # examine the structure of the object
 ```
 
 The object `iris` is a `data.frame` and consists of 5 variables (`Sepal.Length`, `Sepal.Width`, `Petal.Length`, `Petal.Width`) and 150 observations. Four variables are numerical, one is a factor with 3 levels (`Species`). There are also other object types and structures (integer, matrix, etc.), but more on that later (this is a boring section of this course).
+
+
+
+
+
 
 Summarizing your dataset and examining its structure will allow you to identify possible errors in your dataset (including format errors that may have occurred when importing the dataset, remember `reef_fish.txt` dataset). You can fix format errors with `read.table` or others similar functions. Alternatively, you can `fix` it in a spreadsheet.
 
