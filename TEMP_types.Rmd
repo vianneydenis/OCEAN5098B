@@ -1,0 +1,5 @@
+---
+title: "Data types and structures"
+---
+
+Curious? Press [HERE](https://bookdown.org/introrbook/intro2r/data-types-and-structures.html).
