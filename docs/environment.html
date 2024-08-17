@@ -374,6 +374,9 @@ $(document).ready(function () {
 <li>
   <a href="TEMP_types.html">Types &amp; structures</a>
 </li>
+<li>
+  <a href="maps.html">Mapping</a>
+</li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         
@@ -571,10 +574,13 @@ for help directly in the R console. You can get:</p>
 </ul>
 <div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" tabindex="-1"></a><span class="co"># simple help on the use of a function</span></span>
 <span id="cb6-2"><a href="#cb6-2" tabindex="-1"></a>median</span></code></pre></div>
-<pre><code>## function (x, na.rm = FALSE, ...) 
-## UseMethod(&quot;median&quot;)
-## &lt;bytecode: 0x0000021049586048&gt;
-## &lt;environment: namespace:stats&gt;</code></pre>
+<pre><code>## standardGeneric for &quot;median&quot; defined from package &quot;stats&quot;
+## 
+## function (x, na.rm = FALSE, ...) 
+## standardGeneric(&quot;median&quot;)
+## &lt;environment: 0x000002105b3ae808&gt;
+## Methods may be defined for arguments: x, na.rm
+## Use  showMethods(median)  for currently available ones.</code></pre>
 <ul>
 <li>a detailed summary on the use of the function <code>median</code>
 which will send you to an .html webpage.</li>
@@ -625,19 +631,18 @@ will not</p>
 objects in the memory.</p>
 <div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" tabindex="-1"></a><span class="co"># my current list is empty </span></span>
 <span id="cb13-2"><a href="#cb13-2" tabindex="-1"></a><span class="fu">ls</span>()</span></code></pre></div>
-<pre><code>##  [1] &quot;arranged1&quot;  &quot;arranged2&quot;  &quot;colors&quot;     &quot;f&quot;          &quot;females&quot;   
-##  [6] &quot;filtered1&quot;  &quot;filtered2&quot;  &quot;gp&quot;         &quot;gp.mean&quot;    &quot;iris&quot;      
-## [11] &quot;mutated1&quot;   &quot;selection1&quot; &quot;selection2&quot; &quot;selection3&quot; &quot;sf&quot;        
-## [16] &quot;students&quot;   &quot;summarised&quot;</code></pre>
+<pre><code>##  [1] &quot;arranged1&quot;  &quot;arranged2&quot;  &quot;colors&quot;     &quot;f&quot;          &quot;females&quot;    &quot;filtered1&quot; 
+##  [7] &quot;filtered2&quot;  &quot;gp&quot;         &quot;gp.mean&quot;    &quot;iris&quot;       &quot;mutated1&quot;   &quot;selection1&quot;
+## [13] &quot;selection2&quot; &quot;selection3&quot; &quot;sf&quot;         &quot;students&quot;   &quot;summarised&quot;</code></pre>
 <div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" tabindex="-1"></a><span class="co"># I create and list 3 objects </span></span>
 <span id="cb15-2"><a href="#cb15-2" tabindex="-1"></a>a<span class="ot">&lt;-</span><span class="st">&#39;corals&#39;</span> <span class="co"># create an object &#39;a&#39; containing &#39;corals&#39;</span></span>
 <span id="cb15-3"><a href="#cb15-3" tabindex="-1"></a>b<span class="ot">&lt;-</span><span class="st">&#39;are&#39;</span> <span class="co"># create an object &#39;b&#39; containing &#39;are&#39;</span></span>
 <span id="cb15-4"><a href="#cb15-4" tabindex="-1"></a>c<span class="ot">&lt;-</span><span class="st">&#39;cool&#39;</span><span class="co"># create an object &#39;c&#39; containing &#39;cool&#39;</span></span>
 <span id="cb15-5"><a href="#cb15-5" tabindex="-1"></a><span class="fu">ls</span>() <span class="co"># list objects &#39;a&#39;, &#39;b&#39;, &#39;c&#39;</span></span></code></pre></div>
-<pre><code>##  [1] &quot;a&quot;          &quot;arranged1&quot;  &quot;arranged2&quot;  &quot;b&quot;          &quot;c&quot;         
-##  [6] &quot;colors&quot;     &quot;f&quot;          &quot;females&quot;    &quot;filtered1&quot;  &quot;filtered2&quot; 
-## [11] &quot;gp&quot;         &quot;gp.mean&quot;    &quot;iris&quot;       &quot;mutated1&quot;   &quot;selection1&quot;
-## [16] &quot;selection2&quot; &quot;selection3&quot; &quot;sf&quot;         &quot;students&quot;   &quot;summarised&quot;</code></pre>
+<pre><code>##  [1] &quot;a&quot;          &quot;arranged1&quot;  &quot;arranged2&quot;  &quot;b&quot;          &quot;c&quot;          &quot;colors&quot;    
+##  [7] &quot;f&quot;          &quot;females&quot;    &quot;filtered1&quot;  &quot;filtered2&quot;  &quot;gp&quot;         &quot;gp.mean&quot;   
+## [13] &quot;iris&quot;       &quot;mutated1&quot;   &quot;selection1&quot; &quot;selection2&quot; &quot;selection3&quot; &quot;sf&quot;        
+## [19] &quot;students&quot;   &quot;summarised&quot;</code></pre>
 <p><strong>Note</strong>: two operators <code>&lt;-</code> and
 <code>=</code> can be used to import data. While longer, I favor
 <code>&lt;-</code> in the creation of object to avoid confusion with

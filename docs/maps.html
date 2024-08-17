@@ -1,0 +1,1331 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+
+
+<title>Spatial</title>
+
+<script src="site_libs/header-attrs-2.25/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/flatly.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<script src="site_libs/navigation-1.1/codefolding.js"></script>
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+
+
+<style type="text/css">
+  code {
+    white-space: pre;
+  }
+  .sourceCode {
+    overflow: visible;
+  }
+</style>
+<style type="text/css" data-origin="pandoc">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; } /* Alert */
+code span.an { color: #008000; } /* Annotation */
+code span.at { } /* Attribute */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #0000ff; } /* ControlFlow */
+code span.ch { color: #008080; } /* Char */
+code span.cn { color: #585cf6; } /* Constant */
+code span.co { color: #4c886b; } /* Comment */
+code span.cv { color: #008000; } /* CommentVar */
+code span.do { color: #008000; } /* Documentation */
+code span.dv { color: #0000cd; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #0000cd; } /* Float */
+code span.im { } /* Import */
+code span.in { color: #008000; } /* Information */
+code span.kw { color: #0000ff; } /* Keyword */
+code span.op { color: #687687; } /* Operator */
+code span.ot { color: #ff4000; } /* Other */
+code span.pp { color: #ff4000; } /* Preprocessor */
+code span.sc { color: #008080; } /* SpecialChar */
+code span.ss { color: #008080; } /* SpecialString */
+code span.st { color: #036a07; } /* String */
+code span.va { } /* Variable */
+code span.vs { color: #008080; } /* VerbatimString */
+code span.wa { color: #008000; font-weight: bold; } /* Warning */
+
+.sourceCode .row {
+  width: 100%;
+}
+.sourceCode {
+  overflow-x: auto;
+}
+.code-folding-btn {
+  margin-right: -30px;
+}
+</style>
+<script>
+// apply pandoc div.sourceCode style to pre.sourceCode instead
+(function() {
+  var sheets = document.styleSheets;
+  for (var i = 0; i < sheets.length; i++) {
+    if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
+    try { var rules = sheets[i].cssRules; } catch (e) { continue; }
+    var j = 0;
+    while (j < rules.length) {
+      var rule = rules[j];
+      // check if there is a div.sourceCode rule
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") {
+        j++;
+        continue;
+      }
+      var style = rule.style.cssText;
+      // check if color or background-color is set
+      if (rule.style.color === '' && rule.style.backgroundColor === '') {
+        j++;
+        continue;
+      }
+      // replace div.sourceCode by a pre.sourceCode rule
+      sheets[i].deleteRule(j);
+      sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
+    }
+  }
+})();
+</script>
+
+
+
+
+<link rel="stylesheet" href="styles.css" type="text/css" />
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "\e258";
+  font-family: 'Glyphicons Halflings';
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+<style type="text/css">
+.code-folding-btn { margin-bottom: 4px; }
+</style>
+
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">OCEAN_5098</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Home</a>
+</li>
+<li>
+  <a href="environment.html">Environment</a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Manipulation
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="TEMP_basics.html">Basics</a>
+    </li>
+    <li>
+      <a href="TEMP_dplyr.html">dplyr</a>
+    </li>
+    <li>
+      <a href="TEMP_tidyr.html">tidyr</a>
+    </li>
+  </ul>
+</li>
+<li>
+  <a href="TEMP_types.html">Types &amp; structures</a>
+</li>
+<li>
+  <a href="maps.html">Mapping</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+<div class="btn-group pull-right float-right">
+<button type="button" class="btn btn-default btn-xs btn-secondary btn-sm dropdown-toggle" data-toggle="dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span>Code</span> <span class="caret"></span></button>
+<ul class="dropdown-menu dropdown-menu-right" style="min-width: 50px;">
+<li><a id="rmd-show-all-code" href="#">Show All Code</a></li>
+<li><a id="rmd-hide-all-code" href="#">Hide All Code</a></li>
+</ul>
+</div>
+
+
+
+<h1 class="title toc-ignore">Spatial</h1>
+
+</div>
+
+
+<p>This is an introduction to spatial data manipulation with R and the
+terra package. In this context “spatial data” refers to data about
+geographical locations, that is, places on earth. So to be more precise,
+we should speak about <strong>geospatial</strong> data, but we use the
+shorthand <strong>spatial</strong>.</p>
+<p>The package <code>terra</code> is now the package of reference for
+manipulating spatial data, spatial analysis and modeling in R. It is a
+very large topics and here we cover the basics of data manipulation.</p>
+<p>Because of the many changes happening in the past few years related
+to spatial data analysis in R, this section of the course is still under
+developement. The information below are largely extracted form online
+tutorial available <a
+href="&#39;https://rspatial.org/spatial/2-spatialdata.html&#39;">here</a></p>
+<div id="spatial-data" class="section level1">
+<h1>Spatial data</h1>
+<p>Spatial phenomena can generally be thought of as either discrete
+objects with clear boundaries or as a continuous phenomena that can be
+observed everywhere, but that do not have natural boundaries. Discrete
+spatial objects may refer to a river, road, country, town, or a research
+site. Examples of continuous phenomena, or <strong>spatial
+fields</strong>, include elevation, temperature, and air quality.</p>
+<p>Spatial objects are usually represented by vector data. Such data
+consists of a description of the <strong>geometry</strong> or
+<strong>shape</strong> of the objects, and normally also includes
+additional variables. For example, a vector data set may represent the
+borders of the countries of the world (geometry), and also store their
+names and the size of their population in 2015; or it may have the
+geometry of the roads in an area, as well as their type and names. These
+additional variables are often referred to as
+<strong>attributes</strong>. Continuous spatial data (fields) are
+usually represented with a raster data structure. We discuss these two
+data types in turn.</p>
+<div id="vector-data" class="section level2">
+<h2>Vector data</h2>
+<p>The main vector data types are points, lines and polygons. In all
+cases, the geometry of these data structures consists of sets of
+coordinate pairs (x, y). Points are the simplest case. Each point has
+one coordinate pair, and n associated variables. For example, a point
+might represent a place where a rat was trapped, and the attributes
+could include the date it was captured, the person who captured it, the
+species size and sex, and information about the habitat. It is also
+possible to combine several points into a multi-point structure, with a
+single attribute record. For example, all the coffee shops in a town
+could be considered as a single geometry.</p>
+<p>The geometry of lines is a just a little bit more complex. First note
+that in this context, the term <em>line</em> refers to a set of one or
+more polylines (connected series of line segments). For example, in
+spatial analysis, a river and all its tributaries could be considered as
+a single <em>line</em> (but they could also also be several lines,
+perhaps one for each tributary river). Lines are represented as ordered
+sets of coordinates (nodes). The actual line segments can be computed
+(and drawn on a map) by connecting the points. Thus, the representation
+of a line is very similar to that of a multi-point structure. The main
+difference is that for a line the ordering of the points is important,
+because we need to know in which order the points should be
+connected.</p>
+<p>A network (e.g. a road or river network), or spatial graph, is a
+special type of lines geometry where there is additional information
+about things like flow, connectivity, direction, and distance.</p>
+<p>A polygon refers to a set of closed polylines. The geometry is very
+similar to that of lines, but to close a polygon the last coordinate
+pair coincides with the first pair. A complication with polygons is that
+they can have holes (that is a polygon entirely enclosed by another
+polygon, that serves to remove parts of the enclosing polygon (for
+example to show an island inside a lake. Also, valid polygons do not
+self-intersect (but it is OK for a line to self-cross). Again, multiple
+polygons can be considered as a single geometry. For example, Indonesia
+consists of many islands. Each island can be represented by a single
+polygon, but together then can be represent a single (multi-) polygon
+representing the entire country.</p>
+</div>
+<div id="raster-data" class="section level2">
+<h2>Raster data</h2>
+<p>Raster data is commonly used to represent spatially continuous
+phenomena such as elevation. A raster divides the world into a grid of
+equally sized rectangles (referred to as cells or, in the context of
+satellite remote sensing, pixels) that all have one or more values (or
+missing values) for the variables of interest. A raster cell value
+should normally represent the average (or majority) value for the area
+it covers. However, in some cases the values are actually estimates for
+the center of the cell (in essence becoming a regular set of points with
+an attribute).</p>
+<p>In contrast to vector data, in raster data the geometry is not
+explicitly stored as coordinates. It is implicitly set by knowing the
+spatial extent and the number or rows and columns in which the area is
+divided. From the extent and number of rows and columns, the size of the
+raster cells (spatial resolution) can be computed. While raster cells
+can be thought of as a set of regular polygons, it would be very
+inefficient to represent the data that way as coordinates for each cell
+would have to be stored explicitly. Doing so would also dramatically
+increase processing time.</p>
+<p>Continuous surface data are sometimes stored as triangulated
+irregular networks (TINs); these are not discussed here.</p>
+</div>
+<div id="simple-representation-of-spatial-data" class="section level2">
+<h2>Simple representation of spatial data</h2>
+<p>The basic data types in R are numbers, characters, logical (TRUE or
+FALSE) and factor values. Values of a single type can be combined in
+vectors and matrices, and variables of multiple types can be combined
+into a data.frame. We can represent (only very) basic spatial data with
+these data types. Let’s say we have the location (represented by
+longitude and latitude) of ten weather stations (named A to J) and their
+annual precipitation.</p>
+<p>In the example below we make a very simple map. Note that a map is
+special type of plot (like a scatter plot, barplot, etc.). A map is a
+plot of geospatial data that also has labels and other graphical objects
+such as a scale bar or legend. The spatial data itself should not be
+referred to as a map.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a>name <span class="ot">&lt;-</span> LETTERS[<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>]</span>
+<span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a>longitude <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="sc">-</span><span class="fl">116.7</span>, <span class="sc">-</span><span class="fl">120.4</span>, <span class="sc">-</span><span class="fl">116.7</span>, <span class="sc">-</span><span class="fl">113.5</span>, <span class="sc">-</span><span class="fl">115.5</span>,</span>
+<span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a>               <span class="sc">-</span><span class="fl">120.8</span>, <span class="sc">-</span><span class="fl">119.5</span>, <span class="sc">-</span><span class="fl">113.7</span>, <span class="sc">-</span><span class="fl">113.7</span>, <span class="sc">-</span><span class="fl">110.7</span>)</span>
+<span id="cb1-4"><a href="#cb1-4" tabindex="-1"></a>latitude <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">45.3</span>, <span class="fl">42.6</span>, <span class="fl">38.9</span>, <span class="fl">42.1</span>, <span class="fl">35.7</span>, <span class="fl">38.9</span>,</span>
+<span id="cb1-5"><a href="#cb1-5" tabindex="-1"></a>              <span class="fl">36.2</span>, <span class="dv">39</span>, <span class="fl">41.6</span>, <span class="fl">36.9</span>)</span>
+<span id="cb1-6"><a href="#cb1-6" tabindex="-1"></a>stations <span class="ot">&lt;-</span> <span class="fu">cbind</span>(longitude, latitude)</span>
+<span id="cb1-7"><a href="#cb1-7" tabindex="-1"></a><span class="co"># Simulated rainfall data</span></span>
+<span id="cb1-8"><a href="#cb1-8" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">0</span>)</span>
+<span id="cb1-9"><a href="#cb1-9" tabindex="-1"></a>precip <span class="ot">&lt;-</span> <span class="fu">round</span>((<span class="fu">runif</span>(<span class="fu">length</span>(latitude))<span class="sc">*</span><span class="dv">10</span>)<span class="sc">^</span><span class="dv">3</span>)</span></code></pre></div>
+<p>A map of point locations is not that different from a basic x-y
+scatter plot. Below is a plot (a map in this case) that shows the
+location of the weather stations, and the size of the dots is
+proportional to the amount of precipitation. The point size is set with
+argument cex.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a>psize <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="sc">+</span> precip<span class="sc">/</span><span class="dv">500</span></span>
+<span id="cb2-2"><a href="#cb2-2" tabindex="-1"></a><span class="fu">plot</span>(stations, <span class="at">cex=</span>psize, <span class="at">pch=</span><span class="dv">20</span>, <span class="at">col=</span><span class="st">&#39;red&#39;</span>, <span class="at">main=</span><span class="st">&#39;Precipitation&#39;</span>)</span>
+<span id="cb2-3"><a href="#cb2-3" tabindex="-1"></a><span class="co"># add names to plot</span></span>
+<span id="cb2-4"><a href="#cb2-4" tabindex="-1"></a><span class="fu">text</span>(stations, name, <span class="at">pos=</span><span class="dv">4</span>)</span>
+<span id="cb2-5"><a href="#cb2-5" tabindex="-1"></a><span class="co"># add a legend</span></span>
+<span id="cb2-6"><a href="#cb2-6" tabindex="-1"></a>breaks <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">100</span>, <span class="dv">250</span>, <span class="dv">500</span>, <span class="dv">1000</span>)</span>
+<span id="cb2-7"><a href="#cb2-7" tabindex="-1"></a>legend.psize <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">+</span>breaks<span class="sc">/</span><span class="dv">500</span></span>
+<span id="cb2-8"><a href="#cb2-8" tabindex="-1"></a><span class="fu">legend</span>(<span class="st">&quot;topright&quot;</span>, <span class="at">legend=</span>breaks, <span class="at">pch=</span><span class="dv">20</span>, <span class="at">pt.cex=</span>legend.psize, <span class="at">col=</span><span class="st">&#39;red&#39;</span>, <span class="at">bg=</span><span class="st">&#39;gray&#39;</span>)</span></code></pre></div>
+<p><img src="maps_files/figure-html/unnamed-chunk-2-1.png" width="672" /></p>
+<p>Note that the data are represented by “longitude, latitude”, in that
+order, do not use “latitude, longitude” because on most maps latitude
+(North/South) is used for the vertical axis and longitude (East/West)
+for the horizontal axis. This is important to keep in mind, as it is a
+very common source of mistakes!</p>
+<p>We can add multiple sets of points to the plot, and even draw lines
+and polygons:</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a>lon <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="sc">-</span><span class="fl">116.8</span>, <span class="sc">-</span><span class="fl">114.2</span>, <span class="sc">-</span><span class="fl">112.9</span>, <span class="sc">-</span><span class="fl">111.9</span>, <span class="sc">-</span><span class="fl">114.2</span>, <span class="sc">-</span><span class="fl">115.4</span>, <span class="sc">-</span><span class="fl">117.7</span>)</span>
+<span id="cb3-2"><a href="#cb3-2" tabindex="-1"></a>lat <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">41.3</span>, <span class="fl">42.9</span>, <span class="fl">42.4</span>, <span class="fl">39.8</span>, <span class="fl">37.6</span>, <span class="fl">38.3</span>, <span class="fl">37.6</span>)</span>
+<span id="cb3-3"><a href="#cb3-3" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">cbind</span>(lon, lat)</span>
+<span id="cb3-4"><a href="#cb3-4" tabindex="-1"></a><span class="fu">plot</span>(stations, <span class="at">main=</span><span class="st">&#39;Precipitation&#39;</span>)</span>
+<span id="cb3-5"><a href="#cb3-5" tabindex="-1"></a><span class="fu">polygon</span>(x, <span class="at">col=</span><span class="st">&#39;blue&#39;</span>, <span class="at">border=</span><span class="st">&#39;light blue&#39;</span>)</span>
+<span id="cb3-6"><a href="#cb3-6" tabindex="-1"></a><span class="fu">lines</span>(stations, <span class="at">lwd=</span><span class="dv">3</span>, <span class="at">col=</span><span class="st">&#39;red&#39;</span>)</span>
+<span id="cb3-7"><a href="#cb3-7" tabindex="-1"></a><span class="fu">points</span>(x, <span class="at">cex=</span><span class="dv">2</span>, <span class="at">pch=</span><span class="dv">20</span>)</span>
+<span id="cb3-8"><a href="#cb3-8" tabindex="-1"></a><span class="fu">points</span>(stations, <span class="at">cex=</span>psize, <span class="at">pch=</span><span class="dv">20</span>, <span class="at">col=</span><span class="st">&#39;red&#39;</span>, <span class="at">main=</span><span class="st">&#39;Precipitation&#39;</span>)</span></code></pre></div>
+<p><img src="maps_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
+<p>The above illustrates how numeric vectors representing locations can
+be used to draw simple maps. It also shows how points can (and typically
+are) represented by pairs of numbers. A line and a polygon can be
+represented by a number of these points. Polygons need to “closed”, that
+is, the first point must coincide with the last point, but the
+<code>polygon</code> function took care of that for us.</p>
+<p>There are cases where a simple approach like this may suffice and you
+may come across this in older R code or packages. Likewise, raster data
+could be represented by a matrix or higher-order array. Particularly
+when only dealing with point data such an approach may be practical. For
+example, a spatial data set representing points and attributes could be
+made by combining geometry and attributes in a single
+<code>data.frame</code>.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a>wst <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(longitude, latitude, name, precip)</span>
+<span id="cb4-2"><a href="#cb4-2" tabindex="-1"></a>wst</span></code></pre></div>
+<pre><code>##    longitude latitude name precip
+## 1     -116.7     45.3    A    721
+## 2     -120.4     42.6    B     19
+## 3     -116.7     38.9    C     52
+## 4     -113.5     42.1    D    188
+## 5     -115.5     35.7    E    749
+## 6     -120.8     38.9    F      8
+## 7     -119.5     36.2    G    725
+## 8     -113.7     39.0    H    843
+## 9     -113.7     41.6    I    289
+## 10    -110.7     36.9    J    249</code></pre>
+<p>However, <code>wst</code> is a data.frame and R does not
+automatically understand the special meaning of the first two columns,
+or to what coordinate reference system it refers (longitude/latitude, or
+perhaps UTM zone 17S, or ….?).</p>
+<p>Moreover, it is non-trivial to do some basic spatial operations. For
+example, the blue polygon drawn on the map above might represent a
+state, and a next question might be which of the 10 stations fall within
+that polygon. And how about any other operation on spatial data,
+including reading from and writing data to files? To facilitate such
+operation a number of R packages have been developed that define new
+spatial data types that can be used for this type of specialized
+operations.</p>
+<p>Recent packages in R that define such spatial data structures include
+<code>terra</code> and <code>sf</code>. These packages replace a set of
+older packages including <code>raster</code> and <code>sp</code>.</p>
+<p>We mostly use the <code>terra</code> package in these materials. You
+can install the latest released version of terra from CRAN with
+<code>install.packages("terra")</code>.</p>
+</div>
+</div>
+<div id="reading-and-writing-spatial-data" class="section level1">
+<h1>Reading and writing spatial data</h1>
+<p>Reading and writing spatial data is complicated by the fact that
+there are many different file formats. However, there are a few formats
+that are most common that we discuss here.</p>
+<div id="vector-files" class="section level2">
+<h2>Vector files</h2>
+<p>The shapefile is the most commonly used file format for vector data
+(if you are not familiar with this file format, an important thing to
+understand is that a shapefile is really a set of at least three
+(ideally four) files, with all the same name, but different extension.
+For shapefile x you must have, in the same directory, these three files:
+x.shp, x.shx, x.dbf, and ideally also x.prj.</p>
+<p>It is easy to read and write such files. Here we use a shapefile that
+comes with the <code>terra</code> package.</p>
+<div id="reading" class="section level3">
+<h3>Reading</h3>
+<p>Let’s first download some spatial data of Taiwan using the
+<code>geodata</code> package:</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" tabindex="-1"></a><span class="fu">library</span> (geodata)</span>
+<span id="cb6-2"><a href="#cb6-2" tabindex="-1"></a><span class="co">#TWN &lt;- gadm(country=&quot;TWN&quot;, level=1, path=tempdir())</span></span>
+<span id="cb6-3"><a href="#cb6-3" tabindex="-1"></a><span class="co">#TWN &lt;- gadm(country=&quot;TWN&quot;, level=1, path=&quot;./data&quot;</span></span>
+<span id="cb6-4"><a href="#cb6-4" tabindex="-1"></a>TWN <span class="ot">&lt;-</span> <span class="fu">vect</span>(<span class="st">&#39;data/gadm/gadm41_TWN_1_pk.rds&#39;</span>)</span>
+<span id="cb6-5"><a href="#cb6-5" tabindex="-1"></a>TWN</span>
+<span id="cb6-6"><a href="#cb6-6" tabindex="-1"></a><span class="co"># check for ?gadm</span></span></code></pre></div>
+<p>Using a .shp file, we can use the <code>vect</code> function from the
+<code>terra</code> package to read the file. First:</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" tabindex="-1"></a><span class="co"># example using .shp file</span></span>
+<span id="cb7-2"><a href="#cb7-2" tabindex="-1"></a><span class="fu">library</span>(terra)</span>
+<span id="cb7-3"><a href="#cb7-3" tabindex="-1"></a>filename1 <span class="ot">&lt;-</span> <span class="fu">system.file</span>(<span class="st">&quot;ex/lux.shp&quot;</span>, <span class="at">package=</span><span class="st">&quot;terra&quot;</span>)</span>
+<span id="cb7-4"><a href="#cb7-4" tabindex="-1"></a><span class="fu">basename</span>(filename1)</span></code></pre></div>
+<pre><code>## [1] &quot;lux.shp&quot;</code></pre>
+<blockquote>
+<p>We use the system.file function to get the full path name of the
+file’s location. We need to do this as the location of this file depends
+on where the terra package is installed. You should not use the
+system.file function for your own files. It only serves for creating
+examples with data that ship with R. With your own files, just use the
+filename (and path if the file is not in your working directory).</p>
+</blockquote>
+<p>Then:</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" tabindex="-1"></a><span class="co"># example using .shp file</span></span>
+<span id="cb9-2"><a href="#cb9-2" tabindex="-1"></a>s1 <span class="ot">&lt;-</span> <span class="fu">vect</span>(filename1)</span>
+<span id="cb9-3"><a href="#cb9-3" tabindex="-1"></a>s1</span></code></pre></div>
+<pre><code>##  class       : SpatVector 
+##  geometry    : polygons 
+##  dimensions  : 12, 6  (geometries, attributes)
+##  extent      : 5.74414, 6.528252, 49.44781, 50.18162  (xmin, xmax, ymin, ymax)
+##  source      : lux.shp
+##  coord. ref. : lon/lat WGS 84 (EPSG:4326) 
+##  names       :  ID_1   NAME_1  ID_2   NAME_2  AREA   POP
+##  type        : &lt;num&gt;    &lt;chr&gt; &lt;num&gt;    &lt;chr&gt; &lt;num&gt; &lt;int&gt;
+##  values      :     1 Diekirch     1 Clervaux   312 18081
+##                    1 Diekirch     2 Diekirch   218 32543
+##                    1 Diekirch     3  Redange   259 18664</code></pre>
+<p>The <code>vect</code> function returns <code>SpatVector</code>
+objects. It is important to recognise the difference between this type
+of R object (<code>SpatVector</code>), and the file (“shapefile”) that
+was used to create it. Thus, you should never say “I have a shapefile in
+R”, say “I have a SpatVector of polygons in R”, (and in some cases you
+can add “created from a shapefile”). The shapefile is one of many file
+formats for vector data.</p>
+</div>
+<div id="writing" class="section level3">
+<h3>Writing</h3>
+<p>You can write new files using the <code>writeVector</code> method.
+You need to add argument <code>overwrite=TRUE</code> if you want to
+overwrite an existing file.</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" tabindex="-1"></a>TWN <span class="ot">&lt;-</span> <span class="fu">vect</span>(<span class="st">&#39;data/gadm/gadm41_TWN_1_pk.rds&#39;</span>)</span>
+<span id="cb11-2"><a href="#cb11-2" tabindex="-1"></a>outfile1 <span class="ot">&lt;-</span> <span class="st">&quot;data/shp_TWN.shp&quot;</span></span>
+<span id="cb11-3"><a href="#cb11-3" tabindex="-1"></a><span class="fu">writeVector</span>(TWN, outfile1, <span class="at">overwrite=</span><span class="cn">TRUE</span>)</span></code></pre></div>
+</div>
+</div>
+<div id="raster-files" class="section level2">
+<h2>Raster files</h2>
+<p>The terra package can read and write several raster file formats.</p>
+<div id="reading-raster-data" class="section level3">
+<h3>Reading raster data</h3>
+<p>Get raster data of taiwan elevation using the <code>geodata</code>
+package:</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" tabindex="-1"></a>ele <span class="ot">&lt;-</span><span class="fu">elevation_30s</span>(<span class="st">&quot;TWN&quot;</span>, <span class="at">path=</span><span class="fu">tempdir</span>())</span>
+<span id="cb12-2"><a href="#cb12-2" tabindex="-1"></a>ele</span></code></pre></div>
+<pre><code>## class       : SpatRaster 
+## dimensions  : 636, 684, 1  (nrow, ncol, nlyr)
+## resolution  : 0.008333333, 0.008333333  (x, y)
+## extent      : 116.6, 122.3, 20.5, 25.8  (xmin, xmax, ymin, ymax)
+## coord. ref. : lon/lat WGS 84 (EPSG:4326) 
+## source      : TWN_elv_msk.tif 
+## name        : TWN_elv_msk 
+## min value   :         -12 
+## max value   :        3741</code></pre>
+<p>Using a .tif file, we can use the <code>rast</code> function from the
+<code>terra</code> package to read the file. Firstusing example file
+from the package:</p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" tabindex="-1"></a>f <span class="ot">&lt;-</span> <span class="fu">system.file</span>(<span class="st">&quot;ex/logo.tif&quot;</span>, <span class="at">package=</span><span class="st">&quot;terra&quot;</span>)</span>
+<span id="cb14-2"><a href="#cb14-2" tabindex="-1"></a><span class="fu">basename</span>(f)</span></code></pre></div>
+<pre><code>## [1] &quot;logo.tif&quot;</code></pre>
+<p>Now we can do</p>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" tabindex="-1"></a>r <span class="ot">&lt;-</span> <span class="fu">rast</span>(f)</span>
+<span id="cb16-2"><a href="#cb16-2" tabindex="-1"></a>r</span></code></pre></div>
+<pre><code>## class       : SpatRaster 
+## dimensions  : 77, 101, 3  (nrow, ncol, nlyr)
+## resolution  : 1, 1  (x, y)
+## extent      : 0, 101, 0, 77  (xmin, xmax, ymin, ymax)
+## coord. ref. : Cartesian (Meter) 
+## source      : logo.tif 
+## colors RGB  : 1, 2, 3 
+## names       : red, green, blue 
+## min values  :   0,     0,    0 
+## max values  : 255,   255,  255</code></pre>
+<p>Note that x is a SpatRaster of three layers (“bands”). We can subset
+it to get a single layer.</p>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" tabindex="-1"></a>r2 <span class="ot">&lt;-</span> r[[<span class="dv">2</span>]]</span>
+<span id="cb18-2"><a href="#cb18-2" tabindex="-1"></a>r2</span></code></pre></div>
+<pre><code>## class       : SpatRaster 
+## dimensions  : 77, 101, 1  (nrow, ncol, nlyr)
+## resolution  : 1, 1  (x, y)
+## extent      : 0, 101, 0, 77  (xmin, xmax, ymin, ymax)
+## coord. ref. : Cartesian (Meter) 
+## source      : logo.tif 
+## name        : green 
+## min value   :     0 
+## max value   :   255</code></pre>
+<p>The same approach holds for other raster file formats, including
+GeoTiff, NetCDF, Imagine, and ESRI Grid formats.</p>
+</div>
+<div id="writing-raster-data" class="section level3">
+<h3>Writing raster data</h3>
+<p>Use <code>writeRaster</code> to write raster data. You must provide a
+SpatRaster and a filename. The file format will be guessed from the
+filename extension. If that does not work you can provide an argument
+like <code>format=GTiff</code>. Note the argument
+<code>overwrite=TRUE</code> and see <code>?writeRaster</code> for more
+arguments, such as <code>datatype=</code> to set the a specific datatype
+(e.g., integer).</p>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">writeRaster</span>(ele, <span class="st">&quot;data/ele.tif&quot;</span>, <span class="at">overwrite=</span><span class="cn">TRUE</span>)</span>
+<span id="cb20-2"><a href="#cb20-2" tabindex="-1"></a>x</span></code></pre></div>
+<pre><code>## class       : SpatRaster 
+## dimensions  : 636, 684, 1  (nrow, ncol, nlyr)
+## resolution  : 0.008333333, 0.008333333  (x, y)
+## extent      : 116.6, 122.3, 20.5, 25.8  (xmin, xmax, ymin, ymax)
+## coord. ref. : lon/lat WGS 84 (EPSG:4326) 
+## source      : ele.tif 
+## name        : TWN_elv_msk 
+## min value   :         -12 
+## max value   :        3741</code></pre>
+</div>
+</div>
+</div>
+<div id="coordinate-reference-systems" class="section level1">
+<h1>Coordinate Reference Systems</h1>
+<p>A very important aspect of spatial data is the coordinate reference
+system (CRS) that is used. For example, a location of (140, 12) is not
+meaningful if you do know where the origin (0,0) is and if the
+x-coordinate is 140 meters, feet, nautical miles, kilometers, or perhaps
+degrees away from the x-origin.</p>
+<div id="coordinate-reference-systems-crs" class="section level2">
+<h2>Coordinate Reference Systems (CRS)</h2>
+<div id="angular-coordinates" class="section level3">
+<h3>Angular coordinates</h3>
+<p>The earth has an irregular spheroid-like shape. The natural
+coordinate reference system for geographic data is longitude/latitude.
+This is an angular coordinate reference system. The latitude (phi) of a
+point is the angle between the equatorial plane and the line that passes
+through a point and the center of the Earth. Longitude (lambda) is the
+angle from a reference meridian (lines of constant longitude) to a
+meridian that passes through the point.</p>
+<p>Obviously we cannot actually measure these angles. But we can
+estimate them. To do so, you need a model of the shape of the earth.
+Such a model is called a “datum”. The simplest datums are a spheroid (a
+sphere that is “flattened” at the poles and bulges at the equator). More
+complex datums allow for more variation in the earth’s shape. The most
+commonly used datum is called WGS84 (World Geodesic System 1984). This
+is very similar to NAD83 (The North American Datum of 1983). Other,
+local datums exist to more precisely record locations for a single
+country or region.</p>
+<p>So the basic way to record a location is a coordinate pair in degrees
+and a reference datum. Sometimes people say that their coordinates are
+“in WGS84”. That does not tell us much; they typically mean to say that
+they are longitude/latitude relative to the WGS84 datum. Likewise
+longitude/latitude coordinates are sometimes referred to as “geographic”
+coordinates. That is rather odd, if planar coordinate reference systems
+(see below) are not geographic, what are they?</p>
+</div>
+<div id="projections" class="section level3">
+<h3>Projections</h3>
+<p>A major question in spatial analysis and cartography is how to
+transform this three dimensional angular system to a two dimensional
+planar (sometimes called “Cartesian”) system. A planar system is easier
+to use for certain calculations and required to make maps (unless you
+have a 3-d printer). The different types of planar coordinate reference
+systems are referred to as “projections”. Examples are “Mercator”,
+“UTM”, “Robinson”, “Lambert”, “Sinusoidal” and “Albers”.</p>
+<p>There is not one best projection. Some projections can be used for a
+map of the whole world; other projections are appropriate for small
+areas only. One of the most important characteristics of a map
+projection is whether it is “equal area” (the scale of the map is
+constant) or “conformal” (the shapes of the geographic features are as
+they are seen on a globe). No two dimensional map projection can be both
+conformal and equal-area (but they can be approximately both for smaller
+areas, e.g. UTM, or Lambert Equal Area for a larger area), and some are
+neither.</p>
+</div>
+<div id="notation" class="section level3">
+<h3>Notation</h3>
+<p>A planar CRS is defined by a projection, datum, and a set of
+parameters. The parameters determine things like where the center of the
+map is. The number of parameters depends on the projection. It is
+therefore not trivial to document a projection used, and several systems
+exist. In R we used to depend on the PROJ.4 notation. PROJ.4 is the name
+of a software library that is commonly used for CRS transformation. You
+can find many more of these on <a
+href="https://spatialreference.org/ref/epsg/4326/">spatialreference.org</a></p>
+<p>The PROJ.4 notation is no longer fully supported in the newer
+versions of the library (that was renamed to PR<span
+class="math inline">\(\phi\)</span>J). It still works for CRSs with the
+WGS84 datum. For other cases you have to use a EPSG code (if available)
+or a Well-Known-Text notation.</p>
+<p>Most commonly used CRSs have been assigned a “EPSG code” (EPSG stands
+for European Petroleum Survey Group). This is a unique ID that can be a
+simple way to identify a CRS. For example <code>EPSG:27561</code> is
+equivalent to
+<code>+proj=lcc +lat_1=49.5 +lat_0=49.5 +lon_0=0 +k_0=0.999877341 +x_0=6 +y_0=2 +a=6378249.2 +b=6356515 +towgs84=-168,-60,320,0,0,0,0 +pm=paris +units=m +no_defs</code>.</p>
+<p>Now let’s look at an example with a spatial data set in R.</p>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" tabindex="-1"></a>s1</span></code></pre></div>
+<pre><code>##  class       : SpatVector 
+##  geometry    : polygons 
+##  dimensions  : 12, 6  (geometries, attributes)
+##  extent      : 5.74414, 6.528252, 49.44781, 50.18162  (xmin, xmax, ymin, ymax)
+##  source      : lux.shp
+##  coord. ref. : lon/lat WGS 84 (EPSG:4326) 
+##  names       :  ID_1   NAME_1  ID_2   NAME_2  AREA   POP
+##  type        : &lt;num&gt;    &lt;chr&gt; &lt;num&gt;    &lt;chr&gt; &lt;num&gt; &lt;int&gt;
+##  values      :     1 Diekirch     1 Clervaux   312 18081
+##                    1 Diekirch     2 Diekirch   218 32543
+##                    1 Diekirch     3  Redange   259 18664</code></pre>
+<p>We can inspect the coordinate reference system like this.</p>
+<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" tabindex="-1"></a><span class="fu">crs</span>(s1)</span></code></pre></div>
+<pre><code>## [1] &quot;GEOGCRS[\&quot;WGS 84\&quot;,\n    DATUM[\&quot;World Geodetic System 1984\&quot;,\n        ELLIPSOID[\&quot;WGS 84\&quot;,6378137,298.257223563,\n            LENGTHUNIT[\&quot;metre\&quot;,1]]],\n    PRIMEM[\&quot;Greenwich\&quot;,0,\n        ANGLEUNIT[\&quot;degree\&quot;,0.0174532925199433]],\n    CS[ellipsoidal,2],\n        AXIS[\&quot;geodetic latitude (Lat)\&quot;,north,\n            ORDER[1],\n            ANGLEUNIT[\&quot;degree\&quot;,0.0174532925199433]],\n        AXIS[\&quot;geodetic longitude (Lon)\&quot;,east,\n            ORDER[2],\n            ANGLEUNIT[\&quot;degree\&quot;,0.0174532925199433]],\n    ID[\&quot;EPSG\&quot;,4326]]&quot;</code></pre>
+</div>
+</div>
+<div id="assigning-crs" class="section level2">
+<h2>Assigning CRS</h2>
+<p>Sometimes we have data without a CRS. This can be because the file
+used was incomplete, or perhaps because we created the data ourselves
+with R code. In that case we can assign the CRS if we know what it
+should be. Here I first remove the CRS of <code>pp</code> and then I set
+it again.</p>
+<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" tabindex="-1"></a>ss <span class="ot">&lt;-</span> s1</span>
+<span id="cb26-2"><a href="#cb26-2" tabindex="-1"></a><span class="fu">crs</span>(ss) <span class="ot">&lt;-</span> <span class="st">&quot;&quot;</span></span>
+<span id="cb26-3"><a href="#cb26-3" tabindex="-1"></a><span class="fu">crs</span>(ss)</span></code></pre></div>
+<pre><code>## [1] &quot;&quot;</code></pre>
+<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" tabindex="-1"></a><span class="fu">crs</span>(ss) <span class="ot">&lt;-</span> <span class="st">&quot;+proj=longlat +datum=WGS84&quot;</span></span>
+<span id="cb28-2"><a href="#cb28-2" tabindex="-1"></a><span class="fu">crs</span>(ss)</span></code></pre></div>
+<pre><code>## [1] &quot;GEOGCRS[\&quot;unknown\&quot;,\n    DATUM[\&quot;World Geodetic System 1984\&quot;,\n        ELLIPSOID[\&quot;WGS 84\&quot;,6378137,298.257223563,\n            LENGTHUNIT[\&quot;metre\&quot;,1]],\n        ID[\&quot;EPSG\&quot;,6326]],\n    PRIMEM[\&quot;Greenwich\&quot;,0,\n        ANGLEUNIT[\&quot;degree\&quot;,0.0174532925199433],\n        ID[\&quot;EPSG\&quot;,8901]],\n    CS[ellipsoidal,2],\n        AXIS[\&quot;longitude\&quot;,east,\n            ORDER[1],\n            ANGLEUNIT[\&quot;degree\&quot;,0.0174532925199433,\n                ID[\&quot;EPSG\&quot;,9122]]],\n        AXIS[\&quot;latitude\&quot;,north,\n            ORDER[2],\n            ANGLEUNIT[\&quot;degree\&quot;,0.0174532925199433,\n                ID[\&quot;EPSG\&quot;,9122]]]]&quot;</code></pre>
+<p>Note that you should not use this approach to change the CRS of a
+data set from what it is to what you want it to be. Assigning a CRS is
+like labeling something. You need to provide the label that corresponds
+to the item. Not to what you would like it to be. For example if you
+label a bicycle, you can write “bicycle”. Perhaps you would prefer a
+car, and you can label your bicycle as “car” but that would not do you
+any good. It is still a bicycle. You can try to transform your bicycle
+into a car. That would not be easy. Transforming spatial data is
+easier.</p>
+</div>
+<div id="transforming-vector-data" class="section level2">
+<h2>Transforming vector data</h2>
+<p>We can transform these data to a new data set with another CRS using
+the <code>project</code> method.</p>
+<p>Here we use the Robinson projection. First we need to find the
+correct notation.</p>
+<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" tabindex="-1"></a>newcrs <span class="ot">&lt;-</span> <span class="st">&quot;+proj=robin +datum=WGS84&quot;</span></span></code></pre></div>
+<p>Now use it:</p>
+<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" tabindex="-1"></a>rob <span class="ot">&lt;-</span> terra<span class="sc">::</span><span class="fu">project</span>(s1, newcrs)</span>
+<span id="cb31-2"><a href="#cb31-2" tabindex="-1"></a>rob</span></code></pre></div>
+<pre><code>##  class       : SpatVector 
+##  geometry    : polygons 
+##  dimensions  : 12, 6  (geometries, attributes)
+##  extent      : 471320.7, 536010.5, 5269709, 5345677  (xmin, xmax, ymin, ymax)
+##  coord. ref. : +proj=robin +lon_0=0 +x_0=0 +y_0=0 +datum=WGS84 +units=m +no_defs 
+##  names       :  ID_1   NAME_1  ID_2   NAME_2  AREA   POP
+##  type        : &lt;num&gt;    &lt;chr&gt; &lt;num&gt;    &lt;chr&gt; &lt;num&gt; &lt;int&gt;
+##  values      :     1 Diekirch     1 Clervaux   312 18081
+##                    1 Diekirch     2 Diekirch   218 32543
+##                    1 Diekirch     3  Redange   259 18664</code></pre>
+<p>After the transformation, the units of the geometry are no longer in
+degrees, but in meters away from (longitude=0, latitude=0). The spatial
+extent of the data is also in these units.</p>
+<p>We can backtransform to longitude/latitude:</p>
+<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" tabindex="-1"></a>p2 <span class="ot">&lt;-</span> terra<span class="sc">::</span><span class="fu">project</span>(rob, <span class="st">&quot;+proj=longlat +datum=WGS84&quot;</span>)</span></code></pre></div>
+</div>
+<div id="transforming-raster-data" class="section level2">
+<h2>Transforming raster data</h2>
+<p>Vector data can be transformed from lon/lat coordinates to planar and
+back without loss of precision. This is not the case with raster data. A
+raster consists of rectangular cells of the same size (in terms of the
+units of the CRS; their actual size may vary). It is not possible to
+transform cell by cell. For each new cell, values need to be estimated
+based on the values in the overlapping old cells. If the values are
+categorical data, the “nearest neighbor” method is commonly used.
+Otherwise some sort of interpolation is employed (e.g. “bilinear”).</p>
+<p>Because projection of rasters affects the cell values, in most cases
+you will want to avoid projecting raster data and rather project vector
+data. But here is how you can project raster data.</p>
+<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" tabindex="-1"></a>r <span class="ot">&lt;-</span> <span class="fu">rast</span>(<span class="at">xmin=</span><span class="sc">-</span><span class="dv">110</span>, <span class="at">xmax=</span><span class="sc">-</span><span class="dv">90</span>, <span class="at">ymin=</span><span class="dv">40</span>, <span class="at">ymax=</span><span class="dv">60</span>, <span class="at">ncols=</span><span class="dv">40</span>, <span class="at">nrows=</span><span class="dv">40</span>)</span>
+<span id="cb34-2"><a href="#cb34-2" tabindex="-1"></a><span class="fu">values</span>(r) <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">ncell</span>(r)</span>
+<span id="cb34-3"><a href="#cb34-3" tabindex="-1"></a>r</span></code></pre></div>
+<pre><code>## class       : SpatRaster 
+## dimensions  : 40, 40, 1  (nrow, ncol, nlyr)
+## resolution  : 0.5, 0.5  (x, y)
+## extent      : -110, -90, 40, 60  (xmin, xmax, ymin, ymax)
+## coord. ref. : lon/lat WGS 84 (CRS84) (OGC:CRS84) 
+## source(s)   : memory
+## name        : lyr.1 
+## min value   :     1 
+## max value   :  1600</code></pre>
+<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" tabindex="-1"></a><span class="fu">plot</span> (r)</span></code></pre></div>
+<p><img src="maps_files/figure-html/unnamed-chunk-20-1.png" width="672" /></p>
+<p>The simplest approach is to provide a new crs (the Robinson crs in
+this case):</p>
+<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" tabindex="-1"></a>newcrs</span></code></pre></div>
+<pre><code>## [1] &quot;+proj=robin +datum=WGS84&quot;</code></pre>
+<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" tabindex="-1"></a>pr1 <span class="ot">&lt;-</span> terra<span class="sc">::</span><span class="fu">project</span>(r, newcrs)</span>
+<span id="cb39-2"><a href="#cb39-2" tabindex="-1"></a><span class="fu">crs</span>(pr1)</span></code></pre></div>
+<pre><code>## [1] &quot;PROJCRS[\&quot;unknown\&quot;,\n    BASEGEOGCRS[\&quot;unknown\&quot;,\n        DATUM[\&quot;World Geodetic System 1984\&quot;,\n            ELLIPSOID[\&quot;WGS 84\&quot;,6378137,298.257223563,\n                LENGTHUNIT[\&quot;metre\&quot;,1]],\n            ID[\&quot;EPSG\&quot;,6326]],\n        PRIMEM[\&quot;Greenwich\&quot;,0,\n            ANGLEUNIT[\&quot;degree\&quot;,0.0174532925199433],\n            ID[\&quot;EPSG\&quot;,8901]]],\n    CONVERSION[\&quot;unknown\&quot;,\n        METHOD[\&quot;Robinson\&quot;],\n        PARAMETER[\&quot;Longitude of natural origin\&quot;,0,\n            ANGLEUNIT[\&quot;degree\&quot;,0.0174532925199433],\n            ID[\&quot;EPSG\&quot;,8802]],\n        PARAMETER[\&quot;False easting\&quot;,0,\n            LENGTHUNIT[\&quot;metre\&quot;,1],\n            ID[\&quot;EPSG\&quot;,8806]],\n        PARAMETER[\&quot;False northing\&quot;,0,\n            LENGTHUNIT[\&quot;metre\&quot;,1],\n            ID[\&quot;EPSG\&quot;,8807]]],\n    CS[Cartesian,2],\n        AXIS[\&quot;(E)\&quot;,east,\n            ORDER[1],\n            LENGTHUNIT[\&quot;metre\&quot;,1,\n                ID[\&quot;EPSG\&quot;,9001]]],\n        AXIS[\&quot;(N)\&quot;,north,\n            ORDER[2],\n            LENGTHUNIT[\&quot;metre\&quot;,1,\n                ID[\&quot;EPSG\&quot;,9001]]]]&quot;</code></pre>
+<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" tabindex="-1"></a><span class="fu">plot</span>(pr1)</span></code></pre></div>
+<p><img src="maps_files/figure-html/unnamed-chunk-21-1.png" width="672" /></p>
+<p>But that is not a good method. As you should want to assure that you
+project fits to exactly the raster parameters you need (so that it lines
+up with other raster data you are using).</p>
+<p>To have this kind of control, provide an existing SpatRaster with the
+geometry you desire. That is generally the best way to project raster.
+By providing an existing SpatRaster, such that your newly projected data
+perfectly aligns with it. In this example we do not have an existing
+SpatRaster object, so we create from the result obtained above.</p>
+<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">rast</span>(pr1)</span>
+<span id="cb42-2"><a href="#cb42-2" tabindex="-1"></a><span class="co"># Set the cell size</span></span>
+<span id="cb42-3"><a href="#cb42-3" tabindex="-1"></a><span class="fu">res</span>(x) <span class="ot">&lt;-</span> <span class="dv">200000</span></span></code></pre></div>
+<p>Now project, and note the change in the coordinates.</p>
+<div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" tabindex="-1"></a>pr3 <span class="ot">&lt;-</span> terra<span class="sc">::</span><span class="fu">project</span>(r, x)</span>
+<span id="cb43-2"><a href="#cb43-2" tabindex="-1"></a>pr3</span></code></pre></div>
+<pre><code>## class       : SpatRaster 
+## dimensions  : 10, 14, 1  (nrow, ncol, nlyr)
+## resolution  : 2e+05, 2e+05  (x, y)
+## extent      : -9577685, -6777685, 4283463, 6283463  (xmin, xmax, ymin, ymax)
+## coord. ref. : +proj=robin +lon_0=0 +x_0=0 +y_0=0 +datum=WGS84 +units=m +no_defs 
+## source(s)   : memory
+## name        :     lyr.1 
+## min value   :  111.1541 
+## max value   : 1523.5796</code></pre>
+<div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" tabindex="-1"></a><span class="fu">plot</span>(pr3)</span></code></pre></div>
+<p><img src="maps_files/figure-html/unnamed-chunk-23-1.png" width="672" /></p>
+<p>For raster based analysis it is often important to use equal area
+projections, particularly when large areas are analyzed. This will
+assure that the grid cells are all of same size, and therefore
+comparable to each other, especially when count data are used.</p>
+</div>
+</div>
+<div id="vector-data-manipulation" class="section level1">
+<h1>Vector data manipulation</h1>
+<p>This chapter illustrates some ways in which we can manipulate vector
+data. We start with an example SpatVector that we read from a
+shapefile.</p>
+<div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" tabindex="-1"></a>TWN <span class="ot">&lt;-</span> <span class="fu">vect</span>(<span class="st">&#39;data/gadm/gadm41_TWN_1_pk.rds&#39;</span>)</span>
+<span id="cb46-2"><a href="#cb46-2" tabindex="-1"></a><span class="fu">plot</span>(TWN, <span class="st">&quot;NAME_1&quot;</span>)</span></code></pre></div>
+<p><img src="maps_files/figure-html/unnamed-chunk-24-1.png" width="672" /></p>
+<p>We can plot these data in many ways. For example:</p>
+<p>We can see this data set is incomplete for Taiwan. Let’s get some
+data directly from Taiwan</p>
+<div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" tabindex="-1"></a>url <span class="ot">&lt;-</span> <span class="st">&#39;https://data.moi.gov.tw/MoiOD/System/DownloadFile.aspx?DATA=72874C55-884D-4CEA-B7D6-F60B0BE85AB0&#39;</span></span>
+<span id="cb47-2"><a href="#cb47-2" tabindex="-1"></a>path1 <span class="ot">&lt;-</span> <span class="fu">tempfile</span>(<span class="at">fileext =</span> <span class="st">&quot;.zip&quot;</span>)</span>
+<span id="cb47-3"><a href="#cb47-3" tabindex="-1"></a><span class="cf">if</span> (<span class="fu">file.exists</span>(path1))  <span class="st">&#39;file alredy exists&#39;</span> <span class="cf">else</span> <span class="fu">download.file</span>(url, path1, <span class="at">mode=</span><span class="st">&quot;wb&quot;</span>)</span>
+<span id="cb47-4"><a href="#cb47-4" tabindex="-1"></a>zip<span class="sc">::</span><span class="fu">unzip</span>(<span class="at">zipfile =</span> path1,<span class="at">exdir =</span> <span class="st">&#39;data&#39;</span>)</span></code></pre></div>
+<p>Make <code>SpatialVector</code>:</p>
+<div class="sourceCode" id="cb48"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" tabindex="-1"></a>Taiwan <span class="ot">&lt;-</span> <span class="st">&quot;data/COUNTY_MOI_1130718.shp&quot;</span></span>
+<span id="cb48-2"><a href="#cb48-2" tabindex="-1"></a>Taiwan <span class="ot">&lt;-</span><span class="fu">vect</span>(Taiwan)</span></code></pre></div>
+<p>Make the new plot:</p>
+<div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" tabindex="-1"></a><span class="fu">plot</span>(Taiwan, <span class="st">&quot;COUNTYENG&quot;</span>)</span></code></pre></div>
+<p><img src="maps_files/figure-html/unnamed-chunk-27-1.png" width="672" /></p>
+<div id="basics" class="section level2">
+<h2>Basics</h2>
+<div id="geometry-and-attributes" class="section level3">
+<h3>Geometry and attributes</h3>
+<p>To extract the attributes (data.frame) from a SpatVector, use:</p>
+<div class="sourceCode" id="cb50"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1" tabindex="-1"></a>d <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(Taiwan)</span>
+<span id="cb50-2"><a href="#cb50-2" tabindex="-1"></a><span class="co"># head(d) # not run for Chinese character</span></span></code></pre></div>
+<p>You can also extract the geometry as a a matrix (this is rarely
+needed).</p>
+<div class="sourceCode" id="cb51"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1" tabindex="-1"></a>g <span class="ot">&lt;-</span> <span class="fu">geom</span>(Taiwan) </span>
+<span id="cb51-2"><a href="#cb51-2" tabindex="-1"></a><span class="fu">head</span>(g)</span></code></pre></div>
+<pre><code>##      geom part        x        y hole
+## [1,]    1    1 119.9645 25.94552    0
+## [2,]    1    1 119.9643 25.94549    0
+## [3,]    1    1 119.9642 25.94549    0
+## [4,]    1    1 119.9642 25.94549    0
+## [5,]    1    1 119.9642 25.94550    0
+## [6,]    1    1 119.9641 25.94552    0</code></pre>
+<p>Or as “well-known-text”.</p>
+<div class="sourceCode" id="cb53"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1" tabindex="-1"></a>g <span class="ot">&lt;-</span> <span class="fu">geom</span>(Taiwan, <span class="at">wkt=</span><span class="cn">TRUE</span>)</span>
+<span id="cb53-2"><a href="#cb53-2" tabindex="-1"></a><span class="fu">substr</span>(g, <span class="dv">1</span>, <span class="dv">50</span>)</span></code></pre></div>
+<pre><code>##  [1] &quot;MULTIPOLYGON (((119.96446 25.945521, 119.964275 25&quot;
+##  [2] &quot;MULTIPOLYGON (((121.959718 24.844932, 121.960654 2&quot;
+##  [3] &quot;POLYGON ((120.45656 24.207183, 120.485893 24.19737&quot;
+##  [4] &quot;POLYGON ((121.27087 24.23661, 121.271083 24.23656,&quot;
+##  [5] &quot;MULTIPOLYGON (((120.081084 23.52412, 120.081612 23&quot;
+##  [6] &quot;MULTIPOLYGON (((120.826485 21.756146, 120.826462 2&quot;
+##  [7] &quot;MULTIPOLYGON (((121.710159 25.176039, 121.710159 2&quot;
+##  [8] &quot;POLYGON ((121.570989 25.197165, 121.57098 25.19703&quot;
+##  [9] &quot;POLYGON ((121.537526 25.300029, 121.537689 25.3000&quot;
+## [10] &quot;POLYGON ((121.328349 24.433038, 121.328456 24.4323&quot;
+## [11] &quot;POLYGON ((120.440252 23.413081, 120.440401 23.4130&quot;
+## [12] &quot;POLYGON ((121.263822 25.121974, 121.266684 25.1207&quot;
+## [13] &quot;POLYGON ((120.911982 24.732445, 120.91207 24.73231&quot;
+## [14] &quot;POLYGON ((120.447587 23.518186, 120.447675 23.5181&quot;
+## [15] &quot;MULTIPOLYGON (((120.151922 23.392736, 120.152511 2&quot;
+## [16] &quot;MULTIPOLYGON (((118.233816 24.162771, 118.234055 2&quot;
+## [17] &quot;MULTIPOLYGON (((114.361729 10.372803, 114.361744 1&quot;
+## [18] &quot;MULTIPOLYGON (((121.611792 21.9429, 121.611329 21.&quot;
+## [19] &quot;POLYGON ((121.631756 24.369428, 121.631667 24.3692&quot;
+## [20] &quot;MULTIPOLYGON (((119.440261 23.221366, 119.44041 23&quot;
+## [21] &quot;POLYGON ((120.930115 24.853014, 120.930242 24.8529&quot;
+## [22] &quot;POLYGON ((121.040116 24.943927, 121.040183 24.9438&quot;</code></pre>
+</div>
+<div id="variables" class="section level3">
+<h3>Variables</h3>
+<p>You can extract a variable as you would do with a
+<code>data.frame</code>.</p>
+<div class="sourceCode" id="cb55"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb55-1"><a href="#cb55-1" tabindex="-1"></a>Taiwan<span class="sc">$</span>COUNTYENG</span></code></pre></div>
+<pre><code>##  [1] &quot;Lienchiang County&quot; &quot;Yilan County&quot;      &quot;Changhua County&quot;  
+##  [4] &quot;Nantou County&quot;     &quot;Yunlin County&quot;     &quot;Pingtung County&quot;  
+##  [7] &quot;Keelung City&quot;      &quot;Taipei City&quot;       &quot;New Taipei City&quot;  
+## [10] &quot;Taichung City&quot;     &quot;Tainan City&quot;       &quot;Taoyuan City&quot;     
+## [13] &quot;Miaoli County&quot;     &quot;Chiayi City&quot;       &quot;Chiayi County&quot;    
+## [16] &quot;Kinmen County&quot;     &quot;Kaohsiung City&quot;    &quot;Taitung County&quot;   
+## [19] &quot;Hualien County&quot;    &quot;Penghu County&quot;     &quot;Hsinchu City&quot;     
+## [22] &quot;Hsinchu County&quot;</code></pre>
+<p>To sub-set a SpatVector to one or more variables you can use the
+notation below. Note how this is different from the above example. Above
+a vector of values is returned. With the approach below you get a new
+SpatVector with only one variable.</p>
+<div class="sourceCode" id="cb57"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb57-1"><a href="#cb57-1" tabindex="-1"></a>Taiwan[,<span class="st">&quot;COUNTYENG&quot;</span>]</span></code></pre></div>
+<pre><code>##  class       : SpatVector 
+##  geometry    : polygons 
+##  dimensions  : 22, 1  (geometries, attributes)
+##  extent      : 114.3593, 124.5612, 10.37135, 26.38528  (xmin, xmax, ymin, ymax)
+##  source      : COUNTY_MOI_1130718.shp
+##  coord. ref. : lon/lat GCS_TWD97[2020] 
+##  names       :         COUNTYENG
+##  type        :             &lt;chr&gt;
+##  values      : Lienchiang County
+##                     Yilan County
+##                  Changhua County</code></pre>
+<p>You can add a new variable to a SpatVector just as if it were a
+data.frame.</p>
+<div class="sourceCode" id="cb59"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb59-1"><a href="#cb59-1" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">0</span>)</span>
+<span id="cb59-2"><a href="#cb59-2" tabindex="-1"></a>Taiwan<span class="sc">$</span>lets <span class="ot">&lt;-</span> <span class="fu">sample</span>(letters, <span class="fu">nrow</span>(Taiwan))</span>
+<span id="cb59-3"><a href="#cb59-3" tabindex="-1"></a><span class="co"># Taiwan</span></span></code></pre></div>
+<p>Note that to get the number of geometries of SpatVector
+<code>Taiwan</code>, you can use <code>nrow(Taiwan)</code>, or
+<code>size(Taiwan)</code>. You can also do <code>perim(Taiwan)</code> to
+get the “length” of the spatial objects (zero for points, the length of
+the lines, or the perimeter of the polygons).</p>
+<p>Assigning a new value to an existing variable.</p>
+<div class="sourceCode" id="cb60"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb60-1"><a href="#cb60-1" tabindex="-1"></a>Taiwan<span class="sc">$</span>lets <span class="ot">&lt;-</span> <span class="fu">sample</span>(LETTERS, <span class="fu">nrow</span>(Taiwan))</span>
+<span id="cb60-2"><a href="#cb60-2" tabindex="-1"></a><span class="co"># head(Taiwan)</span></span></code></pre></div>
+<p>To get rid of a variable, set it to <code>NULL</code>.</p>
+<div class="sourceCode" id="cb61"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb61-1"><a href="#cb61-1" tabindex="-1"></a>Taiwan<span class="sc">$</span>lets <span class="ot">&lt;-</span> <span class="cn">NULL</span></span></code></pre></div>
+</div>
+<div id="merge" class="section level3">
+<h3>Merge</h3>
+<p>You can assign an attributes table (data.frame) to a SpatVector with
+<code>values&lt;-</code>. To add attributes to a SpatVector that already
+has attributes use <code>merge</code> (or <code>cbind</code> if you know
+the order of the records is the same).</p>
+<div class="sourceCode" id="cb62"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb62-1"><a href="#cb62-1" tabindex="-1"></a>dfr <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">County=</span>Taiwan<span class="sc">$</span>COUNTYENG, <span class="at">Value=</span><span class="fu">round</span>(<span class="fu">runif</span>(<span class="fu">length</span>(Taiwan), <span class="dv">100</span>, <span class="dv">1000</span>)))</span>
+<span id="cb62-2"><a href="#cb62-2" tabindex="-1"></a>dfr <span class="ot">&lt;-</span> dfr[<span class="fu">order</span>(dfr<span class="sc">$</span>County), ]</span>
+<span id="cb62-3"><a href="#cb62-3" tabindex="-1"></a>pm <span class="ot">&lt;-</span> <span class="fu">merge</span>(Taiwan, dfr, <span class="at">by.x=</span><span class="st">&quot;COUNTYENG&quot;</span>,<span class="at">by.y=</span><span class="st">&quot;County&quot;</span>)</span>
+<span id="cb62-4"><a href="#cb62-4" tabindex="-1"></a><span class="co"># pm </span></span>
+<span id="cb62-5"><a href="#cb62-5" tabindex="-1"></a><span class="co"># head(pm)</span></span></code></pre></div>
+<p>Note the new variable <code>Value</code> added to <code>pm</code></p>
+</div>
+<div id="records" class="section level3">
+<h3>Records</h3>
+<p>Selecting rows (records).</p>
+<div class="sourceCode" id="cb63"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb63-1"><a href="#cb63-1" tabindex="-1"></a>i <span class="ot">&lt;-</span> <span class="fu">which</span>(Taiwan<span class="sc">$</span>COUNTYENG <span class="sc">==</span> <span class="st">&#39;Taipei City&#39;</span>)</span>
+<span id="cb63-2"><a href="#cb63-2" tabindex="-1"></a>g <span class="ot">&lt;-</span> Taiwan[i,]</span>
+<span id="cb63-3"><a href="#cb63-3" tabindex="-1"></a><span class="co"># g</span></span></code></pre></div>
+<p>It is also possible to interactively select and query records by
+clicking on a plotted dataset. That is difficult to show here. See
+<code>?sel</code> for interactively selecting geometries and
+<code>?click</code> to identify attributes by clicking on a plot
+(map).</p>
+</div>
+</div>
+<div id="append-and-aggregate" class="section level2">
+<h2>Append and aggregate</h2>
+<div id="append" class="section level3">
+<h3>Append</h3>
+<p>More example data. Object z consists of four polygons; z2 is one of
+these four polygons.</p>
+<div class="sourceCode" id="cb64"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb64-1"><a href="#cb64-1" tabindex="-1"></a>z <span class="ot">&lt;-</span> <span class="fu">rast</span>(Taiwan)</span>
+<span id="cb64-2"><a href="#cb64-2" tabindex="-1"></a><span class="fu">dim</span>(z) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">2</span>)</span>
+<span id="cb64-3"><a href="#cb64-3" tabindex="-1"></a><span class="fu">values</span>(z) <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">4</span></span>
+<span id="cb64-4"><a href="#cb64-4" tabindex="-1"></a><span class="fu">names</span>(z) <span class="ot">&lt;-</span> <span class="st">&#39;Zone&#39;</span></span>
+<span id="cb64-5"><a href="#cb64-5" tabindex="-1"></a>z <span class="ot">&lt;-</span> <span class="fu">as.polygons</span>(z)</span>
+<span id="cb64-6"><a href="#cb64-6" tabindex="-1"></a>z</span></code></pre></div>
+<pre><code>##  class       : SpatVector 
+##  geometry    : polygons 
+##  dimensions  : 4, 1  (geometries, attributes)
+##  extent      : 114.3593, 124.5612, 10.37135, 26.38528  (xmin, xmax, ymin, ymax)
+##  coord. ref. : lon/lat GCS_TWD97[2020] 
+##  names       :  Zone
+##  type        : &lt;int&gt;
+##  values      :     1
+##                    2
+##                    3</code></pre>
+<div class="sourceCode" id="cb66"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb66-1"><a href="#cb66-1" tabindex="-1"></a>z1 <span class="ot">&lt;-</span> z[<span class="dv">1</span>,]</span>
+<span id="cb66-2"><a href="#cb66-2" tabindex="-1"></a>z2 <span class="ot">&lt;-</span> z[<span class="dv">2</span>,]</span>
+<span id="cb66-3"><a href="#cb66-3" tabindex="-1"></a>z3 <span class="ot">&lt;-</span> z[<span class="dv">3</span>,]</span>
+<span id="cb66-4"><a href="#cb66-4" tabindex="-1"></a>z4 <span class="ot">&lt;-</span> z[<span class="dv">4</span>,]</span>
+<span id="cb66-5"><a href="#cb66-5" tabindex="-1"></a><span class="fu">plot</span>(Taiwan)</span>
+<span id="cb66-6"><a href="#cb66-6" tabindex="-1"></a><span class="fu">plot</span>(z, <span class="at">add=</span><span class="cn">TRUE</span>, <span class="at">border=</span><span class="st">&#39;blue&#39;</span>, <span class="at">lwd=</span><span class="dv">5</span>)</span>
+<span id="cb66-7"><a href="#cb66-7" tabindex="-1"></a><span class="fu">plot</span>(z2, <span class="at">add=</span><span class="cn">TRUE</span>, <span class="at">border=</span><span class="st">&#39;red&#39;</span>, <span class="at">lwd=</span><span class="dv">2</span>, <span class="at">col=</span><span class="st">&#39;red&#39;</span>)</span></code></pre></div>
+<p><img src="maps_files/figure-html/unnamed-chunk-38-1.png" width="672" /></p>
+<p>To append SpatVector objects of the same (vector) type you can use
+<code>rbind</code>:</p>
+<div class="sourceCode" id="cb67"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb67-1"><a href="#cb67-1" tabindex="-1"></a>b <span class="ot">&lt;-</span> <span class="fu">rbind</span>(Taiwan, z)</span>
+<span id="cb67-2"><a href="#cb67-2" tabindex="-1"></a><span class="co"># head(b)</span></span>
+<span id="cb67-3"><a href="#cb67-3" tabindex="-1"></a><span class="co"># tail(b)</span></span></code></pre></div>
+<p>Note how <code>rbind</code> allows you to append SpatVect objects
+with different attribute names, unlike the standard <code>rbind</code>
+for <code>data.frame</code>.</p>
+</div>
+<div id="aggregate" class="section level3">
+<h3>Aggregate</h3>
+<p>It is common to aggregate (“dissolve”) polygons that have the same
+value for an attribute of interest. In this case, we want to highlight
+the North of Taiwan.</p>
+<div class="sourceCode" id="cb68"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb68-1"><a href="#cb68-1" tabindex="-1"></a>Taiwan<span class="sc">$</span>region<span class="ot">&lt;-</span><span class="fu">c</span>(<span class="fu">rep</span>(<span class="st">&quot;Others&quot;</span>,<span class="dv">6</span>), <span class="fu">rep</span>(<span class="st">&quot;North&quot;</span>,<span class="dv">3</span>), <span class="fu">rep</span>(<span class="st">&quot;Others&quot;</span>,<span class="dv">2</span>), <span class="st">&quot;North&quot;</span>, <span class="fu">rep</span>(<span class="st">&quot;Others&quot;</span>,<span class="dv">10</span>))</span>
+<span id="cb68-2"><a href="#cb68-2" tabindex="-1"></a>pa <span class="ot">&lt;-</span> <span class="fu">aggregate</span>(Taiwan, <span class="at">by=</span><span class="st">&#39;region&#39;</span>)</span>
+<span id="cb68-3"><a href="#cb68-3" tabindex="-1"></a>za <span class="ot">&lt;-</span> <span class="fu">aggregate</span>(z)</span>
+<span id="cb68-4"><a href="#cb68-4" tabindex="-1"></a><span class="fu">plot</span>(za, <span class="at">col=</span><span class="st">&#39;light gray&#39;</span>, <span class="at">border=</span><span class="st">&#39;light gray&#39;</span>, <span class="at">lwd=</span><span class="dv">5</span>)</span>
+<span id="cb68-5"><a href="#cb68-5" tabindex="-1"></a><span class="fu">plot</span>(pa, <span class="at">add=</span><span class="cn">TRUE</span>, <span class="at">col=</span><span class="fu">rainbow</span>(<span class="dv">3</span>), <span class="at">lwd=</span><span class="dv">3</span>, <span class="at">border=</span><span class="st">&#39;white&#39;</span>)</span></code></pre></div>
+<p><img src="maps_files/figure-html/unnamed-chunk-40-1.png" width="672" /></p>
+<p>It is also possible to aggregate polygons without dissolving the
+borders.</p>
+<div class="sourceCode" id="cb69"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb69-1"><a href="#cb69-1" tabindex="-1"></a>Taiwan<span class="sc">$</span>region<span class="ot">&lt;-</span><span class="fu">c</span>(<span class="fu">rep</span>(<span class="st">&quot;Others&quot;</span>,<span class="dv">6</span>), <span class="fu">rep</span>(<span class="st">&quot;North&quot;</span>,<span class="dv">3</span>), <span class="fu">rep</span>(<span class="st">&quot;Others&quot;</span>,<span class="dv">2</span>), <span class="st">&quot;North&quot;</span>, <span class="fu">rep</span>(<span class="st">&quot;Others&quot;</span>,<span class="dv">10</span>))</span>
+<span id="cb69-2"><a href="#cb69-2" tabindex="-1"></a>pa <span class="ot">&lt;-</span> <span class="fu">aggregate</span>(Taiwan, <span class="at">by=</span><span class="st">&#39;region&#39;</span>,<span class="at">dissolve=</span><span class="cn">FALSE</span>)</span>
+<span id="cb69-3"><a href="#cb69-3" tabindex="-1"></a>za <span class="ot">&lt;-</span> <span class="fu">aggregate</span>(z, <span class="at">dissolve =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb69-4"><a href="#cb69-4" tabindex="-1"></a><span class="fu">plot</span>(za, <span class="at">col=</span><span class="st">&#39;light gray&#39;</span>, <span class="at">border=</span><span class="st">&#39;dark gray&#39;</span>, <span class="at">lwd=</span><span class="dv">3</span>)</span>
+<span id="cb69-5"><a href="#cb69-5" tabindex="-1"></a><span class="fu">plot</span>(pa, <span class="at">add=</span><span class="cn">TRUE</span>, <span class="at">col=</span><span class="fu">rainbow</span>(<span class="dv">3</span>), <span class="at">lwd=</span><span class="dv">2</span>, <span class="at">border=</span><span class="st">&#39;white&#39;</span>)</span></code></pre></div>
+<p><img src="maps_files/figure-html/unnamed-chunk-41-1.png" width="672" /></p>
+<p>This is a structure that is similar to what you may get for an
+archipelago: multiple polygons represented as one entity (one row). Use
+<code>disagg</code> to split these up into their parts.</p>
+<div class="sourceCode" id="cb70"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb70-1"><a href="#cb70-1" tabindex="-1"></a>zd <span class="ot">&lt;-</span> <span class="fu">disagg</span>(pa)</span>
+<span id="cb70-2"><a href="#cb70-2" tabindex="-1"></a>zd</span></code></pre></div>
+<pre><code>##  class       : SpatVector 
+##  geometry    : polygons 
+##  dimensions  : 695, 6  (geometries, attributes)
+##  extent      : 114.3593, 124.5612, 10.37135, 26.38528  (xmin, xmax, ymin, ymax)
+##  coord. ref. : lon/lat GCS_TWD97[2020] 
+##  names       : region  COUNTYID COUNTYCODE COUNTYNAME COUNTYENG agg_n
+##  type        :  &lt;chr&gt; &lt;logical&gt;  &lt;logical&gt;  &lt;logical&gt; &lt;logical&gt; &lt;int&gt;
+##  values      :  North      &lt;NA&gt;       &lt;NA&gt;       &lt;NA&gt;      &lt;NA&gt;     4
+##                 North      &lt;NA&gt;       &lt;NA&gt;       &lt;NA&gt;      &lt;NA&gt;     4
+##                 North      &lt;NA&gt;       &lt;NA&gt;       &lt;NA&gt;      &lt;NA&gt;     4</code></pre>
+</div>
+<div id="overlay" class="section level3">
+<h3>Overlay</h3>
+<p>There are many different ways to “overlay” vector data. Here are some
+examples:</p>
+<ul>
+<li>Erase</li>
+</ul>
+<p>Erase a part of a SpatVector</p>
+<div class="sourceCode" id="cb72"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb72-1"><a href="#cb72-1" tabindex="-1"></a>e1 <span class="ot">&lt;-</span> <span class="fu">erase</span>(Taiwan,z1 )</span>
+<span id="cb72-2"><a href="#cb72-2" tabindex="-1"></a>e2 <span class="ot">&lt;-</span> <span class="fu">erase</span>(e1,z3 )</span>
+<span id="cb72-3"><a href="#cb72-3" tabindex="-1"></a>e3 <span class="ot">&lt;-</span> <span class="fu">erase</span>(e2,z4 )</span>
+<span id="cb72-4"><a href="#cb72-4" tabindex="-1"></a><span class="fu">plot</span>(e3)</span></code></pre></div>
+<p><img src="maps_files/figure-html/unnamed-chunk-43-1.png" width="672" /></p>
+<ul>
+<li>Intersect</li>
+</ul>
+<p>Easier to complete with <code>intersect</code> SpatVectors</p>
+<div class="sourceCode" id="cb73"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb73-1"><a href="#cb73-1" tabindex="-1"></a>i <span class="ot">&lt;-</span> <span class="fu">intersect</span>(Taiwan, z3)</span>
+<span id="cb73-2"><a href="#cb73-2" tabindex="-1"></a><span class="fu">plot</span>(i)</span></code></pre></div>
+<p><img src="maps_files/figure-html/unnamed-chunk-44-1.png" width="672" /></p>
+<p>You got Taiping Island.</p>
+<p>You can also <code>intersect</code> or <code>crop</code> with a
+SpatExtent (rectangle). The difference between <code>intersect</code>
+and <code>crop</code> is that with crop the geometry of the second
+argument is not added to the output.</p>
+<div class="sourceCode" id="cb74"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb74-1"><a href="#cb74-1" tabindex="-1"></a>e <span class="ot">&lt;-</span> <span class="fu">ext</span>(<span class="dv">119</span>, <span class="dv">123</span>, <span class="dv">21</span>, <span class="dv">26</span>)</span>
+<span id="cb74-2"><a href="#cb74-2" tabindex="-1"></a>te <span class="ot">&lt;-</span> <span class="fu">crop</span>(Taiwan, e)</span>
+<span id="cb74-3"><a href="#cb74-3" tabindex="-1"></a><span class="fu">plot</span>(Taiwan)</span>
+<span id="cb74-4"><a href="#cb74-4" tabindex="-1"></a><span class="fu">plot</span>(e, <span class="at">add=</span><span class="cn">TRUE</span>, <span class="at">lwd=</span><span class="dv">3</span>, <span class="at">col=</span><span class="st">&quot;red&quot;</span>)</span>
+<span id="cb74-5"><a href="#cb74-5" tabindex="-1"></a><span class="fu">plot</span>(te, <span class="at">col=</span><span class="st">&#39;light blue&#39;</span>, <span class="at">add=</span><span class="cn">TRUE</span>)</span>
+<span id="cb74-6"><a href="#cb74-6" tabindex="-1"></a><span class="fu">plot</span>(e, <span class="at">add=</span><span class="cn">TRUE</span>, <span class="at">lwd=</span><span class="dv">3</span>, <span class="at">border=</span><span class="st">&quot;blue&quot;</span>)</span></code></pre></div>
+<p><img src="maps_files/figure-html/unnamed-chunk-45-1.png" width="672" /></p>
+<ul>
+<li>Union</li>
+</ul>
+<p>Get the union of two SpatVectors.</p>
+<div class="sourceCode" id="cb75"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb75-1"><a href="#cb75-1" tabindex="-1"></a>u <span class="ot">&lt;-</span> <span class="fu">union</span>(Taiwan, z)</span>
+<span id="cb75-2"><a href="#cb75-2" tabindex="-1"></a>u</span></code></pre></div>
+<pre><code>##  class       : SpatVector 
+##  geometry    : polygons 
+##  dimensions  : 30, 6  (geometries, attributes)
+##  extent      : 114.3593, 124.5612, 10.37135, 26.38528  (xmin, xmax, ymin, ymax)
+##  coord. ref. : lon/lat GCS_TWD97[2020] 
+##  names       :  Zone COUNTYID COUNTYCODE COUNTYNAME COUNTYENG region
+##  type        : &lt;int&gt;    &lt;chr&gt;      &lt;chr&gt;      &lt;chr&gt;     &lt;chr&gt;  &lt;chr&gt;
+##  values      :     1       NA         NA         NA        NA     NA
+##                    2       NA         NA         NA        NA     NA
+##                    3       NA         NA         NA        NA     NA</code></pre>
+<p>Note that there are many more polygons now. One for each unique
+combination of polygons (and attributes in this case).</p>
+<div class="sourceCode" id="cb77"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb77-1"><a href="#cb77-1" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">5</span>)</span>
+<span id="cb77-2"><a href="#cb77-2" tabindex="-1"></a><span class="fu">plot</span>(u, <span class="at">col=</span><span class="fu">sample</span>(<span class="fu">rainbow</span>(<span class="fu">length</span>(u))))</span></code></pre></div>
+<p><img src="maps_files/figure-html/unnamed-chunk-47-1.png" width="672" /></p>
+<ul>
+<li>Cover</li>
+</ul>
+<p><code>cover</code> is a combination of <code>intersect</code> and
+<code>union</code>. <code>intersect</code> returns new (intersected)
+geometries with the attributes of both input datasets.
+<code>union</code> appends the geometries and attributes of the input.
+<code>cover</code> returns the intersection and appends the other
+geometries and attributes of both datasets.</p>
+<div class="sourceCode" id="cb78"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb78-1"><a href="#cb78-1" tabindex="-1"></a>cov <span class="ot">&lt;-</span> <span class="fu">cover</span>(Taiwan, z[<span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">3</span>),])</span>
+<span id="cb78-2"><a href="#cb78-2" tabindex="-1"></a><span class="fu">plot</span>(cov)</span></code></pre></div>
+<p><img src="maps_files/figure-html/unnamed-chunk-48-1.png" width="672" /></p>
+<ul>
+<li>Difference</li>
+</ul>
+<p>The symmetrical difference of two SpatVectors</p>
+<div class="sourceCode" id="cb79"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb79-1"><a href="#cb79-1" tabindex="-1"></a>dif <span class="ot">&lt;-</span> <span class="fu">symdif</span>(z,Taiwan)</span>
+<span id="cb79-2"><a href="#cb79-2" tabindex="-1"></a><span class="fu">plot</span>(dif, <span class="at">col=</span><span class="fu">rainbow</span>(<span class="fu">length</span>(dif)))</span></code></pre></div>
+<p><img src="maps_files/figure-html/unnamed-chunk-49-1.png" width="672" /></p>
+</div>
+<div id="spatial-queries" class="section level3">
+<h3>Spatial queries</h3>
+<p>We can query polygons with points (“point-in-polygon query”).</p>
+<div class="sourceCode" id="cb80"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb80-1"><a href="#cb80-1" tabindex="-1"></a>pts <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">117</span>, <span class="dv">122</span>, <span class="dv">117</span>, <span class="dv">122</span>, <span class="dv">15</span>, <span class="dv">15</span>, <span class="dv">23</span>, <span class="dv">23</span>), <span class="at">ncol=</span><span class="dv">2</span>)</span>
+<span id="cb80-2"><a href="#cb80-2" tabindex="-1"></a>spts <span class="ot">&lt;-</span> <span class="fu">vect</span>(pts, <span class="at">crs=</span><span class="fu">crs</span>(Taiwan))</span>
+<span id="cb80-3"><a href="#cb80-3" tabindex="-1"></a><span class="fu">plot</span>(z, <span class="at">col=</span><span class="st">&#39;light blue&#39;</span>, <span class="at">lwd=</span><span class="dv">2</span>)</span>
+<span id="cb80-4"><a href="#cb80-4" tabindex="-1"></a><span class="fu">points</span>(spts, <span class="at">col=</span><span class="st">&#39;light gray&#39;</span>, <span class="at">pch=</span><span class="dv">20</span>, <span class="at">cex=</span><span class="dv">6</span>)</span>
+<span id="cb80-5"><a href="#cb80-5" tabindex="-1"></a><span class="fu">text</span>(spts, <span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(pts), <span class="at">col=</span><span class="st">&#39;red&#39;</span>, <span class="at">font=</span><span class="dv">2</span>, <span class="at">cex=</span><span class="fl">1.5</span>)</span>
+<span id="cb80-6"><a href="#cb80-6" tabindex="-1"></a><span class="fu">lines</span>(Taiwan, <span class="at">col=</span><span class="st">&#39;blue&#39;</span>, <span class="at">lwd=</span><span class="dv">2</span>)</span></code></pre></div>
+<p><img src="maps_files/figure-html/unnamed-chunk-50-1.png" width="672" /></p>
+<p><code>extract</code> is used for queries between SpatVector and
+SpatRaster objects, and also for queries between SpatVectors.</p>
+<div class="sourceCode" id="cb81"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb81-1"><a href="#cb81-1" tabindex="-1"></a><span class="fu">extract</span>(spts, Taiwan)</span></code></pre></div>
+<pre><code>##       id.y id.x
+##  [1,]    1  NaN
+##  [2,]    2  NaN
+##  [3,]    3  NaN
+##  [4,]    4  NaN
+##  [5,]    5  NaN
+##  [6,]    6  NaN
+##  [7,]    7  NaN
+##  [8,]    8  NaN
+##  [9,]    9  NaN
+## [10,]   10  NaN
+## [11,]   11  NaN
+## [12,]   12  NaN
+## [13,]   13  NaN
+## [14,]   14  NaN
+## [15,]   15  NaN
+## [16,]   16  NaN
+## [17,]   17  NaN
+## [18,]   18  NaN
+## [19,]   19  NaN
+## [20,]   20  NaN
+## [21,]   21  NaN
+## [22,]   22  NaN</code></pre>
+</div>
+</div>
+</div>
+<div id="raster-data-manipulation" class="section level1">
+<h1>Raster data manipulation</h1>
+<div class="sourceCode" id="cb83"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb83-1"><a href="#cb83-1" tabindex="-1"></a><span class="fu">plot</span>(ele)</span></code></pre></div>
+<p><img src="maps_files/figure-html/unnamed-chunk-52-1.png" width="672" /></p>
+</div>
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+<script>
+$(document).ready(function () {
+  window.initializeCodeFolding("show" === "show");
+});
+</script>
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,616 @@
+---
+title: "Spatial"
+---
+
+
+This is an introduction to spatial data manipulation with R and the terra package. In this context “spatial data” refers to data about geographical locations, that is, places on earth. So to be more precise, we should speak about **geospatial** data, but we use the shorthand **spatial**.
+
+The package `terra` is now the package of reference for manipulating spatial data, spatial analysis and modeling in R. It is a very large topics and here we cover the basics of data manipulation.
+
+Because of the many changes happening in the past few years related to spatial data analysis in R, this section of the course is still under developement. The information below are largely extracted form online tutorial available [here]('https://rspatial.org/spatial/2-spatialdata.html')
+
+
+# Spatial data
+
+Spatial phenomena can generally be thought of as either discrete objects with clear boundaries or as a continuous phenomena that can be observed everywhere, but that do not have natural boundaries. Discrete spatial objects may refer to a river, road, country, town, or a research site. Examples of continuous phenomena, or **spatial fields**, include elevation, temperature, and air quality.
+
+Spatial objects are usually represented by vector data. Such data consists of a description of the **geometry** or **shape** of the objects, and normally also includes additional variables. For example, a vector data set may represent the borders of the countries of the world (geometry), and also store their names and the size of their population in 2015; or it may have the geometry of the roads in an area, as well as their type and names. These additional variables are often referred to as **attributes**. Continuous spatial data (fields) are usually represented with a raster data structure. We discuss these two data types in turn.
+
+## Vector data
+
+The main vector data types are points, lines and polygons. In all cases, the geometry of these data structures consists of sets of coordinate pairs (x, y). Points are the simplest case. Each point has one coordinate pair, and n associated variables. For example, a point might represent a place where a rat was trapped, and the attributes could include the date it was captured, the person who captured it, the species size and sex, and information about the habitat. It is also possible to combine several points into a multi-point structure, with a single attribute record. For example, all the coffee shops in a town could be considered as a single geometry.
+
+The geometry of lines is a just a little bit more complex. First note that in this context, the term *line* refers to a set of one or more polylines (connected series of line segments). For example, in spatial analysis, a river and all its tributaries could be considered as a single *line* (but they could also also be several lines, perhaps one for each tributary river). Lines are represented as ordered sets of coordinates (nodes). The actual line segments can be computed (and drawn on a map) by connecting the points. Thus, the representation of a line is very similar to that of a multi-point structure. The main difference is that for a line the ordering of the points is important, because we need to know in which order the points should be connected.
+
+A network (e.g. a road or river network), or spatial graph, is a special type of lines geometry where there is additional information about things like flow, connectivity, direction, and distance.
+
+A polygon refers to a set of closed polylines. The geometry is very similar to that of lines, but to close a polygon the last coordinate pair coincides with the first pair. A complication with polygons is that they can have holes (that is a polygon entirely enclosed by another polygon, that serves to remove parts of the enclosing polygon (for example to show an island inside a lake. Also, valid polygons do not self-intersect (but it is OK for a line to self-cross). Again, multiple polygons can be considered as a single geometry. For example, Indonesia consists of many islands. Each island can be represented by a single polygon, but together then can be represent a single (multi-) polygon representing the entire country.
+
+## Raster data
+
+Raster data is commonly used to represent spatially continuous phenomena such as elevation. A raster divides the world into a grid of equally sized rectangles (referred to as cells or, in the context of satellite remote sensing, pixels) that all have one or more values (or missing values) for the variables of interest. A raster cell value should normally represent the average (or majority) value for the area it covers. However, in some cases the values are actually estimates for the center of the cell (in essence becoming a regular set of points with an attribute).
+
+In contrast to vector data, in raster data the geometry is not explicitly stored as coordinates. It is implicitly set by knowing the spatial extent and the number or rows and columns in which the area is divided. From the extent and number of rows and columns, the size of the raster cells (spatial resolution) can be computed. While raster cells can be thought of as a set of regular polygons, it would be very inefficient to represent the data that way as coordinates for each cell would have to be stored explicitly. Doing so would also dramatically increase processing time.
+
+Continuous surface data are sometimes stored as triangulated irregular networks (TINs); these are not discussed here.
+
+## Simple representation of spatial data
+
+The basic data types in R are numbers, characters, logical (TRUE or FALSE) and factor values. Values of a single type can be combined in vectors and matrices, and variables of multiple types can be combined into a data.frame. We can represent (only very) basic spatial data with these data types. Let’s say we have the location (represented by longitude and latitude) of ten weather stations (named A to J) and their annual precipitation.
+
+In the example below we make a very simple map. Note that a map is special type of plot (like a scatter plot, barplot, etc.). A map is a plot of geospatial data that also has labels and other graphical objects such as a scale bar or legend. The spatial data itself should not be referred to as a map.
+
+```{r,  eval=T}
+name <- LETTERS[1:10]
+longitude <- c(-116.7, -120.4, -116.7, -113.5, -115.5,
+               -120.8, -119.5, -113.7, -113.7, -110.7)
+latitude <- c(45.3, 42.6, 38.9, 42.1, 35.7, 38.9,
+              36.2, 39, 41.6, 36.9)
+stations <- cbind(longitude, latitude)
+# Simulated rainfall data
+set.seed(0)
+precip <- round((runif(length(latitude))*10)^3)
+```
+
+A map of point locations is not that different from a basic x-y scatter plot. Below is a plot (a map in this case) that shows the location of the weather stations, and the size of the dots is proportional to the amount of precipitation. The point size is set with argument cex.
+
+```{r,  eval=T}
+psize <- 1 + precip/500
+plot(stations, cex=psize, pch=20, col='red', main='Precipitation')
+# add names to plot
+text(stations, name, pos=4)
+# add a legend
+breaks <- c(100, 250, 500, 1000)
+legend.psize <- 1+breaks/500
+legend("topright", legend=breaks, pch=20, pt.cex=legend.psize, col='red', bg='gray')
+```
+
+Note that the data are represented by “longitude, latitude”, in that order, do not use “latitude, longitude” because on most maps latitude (North/South) is used for the vertical axis and longitude (East/West) for the horizontal axis. This is important to keep in mind, as it is a very common source of mistakes!
+
+
+We can add multiple sets of points to the plot, and even draw lines and polygons:
+
+
+```{r,  eval=T}
+lon <- c(-116.8, -114.2, -112.9, -111.9, -114.2, -115.4, -117.7)
+lat <- c(41.3, 42.9, 42.4, 39.8, 37.6, 38.3, 37.6)
+x <- cbind(lon, lat)
+plot(stations, main='Precipitation')
+polygon(x, col='blue', border='light blue')
+lines(stations, lwd=3, col='red')
+points(x, cex=2, pch=20)
+points(stations, cex=psize, pch=20, col='red', main='Precipitation')
+```
+
+The above illustrates how numeric vectors representing locations can be used to draw simple maps. It also shows how points can (and typically are) represented by pairs of numbers. A line and a polygon can be represented by a number of these points. Polygons need to “closed”, that is, the first point must coincide with the last point, but the `polygon` function took care of that for us.
+
+There are cases where a simple approach like this may suffice and you may come across this in older R code or packages. Likewise, raster data could be represented by a matrix or higher-order array. Particularly when only dealing with point data such an approach may be practical. For example, a spatial data set representing points and attributes could be made by combining geometry and attributes in a single `data.frame`.
+
+```{r,  eval=T}
+wst <- data.frame(longitude, latitude, name, precip)
+wst
+```
+
+
+However, `wst` is a data.frame and R does not automatically understand the special meaning of the first two columns, or to what coordinate reference system it refers (longitude/latitude, or perhaps UTM zone 17S, or ….?).
+
+Moreover, it is non-trivial to do some basic spatial operations. For example, the blue polygon drawn on the map above might represent a state, and a next question might be which of the 10 stations fall within that polygon. And how about any other operation on spatial data, including reading from and writing data to files? To facilitate such operation a number of R packages have been developed that define new spatial data types that can be used for this type of specialized operations.
+
+Recent packages in R that define such spatial data structures include `terra` and `sf`. These packages replace a set of older packages including `raster` and `sp`.
+
+We mostly use the `terra` package in these materials. You can install the latest released version of terra from CRAN with `install.packages("terra")`.
+
+
+# Reading and writing spatial data
+
+
+Reading and writing spatial data is complicated by the fact that there are many different file formats. However, there are a few formats that are most common that we discuss here.
+
+## Vector files
+
+The shapefile is the most commonly used file format for vector data (if you are not familiar with this file format, an important thing to understand is that a shapefile is really a set of at least three (ideally four) files, with all the same name, but different extension. For shapefile x you must have, in the same directory, these three files: x.shp, x.shx, x.dbf, and ideally also x.prj.
+
+It is easy to read and write such files. Here we use a shapefile that comes with the `terra` package.
+
+### Reading
+
+Let's first download some spatial data of Taiwan using the `geodata` package:
+
+```{r,  eval=F}
+library (geodata)
+#TWN <- gadm(country="TWN", level=1, path=tempdir())
+#TWN <- gadm(country="TWN", level=1, path="./data"
+TWN <- vect('data/gadm/gadm41_TWN_1_pk.rds')
+TWN
+# check for ?gadm
+```
+
+Using a .shp file, we can use the `vect` function from the `terra` package to read the file. First:
+
+```{r,  eval=T}
+# example using .shp file
+library(terra)
+filename1 <- system.file("ex/lux.shp", package="terra")
+basename(filename1)
+```
+> We use the system.file function to get the full path name of the file’s location. We need to do this as the location of this file depends on where the terra package is installed. You should not use the system.file function for your own files. It only serves for creating examples with data that ship with R. With your own files, just use the filename (and path if the file is not in your working directory).
+
+Then:
+
+```{r,  eval=T}
+# example using .shp file
+s1 <- vect(filename1)
+s1
+```
+
+The `vect` function returns `SpatVector` objects. It is important to recognise the difference between this type of R object (`SpatVector`), and the file (“shapefile”) that was used to create it. Thus, you should never say “I have a shapefile in R”, say “I have a SpatVector of polygons in R”, (and in some cases you can add “created from a shapefile”). The shapefile is one of many file formats for vector data.
+
+### Writing
+
+You can write new files using the `writeVector` method. You need to add argument `overwrite=TRUE` if you want to overwrite an existing file.
+
+```{r,  eval=T}
+TWN <- vect('data/gadm/gadm41_TWN_1_pk.rds')
+outfile1 <- "data/shp_TWN.shp"
+writeVector(TWN, outfile1, overwrite=TRUE)
+```
+
+## Raster files
+
+The terra package can read and write several raster file formats.
+
+### Reading raster data
+
+
+Get raster data of taiwan elevation using the `geodata` package:
+
+```{r,  eval=T}
+ele <-elevation_30s("TWN", path=tempdir())
+ele
+```
+
+Using a .tif file, we can use the `rast` function from the `terra` package to read the file. Firstusing example file from the package:
+
+```{r,  eval=T}
+f <- system.file("ex/logo.tif", package="terra")
+basename(f)
+```
+
+Now we can do
+
+```{r,  eval=T}
+r <- rast(f)
+r
+```
+
+Note that x is a SpatRaster of three layers (“bands”). We can subset it to get a single layer.
+
+```{r,  eval=T}
+r2 <- r[[2]]
+r2
+```
+
+The same approach holds for other raster file formats, including GeoTiff, NetCDF, Imagine, and ESRI Grid formats.
+
+### Writing raster data
+
+Use `writeRaster` to write raster data. You must provide a SpatRaster and a filename. The file format will be guessed from the filename extension. If that does not work you can provide an argument like `format=GTiff`. Note the argument `overwrite=TRUE` and see `?writeRaster` for more arguments, such as `datatype=` to set the a specific datatype (e.g., integer).
+
+```{r,  eval=T}
+x <- writeRaster(ele, "data/ele.tif", overwrite=TRUE)
+x
+```
+
+# Coordinate Reference Systems
+
+A very important aspect of spatial data is the coordinate reference system (CRS) that is used. For example, a location of (140, 12) is not meaningful if you do know where the origin (0,0) is and if the x-coordinate is 140 meters, feet, nautical miles, kilometers, or perhaps degrees away from the x-origin.
+
+
+## Coordinate Reference Systems (CRS)
+
+### Angular coordinates
+
+The earth has an irregular spheroid-like shape. The natural coordinate reference system for geographic data is longitude/latitude. This is an angular coordinate reference system. The latitude 
+ (phi) of a point is the angle between the equatorial plane and the line that passes through a point and the center of the Earth. Longitude 
+ (lambda) is the angle from a reference meridian (lines of constant longitude) to a meridian that passes through the point.
+
+Obviously we cannot actually measure these angles. But we can estimate them. To do so, you need a model of the shape of the earth. Such a model is called a “datum”. The simplest datums are a spheroid (a sphere that is “flattened” at the poles and bulges at the equator). More complex datums allow for more variation in the earth’s shape. The most commonly used datum is called WGS84 (World Geodesic System 1984). This is very similar to NAD83 (The North American Datum of 1983). Other, local datums exist to more precisely record locations for a single country or region.
+
+So the basic way to record a location is a coordinate pair in degrees and a reference datum. Sometimes people say that their coordinates are “in WGS84”. That does not tell us much; they typically mean to say that they are longitude/latitude relative to the WGS84 datum. Likewise longitude/latitude coordinates are sometimes referred to as “geographic” coordinates. That is rather odd, if planar coordinate reference systems (see below) are not geographic, what are they?
+
+### Projections
+
+A major question in spatial analysis and cartography is how to transform this three dimensional angular system to a two dimensional planar (sometimes called “Cartesian”) system. A planar system is easier to use for certain calculations and required to make maps (unless you have a 3-d printer). The different types of planar coordinate reference systems are referred to as “projections”. Examples are “Mercator”, “UTM”, “Robinson”, “Lambert”, “Sinusoidal” and “Albers”.
+
+There is not one best projection. Some projections can be used for a map of the whole world; other projections are appropriate for small areas only. One of the most important characteristics of a map projection is whether it is “equal area” (the scale of the map is constant) or “conformal” (the shapes of the geographic features are as they are seen on a globe). No two dimensional map projection can be both conformal and equal-area (but they can be approximately both for smaller areas, e.g. UTM, or Lambert Equal Area for a larger area), and some are neither.
+
+### Notation
+
+A planar CRS is defined by a projection, datum, and a set of parameters. The parameters determine things like where the center of the map is. The number of parameters depends on the projection. It is therefore not trivial to document a projection used, and several systems exist. In R we used to depend on the PROJ.4 notation. PROJ.4 is the name of a software library that is commonly used for CRS transformation. You can find many more of these on [spatialreference.org](https://spatialreference.org/ref/epsg/4326/)
+
+The PROJ.4 notation is no longer fully supported in the newer versions of the library (that was renamed to PR$\phi$J). It still works for CRSs with the WGS84 datum. For other cases you have to use a EPSG code (if available) or a Well-Known-Text notation.
+
+Most commonly used CRSs have been assigned a “EPSG code” (EPSG stands for European Petroleum Survey Group). This is a unique ID that can be a simple way to identify a CRS. For example `EPSG:27561` is equivalent to `+proj=lcc +lat_1=49.5 +lat_0=49.5 +lon_0=0 +k_0=0.999877341 +x_0=6 +y_0=2 +a=6378249.2 +b=6356515 +towgs84=-168,-60,320,0,0,0,0 +pm=paris +units=m +no_defs`.
+
+Now let’s look at an example with a spatial data set in R.
+
+
+
+```{r,  eval=T}
+s1
+```
+
+We can inspect the coordinate reference system like this.
+
+```{r,  eval=T}
+crs(s1)
+```
+
+## Assigning CRS
+
+Sometimes we have data without a CRS. This can be because the file used was incomplete, or perhaps because we created the data ourselves with R code. In that case we can assign the CRS if we know what it should be. Here I first remove the CRS of `pp` and then I set it again.
+
+```{r,  eval=T}
+ss <- s1
+crs(ss) <- ""
+crs(ss)
+crs(ss) <- "+proj=longlat +datum=WGS84"
+crs(ss)
+```
+
+Note that you should not use this approach to change the CRS of a data set from what it is to what you want it to be. Assigning a CRS is like labeling something. You need to provide the label that corresponds to the item. Not to what you would like it to be. For example if you label a bicycle, you can write “bicycle”. Perhaps you would prefer a car, and you can label your bicycle as “car” but that would not do you any good. It is still a bicycle. You can try to transform your bicycle into a car. That would not be easy. Transforming spatial data is easier.
+
+## Transforming vector data
+
+We can transform these data to a new data set with another CRS using the `project` method.
+
+Here we use the Robinson projection. First we need to find the correct notation.
+
+```{r,  eval=T}
+newcrs <- "+proj=robin +datum=WGS84"
+```
+
+Now use it: 
+
+```{r,  eval=T}
+rob <- terra::project(s1, newcrs)
+rob
+```
+
+After the transformation, the units of the geometry are no longer in degrees, but in meters away from (longitude=0, latitude=0). The spatial extent of the data is also in these units.
+
+We can backtransform to longitude/latitude:
+
+```{r,  eval=T}
+p2 <- terra::project(rob, "+proj=longlat +datum=WGS84")
+```
+
+## Transforming raster data
+
+Vector data can be transformed from lon/lat coordinates to planar and back without loss of precision. This is not the case with raster data. A raster consists of rectangular cells of the same size (in terms of the units of the CRS; their actual size may vary). It is not possible to transform cell by cell. For each new cell, values need to be estimated based on the values in the overlapping old cells. If the values are categorical data, the “nearest neighbor” method is commonly used. Otherwise some sort of interpolation is employed (e.g. “bilinear”).
+
+Because projection of rasters affects the cell values, in most cases you will want to avoid projecting raster data and rather project vector data. But here is how you can project raster data.
+
+```{r,  eval=T}
+r <- rast(xmin=-110, xmax=-90, ymin=40, ymax=60, ncols=40, nrows=40)
+values(r) <- 1:ncell(r)
+r
+plot (r)
+```
+
+The simplest approach is to provide a new crs (the Robinson crs in this case):
+
+```{r,  eval=T}
+newcrs
+pr1 <- terra::project(r, newcrs)
+crs(pr1)
+plot(pr1)
+```
+
+But that is not a good method. As you should want to assure that you project fits to exactly the raster parameters you need (so that it lines up with other raster data you are using).
+
+To have this kind of control, provide an existing SpatRaster with the geometry you desire. That is generally the best way to project raster. By providing an existing SpatRaster, such that your newly projected data perfectly aligns with it. In this example we do not have an existing SpatRaster object, so we create from the result obtained above.
+
+```{r,  eval=T}
+x <- rast(pr1)
+# Set the cell size
+res(x) <- 200000
+```
+
+Now project, and note the change in the coordinates.
+
+```{r,  eval=T}
+pr3 <- terra::project(r, x)
+pr3
+plot(pr3)
+```
+
+For raster based analysis it is often important to use equal area projections, particularly when large areas are analyzed. This will assure that the grid cells are all of same size, and therefore comparable to each other, especially when count data are used.
+
+# Vector data manipulation
+
+This chapter illustrates some ways in which we can manipulate vector data. We start with an example SpatVector that we read from a shapefile.
+
+```{r,  eval=T}
+TWN <- vect('data/gadm/gadm41_TWN_1_pk.rds')
+plot(TWN, "NAME_1")
+```
+
+We can plot these data in many ways. For example:
+
+We can see this data set is incomplete for Taiwan. Let's get some data directly from Taiwan
+
+```{r,  eval=F}
+url <- 'https://data.moi.gov.tw/MoiOD/System/DownloadFile.aspx?DATA=72874C55-884D-4CEA-B7D6-F60B0BE85AB0'
+path1 <- tempfile(fileext = ".zip")
+if (file.exists(path1))  'file alredy exists' else download.file(url, path1, mode="wb")
+zip::unzip(zipfile = path1,exdir = 'data')
+```
+
+Make `SpatialVector`:
+
+```{r,  eval=T}
+Taiwan <- "data/COUNTY_MOI_1130718.shp"
+Taiwan <-vect(Taiwan)
+```
+
+Make the new plot: 
+
+```{r,  eval=T}
+plot(Taiwan, "COUNTYENG")
+```
+
+
+## Basics
+
+### Geometry and attributes
+
+To extract the attributes (data.frame) from a SpatVector, use:
+
+
+```{r,  eval=T}
+d <- as.data.frame(Taiwan)
+# head(d) # not run for Chinese character
+```
+You can also extract the geometry as a a matrix (this is rarely needed).
+
+```{r,  eval=T}
+g <- geom(Taiwan) 
+head(g)
+```
+
+Or as “well-known-text”.
+
+```{r,  eval=T}
+g <- geom(Taiwan, wkt=TRUE)
+substr(g, 1, 50)
+```
+
+### Variables
+
+You can extract a variable as you would do with a `data.frame`.
+
+```{r,  eval=T}
+Taiwan$COUNTYENG
+```
+To sub-set a SpatVector to one or more variables you can use the notation below. Note how this is different from the above example. Above a vector of values is returned. With the approach below you get a new SpatVector with only one variable.
+
+```{r,  eval=T}
+Taiwan[,"COUNTYENG"]
+```
+
+You can add a new variable to a SpatVector just as if it were a data.frame.
+
+```{r,  eval=T}
+set.seed(0)
+Taiwan$lets <- sample(letters, nrow(Taiwan))
+# Taiwan
+```
+
+Note that to get the number of geometries of SpatVector `Taiwan`, you can use `nrow(Taiwan)`, or `size(Taiwan)`. You can also do `perim(Taiwan)` to get the “length” of the spatial objects (zero for points, the length of the lines, or the perimeter of the polygons).
+
+Assigning a new value to an existing variable.
+
+```{r,  eval=T}
+Taiwan$lets <- sample(LETTERS, nrow(Taiwan))
+# head(Taiwan)
+```
+
+To get rid of a variable, set it to `NULL`.
+
+```{r,  eval=T}
+Taiwan$lets <- NULL
+```
+
+### Merge
+
+You can assign an attributes table (data.frame) to a SpatVector with `values<-`. To add attributes to a SpatVector that already has attributes use `merge` (or `cbind` if you know the order of the records is the same).
+
+
+```{r,  eval=T}
+dfr <- data.frame(County=Taiwan$COUNTYENG, Value=round(runif(length(Taiwan), 100, 1000)))
+dfr <- dfr[order(dfr$County), ]
+pm <- merge(Taiwan, dfr, by.x="COUNTYENG",by.y="County")
+# pm 
+# head(pm)
+```
+
+Note the new variable `Value` added to `pm`
+
+### Records
+
+Selecting rows (records).
+
+```{r,  eval=T}
+i <- which(Taiwan$COUNTYENG == 'Taipei City')
+g <- Taiwan[i,]
+# g
+```
+
+It is also possible to interactively select and query records by clicking on a plotted dataset. That is difficult to show here. See `?sel` for interactively selecting geometries and `?click` to identify attributes by clicking on a plot (map).
+
+## Append and aggregate
+
+### Append
+
+More example data. Object z consists of four polygons; z2 is one of these four polygons.
+
+```{r,  eval=T}
+z <- rast(Taiwan)
+dim(z) <- c(2,2)
+values(z) <- 1:4
+names(z) <- 'Zone'
+z <- as.polygons(z)
+z
+z1 <- z[1,]
+z2 <- z[2,]
+z3 <- z[3,]
+z4 <- z[4,]
+plot(Taiwan)
+plot(z, add=TRUE, border='blue', lwd=5)
+plot(z2, add=TRUE, border='red', lwd=2, col='red')
+```
+
+To append SpatVector objects of the same (vector) type you can use `rbind`:
+
+```{r,  eval=T}
+b <- rbind(Taiwan, z)
+# head(b)
+# tail(b)
+```
+Note how `rbind` allows you to append SpatVect objects with different attribute names, unlike the standard `rbind` for `data.frame`.
+
+
+### Aggregate
+
+It is common to aggregate (“dissolve”) polygons that have the same value for an attribute of interest. In this case, we want to highlight the North of Taiwan.
+
+
+```{r,  eval=T}
+Taiwan$region<-c(rep("Others",6), rep("North",3), rep("Others",2), "North", rep("Others",10))
+pa <- aggregate(Taiwan, by='region')
+za <- aggregate(z)
+plot(za, col='light gray', border='light gray', lwd=5)
+plot(pa, add=TRUE, col=rainbow(3), lwd=3, border='white')
+```
+
+It is also possible to aggregate polygons without dissolving the borders.
+
+```{r,  eval=T}
+Taiwan$region<-c(rep("Others",6), rep("North",3), rep("Others",2), "North", rep("Others",10))
+pa <- aggregate(Taiwan, by='region',dissolve=FALSE)
+za <- aggregate(z, dissolve = FALSE)
+plot(za, col='light gray', border='dark gray', lwd=3)
+plot(pa, add=TRUE, col=rainbow(3), lwd=2, border='white')
+```
+
+This is a structure that is similar to what you may get for an archipelago: multiple polygons represented as one entity (one row). Use `disagg` to split these up into their parts.
+
+```{r,  eval=T}
+zd <- disagg(pa)
+zd
+```
+
+### Overlay
+
+There are many different ways to “overlay” vector data. Here are some examples:
+
+- Erase
+
+Erase a part of a SpatVector
+
+```{r,  eval=T}
+e1 <- erase(Taiwan,z1 )
+e2 <- erase(e1,z3 )
+e3 <- erase(e2,z4 )
+plot(e3)
+```
+
+- Intersect
+
+Easier to complete with `intersect` SpatVectors
+
+```{r,  eval=T}
+i <- intersect(Taiwan, z3)
+plot(i)
+```
+
+You got Taiping Island. 
+
+You can also `intersect` or `crop` with a SpatExtent (rectangle). The difference between `intersect` and `crop` is that with crop the geometry of the second argument is not added to the output.
+
+
+```{r,  eval=T}
+e <- ext(119, 123, 21, 26)
+te <- crop(Taiwan, e)
+plot(Taiwan)
+plot(e, add=TRUE, lwd=3, col="red")
+plot(te, col='light blue', add=TRUE)
+plot(e, add=TRUE, lwd=3, border="blue")
+```
+
+- Union
+
+Get the union of two SpatVectors.
+
+```{r,  eval=T}
+u <- union(Taiwan, z)
+u
+```
+
+Note that there are many more polygons now. One for each unique combination of polygons (and attributes in this case).
+
+```{r,  eval=T}
+set.seed(5)
+plot(u, col=sample(rainbow(length(u))))
+```
+
+- Cover
+
+`cover` is a combination of `intersect` and `union`. `intersect` returns new (intersected) geometries with the attributes of both input datasets. `union` appends the geometries and attributes of the input. `cover` returns the intersection and appends the other geometries and attributes of both datasets.
+
+```{r,  eval=T}
+cov <- cover(Taiwan, z[c(1,3),])
+plot(cov)
+```
+
+- Difference
+
+The symmetrical difference of two SpatVectors
+
+```{r,  eval=T}
+dif <- symdif(z,Taiwan)
+plot(dif, col=rainbow(length(dif)))
+```
+
+### Spatial queries
+
+We can query polygons with points (“point-in-polygon query”).
+
+```{r,  eval=T}
+pts <- matrix(c(117, 122, 117, 122, 15, 15, 23, 23), ncol=2)
+spts <- vect(pts, crs=crs(Taiwan))
+plot(z, col='light blue', lwd=2)
+points(spts, col='light gray', pch=20, cex=6)
+text(spts, 1:nrow(pts), col='red', font=2, cex=1.5)
+lines(Taiwan, col='blue', lwd=2)
+```
+
+`extract` is used for queries between SpatVector and SpatRaster objects, and also for queries between SpatVectors.
+
+```{r,  eval=T}
+extract(spts, Taiwan)
+```
+
+# Raster data manipulation
+
+
+
+
+
+
+
+```{r,  eval=T}
+plot(ele)
+```
+
