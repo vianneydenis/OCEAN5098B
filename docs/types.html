@@ -13,7 +13,7 @@
 
 <title>Data types and structures</title>
 
-<script src="site_libs/header-attrs-2.25/header-attrs.js"></script>
+<script src="site_libs/header-attrs-2.21/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/flatly.min.css" rel="stylesheet" />
@@ -724,9 +724,9 @@ between 0 and 10 that fill this matrix.</p>
 class="sourceCode r fold-show"><code class="sourceCode r"><span id="cb57-1"><a href="#cb57-1" tabindex="-1"></a>m <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">runif</span>(<span class="dv">9</span>,<span class="dv">0</span>,<span class="dv">10</span>), <span class="at">nrow =</span> <span class="dv">3</span>, <span class="at">ncol =</span> <span class="dv">3</span>)</span>
 <span id="cb57-2"><a href="#cb57-2" tabindex="-1"></a>m</span></code></pre></div>
 <pre><code>##          [,1]     [,2]     [,3]
-## [1,] 5.978530 8.160761 5.334759
-## [2,] 3.976805 2.351988 9.289427
-## [3,] 3.968304 8.268702 5.497947</code></pre>
+## [1,] 4.899883 7.588298 2.040063
+## [2,] 9.733833 2.694677 7.393908
+## [3,] 5.508261 5.065063 2.601533</code></pre>
 <p>If a vector of higher dimensions is desired, use the
 <code>array</code> function to create the n-dimensional object. A 3x3x3
 array can be created as follows:</p>
@@ -735,24 +735,24 @@ class="sourceCode r fold-show"><code class="sourceCode r"><span id="cb59-1"><a h
 <span id="cb59-2"><a href="#cb59-2" tabindex="-1"></a>m</span></code></pre></div>
 <pre><code>## , , 1
 ## 
-##           [,1]     [,2]     [,3]
-## [1,] 7.6014253 6.328034 9.219906
-## [2,] 0.6850976 3.845769 9.758776
-## [3,] 7.9360934 5.662727 9.330338
+##          [,1]      [,2]     [,3]
+## [1,] 9.510600 8.3817242 9.091987
+## [2,] 4.236675 7.3150926 1.567949
+## [3,] 1.949950 0.5730625 2.966677
 ## 
 ## , , 2
 ## 
 ##          [,1]     [,2]     [,3]
-## [1,] 3.811627 1.968864 1.737453
-## [2,] 2.555641 1.364009 8.664346
-## [3,] 2.574837 6.239665 9.893357
+## [1,] 7.760223 8.648489 1.841000
+## [2,] 7.013797 4.440265 8.643733
+## [3,] 0.132664 5.435810 9.028900
 ## 
 ## , , 3
 ## 
-##          [,1]     [,2]     [,3]
-## [1,] 9.866358 1.573435 8.293434
-## [2,] 8.920131 9.304595 7.173403
-## [3,] 8.882176 8.269302 1.563596</code></pre>
+##          [,1]      [,2]      [,3]
+## [1,] 4.389712 3.0829166 1.9854787
+## [2,] 6.861945 0.9060373 0.7255766
+## [3,] 4.379149 4.3026508 0.1489292</code></pre>
 <p>Matrices and arrays can store numeric or character data types, but
 not both. They are derived directly from the vector structure, but have
 a higher number of dimensions.</p>
@@ -896,7 +896,7 @@ class="sourceCode r fold-show"><code class="sourceCode r"><span id="cb82-1"><a h
 ## [[3]]
 ## function (expr, name) 
 ## .External(C_doD, expr, name)
-## &lt;bytecode: 0x0000021058cb5148&gt;
+## &lt;bytecode: 0x000001f3b2e1b510&gt;
 ## &lt;environment: namespace:stats&gt;</code></pre>
 <p>When lists do not have component names, the <code>names</code>
 function will return NULL.</p>
@@ -969,9 +969,8 @@ class="sourceCode r fold-show"><code class="sourceCode r"><span id="cb86-1"><a h
 ##  - attr(*, &quot;class&quot;)= chr &quot;lm&quot;</code></pre>
 <div class="sourceCode" id="cb88"><pre
 class="sourceCode r fold-show"><code class="sourceCode r"><span id="cb88-1"><a href="#cb88-1" tabindex="-1"></a><span class="fu">names</span>(M)</span></code></pre></div>
-<pre><code>##  [1] &quot;coefficients&quot;  &quot;residuals&quot;     &quot;effects&quot;       &quot;rank&quot;         
-##  [5] &quot;fitted.values&quot; &quot;assign&quot;        &quot;qr&quot;            &quot;df.residual&quot;  
-##  [9] &quot;xlevels&quot;       &quot;call&quot;          &quot;terms&quot;         &quot;model&quot;</code></pre>
+<pre><code>##  [1] &quot;coefficients&quot;  &quot;residuals&quot;     &quot;effects&quot;       &quot;rank&quot;          &quot;fitted.values&quot; &quot;assign&quot;        &quot;qr&quot;            &quot;df.residual&quot;   &quot;xlevels&quot;       &quot;call&quot;         
+## [11] &quot;terms&quot;         &quot;model&quot;</code></pre>
 <p>The list <code>M</code> is more complex than the simple list
 <code>my.list</code> that was created before. Not only does it have more
 components, but it also stores a greater* range of data types and

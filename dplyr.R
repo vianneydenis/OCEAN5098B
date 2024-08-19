@@ -32,10 +32,15 @@ mutated1 <- mutate(iris, Greater.Half = Sepal.Width > 0.5 * Sepal.Length)
 tail(mutated1)
 
 ## .extra {
+
 ##   background-color: lightgreen;
+
 ##   border: 3px solid green;
+
 ##   font-weight: bold;
+
 ## }
+
 
 table(mutated1$Greater.Half)
 
@@ -56,10 +61,15 @@ gp.mean
 iris %>% filter(Species == "setosa",Sepal.Width > 3.8)
 
 ## .important {
+
 ##   background-color: lightpink;
+
 ##   border: 3px solid red;
+
 ##   font-weight: bold;
+
 ## }
+
 
 iris  %>% 
   group_by(Species) %>% 
