@@ -29,6 +29,9 @@
        h6 {font-size: 12px;}
        code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
        pre:not([class]) { background-color: white }</style>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <script src="site_libs/navigation-1.1/codefolding.js"></script>
 <script src="site_libs/clipboard-2.0.6/clipboard.min.js"></script>
@@ -324,6 +327,69 @@ $(document).ready(function () {
 
 
 
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+
 
 </head>
 
@@ -331,6 +397,16 @@ $(document).ready(function () {
 
 
 <div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
 
 
 
@@ -665,9 +741,8 @@ distinction between <strong>reading</strong> a file and
 <div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" tabindex="-1"></a><span class="co"># 1. using the package `readxl`</span></span>
 <span id="cb18-2"><a href="#cb18-2" tabindex="-1"></a><span class="co"># 2. reading my `reef_fish.xlsx` in my working directory</span></span>
 <span id="cb18-3"><a href="#cb18-3" tabindex="-1"></a><span class="co"># 3. importing `reef_fish.xlsx` in a `fish` object</span></span>
-<span id="cb18-4"><a href="#cb18-4" tabindex="-1"></a><span class="fu">library</span>(readxl) <span class="co"># load the package `readxl&#39;</span></span></code></pre></div>
-<pre><code>## Warning: package &#39;readxl&#39; was built under R version 4.3.0</code></pre>
-<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" tabindex="-1"></a><span class="fu">read_excel</span>(<span class="st">&#39;data/reef_fish.xlsx&#39;</span>) <span class="co"># automatically print on my screen</span></span></code></pre></div>
+<span id="cb18-4"><a href="#cb18-4" tabindex="-1"></a><span class="fu">library</span>(readxl) <span class="co"># load the package `readxl&#39;</span></span>
+<span id="cb18-5"><a href="#cb18-5" tabindex="-1"></a><span class="fu">read_excel</span>(<span class="st">&#39;data/reef_fish.xlsx&#39;</span>) <span class="co"># automatically print on my screen</span></span></code></pre></div>
 <pre><code>## # A tibble: 10 × 2
 ##    country                        richness
 ##    &lt;chr&gt;                             &lt;dbl&gt;
@@ -681,8 +756,8 @@ distinction between <strong>reading</strong> a file and
 ##  8 New_Caledonia                      1007
 ##  9 Fiji                                919
 ## 10 Federated_States_of Micronesia      900</code></pre>
-<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" tabindex="-1"></a>fish<span class="ot">&lt;-</span><span class="fu">read_excel</span>(<span class="st">&#39;data/reef_fish.xlsx&#39;</span>) <span class="co"># store my table in an object called `fish`</span></span>
-<span id="cb22-2"><a href="#cb22-2" tabindex="-1"></a>fish <span class="co"># print my object `fish`   </span></span></code></pre></div>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" tabindex="-1"></a>fish<span class="ot">&lt;-</span><span class="fu">read_excel</span>(<span class="st">&#39;data/reef_fish.xlsx&#39;</span>) <span class="co"># store my table in an object called `fish`</span></span>
+<span id="cb20-2"><a href="#cb20-2" tabindex="-1"></a>fish <span class="co"># print my object `fish`   </span></span></code></pre></div>
 <pre><code>## # A tibble: 10 × 2
 ##    country                        richness
 ##    &lt;chr&gt;                             &lt;dbl&gt;
@@ -706,19 +781,19 @@ distinction between <strong>reading</strong> a file and
 or semicolon)?</li>
 <li>What is the character used for decimal points (dot, comma)?</li>
 </ul>
-<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" tabindex="-1"></a><span class="co"># importing a .txt file</span></span>
-<span id="cb24-2"><a href="#cb24-2" tabindex="-1"></a>fish<span class="ot">&lt;-</span><span class="fu">read.table</span>(<span class="st">&#39;data/reef_fish.txt&#39;</span>, <span class="at">header=</span>T, <span class="at">sep=</span><span class="st">&#39;</span><span class="sc">\t</span><span class="st">&#39;</span>, <span class="at">dec=</span><span class="st">&#39;.&#39;</span>) </span></code></pre></div>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" tabindex="-1"></a><span class="co"># importing a .txt file</span></span>
+<span id="cb22-2"><a href="#cb22-2" tabindex="-1"></a>fish<span class="ot">&lt;-</span><span class="fu">read.table</span>(<span class="st">&#39;data/reef_fish.txt&#39;</span>, <span class="at">header=</span>T, <span class="at">sep=</span><span class="st">&#39;</span><span class="sc">\t</span><span class="st">&#39;</span>, <span class="at">dec=</span><span class="st">&#39;.&#39;</span>) </span></code></pre></div>
 <p>Check <code>?read.table</code> for all arguments you can specify
 within this function</p>
 <p>It is not a good practice, but instead or working within a working
 directory, you can also target directly your file (check your file
 properties) or an url.</p>
-<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" tabindex="-1"></a><span class="co"># import file by path name</span></span>
-<span id="cb25-2"><a href="#cb25-2" tabindex="-1"></a>fish <span class="ot">&lt;-</span> <span class="fu">read.table</span>(<span class="st">&quot;D:/.../data/reef_fish.txt&quot;</span>, <span class="at">header =</span> <span class="cn">TRUE</span>, <span class="at">sep =</span> <span class="st">&quot;</span><span class="sc">\t</span><span class="st">&quot;</span>, <span class="at">dec =</span> <span class="st">&quot;.&quot;</span>)  <span class="co"># long version</span></span>
-<span id="cb25-3"><a href="#cb25-3" tabindex="-1"></a>fish <span class="ot">&lt;-</span> <span class="fu">read.table</span>(<span class="st">&quot;D:/.../data/reef_fish.txt&quot;</span>, <span class="cn">TRUE</span>, <span class="st">&quot;</span><span class="sc">\t</span><span class="st">&quot;</span>, <span class="st">&quot;.&quot;</span>)  <span class="co"># short version</span></span></code></pre></div>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" tabindex="-1"></a><span class="co"># import file by path name</span></span>
+<span id="cb23-2"><a href="#cb23-2" tabindex="-1"></a>fish <span class="ot">&lt;-</span> <span class="fu">read.table</span>(<span class="st">&quot;D:/.../data/reef_fish.txt&quot;</span>, <span class="at">header =</span> <span class="cn">TRUE</span>, <span class="at">sep =</span> <span class="st">&quot;</span><span class="sc">\t</span><span class="st">&quot;</span>, <span class="at">dec =</span> <span class="st">&quot;.&quot;</span>)  <span class="co"># long version</span></span>
+<span id="cb23-3"><a href="#cb23-3" tabindex="-1"></a>fish <span class="ot">&lt;-</span> <span class="fu">read.table</span>(<span class="st">&quot;D:/.../data/reef_fish.txt&quot;</span>, <span class="cn">TRUE</span>, <span class="st">&quot;</span><span class="sc">\t</span><span class="st">&quot;</span>, <span class="st">&quot;.&quot;</span>)  <span class="co"># short version</span></span></code></pre></div>
 <p>You can also use `file.choose()’ to locate directly the file on
 computer</p>
-<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" tabindex="-1"></a>fish <span class="ot">&lt;-</span> <span class="fu">read.table</span>(<span class="fu">file.choose</span>(), <span class="at">header =</span> <span class="cn">TRUE</span>, <span class="at">sep =</span> <span class="st">&quot;</span><span class="sc">\t</span><span class="st">&quot;</span>, <span class="at">dec =</span> <span class="st">&quot;.&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" tabindex="-1"></a>fish <span class="ot">&lt;-</span> <span class="fu">read.table</span>(<span class="fu">file.choose</span>(), <span class="at">header =</span> <span class="cn">TRUE</span>, <span class="at">sep =</span> <span class="st">&quot;</span><span class="sc">\t</span><span class="st">&quot;</span>, <span class="at">dec =</span> <span class="st">&quot;.&quot;</span>)</span></code></pre></div>
 <p><strong>Note</strong>: every time we created the object
 <code>fish</code> it replaced the one previously created.</p>
 <p class="comment">
@@ -727,9 +802,9 @@ it in a working directory you dedicated for this course, and import it
 in R. Do the same after converting this <code>reef_fish</code> file into
 a <code>.txt</code> format
 </p>
-<div class="sourceCode" id="cb27"><pre
-class="sourceCode r fold-hide"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" tabindex="-1"></a><span class="co"># Too fast you need to try by yourself?</span></span>
-<span id="cb27-2"><a href="#cb27-2" tabindex="-1"></a><span class="co"># Maybe a look at ?write.table may help</span></span></code></pre></div>
+<div class="sourceCode" id="cb25"><pre
+class="sourceCode r fold-hide"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" tabindex="-1"></a><span class="co"># Too fast you need to try by yourself?</span></span>
+<span id="cb25-2"><a href="#cb25-2" tabindex="-1"></a><span class="co"># Maybe a look at ?write.table may help</span></span></code></pre></div>
 </div>
 <div id="editor" class="section level2">
 <h2>Editor</h2>
@@ -744,7 +819,7 @@ alternative.</p>
 <div id="quit-r" class="section level2">
 <h2>Quit R</h2>
 <p><strong>File -&gt; Exit</strong> or simply type in the R console:</p>
-<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" tabindex="-1"></a><span class="fu">q</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" tabindex="-1"></a><span class="fu">q</span>()</span></code></pre></div>
 <p>Saving the workspace image will allow you to save all objects created
 in the R memory into your working directory (.Rdata). It also saves all
 commands given during the session (.Rhistory). Quit <strong>without
@@ -811,9 +886,9 @@ of its use.</p>
 import the data set as an object <code>fish</code> and create a very
 simple plot to visualize difference of reef fish richness by
 country.</p>
-<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" tabindex="-1"></a><span class="co"># import data set and create an object in R studio + simple plot </span></span>
-<span id="cb29-2"><a href="#cb29-2" tabindex="-1"></a>fish<span class="ot">&lt;-</span><span class="fu">read.table</span>(<span class="st">&#39;Data/reef_fish.txt&#39;</span>, <span class="at">header=</span>T, <span class="at">sep=</span><span class="st">&#39;</span><span class="sc">\t</span><span class="st">&#39;</span>, <span class="at">dec=</span><span class="st">&#39;.&#39;</span>)</span>
-<span id="cb29-3"><a href="#cb29-3" tabindex="-1"></a><span class="fu">barplot</span>(fish<span class="sc">$</span>richness, <span class="at">main=</span><span class="st">&quot;Top 10 reef fish Richness (Allen, 2000)&quot;</span>, <span class="at">horiz=</span><span class="cn">TRUE</span>, <span class="at">names.arg=</span>fish<span class="sc">$</span>country, <span class="at">cex.names=</span><span class="fl">0.5</span>, <span class="at">las=</span><span class="dv">1</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" tabindex="-1"></a><span class="co"># import data set and create an object in R studio + simple plot </span></span>
+<span id="cb27-2"><a href="#cb27-2" tabindex="-1"></a>fish<span class="ot">&lt;-</span><span class="fu">read.table</span>(<span class="st">&#39;Data/reef_fish.txt&#39;</span>, <span class="at">header=</span>T, <span class="at">sep=</span><span class="st">&#39;</span><span class="sc">\t</span><span class="st">&#39;</span>, <span class="at">dec=</span><span class="st">&#39;.&#39;</span>)</span>
+<span id="cb27-3"><a href="#cb27-3" tabindex="-1"></a><span class="fu">barplot</span>(fish<span class="sc">$</span>richness, <span class="at">main=</span><span class="st">&quot;Top 10 reef fish Richness (Allen, 2000)&quot;</span>, <span class="at">horiz=</span><span class="cn">TRUE</span>, <span class="at">names.arg=</span>fish<span class="sc">$</span>country, <span class="at">cex.names=</span><span class="fl">0.5</span>, <span class="at">las=</span><span class="dv">1</span>)</span></code></pre></div>
 <p><img src="environment_files/figure-html/unnamed-chunk-26-1.png" width="672" /></p>
 <p><strong>Note 1</strong>: using the options in R studio, you can
 easily export the resulting plot as and image, a pdf, or to copy it to
@@ -999,6 +1074,8 @@ class="uri">http://creativecommons.org/licenses/by/3.0/</a>).</p>
 
 
 
+</div>
+</div>
 
 </div>
 
@@ -1036,6 +1113,35 @@ $(document).ready(function () {
 });
 </script>
 
+<script>
+$(document).ready(function ()  {
+
+    // temporarily add toc-ignore selector to headers for the consistency with Pandoc
+    $('.unlisted.unnumbered').addClass('toc-ignore')
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
 
 <!-- dynamically load mathjax for compatibility with self-contained -->
 <script>

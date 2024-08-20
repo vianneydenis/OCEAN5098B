@@ -29,6 +29,9 @@
        h6 {font-size: 12px;}
        code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
        pre:not([class]) { background-color: white }</style>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <script src="site_libs/navigation-1.1/codefolding.js"></script>
 <script src="site_libs/clipboard-2.0.6/clipboard.min.js"></script>
@@ -324,6 +327,69 @@ $(document).ready(function () {
 
 
 
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+
 
 </head>
 
@@ -331,6 +397,16 @@ $(document).ready(function () {
 
 
 <div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
 
 
 
@@ -457,31 +533,22 @@ value with <code>fill()</code>, or a known value with
 transformation.</p>
 <div class="sourceCode" id="cb1"><pre
 class="sourceCode r fold-show"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="fu">library</span> (tidyr)</span></code></pre></div>
-<pre><code>## Warning: package &#39;tidyr&#39; was built under R version 4.3.0</code></pre>
-<pre><code>## 
-## Attaching package: &#39;tidyr&#39;</code></pre>
-<pre><code>## The following object is masked from &#39;package:raster&#39;:
-## 
-##     extract</code></pre>
-<pre><code>## The following object is masked from &#39;package:terra&#39;:
-## 
-##     extract</code></pre>
 <div id="pivoting" class="section level1">
 <h1>Pivoting</h1>
 <p>Dai &amp; Horng (2009) summarize the coral diversity around Taiwan.
 <code>TW_corals</code> shows richness in scleractinian corals by coral
 reef region:</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" tabindex="-1"></a>TW_corals<span class="ot">&lt;-</span><span class="fu">read.table</span>(<span class="st">&#39;Data/tw_corals.txt&#39;</span>, <span class="at">header=</span>T, <span class="at">sep=</span><span class="st">&#39;</span><span class="sc">\t</span><span class="st">&#39;</span>, <span class="at">dec=</span><span class="st">&#39;.&#39;</span>) </span>
-<span id="cb6-2"><a href="#cb6-2" tabindex="-1"></a>TW_corals</span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a>TW_corals<span class="ot">&lt;-</span><span class="fu">read.table</span>(<span class="st">&#39;Data/tw_corals.txt&#39;</span>, <span class="at">header=</span>T, <span class="at">sep=</span><span class="st">&#39;</span><span class="sc">\t</span><span class="st">&#39;</span>, <span class="at">dec=</span><span class="st">&#39;.&#39;</span>) </span>
+<span id="cb2-2"><a href="#cb2-2" tabindex="-1"></a>TW_corals</span></code></pre></div>
 <pre><code>##   Southern_TW Northern_TW Eastern_TW Ludao Lanyu Xiaoliuqiu Penghu_North Penghu_East Penghu_Inner Penghu.South Dongsha Taiping Northern_Is
 ## 1         280         136        210   250   248        239          107          84           75           99     229     163         112</code></pre>
 <p>This table is a <strong>wide table</strong>. It can easily be
 reformatted into a long table by combining the pipe operator
 <code>%&gt;%</code> with <code>pivot_longer</code> as follows:</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" tabindex="-1"></a>TW_corals_long <span class="ot">&lt;-</span> TW_corals <span class="sc">%&gt;%</span></span>
-<span id="cb8-2"><a href="#cb8-2" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(Southern_TW<span class="sc">:</span>Northern_Is, <span class="at">names_to =</span> <span class="st">&quot;Region&quot;</span>, <span class="at">values_to =</span> <span class="st">&quot;Richness&quot;</span>)</span>
-<span id="cb8-3"><a href="#cb8-3" tabindex="-1"></a><span class="co"># TW_corals_long &lt;-TW_corals %&gt;% pivot_longer(cols = everything(), names_to = &quot;Region&quot;, values_to = &quot;Richness&quot;) </span></span>
-<span id="cb8-4"><a href="#cb8-4" tabindex="-1"></a>TW_corals_long </span></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a>TW_corals_long <span class="ot">&lt;-</span> TW_corals <span class="sc">%&gt;%</span></span>
+<span id="cb4-2"><a href="#cb4-2" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(Southern_TW<span class="sc">:</span>Northern_Is, <span class="at">names_to =</span> <span class="st">&quot;Region&quot;</span>, <span class="at">values_to =</span> <span class="st">&quot;Richness&quot;</span>)</span>
+<span id="cb4-3"><a href="#cb4-3" tabindex="-1"></a><span class="co"># TW_corals_long &lt;-TW_corals %&gt;% pivot_longer(cols = everything(), names_to = &quot;Region&quot;, values_to = &quot;Richness&quot;) </span></span>
+<span id="cb4-4"><a href="#cb4-4" tabindex="-1"></a>TW_corals_long </span></code></pre></div>
 <pre><code>## # A tibble: 13 × 2
 ##    Region       Richness
 ##    &lt;chr&gt;           &lt;int&gt;
@@ -500,9 +567,9 @@ reformatted into a long table by combining the pipe operator
 ## 13 Northern_Is       112</code></pre>
 <p>The reverse operation can be made using <code>pivot_wider</code> in
 order to recreate the wide version of our table:</p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" tabindex="-1"></a>TW_corals_wide <span class="ot">&lt;-</span> TW_corals_long <span class="sc">%&gt;%</span></span>
-<span id="cb10-2"><a href="#cb10-2" tabindex="-1"></a>  <span class="fu">pivot_wider</span>( <span class="at">names_from =</span> Region, <span class="at">values_from =</span> Richness) </span>
-<span id="cb10-3"><a href="#cb10-3" tabindex="-1"></a>TW_corals_wide</span></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" tabindex="-1"></a>TW_corals_wide <span class="ot">&lt;-</span> TW_corals_long <span class="sc">%&gt;%</span></span>
+<span id="cb6-2"><a href="#cb6-2" tabindex="-1"></a>  <span class="fu">pivot_wider</span>( <span class="at">names_from =</span> Region, <span class="at">values_from =</span> Richness) </span>
+<span id="cb6-3"><a href="#cb6-3" tabindex="-1"></a>TW_corals_wide</span></code></pre></div>
 <pre><code>## # A tibble: 1 × 13
 ##   Southern_TW Northern_TW Eastern_TW Ludao Lanyu Xiaoliuqiu Penghu_North Penghu_East Penghu_Inner Penghu.South Dongsha Taiping Northern_Is
 ##         &lt;int&gt;       &lt;int&gt;      &lt;int&gt; &lt;int&gt; &lt;int&gt;      &lt;int&gt;        &lt;int&gt;       &lt;int&gt;        &lt;int&gt;        &lt;int&gt;   &lt;int&gt;   &lt;int&gt;       &lt;int&gt;
@@ -513,8 +580,8 @@ you will discover its importance as your programming skills mature and
 the data sets become more complex, as described below.</span></p>
 <p>Here is a subset of median income by gender and work experience for
 2017 in four US states compared to Taiwan (real data).</p>
-<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" tabindex="-1"></a>income<span class="ot">&lt;-</span><span class="fu">read.table</span>(<span class="st">&#39;Data/metoo.txt&#39;</span>,<span class="at">header=</span>T, <span class="at">sep=</span><span class="st">&quot;</span><span class="sc">\t</span><span class="st">&quot;</span>, <span class="at">dec=</span><span class="st">&quot;.&quot;</span>, <span class="at">na.strings =</span> <span class="st">&quot;n/a&quot;</span>)</span>
-<span id="cb12-2"><a href="#cb12-2" tabindex="-1"></a>income</span></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" tabindex="-1"></a>income<span class="ot">&lt;-</span><span class="fu">read.table</span>(<span class="st">&#39;Data/metoo.txt&#39;</span>,<span class="at">header=</span>T, <span class="at">sep=</span><span class="st">&quot;</span><span class="sc">\t</span><span class="st">&quot;</span>, <span class="at">dec=</span><span class="st">&quot;.&quot;</span>, <span class="at">na.strings =</span> <span class="st">&quot;n/a&quot;</span>)</span>
+<span id="cb8-2"><a href="#cb8-2" tabindex="-1"></a>income</span></code></pre></div>
 <pre><code>##           state male_fulltime male_other female_fulltime female_other
 ## 1         Maine          4194       1508            3337         1148
 ## 2 Massachusetts          5505       1547            4486         1248
@@ -532,12 +599,12 @@ the two variable values. In our example, this character is
 <code>_</code>. Since the column values are split between two variables,
 we must also pass two column names to the argument
 <code>names_to</code>.</p>
-<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" tabindex="-1"></a>income_long <span class="ot">&lt;-</span> income <span class="sc">%&gt;%</span>  <span class="fu">pivot_longer</span>(<span class="at">cols =</span> <span class="sc">-</span>state, </span>
-<span id="cb14-2"><a href="#cb14-2" tabindex="-1"></a>                         <span class="at">names_to =</span> <span class="fu">c</span>(<span class="st">&quot;gender&quot;</span>,<span class="st">&quot;work&quot;</span>), </span>
-<span id="cb14-3"><a href="#cb14-3" tabindex="-1"></a>                         <span class="at">names_sep =</span> <span class="st">&quot;_&quot;</span>, </span>
-<span id="cb14-4"><a href="#cb14-4" tabindex="-1"></a>                         <span class="at">values_to =</span> <span class="st">&quot;income&quot;</span>)</span>
-<span id="cb14-5"><a href="#cb14-5" tabindex="-1"></a>                         </span>
-<span id="cb14-6"><a href="#cb14-6" tabindex="-1"></a>income_long</span></code></pre></div>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" tabindex="-1"></a>income_long <span class="ot">&lt;-</span> income <span class="sc">%&gt;%</span>  <span class="fu">pivot_longer</span>(<span class="at">cols =</span> <span class="sc">-</span>state, </span>
+<span id="cb10-2"><a href="#cb10-2" tabindex="-1"></a>                         <span class="at">names_to =</span> <span class="fu">c</span>(<span class="st">&quot;gender&quot;</span>,<span class="st">&quot;work&quot;</span>), </span>
+<span id="cb10-3"><a href="#cb10-3" tabindex="-1"></a>                         <span class="at">names_sep =</span> <span class="st">&quot;_&quot;</span>, </span>
+<span id="cb10-4"><a href="#cb10-4" tabindex="-1"></a>                         <span class="at">values_to =</span> <span class="st">&quot;income&quot;</span>)</span>
+<span id="cb10-5"><a href="#cb10-5" tabindex="-1"></a>                         </span>
+<span id="cb10-6"><a href="#cb10-6" tabindex="-1"></a>income_long</span></code></pre></div>
 <pre><code>## # A tibble: 20 × 4
 ##    state         gender work     income
 ##    &lt;chr&gt;         &lt;chr&gt;  &lt;chr&gt;     &lt;int&gt;
@@ -563,9 +630,9 @@ we must also pass two column names to the argument
 ## 20 Taiwan        female other        NA</code></pre>
 <p>Obviously, the reverse is possible using
 <code>pivot_wider</code>:</p>
-<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" tabindex="-1"></a>income_long <span class="sc">%&gt;%</span> <span class="fu">pivot_wider</span>(<span class="at">names_from =</span> <span class="fu">c</span>(gender,work), </span>
-<span id="cb16-2"><a href="#cb16-2" tabindex="-1"></a>            <span class="at">values_from =</span> income,</span>
-<span id="cb16-3"><a href="#cb16-3" tabindex="-1"></a>            <span class="at">names_sep =</span> <span class="st">&quot;.&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" tabindex="-1"></a>income_long <span class="sc">%&gt;%</span> <span class="fu">pivot_wider</span>(<span class="at">names_from =</span> <span class="fu">c</span>(gender,work), </span>
+<span id="cb12-2"><a href="#cb12-2" tabindex="-1"></a>            <span class="at">values_from =</span> income,</span>
+<span id="cb12-3"><a href="#cb12-3" tabindex="-1"></a>            <span class="at">names_sep =</span> <span class="st">&quot;.&quot;</span>)</span></code></pre></div>
 <pre><code>## # A tibble: 5 × 5
 ##   state         male.fulltime male.other female.fulltime female.other
 ##   &lt;chr&gt;                 &lt;int&gt;      &lt;int&gt;           &lt;int&gt;        &lt;int&gt;
@@ -597,11 +664,11 @@ function.</p>
 <ul>
 <li>Let’s create a table with a variable called <code>var1</code>:</li>
 </ul>
-<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" tabindex="-1"></a><span class="co"># Let&#39;s first create a delimited table</span></span>
-<span id="cb18-2"><a href="#cb18-2" tabindex="-1"></a>income_long_var <span class="ot">&lt;-</span> income <span class="sc">%&gt;%</span>  <span class="fu">pivot_longer</span>(<span class="at">cols =</span> <span class="sc">-</span><span class="dv">1</span>, </span>
-<span id="cb18-3"><a href="#cb18-3" tabindex="-1"></a>                         <span class="at">names_to =</span> <span class="st">&quot;var1&quot;</span>, </span>
-<span id="cb18-4"><a href="#cb18-4" tabindex="-1"></a>                         <span class="at">values_to =</span> <span class="st">&quot;income&quot;</span>)</span>
-<span id="cb18-5"><a href="#cb18-5" tabindex="-1"></a>income_long_var</span></code></pre></div>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" tabindex="-1"></a><span class="co"># Let&#39;s first create a delimited table</span></span>
+<span id="cb14-2"><a href="#cb14-2" tabindex="-1"></a>income_long_var <span class="ot">&lt;-</span> income <span class="sc">%&gt;%</span>  <span class="fu">pivot_longer</span>(<span class="at">cols =</span> <span class="sc">-</span><span class="dv">1</span>, </span>
+<span id="cb14-3"><a href="#cb14-3" tabindex="-1"></a>                         <span class="at">names_to =</span> <span class="st">&quot;var1&quot;</span>, </span>
+<span id="cb14-4"><a href="#cb14-4" tabindex="-1"></a>                         <span class="at">values_to =</span> <span class="st">&quot;income&quot;</span>)</span>
+<span id="cb14-5"><a href="#cb14-5" tabindex="-1"></a>income_long_var</span></code></pre></div>
 <pre><code>## # A tibble: 20 × 3
 ##    state         var1            income
 ##    &lt;chr&gt;         &lt;chr&gt;            &lt;int&gt;
@@ -628,11 +695,11 @@ function.</p>
 <ul>
 <li>Split <code>var1</code> into two new columns:</li>
 </ul>
-<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" tabindex="-1"></a><span class="co"># Split var1 column into two columns</span></span>
-<span id="cb20-2"><a href="#cb20-2" tabindex="-1"></a>income_sep <span class="ot">&lt;-</span> income_long_var <span class="sc">%&gt;%</span>  <span class="fu">separate</span>(<span class="at">col =</span> var1, </span>
-<span id="cb20-3"><a href="#cb20-3" tabindex="-1"></a>                    <span class="at">sep =</span> <span class="st">&quot;_&quot;</span>, </span>
-<span id="cb20-4"><a href="#cb20-4" tabindex="-1"></a>                    <span class="at">into =</span> <span class="fu">c</span>(<span class="st">&quot;gender&quot;</span>, <span class="st">&quot;work&quot;</span>))</span>
-<span id="cb20-5"><a href="#cb20-5" tabindex="-1"></a>income_sep</span></code></pre></div>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" tabindex="-1"></a><span class="co"># Split var1 column into two columns</span></span>
+<span id="cb16-2"><a href="#cb16-2" tabindex="-1"></a>income_sep <span class="ot">&lt;-</span> income_long_var <span class="sc">%&gt;%</span>  <span class="fu">separate</span>(<span class="at">col =</span> var1, </span>
+<span id="cb16-3"><a href="#cb16-3" tabindex="-1"></a>                    <span class="at">sep =</span> <span class="st">&quot;_&quot;</span>, </span>
+<span id="cb16-4"><a href="#cb16-4" tabindex="-1"></a>                    <span class="at">into =</span> <span class="fu">c</span>(<span class="st">&quot;gender&quot;</span>, <span class="st">&quot;work&quot;</span>))</span>
+<span id="cb16-5"><a href="#cb16-5" tabindex="-1"></a>income_sep</span></code></pre></div>
 <pre><code>## # A tibble: 20 × 4
 ##    state         gender work     income
 ##    &lt;chr&gt;         &lt;chr&gt;  &lt;chr&gt;     &lt;int&gt;
@@ -661,7 +728,7 @@ function.</p>
 <h2>Rows</h2>
 <p>Split <code>var1</code> into two rows, but that’s not very useful
 here - just for the demo:</p>
-<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" tabindex="-1"></a>income_long_var <span class="sc">%&gt;%</span> <span class="fu">separate_rows</span>(var1, <span class="at">sep =</span> <span class="st">&quot;_&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" tabindex="-1"></a>income_long_var <span class="sc">%&gt;%</span> <span class="fu">separate_rows</span>(var1, <span class="at">sep =</span> <span class="st">&quot;_&quot;</span>)</span></code></pre></div>
 <pre><code>## # A tibble: 40 × 3
 ##    state         var1     income
 ##    &lt;chr&gt;         &lt;chr&gt;     &lt;int&gt;
@@ -734,6 +801,8 @@ class="uri">https://github.com/vianneydenis/OCEAN5098B.git</a>)
 
 
 
+</div>
+</div>
 
 </div>
 
@@ -771,6 +840,35 @@ $(document).ready(function () {
 });
 </script>
 
+<script>
+$(document).ready(function ()  {
+
+    // temporarily add toc-ignore selector to headers for the consistency with Pandoc
+    $('.unlisted.unnumbered').addClass('toc-ignore')
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
 
 <!-- dynamically load mathjax for compatibility with self-contained -->
 <script>

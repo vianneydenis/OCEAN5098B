@@ -620,7 +620,7 @@ lines(Taiwan, col='blue', lwd=2)
 `extract` is used for queries between SpatVector and SpatRaster objects, and also for queries between SpatVectors.
 
 ```{r,  eval=T}
-extract(spts, Taiwan)
+terra::extract(spts, Taiwan)
 ```
 
 # Raster data manipulation
@@ -1094,7 +1094,7 @@ cells
 r[cells]
 xy <- xyFromCell(r, cells)
 xy
-extract(r, xy)
+terra::extract(r, xy)
 ```
 
 You can also extract values using `SpatVector` objects. The default approach for extracting raster values with polygons is that a polygon has to cover the center of a cell, for the cell to be included. However, you can use argument `weights=TRUE` in which case you get, apart from the cell values, the percentage of each cell that is covered by the polygon, so that you can apply, e.g., a “50% area covered” threshold, or compute an area-weighted average.

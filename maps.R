@@ -214,7 +214,7 @@ points(spts, col='light gray', pch=20, cex=6)
 text(spts, 1:nrow(pts), col='red', font=2, cex=1.5)
 lines(Taiwan, col='blue', lwd=2)
 
-extract(spts, Taiwan)
+terra::extract(spts, Taiwan)
 
 library (terra)
 x<-rast()
@@ -415,7 +415,7 @@ cells
 r[cells]
 xy <- xyFromCell(r, cells)
 xy
-extract(r, xy)
+terra::extract(r, xy)
 
 r[cells]
 r[1:4]
