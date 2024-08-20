@@ -723,10 +723,10 @@ between 0 and 10 that fill this matrix.</p>
 <div class="sourceCode" id="cb57"><pre
 class="sourceCode r fold-show"><code class="sourceCode r"><span id="cb57-1"><a href="#cb57-1" tabindex="-1"></a>m <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">runif</span>(<span class="dv">9</span>,<span class="dv">0</span>,<span class="dv">10</span>), <span class="at">nrow =</span> <span class="dv">3</span>, <span class="at">ncol =</span> <span class="dv">3</span>)</span>
 <span id="cb57-2"><a href="#cb57-2" tabindex="-1"></a>m</span></code></pre></div>
-<pre><code>##          [,1]     [,2]     [,3]
-## [1,] 4.899883 7.588298 2.040063
-## [2,] 9.733833 2.694677 7.393908
-## [3,] 5.508261 5.065063 2.601533</code></pre>
+<pre><code>##           [,1]     [,2]     [,3]
+## [1,] 2.1836717 7.098305 5.047680
+## [2,] 7.8783635 2.178230 1.885869
+## [3,] 0.9785304 2.679436 4.394293</code></pre>
 <p>If a vector of higher dimensions is desired, use the
 <code>array</code> function to create the n-dimensional object. A 3x3x3
 array can be created as follows:</p>
@@ -735,24 +735,24 @@ class="sourceCode r fold-show"><code class="sourceCode r"><span id="cb59-1"><a h
 <span id="cb59-2"><a href="#cb59-2" tabindex="-1"></a>m</span></code></pre></div>
 <pre><code>## , , 1
 ## 
-##          [,1]      [,2]     [,3]
-## [1,] 9.510600 8.3817242 9.091987
-## [2,] 4.236675 7.3150926 1.567949
-## [3,] 1.949950 0.5730625 2.966677
+##          [,1]     [,2]     [,3]
+## [1,] 6.698193 8.827564 9.410875
+## [2,] 2.408832 8.140633 6.939114
+## [3,] 8.932649 6.332646 8.437022
 ## 
 ## , , 2
 ## 
-##          [,1]     [,2]     [,3]
-## [1,] 7.760223 8.648489 1.841000
-## [2,] 7.013797 4.440265 8.643733
-## [3,] 0.132664 5.435810 9.028900
+##          [,1]     [,2]      [,3]
+## [1,] 3.846445 5.304775 8.4422599
+## [2,] 3.911299 9.776359 0.9502792
+## [3,] 5.884818 1.976496 3.8115100
 ## 
 ## , , 3
 ## 
-##          [,1]      [,2]      [,3]
-## [1,] 4.389712 3.0829166 1.9854787
-## [2,] 6.861945 0.9060373 0.7255766
-## [3,] 4.379149 4.3026508 0.1489292</code></pre>
+##           [,1]     [,2]     [,3]
+## [1,] 0.4588412 3.945864 3.220115
+## [2,] 1.5262384 3.615131 5.521608
+## [3,] 7.7471819 4.210900 9.712655</code></pre>
 <p>Matrices and arrays can store numeric or character data types, but
 not both. They are derived directly from the vector structure, but have
 a higher number of dimensions.</p>
@@ -896,7 +896,7 @@ class="sourceCode r fold-show"><code class="sourceCode r"><span id="cb82-1"><a h
 ## [[3]]
 ## function (expr, name) 
 ## .External(C_doD, expr, name)
-## &lt;bytecode: 0x000001f3b2e1b510&gt;
+## &lt;bytecode: 0x000002b7e25d8358&gt;
 ## &lt;environment: namespace:stats&gt;</code></pre>
 <p>When lists do not have component names, the <code>names</code>
 function will return NULL.</p>

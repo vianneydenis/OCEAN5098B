@@ -439,3 +439,67 @@ values(r) <- runif(ncell(r))
 library(raster)
 ## Loading required package: sp
 x <- raster(r)
+
+plot(TWN)
+
+n <- nrow(TWN)
+plot(TWN, col=rainbow(n))
+
+plot(TWN, "NAME_1", col=rainbow(25))
+
+plot(TWN, c("NAME_1", ""), col=rainbow(25))
+
+par(mfrow=c(1,2))
+m <- c(3.1, 3.1, 2.1, 2.1)
+plot(TWN, "", mar=m, pax=list(las=1))
+plot(TWN, "NAME_1", col=rainbow(25), mar=m, plg=list(x="bottomleft", cex=.75), pax=list(las=1))
+
+
+par(mfrow=c(1,2))
+m <- c(3.1, 3.1, 1.1, 1.1)
+plot(TWN, "", mar=m, main="", axes=FALSE)
+axis(1, at=c(5,7)); axis(1)
+axis(2, at=c(49,51)); axis(2, las=1)
+plot(TWN, "NAME_1", col=rainbow(25), mar=m, plg=list(x="bottomleft", cex=.75, title="County", bty = "o"), main="", axes=FALSE)
+axis(1, at=c(5, 7)); axis(1)
+
+d <- aggregate(TWN, "NAME_1")
+plot(TWN, col="light blue", lty=2, lwd=2)
+lines(d, lwd=5)
+lines(d, col="white", lwd=1)
+text(TWN, "NAME_1", cex=.8, halo=TRUE)
+
+plot(ele)
+
+plot(ele)
+lines(TWN, lwd=2)
+set.seed(12)
+xy <- spatSample(ele, 20, "random", na.rm=TRUE, xy=TRUE)
+points(xy, pch=20, col="red", cex=2)
+
+m <- c(3.1, 3.1, 1.1, 1.1)
+plot(ele, type="interval", plg=list(x="bottomleft"), mar=m)
+
+rr <- round(ele/600)
+plot(rr, plg=list(x="topleft"), mar=m)
+
+x <- classify(ele, c(-12, 500, 1500, 4000))
+levels(x) <- data.frame(id=0:2, elevation=c("low", "intermediate", "high"))
+# is.factor(x)
+plot(x, col=c("green", "blue", "light gray"))
+
+library(terra)
+b <- rast(system.file("ex/logo.tif", package="terra"))
+plot(b)
+
+plotRGB(b, r=1, g=2, b=3)
+
+library(maptiles)
+bg <- get_tiles(ext(Taiwan))
+plotRGB(bg)
+lines(TWN, col="blue", lwd=3)
+
+#remotes::install_github("rstudio/leaflet")
+library(leaflet)
+m <- plet(Taiwan, alpha=0.5, fill=0.5)
+m

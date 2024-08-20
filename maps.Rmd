@@ -1141,3 +1141,158 @@ library(raster)
 ## Loading required package: sp
 x <- raster(r)
 ```
+
+# Maps
+
+
+You can make a map with `plot(x)`, were `x` is a ``SpatRaster or a `SpatVector`. You can add additional spatial data or text with functions such as `points`, `lines`, `text`. `ggspatial` is specifically developed to handle spatial data using `ggplot2`
+
+In theory, you can zoom in using `zoom(x)` and clicking on the map twice (to indicate where to zoom to). Or use `sel(x)` to save a spatial subset to a new object. With `click(x)` it is possible to interactively query a SpatRaster by clicking once or several times on a map plot.
+
+
+## SpatVector
+
+If you plot a SpatVector without further arguments, you get black points, lines or polygons, and no legend.
+
+```{r,  eval=T}
+plot(TWN)
+```
+
+Colors can simply be added like this:
+
+```{r,  eval=T}
+n <- nrow(TWN)
+plot(TWN, col=rainbow(n))
+```
+
+But if you want colors it is probably easiest to use an attribute.
+
+```{r,  eval=T}
+plot(TWN, "NAME_1", col=rainbow(25))
+```
+
+You can request maps for multiple variables:
+
+```{r,  eval=T}
+plot(TWN, c("NAME_1", ""), col=rainbow(25))
+```
+Below we also make two maps, but do it “by hand”. We adjust the spacing, and put the legends inside the map area, and use non-rotated text for the vertical axis.
+
+
+```{r,  eval=T}
+par(mfrow=c(1,2))
+m <- c(3.1, 3.1, 2.1, 2.1)
+plot(TWN, "", mar=m, pax=list(las=1))
+plot(TWN, "NAME_1", col=rainbow(25), mar=m, plg=list(x="bottomleft", cex=.75), pax=list(las=1))
+```
+More costumization. Choose the axes to draw, at a label and a box to the legend.
+
+```{r,  eval=T}
+
+par(mfrow=c(1,2))
+m <- c(3.1, 3.1, 1.1, 1.1)
+plot(TWN, "", mar=m, main="", axes=FALSE)
+axis(1, at=c(5,7)); axis(1)
+axis(2, at=c(49,51)); axis(2, las=1)
+plot(TWN, "NAME_1", col=rainbow(25), mar=m, plg=list(x="bottomleft", cex=.75, title="County", bty = "o"), main="", axes=FALSE)
+axis(1, at=c(5, 7)); axis(1)
+```
+
+
+
+We can combine multiple SpatVectors using `lines` and `points` to draw on top of what we plotted first.
+
+```{r,  eval=T}
+d <- aggregate(TWN, "NAME_1")
+plot(TWN, col="light blue", lty=2, lwd=2)
+lines(d, lwd=5)
+lines(d, col="white", lwd=1)
+text(TWN, "NAME_1", cex=.8, halo=TRUE)
+```
+
+
+The `rasterVis` package provides a lot of very nice plotting options as well.
+
+## SpatVector
+
+
+The default display of a single layer SpatRaster depends on the data type, but there will always be a legend.
+
+```{r,  eval=T}
+plot(ele)
+```
+
+After plotting a `SpatRaster` you can add vector type spatial data (points, lines, polygons). You can do this with functions `points`, `lines`, `polys` or `plot` (object, add=TRUE).
+
+```{r,  eval=T}
+plot(ele)
+lines(TWN, lwd=2)
+set.seed(12)
+xy <- spatSample(ele, 20, "random", na.rm=TRUE, xy=TRUE)
+points(xy, pch=20, col="red", cex=2)
+```
+
+Or use a different legend type:
+
+```{r,  eval=T}
+m <- c(3.1, 3.1, 1.1, 1.1)
+plot(ele, type="interval", plg=list(x="bottomleft"), mar=m)
+```
+If there are only a few values, the default is to show “classes”
+
+```{r,  eval=T}
+rr <- round(ele/600)
+plot(rr, plg=list(x="topleft"), mar=m)
+```
+
+
+If the raster is categorical you get the category labels in the legend.
+
+Make a categorical (factor) raster
+
+```{r,  eval=T}
+x <- classify(ele, c(-12, 500, 1500, 4000))
+levels(x) <- data.frame(id=0:2, elevation=c("low", "intermediate", "high"))
+# is.factor(x)
+plot(x, col=c("green", "blue", "light gray"))
+```
+When plot is used with a multi-layer object, all layers are plotted (up to 16), unless the layers desired are indicated with an additional argument.
+
+```{r,  eval=T}
+library(terra)
+b <- rast(system.file("ex/logo.tif", package="terra"))
+plot(b)
+```
+
+In this case, it makes sense to combine the three layers into a single image, by assigning individual layers to one of the three color channels (red, green and blue):
+
+```{r,  eval=T}
+plotRGB(b, r=1, g=2, b=3)
+```
+
+You can also use a number of other plotting functions with SpatRasters, including `hist`, `persp`, `contour`, and `density`. See the help files for more info.
+
+The `rasterVi`s and `tmap` packages provides a lot of very nice mapping options as well.
+
+## Basemaps
+
+You can get many different base-maps with the `maptiles` package. Reading the data again.
+
+```{r,  eval=T}
+library(maptiles)
+bg <- get_tiles(ext(Taiwan))
+plotRGB(bg)
+lines(TWN, col="blue", lwd=3)
+```
+
+## Interactive maps
+
+You can use the `leaflet` package to make interactive maps.
+
+```{r,  eval=T}
+#remotes::install_github("rstudio/leaflet")
+library(leaflet)
+m <- plet(Taiwan, alpha=0.5, fill=0.5)
+m
+```
+
