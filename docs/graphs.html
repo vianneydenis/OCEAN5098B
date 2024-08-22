@@ -1,0 +1,1709 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+
+
+<title>Graphics</title>
+
+<script src="site_libs/header-attrs-2.25/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/flatly.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/jqueryui-1.13.2/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<script src="site_libs/navigation-1.1/codefolding.js"></script>
+<script src="site_libs/clipboard-2.0.6/clipboard.min.js"></script>
+<link href="site_libs/xaringanExtra-clipboard-0.2.6/xaringanExtra-clipboard.css" rel="stylesheet" />
+<script src="site_libs/xaringanExtra-clipboard-0.2.6/xaringanExtra-clipboard.js"></script>
+<script>window.xaringanExtraClipboard(null, {"button":"Copy Code","success":"Copied!","error":"Press Ctrl+C to Copy"})</script>
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+
+
+<style type="text/css">
+  code {
+    white-space: pre;
+  }
+  .sourceCode {
+    overflow: visible;
+  }
+</style>
+<style type="text/css" data-origin="pandoc">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; } /* Alert */
+code span.an { color: #008000; } /* Annotation */
+code span.at { } /* Attribute */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #0000ff; } /* ControlFlow */
+code span.ch { color: #008080; } /* Char */
+code span.cn { color: #585cf6; } /* Constant */
+code span.co { color: #4c886b; } /* Comment */
+code span.cv { color: #008000; } /* CommentVar */
+code span.do { color: #008000; } /* Documentation */
+code span.dv { color: #0000cd; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #0000cd; } /* Float */
+code span.im { } /* Import */
+code span.in { color: #008000; } /* Information */
+code span.kw { color: #0000ff; } /* Keyword */
+code span.op { color: #687687; } /* Operator */
+code span.ot { color: #ff4000; } /* Other */
+code span.pp { color: #ff4000; } /* Preprocessor */
+code span.sc { color: #008080; } /* SpecialChar */
+code span.ss { color: #008080; } /* SpecialString */
+code span.st { color: #036a07; } /* String */
+code span.va { } /* Variable */
+code span.vs { color: #008080; } /* VerbatimString */
+code span.wa { color: #008000; font-weight: bold; } /* Warning */
+
+.sourceCode .row {
+  width: 100%;
+}
+.sourceCode {
+  overflow-x: auto;
+}
+.code-folding-btn {
+  margin-right: -30px;
+}
+</style>
+<script>
+// apply pandoc div.sourceCode style to pre.sourceCode instead
+(function() {
+  var sheets = document.styleSheets;
+  for (var i = 0; i < sheets.length; i++) {
+    if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
+    try { var rules = sheets[i].cssRules; } catch (e) { continue; }
+    var j = 0;
+    while (j < rules.length) {
+      var rule = rules[j];
+      // check if there is a div.sourceCode rule
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") {
+        j++;
+        continue;
+      }
+      var style = rule.style.cssText;
+      // check if color or background-color is set
+      if (rule.style.color === '' && rule.style.backgroundColor === '') {
+        j++;
+        continue;
+      }
+      // replace div.sourceCode by a pre.sourceCode rule
+      sheets[i].deleteRule(j);
+      sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
+    }
+  }
+})();
+</script>
+
+
+
+
+<link rel="stylesheet" href="styles.css" type="text/css" />
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "\e258";
+  font-family: 'Glyphicons Halflings';
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+<style type="text/css">
+.code-folding-btn { margin-bottom: 4px; }
+</style>
+
+
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">OCEAN_5098</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Home</a>
+</li>
+<li>
+  <a href="environment.html">Environment</a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Manipulation
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="TEMP_basics.html">Basics</a>
+    </li>
+    <li>
+      <a href="TEMP_dplyr.html">dplyr</a>
+    </li>
+    <li>
+      <a href="TEMP_tidyr.html">tidyr</a>
+    </li>
+  </ul>
+</li>
+<li>
+  <a href="TEMP_types.html">Types &amp; structures</a>
+</li>
+<li>
+  <a href="maps.html">Mapping</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+<div class="btn-group pull-right float-right">
+<button type="button" class="btn btn-default btn-xs btn-secondary btn-sm dropdown-toggle" data-toggle="dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span>Code</span> <span class="caret"></span></button>
+<ul class="dropdown-menu dropdown-menu-right" style="min-width: 50px;">
+<li><a id="rmd-show-all-code" href="#">Show All Code</a></li>
+<li><a id="rmd-hide-all-code" href="#">Hide All Code</a></li>
+</ul>
+</div>
+
+
+
+<h1 class="title toc-ignore">Graphics</h1>
+
+</div>
+
+
+<a href="data:text/x-markdown;base64,LS0tDQp0aXRsZTogIkdyYXBoaWNzIg0KLS0tDQoNCmBgYHtyIGV2YWwgPSBUUlVFLCAgbWVzc2FnZT1GLCBpbmNsdWRlPUYsIHdhcm5pbmc9RiwgcHVybD1GLCByZXN1bHRzPSJoaWRlIn0NCmtuaXRyOjpwdXJsKCdncmFwaHMuUm1kJywgZG9jdW1lbnRhdGlvbiA9IEYpDQpgYGANCg0KYGBge3IgZWNobz1GQUxTRSwgcHVybD1GfQ0KeGZ1bjo6ZW1iZWRfZmlsZSgnZ3JhcGhzLlJtZCcpDQpgYGANCg0KYGBge3IgZWNobz1GQUxTRSwgcHVybD1GfQ0KeGZ1bjo6ZW1iZWRfZmlsZSgnZ3JhcGhzLlInKQ0KYGBgDQoNCmBgYHtyIGVjaG89RkFMU0V9DQp4YXJpbmdhbkV4dHJhOjp1c2VfY2xpcGJvYXJkKCkNCmBgYA0KDQotLS0tLS0tLS0tLS0tLS0tLS0tLS0tLQ0KDQoqVGhpcyBzZWN0aW9uIG9mIHRoZSBjb3Vyc2UgaXMgbGFyZ2VseSBleHRyYWN0ZWQgZnJvbSAqKlIgZ3JhcGhpY3MgQ29va2Jvb2sqKiBieSBXaW5zdG9uIENoYW5nIGF2YWlsYWJsZSBbSEVSRV0oaHR0cHM6Ly9yLWdyYXBoaWNzLm9yZy8pLioNCg0KDQpTaW1wbGUgcGxvdHMgY2FuIGVhc2lseSBiZSBwcm9kdWNlZCB3aXRoIHRoZSBwbG90dGluZyBmdW5jdGlvbnMgaW4gYGJhc2VgIFIuIFRoZXNlIGFyZSBpbnN0YWxsZWQgYnkgZGVmYXVsdCB3aXRoIFIgYW5kIGRvIG5vdCByZXF1aXJlIGFueSBhZGRpdGlvbmFsIHBhY2thZ2VzIHRvIGJlIGluc3RhbGxlZC4gVGhleeKAmXJlIHF1aWNrIHRvIHR5cGUsIHN0cmFpZ2h0Zm9yd2FyZCB0byB1c2UgaW4gc2ltcGxlIGNhc2VzLCBhbmQgcnVuIHZlcnkgcXVpY2tseS4NCg0KDQpJZiB5b3Ugd2FudCB0byBkbyBhbnl0aGluZyBiZXlvbmQgdmVyeSBzaW1wbGUgcGxvdHMsIHRob3VnaCwgaXTigJlzIGdlbmVyYWxseSBiZXR0ZXIgdG8gc3dpdGNoIHRvIGdncGxvdDIuIFRoaXMgaXMgaW4gcGFydCBiZWNhdXNlIGdncGxvdDIgcHJvdmlkZXMgYSB1bmlmaWVkIGludGVyZmFjZSBhbmQgc2V0IG9mIG9wdGlvbnMsIGluc3RlYWQgb2YgdGhlIGdyYWIgYmFnIG9mIG1vZGlmaWVycyBhbmQgc3BlY2lhbCBjYXNlcyByZXF1aXJlZCBpbiBiYXNlIGdyYXBoaWNzLiBPbmNlIHlvdSBsZWFybiBob3cgZ2dwbG90MiB3b3JrcywgeW91IGNhbiB1c2UgdGhhdCBrbm93bGVkZ2UgZm9yIGV2ZXJ5dGhpbmcgZnJvbSBzY2F0dGVyIHBsb3RzIGFuZCBoaXN0b2dyYW1zIHRvIHZpb2xpbiBwbG90cyBhbmQgbWFwcy4NCg0KDQpJbiB0aGlzIHNlY3Rpb24sIHdlIHdpbGwgaWxsdXN0cmF0ZSBob3cgdG8gbWFrZSBhIGdyYXBoIHdpdGggYmFzZSBncmFwaGljcyBhbmQgDQpob3cgdG8gbWFrZSBhIHNpbWlsYXIgZ3JhcGggd2l0aCB0aGUgZ2dwbG90KCkgZnVuY3Rpb24gaW4gZ2dwbG90Mi4gSGF2aW5nIGJvdGggb2YgdGhlc2UgZXhhbXBsZXMgc2lkZSBieSBzaWRlIHdpbGwgaGVscCB5b3UgdHJhbnNpdGlvbiB0byB1c2luZyBnZ3Bsb3QyIGZvciB3aGVuIHlvdSB3YW50IHRvIG1ha2UgbW9yZSBzb3BoaXN0aWNhdGVkIGdyYXBoaWNzLg0KDQojIEJhc2ljcw0KDQojIyBQYWNrYWdlcw0KDQpNb3N0IG9mIHRoZSByZWNpcGVzIGluIHRoaXMgYm9vayByZXF1aXJlIHRoZSBgZ2dwbG90MmAsIGBkcGx5cmAsIGFuZCBgZ2Nvb2tib29rYCBwYWNrYWdlcyB0byBiZSBpbnN0YWxsZWQgb24geW91ciBjb21wdXRlci4gKFRoZSBgZ2Nvb2tib29rYCBwYWNrYWdlIGNvbnRhaW5zIGRhdGEgc2V0cyB1c2VkIGluIHNvbWUgb2YgdGhlIGV4YW1wbGVzLCBidXQgaXMgbm90IG5lY2Vzc2FyeSBmb3IgZG9pbmcgeW91ciByZWFsIHdvcmspLiANCg0KYGBge3IsICBldmFsPUZ9DQojIHJlbWVtYmVyIGB0aWR5dmVyc2VgIGlzIGRwbHlyLCB0aWR5ciwgZ2dwbG90MiBhbmQgYSBudW1iZXIgb2Ygb3RoZXIgcGFja2FnZXMNCmluc3RhbGwucGFja2FnZXMoInRpZHl2ZXJzZSIpDQppbnN0YWxsLnBhY2thZ2VzKCJnY29va2Jvb2siKQ0KYGBgDQoNClRoZW4sIGluIGVhY2ggUiBzZXNzaW9uLCBiZWZvcmUgcnVubmluZyB0aGUgZXhhbXBsZXMgaW4gdGhpcyBib29rLCB5b3UgY2FuIGxvYWQgdGhlbSB3aXRoOg0KDQpgYGB7ciwgIGV2YWw9VH0NCmxpYnJhcnkodGlkeXZlcnNlKQ0KbGlicmFyeShnY29va2Jvb2spDQpgYGANCg0KSWYgeW91IHdhbnQgdG8ga2VlcCB5b3VyIFIgc2Vzc2lvbiBtb3JlIHN0cmVhbWxpbmVkIGFuZCBsb2FkIG9ubHkgdGhlIHBhY2thZ2VzIHRoYXQgYXJlIHN0cmljdGx5IG5lZWRlZCwgeW91IGNhbiBsb2FkIGdncGxvdDIgYW5kIGRwbHlyIHBhY2thZ2VzIGluZGl2aWR1YWxseToNCg0KYGBge3IsICBldmFsPUZ9DQpsaWJyYXJ5KGdncGxvdDIpDQpsaWJyYXJ5KGRwbHlyKQ0KbGlicmFyeShnY29va2Jvb2spDQpgYGANCg0KIyMgYGdncGxvdDJgIA0KDQpUaGUgYGdncGxvdDJgIHBhY2thZ2Ugd2FzIG9yaWdpbmFsbHkgY3JlYXRlZCBieSBIYWRsZXkgV2lja2hhbS4gSXQgaXMgbm90IGEgcGFydCBvZiBgYmFzZWAgUiwgYnV0IGl0IGhhcyBhdHRyYWN0ZWQgbWFueSB1c2VycyBpbiB0aGUgUiBjb21tdW5pdHkgYmVjYXVzZSBvZiBpdHMgdmVyc2F0aWxpdHksIGNsZWFyIGFuZCBjb25zaXN0ZW50IGludGVyZmFjZSwgYW5kIGJlYXV0aWZ1bCBvdXRwdXQuDQoNCmBnZ3Bsb3QyYCB0YWtlcyBhIGRpZmZlcmVudCBhcHByb2FjaCB0byBncmFwaGljcyB0aGFuIG90aGVyIHBsb3R0aW5nIHBhY2thZ2VzIGluIFIuIEl0IGdldHMgaXRzIG5hbWUgZnJvbSBMZWxhbmQgV2lsa2luc29u4oCZcyBncmFtbWFyIG9mIGdyYXBoaWNzLCB3aGljaCBwcm92aWRlcyBhIGZvcm1hbCwgc3RydWN0dXJlZCBwZXJzcGVjdGl2ZSBvbiBob3cgdG8gZGVzY3JpYmUgZGF0YSBncmFwaGljcy4NCg0KRXZlbiB0aG91Z2gsIGl0IGRvZXNuJ3QgbWVhbiB0byBzYXkgdGhhdCBpdOKAmXMgdGhlIGJlLWFsbCBhbmQgZW5kLWFsbCBvZiBncmFwaGljcyBpbiBSLiBGb3IgZXhhbXBsZSwgaXQgaXMgc29tZXRpbWVzIGZhc3RlciBhbmQgZWFzaWVyIHRvIGluc3BlY3QgYW5kIGV4cGxvcmUgZGF0YSB3aXRoIFLigJlzIGJhc2UgZ3JhcGhpY3MsIGVzcGVjaWFsbHkgd2hlbiB0aGUgZGF0YSBpc27igJl0IGFscmVhZHkgc3RydWN0dXJlZCBwcm9wZXJseSBmb3IgdXNlIHdpdGggZ2dwbG90Mi4gVGhlcmUgYXJlIHNvbWUgdGhpbmdzIHRoYXQgZ2dwbG90MiBjYW7igJl0IGRvLCBvciBjYW7igJl0IGRvIGFzIHdlbGwgYXMgb3RoZXIgcGxvdHRpbmcgcGFja2FnZXMuIFRoZXJlIGFyZSBvdGhlciB0aGluZ3MgdGhhdCBnZ3Bsb3QyIGNhbiBkbywgYnV0IHRoYXQgc3BlY2lhbGl6ZWQgcGFja2FnZXMgYXJlIGJldHRlciBzdWl0ZWQgdG8gaGFuZGxpbmcuIEZvciBtb3N0IHB1cnBvc2VzLCB0aG91Z2gsIEkgYmVsaWV2ZSB0aGF0IGdncGxvdDIgZ2l2ZXMgdGhlIGJlc3QgcmV0dXJuIG9uIHRpbWUgaW52ZXN0ZWQsIGFuZCBpdCBwcm92aWRlcyBiZWF1dGlmdWwsIHB1YmxpY2F0aW9uLXJlYWR5IHJlc3VsdHMuDQoNCkFub3RoZXIgZXhjZWxsZW50IHBhY2thZ2UgZm9yIGdlbmVyYWwtcHVycG9zZSBwbG90cyBpcyBgbGF0dGljZWAsIGJ5IERlZXB5YW4gU2Fya2FyLCB3aGljaCBpcyBhbiBpbXBsZW1lbnRhdGlvbiBvZiB0cmVsbGlzIGdyYXBoaWNzLiBJdCBpcyBpbmNsdWRlZCBhcyBwYXJ0IG9mIHRoZSBiYXNlIGluc3RhbGxhdGlvbiBvZiBSLg0KDQojIyMgQmFja2dyb3VuZA0KDQpJbiBhIGRhdGEgZ3JhcGhpYywgdGhlcmUgaXMgYSBtYXBwaW5nIChvciBjb3JyZXNwb25kZW5jZSkgZnJvbSBwcm9wZXJ0aWVzIG9mIHRoZSBkYXRhIHRvIHZpc3VhbCBwcm9wZXJ0aWVzIGluIHRoZSBncmFwaGljLiBUaGUgZGF0YSBwcm9wZXJ0aWVzIGFyZSB0eXBpY2FsbHkgbnVtZXJpY2FsIG9yIGNhdGVnb3JpY2FsIHZhbHVlcywgd2hpbGUgdGhlIHZpc3VhbCBwcm9wZXJ0aWVzIGluY2x1ZGUgdGhlIHggYW5kIHkgcG9zaXRpb25zIG9mIHBvaW50cywgY29sb3JzIG9mIGxpbmVzLCBoZWlnaHRzIG9mIGJhcnMsIGFuZCBzbyBvbi4gQSBkYXRhIHZpc3VhbGl6YXRpb24gdGhhdCBkaWRu4oCZdCBtYXAgdGhlIGRhdGEgdG8gdmlzdWFsIHByb3BlcnRpZXMgd291bGRu4oCZdCBiZSBhIGRhdGEgdmlzdWFsaXphdGlvbi4gT24gdGhlIHN1cmZhY2UsIHJlcHJlc2VudGluZyBhIG51bWJlciB3aXRoIGFuIHggY29vcmRpbmF0ZSBtYXkgc2VlbSB2ZXJ5IGRpZmZlcmVudCBmcm9tIHJlcHJlc2VudGluZyBhIG51bWJlciB3aXRoIGEgY29sb3Igb2YgYSBwb2ludCwgYnV0IGF0IGFuIGFic3RyYWN0IGxldmVsLCB0aGV5IGFyZSB0aGUgc2FtZS4gRXZlcnlvbmUgd2hvIGhhcyBtYWRlIGRhdGEgZ3JhcGhpY3MgaGFzIGF0IGxlYXN0IGFuIGltcGxpY2l0IHVuZGVyc3RhbmRpbmcgb2YgdGhpcy4gRm9yIG1vc3Qgb2YgdXMsIHRoYXTigJlzIHdoZXJlIG91ciB1bmRlcnN0YW5kaW5nIHJlbWFpbnMuDQoNCkluIHRoZSBncmFtbWFyIG9mIGdyYXBoaWNzLCB0aGlzIGRlZXAgc2ltaWxhcml0eSBpcyBub3QganVzdCByZWNvZ25pemVkLCBidXQgbWFkZSBjZW50cmFsLiBJbiBS4oCZcyBiYXNlIGdyYXBoaWNzIGZ1bmN0aW9ucywgZWFjaCBtYXBwaW5nIG9mIGRhdGEgcHJvcGVydGllcyB0byB2aXN1YWwgcHJvcGVydGllcyBpcyBpdHMgb3duIHNwZWNpYWwgY2FzZSwgYW5kIGNoYW5naW5nIHRoZSBtYXBwaW5ncyBtYXkgcmVxdWlyZSByZXN0cnVjdHVyaW5nIHlvdXIgZGF0YSwgaXNzdWluZyBjb21wbGV0ZWx5IGRpZmZlcmVudCBwbG90dGluZyBjb21tYW5kcywgb3IgYm90aC4NCg0KVG8gaWxsdXN0cmF0ZSwgSeKAmWxsIHNob3cgYSBncmFwaCBtYWRlIGZyb20gdGhlIGBzaW1wbGVkYXRgIGRhdGEgc2V0IGZyb20gdGhlIGBnY29va2Jvb2tgIHBhY2thZ2U6DQoNCmBgYHtyLCAgZXZhbD1UfQ0Kc2ltcGxlZGF0DQpgYGANCg0KVGhlIGZvbGxvd2luZyB3aWxsIG1ha2UgYSBzaW1wbGUgZ3JvdXBlZCBiYXIgcGxvdCwgd2l0aCB0aGUgQXMgZ29pbmcgYWxvbmcgdGhlIHgtYXhpcyBhbmQgdGhlIGJhcnMgZ3JvdXBlZCBieSB0aGUgQnM6DQoNCmBgYHtyLCAgZXZhbD1ULCBmaWcuYWxpZ249J2NlbnRlcid9DQpiYXJwbG90KHNpbXBsZWRhdCwgYmVzaWRlID0gVFJVRSkNCmBgYA0KDQpPbmUgdGhpbmcgd2UgbWlnaHQgd2FudCB0byBkbyBpcyBzd2l0Y2ggdGhpbmdzIHVwIHNvIHRoZSBCcyBnbyBhbG9uZyB0aGUgeC1heGlzIGFuZCB0aGUgQXMgYXJlIHVzZWQgZm9yIGdyb3VwaW5nLiBUbyBkbyB0aGlzLCB3ZSBuZWVkIHRvIHJlc3RydWN0dXJlIHRoZSBkYXRhIGJ5IHRyYW5zcG9zaW5nIHRoZSBtYXRyaXg6DQoNCmBgYHtyLCAgZXZhbD1UfQ0KdChzaW1wbGVkYXQpDQpgYGANCg0KV2l0aCB0aGUgcmVzdHJ1Y3R1cmVkIGRhdGEsIHdlIGNhbiBjcmVhdGUgdGhlIHBsb3QgdGhlIHNhbWUgd2F5IGFzIGJlZm9yZSANCg0KYGBge3IsICBldmFsPVQsIGZpZy5hbGlnbj0nY2VudGVyJ30NCmJhcnBsb3QodChzaW1wbGVkYXQpLCBiZXNpZGU9VFJVRSkNCmBgYA0KDQpBbm90aGVyIHRoaW5nIHdlIG1pZ2h0IHdhbnQgdG8gZG8gaXMgdG8gcmVwcmVzZW50IHRoZSBkYXRhIHdpdGggbGluZXMgaW5zdGVhZCBvZiBiYXJzLiBUbyBkbyB0aGlzIHdpdGggYmFzZSBncmFwaGljcywgd2UgbmVlZCB0byB1c2UgYSBjb21wbGV0ZWx5IGRpZmZlcmVudCBzZXQgb2YgY29tbWFuZHMuIEZpcnN0IHdlIGNhbGwgYHBsb3QoKWAsIHdoaWNoIHRlbGxzIFIgdG8gY3JlYXRlIGEgbmV3IHBsb3QgYW5kIGRyYXcgYSBsaW5lIGZvciBvbmUgcm93IG9mIGRhdGEuIFRoZW4gd2UgdGVsbCBpdCB0byBkcmF3IGEgc2Vjb25kIHJvdyB3aXRoIGBsaW5lcygpYDoNCg0KYGBge3IsICBldmFsPVQsIGZpZy5hbGlnbj0nY2VudGVyJ30NCnBsb3Qoc2ltcGxlZGF0WzEsXSwgdHlwZT0ibCIpDQpsaW5lcyhzaW1wbGVkYXRbMixdLCB0eXBlPSJsIiwgY29sPSJibHVlIikNCmBgYA0KVGhlIHJlc3VsdGluZyBwbG90IGhhcyBhIGZldyBxdWlya3MuIFRoZSBzZWNvbmQgKGJsdWUpIGxpbmUgcnVucyBiZWxvdyB0aGUgdmlzaWJsZSByYW5nZSwgYmVjYXVzZSB0aGUgeSByYW5nZSB3YXMgc2V0IG9ubHkgZm9yIHRoZSBmaXJzdCBsaW5lLCB3aGVuIHRoZSBgcGxvdCgpYCBmdW5jdGlvbiB3YXMgY2FsbGVkLiBBZGRpdGlvbmFsbHksIHRoZSB4LWF4aXMgaXMgbnVtYmVyZWQgaW5zdGVhZCBvZiBjYXRlZ29yaWNhbC4NCg0KTm93IGxldOKAmXMgdGFrZSBhIGxvb2sgYXQgdGhlIGNvcnJlc3BvbmRpbmcgY29kZSBhbmQgcGxvdHMgd2l0aCBgZ2dwbG90MmAuIFdpdGggYGdncGxvdDJgLCB0aGUgc3RydWN0dXJlIG9mIHRoZSBkYXRhIGlzIGFsd2F5cyB0aGUgc2FtZTogaXQgcmVxdWlyZXMgYSBkYXRhIGZyYW1lIGluIOKAnGxvbmfigJ0gZm9ybWF0LCBhcyBvcHBvc2VkIHRvIHRoZSDigJx3aWRl4oCdIGZvcm1hdCB1c2VkIHByZXZpb3VzbHkuIFdoZW4gdGhlIGRhdGEgaXMgaW4gbG9uZyBmb3JtYXQsIGVhY2ggcm93IHJlcHJlc2VudHMgb25lIGl0ZW0uIEluc3RlYWQgb2YgaGF2aW5nIHRoZWlyIGdyb3VwcyBkZXRlcm1pbmVkIGJ5IHRoZWlyIHBvc2l0aW9ucyBpbiB0aGUgbWF0cml4LCB0aGUgaXRlbXMgaGF2ZSB0aGVpciBncm91cHMgc3BlY2lmaWVkIGluIGEgc2VwYXJhdGUgY29sdW1uLiBIZXJlIGlzIGBzaW1wbGVkYXRgLCBjb252ZXJ0ZWQgdG8gbG9uZyBmb3JtYXQ6DQoNCg0KYGBge3IsICBldmFsPVR9DQpzaW1wbGVkYXQubG9uZzwtIGRhdGEuZnJhbWUoc2ltcGxlZGF0KSAlPiUNCiAgdGliYmxlOjpyb3duYW1lc190b19jb2x1bW4odmFyID0gIkJ2YWwiKSAlPiUNCiAgcGl2b3RfbG9uZ2VyICgNCiAgICBjb2xzPSAtQnZhbCwNCiAgICBuYW1lc190byA9ICJBdmFsIiwNCiAgICB2YWx1ZXNfdG8gPSAidmFsdWVzIikNCmBgYA0KDQpUaGlzIHJlcHJlc2VudHMgdGhlIHNhbWUgaW5mb3JtYXRpb24sIGJ1dCB3aXRoIGEgZGlmZmVyZW50IHN0cnVjdHVyZS4gQW5vdGhlciB0ZXJtIGZvciBpdCBpcyB0aWR5IGRhdGEsIHdoZXJlIGVhY2ggcm93IHJlcHJlc2VudHMgb25lIG9ic2VydmF0aW9uLiBUaGVyZSBhcmUgYWR2YW50YWdlcyBhbmQgZGlzYWR2YW50YWdlcyB0byB0aGlzIGZvcm1hdCwgYnV0IG9uIHRoZSB3aG9sZSwgaXQgbWFrZXMgdGhpbmdzIHNpbXBsZXIgd2hlbiBkZWFsaW5nIHdpdGggY29tcGxpY2F0ZWQgZGF0YSBzZXRzLiANCg0KVG8gbWFrZSB0aGUgZmlyc3QgZ3JvdXBlZCBiYXIgcGxvdCwgd2UgdGVsbCBnZ3Bsb3QyIHRvIG1hcCBgQXZhbGAgdG8gdGhlICp4KiBwb3NpdGlvbiwgd2l0aCBgeCA9IEF2YWxgLCBhbmQgYEJ2YWxgIHRvIHRoZSBmaWxsIGNvbG9yLCB3aXRoIGBmaWxsID0gQnZhbGAuIFRoaXMgd2lsbCBtYWtlIHRoZSBgQWBzIHJ1biBhbG9uZyB0aGUgeC1heGlzIGFuZCB0aGUgYEJgcyBkZXRlcm1pbmUgdGhlIGdyb3VwaW5nLiBXZSBhbHNvIHRlbGwgaXQgdG8gbWFwIHZhbHVlIHRvIHRoZSB5IHBvc2l0aW9uLCBvciBoZWlnaHQsIG9mIHRoZSBiYXJzLCB3aXRoIGB5ID0gdmFsdWVgLiBGaW5hbGx5LCB3ZSB0ZWxsIGl0IHRvIGRyYXcgYmFycyB3aXRoIGBnZW9tX2NvbCgpYCAoZG9u4oCZdCB3b3JyeSBhYm91dCB0aGUgb3RoZXIgZGV0YWlscyB5ZXQ7IHdl4oCZbGwgZ2V0IHRvIHRob3NlIGxhdGVyKToNCg0KYGBge3IsICBldmFsPVQsIGZpZy5hbGlnbj0nY2VudGVyJ30NCmdncGxvdChzaW1wbGVkYXRfbG9uZywgYWVzKHggPSBBdmFsLCB5ID0gdmFsdWUsIGZpbGwgPSBCdmFsKSkgKw0KICAgIGdlb21fY29sKHBvc2l0aW9uID0gImRvZGdlIikNCmBgYA0KDQpUbyBzd2l0Y2ggdGhpbmdzIHNvIHRoYXQgdGhlIGBCYHMgZ28gYWxvbmcgdGhlIHgtYXhpcyBhbmQgdGhlIGBBYHMgZGV0ZXJtaW5lIHRoZSBncm91cGluZywgd2Ugc2ltcGx5IHN3YXAgdGhlIG1hcHBpbmcgc3BlY2lmaWNhdGlvbiwgd2l0aCBgeCA9IEJ2YWxgIGFuZCBgZmlsbCA9IEF2YWxgLiBVbmxpa2Ugd2l0aCBiYXNlIGdyYXBoaWNzLCB3ZSBkb27igJl0IGhhdmUgdG8gY2hhbmdlIHRoZSBkYXRhOyB3ZSBqdXN0IGNoYW5nZSB0aGUgY29tbWFuZHMgZm9yIG1ha2luZyB0aGUgcGxvdDoNCg0KYGBge3IsICBldmFsPVQsIGZpZy5hbGlnbj0nY2VudGVyJ30NCmdncGxvdChzaW1wbGVkYXRfbG9uZywgYWVzKHggPSBCdmFsLCB5ID0gdmFsdWUsIGZpbGwgPSBBdmFsKSkgKw0KICAgIGdlb21fY29sKHBvc2l0aW9uID0gImRvZGdlIikNCmBgYA0KPiBZb3UgbWF5IGhhdmUgbm90aWNlZCB0aGF0IHdpdGggYGdncGxvdDJgLCBjb21wb25lbnRzIG9mIHRoZSBwbG90IGFyZSBjb21iaW5lZCB3aXRoIHRoZSBgK2Agb3BlcmF0b3IuIFlvdSBjYW4gZ3JhZHVhbGx5IGJ1aWxkIHVwIGEgZ2dwbG90IG9iamVjdCBieSBhZGRpbmcgY29tcG9uZW50cyB0byBpdC4gVGhlbiwgd2hlbiB5b3XigJlyZSBhbGwgZG9uZSwgeW91IGNhbiB0ZWxsIGl0IHRvIHByaW50Lg0KDQpUbyBjaGFuZ2UgaXQgdG8gYSBsaW5lIHBsb3QsIHdl4oCZbGwgY2hhbmdlIGBnZW9tX2NvbCgpYCB0byBgZ2VvbV9saW5lKClgLiBXZeKAmWxsIGFsc28gbWFwIGBCdmFsYCB0byB0aGUgKmxpbmUqIGNvbG9yLCB3aXRoIGBjb2xvdXJgLCBpbnN0ZWFkIG9mIHRoZSAqZmlsbCogY29sb3VyIChub3RlIHRoZSBCcml0aXNoIHNwZWxsaW5nIOKAkyB0aGUgYXV0aG9yIG9mIGBnZ3Bsb3QyYCBpcyBhIEtpd2kpLiBBZ2FpbiwgZG9u4oCZdCB3b3JyeSBhYm91dCB0aGUgb3RoZXIgZGV0YWlscyB5ZXQ6DQoNCmBgYHtyLCAgZXZhbD1ULCBmaWcuYWxpZ249J2NlbnRlcid9DQpnZ3Bsb3Qoc2ltcGxlZGF0X2xvbmcsIGFlcyh4ID0gQXZhbCwgeSA9IHZhbHVlLCBjb2xvdXIgPSBCdmFsLCBncm91cCA9IEJ2YWwpKSArDQogICAgZ2VvbV9saW5lKCkNCmBgYA0KDQpXaXRoIGBiYXNlYCBncmFwaGljcywgd2UgaGFkIHRvIHVzZSBjb21wbGV0ZWx5IGRpZmZlcmVudCBjb21tYW5kcyB0byBtYWtlIGEgbGluZSBwbG90IGluc3RlYWQgb2YgYSBiYXIgcGxvdC4gV2l0aCBgZ2dwbG90MmAsIHdlIGp1c3QgY2hhbmdlZCB0aGUgKmdlb20qIGZyb20gYmFycyB0byBsaW5lcy4gVGhlIHJlc3VsdGluZyBwbG90IGFsc28gaGFzIGltcG9ydGFudCBkaWZmZXJlbmNlcyBmcm9tIHRoZSBiYXNlIGdyYXBoaWNzIHZlcnNpb246IHRoZSAqeSogcmFuZ2UgaXMgYXV0b21hdGljYWxseSBhZGp1c3RlZCB0byBmaXQgYWxsIHRoZSBkYXRhIGJlY2F1c2UgYWxsIHRoZSBsaW5lcyBhcmUgZHJhd24gdG9nZXRoZXIgaW5zdGVhZCBvZiBvbmUgYXQgYSB0aW1lLCBhbmQgdGhlICp4LWF4aXMqIHJlbWFpbnMgY2F0ZWdvcmljYWwgaW5zdGVhZCBvZiBiZWluZyBjb252ZXJ0ZWQgdG8gYSBudW1lcmljIGF4aXMuIFRoZSBgZ2dwbG90MmAgcGxvdHMgYWxzbyBoYXZlIGF1dG9tYXRpY2FsbHktZ2VuZXJhdGVkIGxlZ2VuZHMuDQoNCkluIHN1bW1hcnksIGEgcGxvdCBpbiBgZ2dwbG90MmAgY29uc2lzdHMgb2YgZGlmZmVyZW50ICoqcHJpbWFyeSBsYXllcmluZyBjb21wb25lbnRzKiosIHdpdGggdGhlIHRocmVlIHByaW1hcnkgY29tcG9uZW50cyBiZWluZzoNCg0KKyBUaGUgKipkYXRhc2V0KiogdGhhdCBob3VzZXMgdGhlIGRhdGEgdG8gYmUgcGxvdHRlZDsNCisgVGhlICoqYWVzdGhldGljcyoqIHdoaWNoIGRlc2NyaWJlIGhvdyBkYXRhIGFyZSB0byBiZSBtYXBwZWQgdG8gdGhlIGdlb21ldHJpYyBlbGVtZW50cyAoY29sb3IsIHNoYXBlLCBzaXplLCBldGMuLik7DQorIFRoZSAqKmdlb21ldHJpYyBlbGVtZW50cyoqIHRvIHVzZSBpbiB0aGUgcGxvdCAoaS5lLiBwb2ludHMsIGxpbmVzLCByZWN0YW5nbGVzLCBldGPigKYpLg0KDQoqKkFkZGl0aW9uYWwgKG9wdGlvbmFsKSBsYXllcmluZyBjb21wb25lbnRzKiogaW5jbHVkZToNCg0KKyAqKlN0YXRpc3RpY2FsKiogZWxlbWVudHMgc3VjaCBhcyBzbW9vdGhpbmcsIGJpbm5pbmcgb3IgdHJhbnNmb3JtaW5nIHRoZSB2YXJpYWJsZQ0KKyAqKkZhY2V0cyoqIGZvciBjb25kaXRpb25hbCBvciB0cmVsbGlzIHBsb3RzDQorICoqQ29vcmRpbmF0ZSBzeXN0ZW1zKiogZm9yIGRlZmluaW5nIHRoZSBwbG90cyBzaGFwZSAoaS5lLiBDYXJ0ZXNpYW4sIHBvbGFyLCBzcGF0aWFsIG1hcCBwcm9qZWN0aW9ucywgZXRj4oCmKQ0KDQoNClVzaW5nIGEgbG9uZyB0YWJsZToNCg0KDQpgYGB7ciwgZWNobz1GQUxTRSwgZmlnLmFsaWduPSdjZW50ZXInLCBmaWcuY2FwPSJJcmlzIHNwZWNpZXMgZGF0YSBjb2xsZWN0aW9uIiwgb3V0LndpZHRoID0gJzEwMCUnfQ0Ka25pdHI6OmluY2x1ZGVfZ3JhcGhpY3MoImlsbHVzdHJhdGlvbnMvZ2dwbG90XzEucG5nIikNCmBgYA0KDQpUaGVuOg0KDQpgYGB7ciwgZWNobz1GQUxTRSwgZmlnLmFsaWduPSdjZW50ZXInLCBmaWcuY2FwPSJJcmlzIHNwZWNpZXMgZGF0YSBjb2xsZWN0aW9uIiwgb3V0LndpZHRoID0gJzEwMCUnfQ0Ka25pdHI6OmluY2x1ZGVfZ3JhcGhpY3MoImlsbHVzdHJhdGlvbnMvZ2dwbG90XzIucG5nIikNCmBgYA0KDQpJZiB3ZSB3YW50IHRvIHBsb3QgbGluZXMgaW5zdGVhZCBvZiBwb2ludHMsIHNpbXBseSBzdWJzdGl0dXRlIHRoZSBnZW9tZXRyeSB0eXBlIHdpdGggdGhlIGBnZW9tX2xpbmVgIGdlb21ldHJ5Lg0KDQoNCiMjIyBTb21lIFRlcm1pbm9sb2d5IGFuZCBUaGVvcnkNCg0KQmVmb3JlIHdlIGdvIGFueSBmdXJ0aGVyLCBpdOKAmWxsIGJlIGhlbHBmdWwgdG8gZGVmaW5lIHNvbWUgb2YgdGhlIHRlcm1pbm9sb2d5IHVzZWQgaW4gYGdncGxvdDJgOg0KDQotIFRoZSAqZGF0YSogaXMgd2hhdCB3ZSB3YW50IHRvIHZpc3VhbGl6ZS4gSXQgY29uc2lzdHMgb2YgdmFyaWFibGVzLCB3aGljaCBhcmUgc3RvcmVkIGFzIGNvbHVtbnMgaW4gYSBkYXRhIGZyYW1lLg0KDQotICpHZW9tcyogYXJlIHRoZSBnZW9tZXRyaWMgb2JqZWN0cyB0aGF0IGFyZSBkcmF3biB0byByZXByZXNlbnQgdGhlIGRhdGEsIHN1Y2ggYXMgYmFycywgbGluZXMsIGFuZCBwb2ludHMuDQoNCi0gQWVzdGhldGljIGF0dHJpYnV0ZXMsIG9yICphZXN0aGV0aWNzKiwgYXJlIHZpc3VhbCBwcm9wZXJ0aWVzIG9mIGdlb21zLCBzdWNoIGFzIHggYW5kIHkgcG9zaXRpb24sIGxpbmUgY29sb3IsIHBvaW50IHNoYXBlcywgZXRjLg0KDQotIFRoZXJlIGFyZSAqbWFwcGluZ3MqIGZyb20gZGF0YSB2YWx1ZXMgdG8gYWVzdGhldGljcy4NCg0KLSAqU2NhbGVzKiBjb250cm9sIHRoZSBtYXBwaW5nIGZyb20gdGhlIHZhbHVlcyBpbiB0aGUgZGF0YSBzcGFjZSB0byB2YWx1ZXMgaW4gdGhlIGFlc3RoZXRpYyBzcGFjZS4gQSBjb250aW51b3VzIHkgc2NhbGUgbWFwcyBsYXJnZXIgbnVtZXJpY2FsIHZhbHVlcyB0byB2ZXJ0aWNhbGx5IGhpZ2hlciBwb3NpdGlvbnMgaW4gc3BhY2UuDQoNCi0gKkd1aWRlcyogc2hvdyB0aGUgdmlld2VyIGhvdyB0byBtYXAgdGhlIHZpc3VhbCBwcm9wZXJ0aWVzIGJhY2sgdG8gdGhlIGRhdGEgc3BhY2UuIFRoZSBtb3N0IGNvbW1vbmx5IHVzZWQgZ3VpZGVzIGFyZSB0aGUgdGljayBtYXJrcyBhbmQgbGFiZWxzIG9uIGFuIGF4aXMuDQoNCkhlcmXigJlzIGFuIGV4YW1wbGUgb2YgaG93IGEgdHlwaWNhbCBtYXBwaW5nIHdvcmtzLiBZb3UgaGF2ZSAqZGF0YSosIHdoaWNoIGlzIGEgc2V0IG9mIG51bWVyaWNhbCBvciBjYXRlZ29yaWNhbCB2YWx1ZXMuIFlvdSBoYXZlICpnZW9tcyogdG8gcmVwcmVzZW50IGVhY2ggb2JzZXJ2YXRpb24uIFlvdSBoYXZlIGFuICphZXN0aGV0aWMqLCBzdWNoIGFzIHkgKHZlcnRpY2FsKSBwb3NpdGlvbi4gQW5kIHlvdSBoYXZlIGEgKnNjYWxlKiwgd2hpY2ggZGVmaW5lcyB0aGUgbWFwcGluZyBmcm9tIHRoZSBkYXRhIHNwYWNlIChudW1lcmljIHZhbHVlcykgdG8gdGhlIGFlc3RoZXRpYyBzcGFjZSAodmVydGljYWwgcG9zaXRpb24pLiBBIHR5cGljYWwgbGluZWFyICp5Ki1zY2FsZSBtaWdodCBtYXAgdGhlIHZhbHVlIDAgdG8gdGhlIGJhc2VsaW5lIG9mIHRoZSBncmFwaCwgNSB0byB0aGUgbWlkZGxlLCBhbmQgMTAgdG8gdGhlIHRvcC4gQSBsb2dhcml0aG1pYyB5IHNjYWxlIHdvdWxkIHBsYWNlIHRoZW0gZGlmZmVyZW50bHkuDQoNClRoZXNlIGFyZW7igJl0IHRoZSBvbmx5IGtpbmRzIG9mIGRhdGEgYW5kIGFlc3RoZXRpYyBzcGFjZXMgcG9zc2libGUuIEluIHRoZSBhYnN0cmFjdCBncmFtbWFyIG9mIGdyYXBoaWNzLCB0aGUgZGF0YSBhbmQgYWVzdGhldGljcyBjb3VsZCBiZSBhbnl0aGluZzsgaW4gdGhlIGdncGxvdDIgaW1wbGVtZW50YXRpb24sIHRoZXJlIGFyZSBzb21lIHByZWRldGVybWluZWQgdHlwZXMgb2YgZGF0YSBhbmQgYWVzdGhldGljcy4gQ29tbW9ubHkgdXNlZCBkYXRhIHR5cGVzIGluY2x1ZGUgbnVtZXJpYyB2YWx1ZXMsIGNhdGVnb3JpY2FsIHZhbHVlcywgYW5kIHRleHQgc3RyaW5ncy4gU29tZSBjb21tb25seSB1c2VkIGFlc3RoZXRpY3MgaW5jbHVkZSBob3Jpem9udGFsIGFuZCB2ZXJ0aWNhbCBwb3NpdGlvbiwgY29sb3IsIHNpemUsIGFuZCBzaGFwZS4NCg0KVG8gaW50ZXJwcmV0IHRoZSBwbG90LCB2aWV3ZXJzIHJlZmVyIHRvIHRoZSAqZ3VpZGVzKi4gQW4gZXhhbXBsZSBvZiBhIGd1aWRlIGlzIHRoZSAqeSotYXhpcywgaW5jbHVkaW5nIHRoZSB0aWNrIG1hcmtzIGFuZCBsYWJlbHMuIFRoZSB2aWV3ZXIgcmVmZXJzIHRvIHRoaXMgZ3VpZGUgdG8gaW50ZXJwcmV0IHdoYXQgaXQgbWVhbnMgd2hlbiBhIHBvaW50IGlzIGluIHRoZSBtaWRkbGUgb2YgdGhlIHNjYWxlLiBBICpsZWdlbmQqIGlzIGFub3RoZXIgdHlwZSBvZiBzY2FsZS4gQSBsZWdlbmQgbWlnaHQgc2hvdyBwZW9wbGUgd2hhdCBpdCBtZWFucyBmb3IgYSBwb2ludCB0byBiZSBhIGNpcmNsZSBvciBhIHRyaWFuZ2xlLCBvciB3aGF0IGl0IG1lYW5zIGZvciBhIGxpbmUgdG8gYmUgYmx1ZSBvciByZWQuDQoNClNvbWUgYWVzdGhldGljcyBjYW4gb25seSB3b3JrIHdpdGggY2F0ZWdvcmljYWwgdmFyaWFibGVzLCBzdWNoIGFzIHRoZSBzaGFwZSBvZiBhIHBvaW50OiB0cmlhbmdsZXMsIGNpcmNsZXMsIHNxdWFyZXMsIGV0Yy4gU29tZSBhZXN0aGV0aWNzIHdvcmsgd2l0aCBjYXRlZ29yaWNhbCBvciBjb250aW51b3VzIHZhcmlhYmxlcywgc3VjaCBhcyAqeCogKGhvcml6b250YWwpIHBvc2l0aW9uLiBGb3IgYSBiYXIgZ3JhcGgsIHRoZSB2YXJpYWJsZSBtdXN0IGJlIGNhdGVnb3JpY2FsLWl0IHdvdWxkIG1ha2Ugbm8gc2Vuc2UgZm9yIHRoZXJlIHRvIGJlIGEgY29udGludW91cyB2YXJpYWJsZSBvbiB0aGUgKngqLWF4aXMuIEZvciBhIHNjYXR0ZXIgcGxvdCwgdGhlIHZhcmlhYmxlIG11c3QgYmUgbnVtZXJpYy4gQm90aCBvZiB0aGVzZSB0eXBlcyBvZiBkYXRhIChjYXRlZ29yaWNhbCBhbmQgbnVtZXJpYykgY2FuIGJlIG1hcHBlZCB0byB0aGUgYWVzdGhldGljIHNwYWNlIG9mICp4KiBwb3NpdGlvbiwgYnV0IHRoZXkgcmVxdWlyZSBkaWZmZXJlbnQgdHlwZXMgb2Ygc2NhbGVzLg0KDQoNCj4gSW4gZ2dwbG90MiB0ZXJtaW5vbG9neSwgY2F0ZWdvcmljYWwgdmFyaWFibGVzIGFyZSBjYWxsZWQgZGlzY3JldGUsIGFuZCBudW1lcmljIHZhcmlhYmxlcyBhcmUgY2FsbGVkIGNvbnRpbnVvdXMuIFRoZXNlIHRlcm1zIG1heSBub3QgYWx3YXlzIGNvcnJlc3BvbmQgdG8gaG93IHRoZXnigJlyZSB1c2VkIGVsc2V3aGVyZS4gU29tZXRpbWVzIGEgdmFyaWFibGUgdGhhdCBpcyBjb250aW51b3VzIGluIHRoZSBnZ3Bsb3QyIHNlbnNlIGlzIGRpc2NyZXRlIGluIHRoZSBvcmRpbmFyeSBzZW5zZS4gRm9yIGV4YW1wbGUsIHRoZSBudW1iZXIgb2YgdmlzaWJsZSBzdW5zcG90cyBtdXN0IGJlIGFuIGludGVnZXIsIHNvIGl04oCZcyBudW1lcmljIChjb250aW51b3VzIHRvIGBnZ3Bsb3QyYCkgYW5kIGRpc2NyZXRlIChpbiBvcmRpbmFyeSBsYW5ndWFnZSkuDQoNCiMjIyBCdWlsZGluZyBhIHNpbXBsZSBwbG90DQoNCmBnZ3Bsb3QyYCBoYXMgYSBzaW1wbGUgcmVxdWlyZW1lbnQgZm9yIGRhdGEgc3RydWN0dXJlczogdGhleSBtdXN0IGJlIHN0b3JlZCBpbiBkYXRhIGZyYW1lcywgYW5kIGVhY2ggdHlwZSBvZiB2YXJpYWJsZSB0aGF0IGlzIG1hcHBlZCB0byBhbiBhZXN0aGV0aWMgbXVzdCBiZSBzdG9yZWQgaW4gaXRzIG93biBjb2x1bW4uIEluIHRoZSBgc2ltcGxlZGF0YCBleGFtcGxlcyB3ZSBsb29rZWQgYXQgZWFybGllciwgd2UgZmlyc3QgbWFwcGVkIG9uZSB2YXJpYWJsZSB0byB0aGUgeCBhZXN0aGV0aWMgYW5kIGFub3RoZXIgdG8gdGhlIGZpbGwgYWVzdGhldGljOyB0aGVuIHdlIGNoYW5nZWQgdGhlIG1hcHBpbmcgc3BlY2lmaWNhdGlvbiB0byBjaGFuZ2Ugd2hpY2ggdmFyaWFibGUgd2FzIG1hcHBlZCB0byB3aGljaCBhZXN0aGV0aWMuDQoNCldl4oCZbGwgd2FsayB0aHJvdWdoIGEgc2ltcGxlIGV4YW1wbGUgaGVyZS4gRmlyc3QsIHdl4oCZbGwgbWFrZSBhIGRhdGEgZnJhbWUgb2Ygc29tZSBzYW1wbGUgZGF0YToNCg0KYGBge3IsICBldmFsPVR9DQpkYXQgPC0gZGF0YS5mcmFtZSgNCiAgeHZhbCA9IDE6NCwNCiAgeXZhbD1jKDMsIDUsIDYsIDkpLA0KICBncm91cD1jKCJBIiwiQiIsIkEiLCJCIikNCikNCg0KZGF0DQpgYGANCg0KDQpBIGJhc2ljIGBnZ3Bsb3QoKWAgc3BlY2lmaWNhdGlvbiBsb29rcyBsaWtlIHRoaXMuDQoNCmBgYHtyLCAgZXZhbD1ULCBmaWcuYWxpZ249J2NlbnRlcid9DQpnZ3Bsb3QoZGF0LCBhZXMoeCA9IHh2YWwsIHkgPSB5dmFsKSkNCmBgYA0KVGhpcyBjcmVhdGVzIGEgZ2dwbG90IG9iamVjdCB1c2luZyB0aGUgZGF0YWZyYW1lIGBkYXRgLiBJdCBhbHNvIHNwZWNpZmllcyBkZWZhdWx0ICphZXN0aGV0aWMgbWFwcGluZ3MqIHdpdGhpbiBgYWVzKClgOg0KDQotIGB4ID0geHZhbGAgbWFwcyB0aGUgY29sdW1uIHh2YWwgdG8gdGhlICp4KiBwb3NpdGlvbi4NCg0KLSBgeSA9IHl2YWxgIG1hcHMgdGhlIGNvbHVtbiB5dmFsIHRvIHRoZSAqeSogcG9zaXRpb24uDQoNCkFmdGVyIHdl4oCZdmUgZ2l2ZW4gZ2dwbG90IHRoZSBkYXRhIGZyYW1lIGFuZCB0aGUgYWVzdGhldGljIG1hcHBpbmdzLCB0aGVyZeKAmXMgb25lIG1vcmUgY3JpdGljYWwgY29tcG9uZW50OiB3ZSBuZWVkIHRvIHRlbGwgaXQgd2hhdCBnZW9tZXRyaWMgb2JqZWN0cyB0byBhZGQuIEF0IHRoaXMgcG9pbnQsIGBnZ3Bsb3QyYCBkb2VzbuKAmXQga25vdyBpZiB3ZSB3YW50IGJhcnMsIGxpbmVzLCBwb2ludHMsIG9yIHNvbWV0aGluZyBlbHNlIHRvIGJlIGRyYXduIG9uIHRoZSBncmFwaC4gV2XigJlsbCBhZGQgYGdlb21fcG9pbnQoKWAgdG8gZHJhdyBwb2ludHMsIHJlc3VsdGluZyBpbiBhIHNjYXR0ZXIgcGxvdDoNCg0KYGBge3IsICBldmFsPVQsIGZpZy5hbGlnbj0nY2VudGVyJ30NCmdncGxvdChkYXQsIGFlcyh4ID0geHZhbCwgeSA9IHl2YWwpKSArDQogIGdlb21fcG9pbnQoKQ0KYGBgDQoNCg0KSWYgeW914oCZcmUgZ29pbmcgdG8gcmV1c2Ugc29tZSBvZiB0aGVzZSBjb21wb25lbnRzLCB5b3UgY2FuIHN0b3JlIHRoZW0gaW4gdmFyaWFibGVzLiBXZSBjYW4gc2F2ZSB0aGUgZ2dwbG90IG9iamVjdCBpbiBgcGAsIGFuZCB0aGVuIGFkZCBgZ2VvbV9wb2ludCgpYCB0byBpdC4gVGhpcyBoYXMgdGhlIHNhbWUgZWZmZWN0IGFzIHRoZSBwcmVjZWRpbmcgY29kZToNCg0KYGBge3IsICBldmFsPVQsIGZpZy5hbGlnbj0nY2VudGVyJ30NCnAgPC0gZ2dwbG90KGRhdCwgYWVzKHggPSB4dmFsLCB5ID0geXZhbCkpDQpwICsNCiAgZ2VvbV9wb2ludCgpDQpgYGANCg0KV2UgY2FuIGFsc28gbWFwIHRoZSB2YXJpYWJsZSBncm91cCB0byB0aGUgY29sb3Igb2YgdGhlIHBvaW50cywgYnkgcHV0dGluZyBgYWVzKClgIGluc2lkZSB0aGUgY2FsbCB0byBgZ2VvbV9wb2ludCgpYCwgYW5kIHNwZWNpZnlpbmcgYGNvbG91ciA9IGdyb3VwYDoNCg0KYGBge3IsICBldmFsPVQsIGZpZy5hbGlnbj0nY2VudGVyJ30NCnAgKw0KICBnZW9tX3BvaW50KGFlcyhjb2xvdXIgPSBncm91cCkpDQpgYGANCg0KVGhpcyBkb2VzbuKAmXQgYWx0ZXIgdGhlICpkZWZhdWx0KiBhZXN0aGV0aWMgbWFwcGluZ3MgdGhhdCB3ZSBkZWZpbmVkIHByZXZpb3VzbHksIGluc2lkZSBvZiBgZ2dwbG90KC4uLilgLiBXaGF0IGl0IGRvZXMgaXMgYWRkIGFuIGFlc3RoZXRpYyBtYXBwaW5nIGZvciB0aGlzIHBhcnRpY3VsYXIgZ2VvbSwgYGdlb21fcG9pbnQoKWAuIElmIHdlIGFkZGVkIG90aGVyIGdlb21zLCB0aGlzIG1hcHBpbmcgd291bGQgbm90IGFwcGx5IHRvIHRoZW0uDQoNCkNvbnRyYXN0IHRoaXMgKmFlc3RoZXRpYyogbWFwcGluZyB3aXRoIGFlc3RoZXRpYyAqc2V0dGluZyouIFRoaXMgdGltZSwgd2Ugd29u4oCZdCB1c2UgYGFlcygpYDsgd2XigJlsbCBqdXN0IHNldCB0aGUgdmFsdWUgb2YgY29sb3VyIGRpcmVjdGx5Og0KDQpgYGB7ciwgIGV2YWw9VCwgZmlnLmFsaWduPSdjZW50ZXInfQ0KcCArDQogIGdlb21fcG9pbnQoY29sb3VyID0gImJsdWUiKQ0KYGBgDQoNCldlIGNhbiBhbHNvIG1vZGlmeSB0aGUgKnNjYWxlcyo7IHRoYXQgaXMsIHRoZSBtYXBwaW5ncyBmcm9tIGRhdGEgdG8gdmlzdWFsIGF0dHJpYnV0ZXMuIEhlcmUsIHdl4oCZbGwgY2hhbmdlIHRoZSB4IHNjYWxlIHNvIHRoYXQgaXQgaGFzIGEgbGFyZ2VyIHJhbmdlDQoNCmBgYHtyLCAgZXZhbD1ULCBmaWcuYWxpZ249J2NlbnRlcid9DQpwICsNCiAgZ2VvbV9wb2ludCgpICsNCiAgc2NhbGVfeF9jb250aW51b3VzKGxpbWl0cyA9IGMoMCwgOCkpDQpgYGANCg0KSWYgd2UgZ28gYmFjayB0byB0aGUgZXhhbXBsZSB3aXRoIHRoZSBgY29sb3VyID0gZ3JvdXBgIG1hcHBpbmcsIHdlIGNhbiBhbHNvIG1vZGlmeSB0aGUgY29sb3Igc2NhbGU6DQoNCmBgYHtyLCAgZXZhbD1ULCBmaWcuYWxpZ249J2NlbnRlcid9DQpwICsNCiAgZ2VvbV9wb2ludChhZXMoY29sb3VyID0gZ3JvdXApKSArDQogIHNjYWxlX2NvbG91cl9tYW51YWwodmFsdWVzID0gYygib3JhbmdlIiwgImZvcmVzdGdyZWVuIikpDQpgYGANCg0KQm90aCB0aW1lcyB3aGVuIHdlIG1vZGlmaWVkIHRoZSBzY2FsZSwgdGhlICpndWlkZSogYWxzbyBjaGFuZ2VkLiBXaXRoIHRoZSAqeCogc2NhbGUsIHRoZSBndWlkZSB3YXMgdGhlIG1hcmtpbmdzIGFsb25nIHRoZSB4LWF4aXMuIFdpdGggdGhlIGNvbG9yIHNjYWxlLCB0aGUgZ3VpZGUgd2FzIHRoZSBsZWdlbmQuDQoNCk5vdGljZSB0aGF0IHdl4oCZdmUgdXNlZCBgK2AgdG8gam9pbiB0b2dldGhlciB0aGUgcGllY2VzLiBJbiB0aGlzIGxhc3QgZXhhbXBsZSwgd2UgZW5kZWQgYSBsaW5lIHdpdGggYCtgLCB0aGVuIGFkZGVkIG1vcmUgb24gdGhlIG5leHQgbGluZS4gSWYgeW91IGFyZSBnb2luZyB0byBoYXZlIG11bHRpcGxlIGxpbmVzLCB5b3UgaGF2ZSB0byBwdXQgdGhlIGArYCBhdCB0aGUgZW5kIG9mIGVhY2ggbGluZSwgaW5zdGVhZCBvZiBhdCB0aGUgYmVnaW5uaW5nIG9mIHRoZSBuZXh0IGxpbmUuIE90aGVyd2lzZSwgUuKAmXMgcGFyc2VyIHdvbuKAmXQga25vdyB0aGF0IHRoZXJl4oCZcyBtb3JlIHN0dWZmIGNvbWluZzsgaXTigJlsbCB0aGluayB5b3XigJl2ZSBmaW5pc2hlZCB0aGUgZXhwcmVzc2lvbiBhbmQgZXZhbHVhdGUgaXQuDQoNCg0KIyMjIFByaW50aW5nDQoNCkluIFLigJlzIGJhc2UgZ3JhcGhpY3MsIHRoZSBncmFwaGluZyBmdW5jdGlvbnMgdGVsbCBSIHRvIGRyYXcgcGxvdHMgdG8gdGhlIG91dHB1dCBkZXZpY2UgKHRoZSBzY3JlZW4gb3IgYSBmaWxlKS4gYGdncGxvdDJgIGlzIGEgbGl0dGxlIGRpZmZlcmVudC4gVGhlIGNvbW1hbmRzIGRvbuKAmXQgZGlyZWN0bHkgZHJhdyB0byB0aGUgb3V0cHV0IGRldmljZS4gSW5zdGVhZCwgdGhlIGZ1bmN0aW9ucyBidWlsZCBwbG90ICpvYmplY3RzKiwgYW5kIHRoZSBwbG90cyBhcmVu4oCZdCBkcmF3biB1bnRpbCB5b3UgdXNlIHRoZSBgcHJpbnQoKWAgZnVuY3Rpb24sIGFzIGluIGBwcmludChvYmplY3QpYC4gWW91IG1pZ2h0IGJlIHRoaW5raW5nLCDigJxCdXQgd2FpdCwgSSBoYXZlbuKAmXQgdG9sZCBSIHRvIHByaW50IGFueXRoaW5nLCB5ZXQgaXTigJlzIG1hZGUgdGhlc2UgcGxvdHMh4oCdIFdlbGwsIHRoYXTigJlzIG5vdCBleGFjdGx5IHRydWUuIEluIFIsIHdoZW4geW91IGlzc3VlIGEgY29tbWFuZCBhdCB0aGUgcHJvbXB0LCBpdCByZWFsbHkgZG9lcyB0d28gdGhpbmdzOiBmaXJzdCBpdCBydW5zIHRoZSBjb21tYW5kLCB0aGVuIGl0IGNhbGxzIGBwcmludCgpYCB3aXRoIHRoZSByZXN1bHQgcmV0dXJuZWQgZnJvbSB0aGF0IGNvbW1hbmQuDQoNClRoZSBiZWhhdmlvciBhdCB0aGUgaW50ZXJhY3RpdmUgUiBwcm9tcHQgaXMgZGlmZmVyZW50IGZyb20gd2hlbiB5b3UgcnVuIGEgc2NyaXB0IG9yIGZ1bmN0aW9uLiBJbiBzY3JpcHRzLCBjb21tYW5kcyBhcmVu4oCZdCBhdXRvbWF0aWNhbGx5IHByaW50ZWQuIFRoZSBzYW1lIGlzIHRydWUgZm9yIGZ1bmN0aW9ucywgYnV0IHdpdGggYSBzbGlnaHQgY2F0Y2g6IHRoZSByZXN1bHQgb2YgdGhlIGxhc3QgY29tbWFuZCBpbiBhIGZ1bmN0aW9uIGlzIHJldHVybmVkLCBzbyBpZiB5b3UgY2FsbCB0aGUgZnVuY3Rpb24gZnJvbSB0aGUgUiBwcm9tcHQsIHRoZSByZXN1bHQgb2YgdGhhdCBsYXN0IGNvbW1hbmQgd2lsbCBiZSBwcmludGVkIGJlY2F1c2UgaXTigJlzIHRoZSByZXN1bHQgb2YgdGhlIGZ1bmN0aW9uLg0KDQojIyMgU3RhdHMNCg0KU29tZXRpbWVzIHlvdXIgZGF0YSBtdXN0IGJlIHRyYW5zZm9ybWVkIG9yIHN1bW1hcml6ZWQgYmVmb3JlIGl0IGlzIG1hcHBlZCB0byBhbiBhZXN0aGV0aWMuIFRoaXMgaXMgdHJ1ZSwgZm9yIGV4YW1wbGUsIHdpdGggYSBoaXN0b2dyYW0sIHdoZXJlIHRoZSBzYW1wbGVzIGFyZSBncm91cGVkIGludG8gYmlucyBhbmQgY291bnRlZC4gVGhlIGNvdW50cyBmb3IgZWFjaCBiaW4gYXJlIHRoZW4gdXNlZCB0byBzcGVjaWZ5IHRoZSBoZWlnaHQgb2YgYSBiYXIuIFNvbWUgZ2VvbXMsIGxpa2UgYGdlb21faGlzdG9ncmFtKClgLCBhdXRvbWF0aWNhbGx5IGRvIHRoaXMgZm9yIHlvdSwgYnV0IHNvbWV0aW1lcyB5b3XigJlsbCB3YW50IHRvIGRvIHRoaXMgeW91cnNlbGYsIHVzaW5nIHZhcmlvdXMgYHN0YXRfeHhgIGZ1bmN0aW9ucy4NCg0KIyMjIFRoZW1lcw0KDQpTb21lIGFzcGVjdHMgb2YgYSBwbG904oCZcyBhcHBlYXJhbmNlIGZhbGwgb3V0c2lkZSB0aGUgc2NvcGUgb2YgdGhlIGdyYW1tYXIgb2YgZ3JhcGhpY3MuIFRoZXNlIGluY2x1ZGUgdGhlIGNvbG9yIG9mIHRoZSBiYWNrZ3JvdW5kIGFuZCBncmlkIGxpbmVzIGluIHRoZSBwbG90dGluZyBhcmVhLCB0aGUgZm9udHMgdXNlZCBpbiB0aGUgYXhpcyBsYWJlbHMsIGFuZCB0aGUgdGV4dCBpbiB0aGUgcGxvdCB0aXRsZS4gVGhlc2UgYXJlIGNvbnRyb2xsZWQgd2l0aCB0aGUgYHRoZW1lKClgIGZ1bmN0aW9uLg0KDQojIFF1aWNrIGRhdGEgZXhwbG9yYXRpb24NCg0KIyMgU2NhdHRlciBwbG90DQoNClRvIG1ha2UgYSBzY2F0dGVyIHBsb3QsIHVzZSBwbG90KCkgYW5kIHBhc3MgaXQgYSB2ZWN0b3Igb2YgeCB2YWx1ZXMgZm9sbG93ZWQgYnkgYSB2ZWN0b3Igb2YgeSB2YWx1ZXMuDQoNCmBgYHtyLCAgZXZhbD1ULCBmaWcuYWxpZ249J2NlbnRlcid9DQojIE1vdG9yIFRyZW5kIENhciBSb2FkIFRlc3RzDQojID9tdGNhcnMNCnBsb3QobXRjYXJzJHd0LCBtdGNhcnMkbXBnKQ0KYGBgDQoNCg0KVGhlIGBtdGNhcnMkd3RgIHJldHVybnMgdGhlIGNvbHVtbiBuYW1lZCBgd3RgIGZyb20gdGhlIGBtdGNhcnNgIGRhdGFmcmFtZSwgYW5kIGBtdGNhcnMkbXBnYCBpcyB0aGUgYG1wZ2AgY29sdW1uLg0KDQpXaXRoIGdncGxvdDIsIHlvdSBjYW4gZ2V0IGEgc2ltaWxhciByZXN1bHQgdXNpbmcgdGhlIGBnZ3Bsb3QoKWAgZnVuY3Rpb246DQoNCmBgYHtyLCAgZXZhbD1ULCBmaWcuYWxpZ249J2NlbnRlcid9DQpnZ3Bsb3QobXRjYXJzLCBhZXMoeCA9IHd0LCB5ID0gbXBnKSkgKw0KICBnZW9tX3BvaW50KCkNCmBgYA0KVGhlIHVzdWFsIHdheSB0byB1c2UgYGdncGxvdCgpYCBpcyB0byBwYXNzIGl0IGEgZGF0YSBmcmFtZSAoYG10Y2Fyc2ApIGFuZCB0aGVuIHRlbGwgaXQgd2hpY2ggY29sdW1ucyB0byB1c2UgZm9yIHRoZSAqeCogYW5kICp5KiB2YWx1ZXMuIElmIHlvdSB3YW50IHRvIHBhc3MgaXQgdHdvIHZlY3RvcnMgZm9yICp4KiBhbmQgKnkqIHZhbHVlcywgeW91IGNhbiB1c2UgYGRhdGEgPSBOVUxMYCwgYW5kIHRoZW4gcGFzcyBpdCB0aGUgdmVjdG9ycy4gS2VlcCBpbiBtaW5kIHRoYXQgYGdncGxvdDJgIGlzIGRlc2lnbmVkIHRvIHdvcmsgd2l0aCBkYXRhIGZyYW1lcyBhcyB0aGUgZGF0YSBzb3VyY2UsIG5vdCBpbmRpdmlkdWFsIHZlY3RvcnMsIGFuZCB0aGF0IHVzaW5nIGl0IHRoaXMgd2F5IHdpbGwgb25seSBhbGxvdyB5b3UgdG8gdXNlIGEgbGltaXRlZCBwYXJ0IG9mIGl0cyBjYXBhYmlsaXRpZXMuDQoNCmBgYHtyLCAgZXZhbD1ULCBmaWcuYWxpZ249J2NlbnRlcid9DQpnZ3Bsb3QoZGF0YSA9IE5VTEwsIGFlcyh4ID0gbXRjYXJzJHd0LCB5ID0gbXRjYXJzJG1wZykpICsNCiAgZ2VvbV9wb2ludCgpDQpgYGANCg0KIyMgTGluZSBwbG90DQoNClRvIG1ha2UgYSBsaW5lIGdyYXBoIHVzaW5nIGBwbG90KClgLCBwYXNzIGl0IGEgdmVjdG9yIG9mICp4KiB2YWx1ZXMgYW5kIGEgdmVjdG9yIG9mICp5KiB2YWx1ZXMsIGFuZCB1c2UgYHR5cGUgPSAibCJgDQoNCmBgYHtyLCAgZXZhbD1ULCBmaWcuYWxpZ249J2NlbnRlcid9DQpwbG90KHByZXNzdXJlJHRlbXBlcmF0dXJlLCBwcmVzc3VyZSRwcmVzc3VyZSwgdHlwZSA9ICJsIikNCmBgYA0KDQpUbyBhZGQgcG9pbnRzIGFuZC9vciBtdWx0aXBsZSBsaW5lcywgZmlyc3QgY2FsbCBgcGxvdCgpYCBmb3IgdGhlIGZpcnN0IGxpbmUsIHRoZW4gYWRkIHBvaW50cyB3aXRoIGBwb2ludHMoKWAgYW5kIGFkZGl0aW9uYWwgbGluZXMgd2l0aCBgbGluZXMoKWA6DQoNCmBgYHtyLCAgZXZhbD1ULCBmaWcuYWxpZ249J2NlbnRlcid9DQpwbG90KHByZXNzdXJlJHRlbXBlcmF0dXJlLCBwcmVzc3VyZSRwcmVzc3VyZSwgdHlwZSA9ICJsIikNCnBvaW50cyhwcmVzc3VyZSR0ZW1wZXJhdHVyZSwgcHJlc3N1cmUkcHJlc3N1cmUpDQoNCmxpbmVzKHByZXNzdXJlJHRlbXBlcmF0dXJlLCBwcmVzc3VyZSRwcmVzc3VyZS8yLCBjb2wgPSAicmVkIikNCnBvaW50cyhwcmVzc3VyZSR0ZW1wZXJhdHVyZSwgcHJlc3N1cmUkcHJlc3N1cmUvMiwgY29sID0gInJlZCIpDQpgYGANCg0KV2l0aCBgZ2dwbG90MmAsIHlvdSBjYW4gZ2V0IGEgc2ltaWxhciByZXN1bHQgdXNpbmcgYGdlb21fbGluZSgpYA0KDQpgYGB7ciwgIGV2YWw9VCwgZmlnLmFsaWduPSdjZW50ZXInfQ0KZ2dwbG90KHByZXNzdXJlLCBhZXMoeCA9IHRlbXBlcmF0dXJlLCB5ID0gcHJlc3N1cmUpKSArDQogIGdlb21fbGluZSgpDQpgYGANCkFzIHdpdGggc2NhdHRlciBwbG90cywgeW91IGNhbiBwYXNzIHlvdSBkYXRhIGluIHZlY3RvcnMgaW5zdGVhZCBvZiBpbiBhIGRhdGEgZnJhbWUgKGJ1dCB0aGlzIHdpbGwgbGltaXQgdGhlIHRoaW5ncyB5b3UgY2FuIGRvIGxhdGVyIHdpdGggdGhlIHBsb3QpOg0KDQpgYGB7ciwgIGV2YWw9VCwgZmlnLmFsaWduPSdjZW50ZXInfQ0KZ2dwbG90KHByZXNzdXJlLCBhZXMoeCA9IHRlbXBlcmF0dXJlLCB5ID0gcHJlc3N1cmUpKSArDQogIGdlb21fbGluZSgpICsNCiAgZ2VvbV9wb2ludCgpDQpgYGANCj4gSXTigJlzIGNvbW1vbiB3aXRoIGBnZ3Bsb3QoKWAgdG8gc3BsaXQgdGhlIGNvbW1hbmQgb24gbXVsdGlwbGUgbGluZXMsIGVuZGluZyBlYWNoIGxpbmUgd2l0aCBhIGArYCBzbyB0aGF0IFIga25vd3MgdGhhdCB0aGUgY29tbWFuZCB3aWxsIGNvbnRpbnVlIG9uIHRoZSBuZXh0IGxpbmUuDQoNCiMjIEJhciBwbG90DQoNClRvIG1ha2UgYSBiYXIgZ3JhcGggb2YgdmFsdWVzLCB1c2UgYmFycGxvdCgpIGFuZCBwYXNzIGl0IGEgdmVjdG9yIG9mIHZhbHVlcyBmb3IgdGhlIGhlaWdodCBvZiBlYWNoIGJhciBhbmQgKG9wdGlvbmFsbHkpIGEgdmVjdG9yIG9mIGxhYmVscyBmb3IgZWFjaCBiYXIuIElmIHRoZSB2ZWN0b3IgaGFzIG5hbWVzIGZvciB0aGUgZWxlbWVudHMsIHRoZSBuYW1lcyB3aWxsIGF1dG9tYXRpY2FsbHkgYmUgdXNlZCBhcyBsYWJlbHM6DQoNCmBgYHtyLCAgZXZhbD1ULCBmaWcuYWxpZ249J2NlbnRlcid9DQojIEJpb2NoZW1pY2FsIE94eWdlbiBEZW1hbmQNCiMgP0JPRCANCg0KYmFycGxvdChCT0QkZGVtYW5kLCBuYW1lcy5hcmcgPSBCT0QkVGltZSkNCmBgYA0KU29tZXRpbWVzIOKAnGJhciBwbG904oCdIHJlZmVycyB0byBhIGdyYXBoIHdoZXJlIHRoZSBiYXJzIHJlcHJlc2VudCB0aGUgY291bnQgb2YgY2FzZXMgaW4gZWFjaCBjYXRlZ29yeS4gVGhpcyBpcyBzaW1pbGFyIHRvIGEgaGlzdG9ncmFtLCBidXQgd2l0aCBhIGRpc2NyZXRlIGluc3RlYWQgb2YgY29udGludW91cyB4LWF4aXMuIFRvIGdlbmVyYXRlIHRoZSBjb3VudCBvZiBlYWNoIHVuaXF1ZSB2YWx1ZSBpbiBhIHZlY3RvciwgdXNlIHRoZSBgdGFibGUoKWAgZnVuY3Rpb24gdGhlbiBwYXNzIHRoZSByZXN1bHRpbmcgdGFibGUgdG8gYGJhcnBsb3QoKWAgdG8gZ2VuZXJhdGUgdGhlIGdyYXBoIG9mIGNvdW50czoNCg0KYGBge3IsICBldmFsPVQsIGZpZy5hbGlnbj0nY2VudGVyJ30NCmJhcnBsb3QodGFibGUobXRjYXJzJGN5bCkpDQpgYGANCg0KV2l0aCBgZ2dwbG90MmAsIHlvdSBjYW4gZ2V0IGEgc2ltaWxhciByZXN1bHQgdXNpbmcgYGdlb21fY29sKClgLiBUbyBwbG90IGEgYmFyIGdyYXBoIG9mIHZhbHVlcywgdXNlIGBnZW9tX2NvbCgpYC4gTm90aWNlIHRoZSBkaWZmZXJlbmNlIGluIHRoZSBvdXRwdXQgd2hlbiB0aGUgeCB2YXJpYWJsZSBpcyBjb250aW51b3VzIGFuZCB3aGVuIGl0IGlzIGRpc2NyZXRlOg0KDQpgYGB7ciwgIGV2YWw9VCwgZmlnLmFsaWduPSdjZW50ZXInfQ0KIyBCYXIgZ3JhcGggb2YgdmFsdWVzLiBUaGlzIHVzZXMgdGhlIEJPRCBkYXRhIGZyYW1lLCB3aXRoIHRoZQ0KIyAiVGltZSIgY29sdW1uIGZvciB4IHZhbHVlcyBhbmQgdGhlICJkZW1hbmQiIGNvbHVtbiBmb3IgeSB2YWx1ZXMuDQpnZ3Bsb3QoQk9ELCBhZXMoeCA9IFRpbWUsIHkgPSBkZW1hbmQpKSArDQogIGdlb21fY29sKCkNCmBgYA0KYGBge3IsICBldmFsPVQsIGZpZy5hbGlnbj0nY2VudGVyJ30NCiMgQ29udmVydCB0aGUgeCB2YXJpYWJsZSB0byBhIGZhY3Rvciwgc28gdGhhdCBpdCBpcyB0cmVhdGVkIGFzIGRpc2NyZXRlDQpnZ3Bsb3QoQk9ELCBhZXMoeCA9IGZhY3RvcihUaW1lKSwgeSA9IGRlbWFuZCkpICsNCiAgZ2VvbV9jb2woKQ0KYGBgDQoNCg0KYGdncGxvdDJgIGNhbiBhbHNvIGJlIHVzZWQgdG8gcGxvdCB0aGUgY291bnQgb2YgdGhlIG51bWJlciBvZiBkYXRhIHJvd3MgaW4gZWFjaCBjYXRlZ29yeSBieSB1c2luZyBgZ2VvbV9iYXIoKWAgaW5zdGVhZCBvZiBgZ2VvbV9jb2woKWAuIE9uY2UgYWdhaW4sIG5vdGljZSB0aGUgZGlmZmVyZW5jZSBiZXR3ZWVuIGEgY29udGludW91cyB4LWF4aXMgYW5kIGEgZGlzY3JldGUgb25lLiBGb3Igc29tZSBraW5kcyBvZiBkYXRhLCBpdCBtYXkgbWFrZSBtb3JlIHNlbnNlIHRvIGNvbnZlcnQgdGhlIGNvbnRpbnVvdXMgeCB2YXJpYWJsZSB0byBhIGRpc2NyZXRlIG9uZSwgd2l0aCB0aGUgYGZhY3RvcigpYCBmdW5jdGlvbi4NCg0KDQpgYGB7ciwgIGV2YWw9VCwgZmlnLmFsaWduPSdjZW50ZXInfQ0KIyBCYXIgZ3JhcGggb2YgY291bnRzIHVzaW5nIHRoZSBtdGNhcnMgZGF0YSBmcmFtZSwgd2l0aCB0aGUgImN5bCIgY29sdW1uIGZvcg0KIyB4IHBvc2l0aW9uLiBUaGUgeSBwb3NpdGlvbiBpcyBjYWxjdWxhdGVkIGJ5IGNvdW50aW5nIHRoZSBudW1iZXIgb2Ygcm93cyBmb3INCiMgZWFjaCB2YWx1ZSBvZiBjeWwuDQoNCmdncGxvdChtdGNhcnMsIGFlcyh4ID0gY3lsKSkgKw0KICBnZW9tX2JhcigpDQoNCiMgQmFyIGdyYXBoIG9mIGNvdW50cw0KZ2dwbG90KG10Y2FycywgYWVzKHggPSBmYWN0b3IoY3lsKSkpICsNCiAgZ2VvbV9iYXIoKQ0KYGBgDQoNCiMjIEhpc3RvZ3JhbQ0KDQpUbyBtYWtlIGEgaGlzdG9ncmFtLCB1c2UgYGhpc3QoKWAgYW5kIHBhc3MgaXQgYSB2ZWN0b3Igb2YgdmFsdWVzOg0KDQpgYGB7ciwgIGV2YWw9VCwgZmlnLmFsaWduPSdjZW50ZXInfQ0KaGlzdChtdGNhcnMkbXBnKQ0KIyBTcGVjaWZ5IGFwcHJveGltYXRlIG51bWJlciBvZiBiaW5zIHdpdGggYnJlYWtzDQpoaXN0KG10Y2FycyRtcGcsIGJyZWFrcyA9IDEwKQ0KYGBgDQpXaXRoIHRoZSBgZ2dwbG90MmAsIHlvdSBjYW4gZ2V0IGEgc2ltaWxhciByZXN1bHQgdXNpbmcgYGdlb21faGlzdG9ncmFtKClgOg0KDQpgYGB7ciwgIGV2YWw9VCwgZmlnLmFsaWduPSdjZW50ZXInfQ0KZ2dwbG90KG10Y2FycywgYWVzKHggPSBtcGcpKSArDQogIGdlb21faGlzdG9ncmFtKCkNCg0KIyBXaXRoIHdpZGVyIGJpbnMNCmdncGxvdChtdGNhcnMsIGFlcyh4ID0gbXBnKSkgKw0KICBnZW9tX2hpc3RvZ3JhbShiaW53aWR0aCA9IDQpDQpgYGANCldoZW4geW91IGNyZWF0ZSBhIGhpc3RvZ3JhbSB3aXRob3V0IHNwZWNpZnlpbmcgdGhlIGJpbiB3aWR0aCwgYGdncGxvdCgpYCBwcmludHMgb3V0IGEgbWVzc2FnZSB0ZWxsaW5nIHlvdSB0aGF0IGl04oCZcyBkZWZhdWx0aW5nIHRvIDMwIGJpbnMsIGFuZCB0byBwaWNrIGEgYmV0dGVyIGJpbiB3aWR0aC4gVGhpcyBpcyBiZWNhdXNlIGl04oCZcyBpbXBvcnRhbnQgdG8gZXhwbG9yZSB5b3VyIGRhdGEgdXNpbmcgZGlmZmVyZW50IGJpbiB3aWR0aHM7IHRoZSBkZWZhdWx0IG9mIDMwIG1heSBvciBtYXkgbm90IHNob3cgeW91IHNvbWV0aGluZyB1c2VmdWwgYWJvdXQgeW91ciBkYXRhLg0KDQojIyBCb3ggcGxvdA0KDQpUbyBtYWtlIGEgYm94IHBsb3QsIHVzZSBgcGxvdCgpYCBhbmQgcGFzcyBpdCBhIGZhY3RvciBvZiB4IHZhbHVlcyBhbmQgYSB2ZWN0b3Igb2YgeSB2YWx1ZXMuIFdoZW4geCBpcyBhIGZhY3RvciAoYXMgb3Bwb3NlZCB0byBhIG51bWVyaWMgdmVjdG9yKSwgaXQgd2lsbCBhdXRvbWF0aWNhbGx5IGNyZWF0ZSBhIGJveCBwbG90Og0KDQpgYGB7ciwgIGV2YWw9VCwgZmlnLmFsaWduPSdjZW50ZXInfQ0KIyBUaGUgRWZmZWN0IG9mIFZpdGFtaW4gQyBvbiBUb290aCBHcm93dGggaW4gR3VpbmVhIFBpZ3MNCiMgP1Rvb3RoR3Jvd3RoDQpwbG90KFRvb3RoR3Jvd3RoJHN1cHAsIFRvb3RoR3Jvd3RoJGxlbikNCmBgYA0KDQpJZiB0aGUgdHdvIHZlY3RvcnMgYXJlIGluIHRoZSBzYW1lIGRhdGEgZnJhbWUsIHlvdSBjYW4gYWxzbyB1c2UgdGhlIGBib3hwbG90KClgIGZ1bmN0aW9uIHdpdGggZm9ybXVsYSBzeW50YXguIFdpdGggdGhpcyBzeW50YXgsIHlvdSBjYW4gY29tYmluZSB0d28gdmFyaWFibGVzIG9uIHRoZSB4LWF4aXMuDQoNCmBgYHtyLCAgZXZhbD1ULCBmaWcuYWxpZ249J2NlbnRlcid9DQojIEZvcm11bGEgc3ludGF4DQpib3hwbG90KGxlbiB+IHN1cHAsIGRhdGEgPSBUb290aEdyb3d0aCkNCg0KIyBQdXQgaW50ZXJhY3Rpb24gb2YgdHdvIHZhcmlhYmxlcyBvbiB4LWF4aXMNCmJveHBsb3QobGVuIH4gc3VwcCArIGRvc2UsIGRhdGEgPSBUb290aEdyb3d0aCkNCmBgYA0KDQpXaXRoIHRoZSBgZ2dwbG90MmAgcGFja2FnZSwgeW91IGNhbiBnZXQgYSBzaW1pbGFyIHJlc3VsdCB3aXRoIGBnZW9tX2JveHBsb3QoKWANCg0KYGBge3IsICBldmFsPVQsIGZpZy5hbGlnbj0nY2VudGVyJ30NCmdncGxvdChUb290aEdyb3d0aCwgYWVzKHggPSBzdXBwLCB5ID0gbGVuKSkgKw0KICBnZW9tX2JveHBsb3QoKQ0KYGBgDQpJdOKAmXMgYWxzbyBwb3NzaWJsZSB0byBtYWtlIGJveCBwbG90cyBmb3IgbXVsdGlwbGUgdmFyaWFibGVzLCBieSBjb21iaW5pbmcgdGhlIHZhcmlhYmxlcyB3aXRoIGBpbnRlcmFjdGlvbigpYDoNCg0KYGBge3IsICBldmFsPVQsIGZpZy5hbGlnbj0nY2VudGVyJ30NCmdncGxvdChUb290aEdyb3d0aCwgYWVzKHggPSBpbnRlcmFjdGlvbihzdXBwLCBkb3NlKSwgeSA9IGxlbikpICsNCiAgZ2VvbV9ib3hwbG90KCkNCmBgYA0KDQoNCj4gWW91IG1heSBoYXZlIG5vdGljZWQgdGhhdCB0aGUgYm94IHBsb3RzIGZyb20gYGJhc2VgIGdyYXBoaWNzIGFyZSBldmVyLXNvLXNsaWdodGx5IGRpZmZlcmVudCBmcm9tIHRob3NlIGZyb20gYGdncGxvdDJgLiBUaGlzIGlzIGJlY2F1c2UgdGhleSB1c2Ugc2xpZ2h0bHkgZGlmZmVyZW50IG1ldGhvZHMgZm9yIGNhbGN1bGF0aW5nIHF1YW50aWxlcy4gU2VlIGA/Z2VvbV9ib3hwbG90YCBhbmQgYD9ib3hwbG90LnN0YXRzYCBmb3IgbW9yZSBpbmZvcm1hdGlvbiBvbiBob3cgdGhleSBkaWZmZXIuDQoNCiMjIEN1cnZlIGZ1bmN0aW9uDQoNClRvIHBsb3QgYSBmdW5jdGlvbiBjdXJ2ZSB1c2UgYGN1cnZlKClgIGFuZCBwYXNzIGl0IGFuIGV4cHJlc3Npb24gd2l0aCB0aGUgdmFyaWFibGUgeDoNCg0KYGBge3IsICBldmFsPVQsIGZpZy5hbGlnbj0nY2VudGVyJ30NCmN1cnZlKHheMyAtIDUqeCwgZnJvbSA9IC00LCB0byA9IDQpDQpgYGANCg0KDQpZb3UgY2FuIHBsb3QgYW55IGZ1bmN0aW9uIHRoYXQgdGFrZXMgYSBudW1lcmljIHZlY3RvciBhcyBpbnB1dCBhbmQgcmV0dXJucyBhIG51bWVyaWMgdmVjdG9yLCBpbmNsdWRpbmcgZnVuY3Rpb25zIHRoYXQgeW91IGRlZmluZSB5b3Vyc2VsZiAobW9yZSBvbiB0aGlzIGxhdGVyKS4gVXNpbmcgYGFkZCA9IFRSVUVgIHdpbGwgYWRkIGEgY3VydmUgdG8gdGhlIHByZXZpb3VzbHkgY3JlYXRlZCBwbG90Og0KDQpgYGB7ciwgIGV2YWw9VCwgZmlnLmFsaWduPSdjZW50ZXInfQ0KIyBQbG90IGEgdXNlci1kZWZpbmVkIGZ1bmN0aW9uDQpteWZ1biA8LSBmdW5jdGlvbih4dmFyKSB7DQogIDEgLyAoMSArIGV4cCgteHZhciArIDEwKSkNCn0NCmN1cnZlKG15ZnVuKHgpLCBmcm9tID0gMCwgdG8gPSAyMCkNCiMgQWRkIGEgbGluZToNCmN1cnZlKDEgLSBteWZ1bih4KSwgYWRkID0gVFJVRSwgY29sID0gInJlZCIpDQpgYGANCldpdGggYGdncGxvdDJgLCB5b3UgY2FuIGdldCBhIHNpbWlsYXIgcmVzdWx0LCBieSB1c2luZyBgc3RhdF9mdW5jdGlvbihnZW9tID0gImxpbmUiKWAgYW5kIHBhc3NpbmcgaXQgYSBmdW5jdGlvbiB0aGF0IHRha2VzIGEgbnVtZXJpYyB2ZWN0b3IgYXMgaW5wdXQgYW5kIHJldHVybnMgYSBudW1lcmljIHZlY3RvcjoNCg0KYGBge3IsICBldmFsPVQsIGZpZy5hbGlnbj0nY2VudGVyJ30NCiMgVGhpcyBzZXRzIHRoZSB4IHJhbmdlIGZyb20gMCB0byAyMA0KZ2dwbG90KGRhdGEuZnJhbWUoeCA9IGMoMCwgMjApKSwgYWVzKHggPSB4KSkgKw0KICBzdGF0X2Z1bmN0aW9uKGZ1biA9IG15ZnVuLCBnZW9tID0gImxpbmUiKQ0KYGBgDQoNCiMgQmFyIHBsb3RzDQoNCiMjIEJhc2ljcw0KDQpUaGVyZSdzIGFuIGltcG9ydGFudCBkaXN0aW5jdGlvbiB5b3Ugc2hvdWxkIGJlIGF3YXJlIG9mIHdoZW4gbWFraW5nIGJhciBncmFwaHM6IHNvbWV0aW1lcyB0aGUgYmFyIGhlaWdodHMgcmVwcmVzZW50ICpjb3VudHMqIG9mIGNhc2VzIGluIHRoZSBkYXRhIHNldCwgYW5kIHNvbWV0aW1lcyB0aGV5IHJlcHJlc2VudCAqdmFsdWVzKiBpbiB0aGUgZGF0YSBzZXQuIEtlZXAgdGhpcyBkaXN0aW5jdGlvbiBpbiBtaW5kIC0tIGl0IGNhbiBiZSBhIHNvdXJjZSBvZiBjb25mdXNpb24gc2luY2UgdGhleSBoYXZlIHZlcnkgZGlmZmVyZW50IHJlbGF0aW9uc2hpcHMgdG8gdGhlIGRhdGEsIGJ1dCB0aGUgc2FtZSB0ZXJtIGlzIHVzZWQgZm9yIGJvdGggb2YgdGhlbS4gDQoNCmBgYHtyLCAgZXZhbD1ULCBmaWcuYWxpZ249J2NlbnRlcid9DQojID9wZ19tZWFuDQpnZ3Bsb3QocGdfbWVhbiwgYWVzKHggPSBncm91cCwgeSA9IHdlaWdodCkpICsNCiAgZ2VvbV9jb2woKQ0KYGBgDQoNCkJ5IGRlZmF1bHQsIGJhciBncmFwaHMgdXNlIGEgZGFyayBncmV5IGZvciB0aGUgYmFycy4gVG8gdXNlIGEgY29sb3IgZmlsbCwgdXNlIGBmaWxsYC4gQWxzbywgYnkgZGVmYXVsdCwgdGhlcmUgaXMgbm8gb3V0bGluZSBhcm91bmQgdGhlIGZpbGwuIFRvIGFkZCBhbiBvdXRsaW5lLCB1c2UgYGNvbG91cmAuIA0KDQpgYGB7ciwgIGV2YWw9VCwgZmlnLmFsaWduPSdjZW50ZXInfQ0KZ2dwbG90KHBnX21lYW4sIGFlcyh4ID0gZ3JvdXAsIHkgPSB3ZWlnaHQpKSArDQogIGdlb21fY29sKGZpbGwgPSAibGlnaHRibHVlIiwgY29sb3VyID0gImJsYWNrIikNCmBgYA0KDQojIyBHcm91cGluZw0KDQpJZiB5b3Ugd2FudCB0byBncm91cCBiYXJzIHRvZ2V0aGVyIGJ5IGEgc2Vjb25kIHZhcmlhYmxlLCBhbmQgbWFwIGEgdmFyaWFibGUgdG8gZmlsbCwgYW5kIHVzZSBgZ2VvbV9jb2wocG9zaXRpb24gPSAiZG9kZ2UiKWAuDQoNCkluIHRoaXMgZXhhbXBsZSB3ZSdsbCB1c2UgdGhlIGBjYWJiYWdlX2V4cGAgZGF0YXNldCwgd2hpY2ggaGFzIHR3byBjYXRlZ29yaWNhbCB2YXJpYWJsZXMsIGBDdWx0aXZhcmAgYW5kIGBEYXRlYCwgYW5kIG9uZSBjb250aW51b3VzIHZhcmlhYmxlLCBgV2VpZ2h0YC4gV2UnbGwgbWFwIGBEYXRlYCB0byB0aGUgKngqIHBvc2l0aW9uIGFuZCBtYXAgYEN1bHRpdmFyYCB0byB0aGUgZmlsbCBjb2xvci4NCg0KYGBge3IsICBldmFsPVQsIGZpZy5hbGlnbj0nY2VudGVyJ30NCmdncGxvdChjYWJiYWdlX2V4cCwgYWVzKHggPSBEYXRlLCB5ID0gV2VpZ2h0LCBmaWxsID0gQ3VsdGl2YXIpKSArDQogIGdlb21fY29sKHBvc2l0aW9uID0gImRvZGdlIikNCmBgYA0KDQpUbyBhZGQgYSBibGFjayBvdXRsaW5lLCB1c2UgYGNvbG91ciA9ICJibGFjayJgIGluc2lkZSBgZ2VvbV9jb2woKWAuIFRvIHNldCB0aGUgY29sb3JzLCB5b3UgY2FuIHVzZSBgc2NhbGVfZmlsbF9icmV3ZXIoKWAgb3IgYHNjYWxlX2ZpbGxfbWFudWFsKClgLiANCg0KYGBge3IsICBldmFsPVQsIGZpZy5hbGlnbj0nY2VudGVyJ30NCmdncGxvdChjYWJiYWdlX2V4cCwgYWVzKHggPSBEYXRlLCB5ID0gV2VpZ2h0LCBmaWxsID0gQ3VsdGl2YXIpKSArDQogIGdlb21fY29sKHBvc2l0aW9uID0gImRvZGdlIiwgY29sb3VyID0gImJsYWNrIikgKw0KICBzY2FsZV9maWxsX2JyZXdlcihwYWxldHRlID0gIlBhc3RlbDEiKSArDQogIHhsYWIoIkRhdGUiKQ0KICANCiAgIyBzY2FsZV9maWxsX21hbnVhbCh2YWx1ZXMgPSBjKCIjNjY5OTMzIiwgIiNGRkNDNjYiKSkgDQpgYGANCg0KIyMgUG9zaXRpdmUvbmVnYXRpdmUNCg0KV2UnbGwgdXNlIGEgc3Vic2V0IG9mIHRoZSBjbGltYXRlIGRhdGEgYW5kIGNyZWF0ZSBhIG5ldyBjb2x1bW4gY2FsbGVkIHBvcywgd2hpY2ggaW5kaWNhdGVzIHdoZXRoZXIgdGhlIHZhbHVlIGlzIHBvc2l0aXZlIG9yIG5lZ2F0aXZlOg0KDQpgYGB7ciwgIGV2YWw9VH0NCmNsaW1hdGVfc3ViIDwtIGNsaW1hdGUgJT4lDQogIGZpbHRlcihTb3VyY2UgPT0gIkJlcmtlbGV5IiAmIFllYXIgPj0gMTkwMCkgJT4lDQogIG11dGF0ZShwb3MgPSBBbm9tYWx5MTB5ID49IDApDQoNCmdncGxvdChjbGltYXRlX3N1YiwgYWVzKHggPSBZZWFyLCB5ID0gQW5vbWFseTEweSwgZmlsbCA9IHBvcykpICsNCiAgZ2VvbV9jb2wocG9zaXRpb24gPSAiaWRlbnRpdHkiLCBjb2xvdXIgPSAiYmxhY2siLCBsaW5ld2lkdGggPSAwLjI1KSArDQogIHNjYWxlX2ZpbGxfbWFudWFsKHZhbHVlcyA9IGMoIiNDQ0VFRkYiLCAiI0ZGRERERCIpLCBndWlkZSA9IEZBTFNFKQ0KDQpgYGANCg0KDQoNCg0KDQoNCg0KDQoNCg0KDQoNCg0KDQoNCg0KDQoNCg0KDQoNCg0KDQoNCk9uY2Ugd2UgaGF2ZSB0aGUgZGF0YSwgd2UgY2FuIG1ha2UgdGhlIGdyYXBoIGFuZCBtYXAgcG9zIHRvIHRoZSBmaWxsIGNvbG9yLCBhcyBpbiBGaWd1cmUgXEByZWYoZmlnOkZJRy1CQVItR1JBUEgtQ09MT1ItTkVHKS4gTm90aWNlIHRoYXQgd2UgdXNlIHBvc2l0aW9uPSJpZGVudGl0eSIgd2l0aCB0aGUgYmFycy4gVGhpcyB3aWxsIHByZXZlbnQgYSB3YXJuaW5nIG1lc3NhZ2UgYWJvdXQgc3RhY2tpbmcgbm90IGJlaW5nIHdlbGwgZGVmaW5lZCBmb3IgbmVnYXRpdmUgbnVtYmVyczoNCg0KYGB7ciBGSUctQkFSLUdSQVBILUNPTE9SLU5FRywgZmlnLmNhcD0iRGlmZmVyZW50IGNvbG9ycyBmb3IgcG9zaXRpdmUgYW5kIG5lZ2F0aXZlIHZhbHVlcyIsIGZpZy53aWR0aD0xMCwgZmlnLmhlaWdodD0yLjUsIG91dC53aWR0aD0iMTAwJSJ9DQpnZ3Bsb3QoY2xpbWF0ZV9zdWIsIGFlcyh4ID0gWWVhciwgeSA9IEFub21hbHkxMHksIGZpbGwgPSBwb3MpKSArDQogIGdlb21fY29sKHBvc2l0aW9uID0gImlkZW50aXR5IikNCmBgDQoNCiMjIyBEaXNjdXNzaW9uDQoNClRoZXJlIGFyZSBhIGZldyBwcm9ibGVtcyB3aXRoIHRoZSBmaXJzdCBhdHRlbXB0LiBGaXJzdCwgdGhlIGNvbG9ycyBhcmUgcHJvYmFibHkgdGhlIHJldmVyc2Ugb2Ygd2hhdCB3ZSB3YW50OiB1c3VhbGx5LCBibHVlIG1lYW5zIGNvbGQgYW5kIHJlZCBtZWFucyBob3QuIFNlY29uZCwgdGhlIGxlZ2VuZCBpcyByZWR1bmRhbnQgYW5kIGRpc3RyYWN0aW5nLg0KDQpXZSBjYW4gY2hhbmdlIHRoZSBjb2xvcnMgd2l0aCBgc2NhbGVfZmlsbF9tYW51YWwoKWAgYW5kIHJlbW92ZSB0aGUgbGVnZW5kIHdpdGggYGd1aWRlID0gRkFMU0VgLCBhcyBzaG93biBpbiBGaWd1cmUgXEByZWYoZmlnOkZJRy1CQVItR1JBUEgtQ09MT1ItTkVHMikuIFdlJ2xsIGFsc28gYWRkIGEgdGhpbiBibGFjayBvdXRsaW5lIGFyb3VuZCBlYWNoIG9mIHRoZSBiYXJzIGJ5IHNldHRpbmcgYGNvbG91cmAgYW5kIHNwZWNpZnlpbmcgYHNpemVgLCB3aGljaCBpcyB0aGUgdGhpY2tuZXNzIG9mIHRoZSBvdXRsaW5lIChpbiBtaWxsaW1ldGVycyk6DQoNCmBge3IgRklHLUJBUi1HUkFQSC1DT0xPUi1ORUcyLCBmaWcuY2FwPSJHcmFwaCB3aXRoIGN1c3RvbWl6ZWQgY29sb3JzIGFuZCBubyBsZWdlbmQiLCBmaWcud2lkdGg9MTAsIGZpZy5oZWlnaHQ9Mi41LCBvdXQud2lkdGg9IjEwMCUifQ0KZ2dwbG90KGNsaW1hdGVfc3ViLCBhZXMoeCA9IFllYXIsIHkgPSBBbm9tYWx5MTB5LCBmaWxsID0gcG9zKSkgKw0KICBnZW9tX2NvbChwb3NpdGlvbiA9ICJpZGVudGl0eSIsIGNvbG91ciA9ICJibGFjayIsIHNpemUgPSAwLjI1KSArDQogIHNjYWxlX2ZpbGxfbWFudWFsKHZhbHVlcyA9IGMoIiNDQ0VFRkYiLCAiI0ZGRERERCIpLCBndWlkZSA9IEZBTFNFKQ0KYGANCg0KIyMjIFNlZSBBbHNvDQoNClRvIGNoYW5nZSB0aGUgY29sb3JzIHVzZWQsIHNlZSBSZWNpcGVzIFJlY2lwZSBcQHJlZihSRUNJUEUtQ09MT1JTLVBBTEVUVEUtRElTQ1JFVEUpIGFuZCBSZWNpcGUgXEByZWYoUkVDSVBFLUNPTE9SUy1QQUxFVFRFLURJU0NSRVRFLU1BTlVBTCkuDQoNClRvIGhpZGUgdGhlIGxlZ2VuZCwgc2VlIFJlY2lwZSBcQHJlZihSRUNJUEUtTEVHRU5ELVJFTU9WRSkuDQoNCg0KQWRqdXN0aW5nIEJhciBXaWR0aCBhbmQgU3BhY2luZyB7I1JFQ0lQRS1CQVItR1JBUEgtQURKVVNULVdJRFRIfQ0KLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLQ0KDQojIyMgUHJvYmxlbQ0KDQpZb3Ugd2FudCB0byBhZGp1c3QgdGhlIHdpZHRoIG9mIGJhcnMgYW5kIHRoZSBzcGFjaW5nIGJldHdlZW4gdGhlbS4NCg0KIyMjIFNvbHV0aW9uDQoNClRvIG1ha2UgdGhlIGJhcnMgbmFycm93ZXIgb3Igd2lkZXIsIHNldCBgd2lkdGhgIGluIGBnZW9tX2NvbCgpYC4gVGhlIGRlZmF1bHQgdmFsdWUgaXMgMC45OyBsYXJnZXIgdmFsdWVzIG1ha2UgdGhlIGJhcnMgd2lkZXIsIGFuZCBzbWFsbGVyIHZhbHVlcyBtYWtlIHRoZSBiYXJzIG5hcnJvd2VyIChGaWd1cmUgXEByZWYoZmlnOkZJRy1CQVItV0lEVEgpKS4NCg0KRm9yIGV4YW1wbGUsIGZvciBzdGFuZGFyZC13aWR0aCBiYXJzOg0KDQpgYHtyIGV2YWw9RkFMU0V9DQpsaWJyYXJ5KGdjb29rYm9vaykgIyBMb2FkIGdjb29rYm9vayBmb3IgdGhlIHBnX21lYW4gZGF0YSBzZXQNCg0KZ2dwbG90KHBnX21lYW4sIGFlcyh4ID0gZ3JvdXAsIHkgPSB3ZWlnaHQpKSArDQogIGdlb21fY29sKCkNCmBgDQoNCkZvciBuYXJyb3dlciBiYXJzOg0KDQpgYHtyIGV2YWw9RkFMU0V9DQpnZ3Bsb3QocGdfbWVhbiwgYWVzKHggPSBncm91cCwgeSA9IHdlaWdodCkpICsNCiAgZ2VvbV9jb2wod2lkdGggPSAwLjUpDQpgYA0KDQpBbmQgZm9yIHdpZGVyIGJhcnMgKHRoZXNlIGhhdmUgdGhlIG1heGltdW0gd2lkdGggb2YgMSk6DQoNCmBge3IgZXZhbD1GQUxTRX0NCmdncGxvdChwZ19tZWFuLCBhZXMoeCA9IGdyb3VwLCB5ID0gd2VpZ2h0KSkgKw0KICBnZW9tX2NvbCh3aWR0aCA9IDEpDQpgYA0KDQpgYHtyIEZJRy1CQVItV0lEVEgsIGVjaG89RkFMU0UsIGZpZy5zaG93PSJob2xkIiwgZmlnLmNhcD0iRGlmZmVyZW50IGJhciB3aWR0aHMiLCBmaWcud2lkdGg9NCwgZmlnLmhlaWdodD0zfQ0KZ2dwbG90KHBnX21lYW4sIGFlcyh4ID0gZ3JvdXAsIHkgPSB3ZWlnaHQpKSArDQogIGdlb21fY29sKCkNCg0KZ2dwbG90KHBnX21lYW4sIGFlcyh4ID0gZ3JvdXAsIHkgPSB3ZWlnaHQpKSArDQogIGdlb21fY29sKHdpZHRoID0gMC41KQ0KDQpnZ3Bsb3QocGdfbWVhbiwgYWVzKHggPSBncm91cCwgeSA9IHdlaWdodCkpICsNCiAgZ2VvbV9jb2wod2lkdGggPSAxKQ0KYGANCg0KRm9yIGdyb3VwZWQgYmFycywgdGhlIGRlZmF1bHQgaXMgdG8gaGF2ZSBubyBzcGFjZSBiZXR3ZWVuIGJhcnMgd2l0aGluIGVhY2ggZ3JvdXAuIFRvIGFkZCBzcGFjZSBiZXR3ZWVuIGJhcnMgd2l0aGluIGEgZ3JvdXAsIG1ha2Ugd2lkdGggc21hbGxlciBhbmQgc2V0IHRoZSB2YWx1ZSBmb3IgYHBvc2l0aW9uX2RvZGdlYCB0byBiZSBsYXJnZXIgdGhhbiBgd2lkdGhgIChGaWd1cmUgXEByZWYoZmlnOkZJRy1CQVItV0lEVEgtRE9ER0UpKS4NCg0KRm9yIGEgZ3JvdXBlZCBiYXIgZ3JhcGggd2l0aCBuYXJyb3cgYmFyczoNCg0KYGB7ciBldmFsPUZBTFNFfQ0KZ2dwbG90KGNhYmJhZ2VfZXhwLCBhZXMoeCA9IERhdGUsIHkgPSBXZWlnaHQsIGZpbGwgPSBDdWx0aXZhcikpICsNCiAgZ2VvbV9jb2wod2lkdGggPSAwLjUsIHBvc2l0aW9uID0gImRvZGdlIikNCmBgDQoNCkFuZCB3aXRoIHNvbWUgc3BhY2UgYmV0d2VlbiB0aGUgYmFyczoNCg0KYGB7ciBldmFsPUZBTFNFfQ0KZ2dwbG90KGNhYmJhZ2VfZXhwLCBhZXMoeCA9IERhdGUsIHkgPSBXZWlnaHQsIGZpbGwgPSBDdWx0aXZhcikpICsNCiAgZ2VvbV9jb2wod2lkdGggPSAwLjUsIHBvc2l0aW9uID0gcG9zaXRpb25fZG9kZ2UoMC43KSkNCmBgDQoNCg0KYGB7ciBGSUctQkFSLVdJRFRILURPREdFLCBlY2hvPUZBTFNFLCBmaWcuc2hvdz0iaG9sZCIsIGZpZy5jYXA9IkJhciBncmFwaCB3aXRoIG5hcnJvdyBncm91cGVkIGJhcnMgKGxlZnQpOyBXaXRoIHNwYWNlIGJldHdlZW4gdGhlIGJhcnMgKHJpZ2h0KSIsIGZpZy53aWR0aD00LjUsIGZpZy5oZWlnaHQ9M30NCmdncGxvdChjYWJiYWdlX2V4cCwgYWVzKHggPSBEYXRlLCB5ID0gV2VpZ2h0LCBmaWxsID0gQ3VsdGl2YXIpKSArDQogIGdlb21fY29sKHdpZHRoID0gMC41LCBwb3NpdGlvbiA9ICJkb2RnZSIpDQoNCmdncGxvdChjYWJiYWdlX2V4cCwgYWVzKHggPSBEYXRlLCB5ID0gV2VpZ2h0LCBmaWxsID0gQ3VsdGl2YXIpKSArDQogIGdlb21fY29sKHdpZHRoID0gMC41LCBwb3NpdGlvbiA9IHBvc2l0aW9uX2RvZGdlKDAuNykpDQpgYA0KDQpUaGUgZmlyc3QgZ3JhcGggdXNlZCBgcG9zaXRpb24gPSAiZG9kZ2UiYCwgYW5kIHRoZSBzZWNvbmQgZ3JhcGggdXNlZCBgcG9zaXRpb24gPSBwb3NpdGlvbl9kb2RnZSgpYC4gVGhpcyBpcyBiZWNhdXNlIGBwb3NpdGlvbiA9ICJkb2RnZSJgIGlzIHNpbXBseSBzaG9ydGhhbmQgZm9yIGBwb3NpdGlvbiA9IHBvc2l0aW9uX2RvZGdlKClgIHdpdGggdGhlIGRlZmF1bHQgdmFsdWUgb2YgMC45LCBidXQgd2hlbiB3ZSB3YW50IHRvIHNldCBhIHNwZWNpZmljIHZhbHVlLCB3ZSBuZWVkIHRvIHVzZSB0aGUgbW9yZSB2ZXJib3NlIGZvcm0uDQoNCiMjIyBEaXNjdXNzaW9uDQoNClRoZSBkZWZhdWx0IGB3aWR0aGAgZm9yIGJhcnMgaXMgMC45LCBhbmQgdGhlIGRlZmF1bHQgdmFsdWUgdXNlZCBmb3IgYHBvc2l0aW9uX2RvZGdlKClgIGlzIHRoZSBzYW1lLiBUbyBiZSBtb3JlIHByZWNpc2UsIHRoZSB2YWx1ZSBvZiBgd2lkdGhgIGluIGBwb3NpdGlvbl9kb2RnZSgpYCBpcyBgTlVMTGAsIHdoaWNoIHRlbGxzIGdncGxvdDIgdG8gdXNlIHRoZSBzYW1lIHZhbHVlIGFzIHRoZSB3aWR0aCBmcm9tIGBnZW9tX2JhcigpYC4NCg0KQWxsIG9mIHRoZXNlIHdpbGwgaGF2ZSB0aGUgc2FtZSByZXN1bHQ6DQoNCmBge3IgZXZhbD1GQUxTRX0NCmdlb21fYmFyKHBvc2l0aW9uID0gImRvZGdlIikNCmdlb21fYmFyKHdpZHRoID0gMC45LCBwb3NpdGlvbiA9IHBvc2l0aW9uX2RvZGdlKCkpDQpnZW9tX2Jhcihwb3NpdGlvbiA9IHBvc2l0aW9uX2RvZGdlKDAuOSkpDQpnZW9tX2Jhcih3aWR0aCA9IDAuOSwgcG9zaXRpb24gPSBwb3NpdGlvbl9kb2RnZSh3aWR0aD0wLjkpKQ0KYGANCg0KVGhlIGl0ZW1zIG9uIHRoZSB4LWF4aXMgaGF2ZSB4IHZhbHVlcyBvZiAxLCAyLCAzLCBhbmQgc28gb24sIHRob3VnaCB5b3UgdHlwaWNhbGx5IGRvbid0IHJlZmVyIHRvIHRoZW0gYnkgdGhlc2UgbnVtZXJpY2FsIHZhbHVlcy4gV2hlbiB5b3UgdXNlIGBnZW9tX2Jhcih3aWR0aCA9IDAuOSlgLCBpdCBtYWtlcyBlYWNoIGdyb3VwIHRha2UgdXAgYSB0b3RhbCB3aWR0aCBvZiAwLjkgb24gdGhlIHgtYXhpcy4gV2hlbiB5b3UgdXNlIGBwb3NpdGlvbl9kb2RnZSh3aWR0aCA9IDAuOSlgLCBpdCBzcGFjZXMgdGhlIGJhcnMgc28gdGhhdCB0aGUgKm1pZGRsZSogb2YgZWFjaCBiYXIgaXMgcmlnaHQgd2hlcmUgaXQgd291bGQgYmUgaWYgdGhlIGJhciB3aWR0aCB3ZXJlIDAuOSBhbmQgdGhlIGJhcnMgd2VyZSB0b3VjaGluZy4gVGhpcyBpcyBpbGx1c3RyYXRlZCBpbiBGaWd1cmUgXEByZWYoZmlnOkZJRy1CQVItV0lEVEgtRE9ER0UtRVhQTEFOQVRJT04pLiBUaGUgdHdvIGdyYXBocyBib3RoIGhhdmUgdGhlIHNhbWUgZG9kZ2Ugd2lkdGggb2YgMC45LCBidXQgd2hpbGUgdGhlIHRvcCBoYXMgYSBiYXIgd2lkdGggb2YgMC45LCB0aGUgYm90dG9tIGhhcyBhIGJhciB3aWR0aCBvZiAwLjIuIERlc3BpdGUgdGhlIGRpZmZlcmVudCBiYXIgd2lkdGhzLCB0aGUgbWlkZGxlcyBvZiB0aGUgYmFycyBzdGF5IGFsaWduZWQuDQoNCmBge3IgRklHLUJBUi1XSURUSC1ET0RHRS1FWFBMQU5BVElPTiwgZWNobz1GQUxTRSwgZmlnLnNob3c9ImhvbGQiLCBmaWcuY2FwPSJTYW1lIGRvZGdlIHdpZHRoIG9mIDAuOSwgYnV0IGRpZmZlcmVudCBiYXIgd2lkdGhzIG9mIDAuOSAobGVmdCkgYW5kIDAuMiAocmlnaHQpIiwgZmlnLndpZHRoPTQuNSwgZmlnLmhlaWdodD0zfQ0KZ2dwbG90KGNhYmJhZ2VfZXhwLCBhZXMoeCA9IERhdGUsIHkgPSBXZWlnaHQsIGZpbGwgPSBDdWx0aXZhcikpICsNCiAgZ2VvbV9jb2wocG9zaXRpb24gPSAiZG9kZ2UiKQ0KDQpnZ3Bsb3QoY2FiYmFnZV9leHAsIGFlcyh4ID0gRGF0ZSwgeSA9IFdlaWdodCwgZmlsbCA9IEN1bHRpdmFyKSkgKw0KICBnZW9tX2NvbCh3aWR0aCA9IDAuMiwgcG9zaXRpb24gPSBwb3NpdGlvbl9kb2RnZSh3aWR0aD0wLjkpKQ0KYGANCg0KSWYgeW91IG1ha2UgdGhlIGVudGlyZSBncmFwaCB3aWRlciBvciBuYXJyb3dlciwgdGhlIGJhciBkaW1lbnNpb25zIHdpbGwgc2NhbGUgcHJvcG9ydGlvbmFsbHkuIFRvIHNlZSBob3cgdGhpcyB3b3JrcywgeW91IGNhbiBqdXN0IHJlc2l6ZSB0aGUgd2luZG93IGluIHdoaWNoIHRoZSBncmFwaHMgYXBwZWFyLiBGb3IgaW5mb3JtYXRpb24gYWJvdXQgY29udHJvbGxpbmcgdGhpcyB3aGVuIHdyaXRpbmcgdG8gYSBmaWxlLCBzZWUgQ2hhcHRlciBcQHJlZihDSEFQVEVSLU9VVFBVVCkuDQoNCg0KTWFraW5nIGEgU3RhY2tlZCBCYXIgR3JhcGggeyNSRUNJUEUtQkFSLUdSQVBILVNUQUNLRUQtQkFSfQ0KLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0NCg0KIyMjIFByb2JsZW0NCg0KWW91IHdhbnQgdG8gbWFrZSBhIHN0YWNrZWQgYmFyIGdyYXBoLg0KDQojIyMgU29sdXRpb24NCg0KVXNlIGBnZW9tX2JhcigpYCBhbmQgbWFwIGEgdmFyaWFibGUgYGZpbGxgLiBUaGlzIHdpbGwgcHV0IGBEYXRlYCBvbiB0aGUgeC1heGlzIGFuZCB1c2UgYEN1bHRpdmFyYCBmb3IgdGhlIGZpbGwgY29sb3IsIGFzIHNob3duIGluIEZpZ3VyZSBcQHJlZihmaWc6RklHLUJBUi1HUkFQSC1TVEFDS0VELUJBUik6DQoNCmBge3IgRklHLUJBUi1HUkFQSC1TVEFDS0VELUJBUiwgZmlnLmNhcD0iU3RhY2tlZCBiYXIgZ3JhcGgiLCBmaWcuaGVpZ2h0PTMuNX0NCmxpYnJhcnkoZ2Nvb2tib29rKSAjIExvYWQgZ2Nvb2tib29rIGZvciB0aGUgY2FiYmFnZV9leHAgZGF0YSBzZXQNCg0KZ2dwbG90KGNhYmJhZ2VfZXhwLCBhZXMoeCA9IERhdGUsIHkgPSBXZWlnaHQsIGZpbGwgPSBDdWx0aXZhcikpICsNCiAgZ2VvbV9jb2woKQ0KYGANCg0KIyMjIERpc2N1c3Npb24NCg0KVG8gdW5kZXJzdGFuZCBob3cgdGhlIGdyYXBoIGlzIG1hZGUsIGl0J3MgdXNlZnVsIHRvIHNlZSBob3cgdGhlIGRhdGEgaXMgc3RydWN0dXJlZC4gVGhlcmUgYXJlIHRocmVlIGxldmVscyBvZiBgRGF0ZWAgYW5kIHR3byBsZXZlbHMgb2YgYEN1bHRpdmFyYCwgYW5kIGZvciBlYWNoIGNvbWJpbmF0aW9uIHRoZXJlIGlzIGEgdmFsdWUgZm9yIGBXZWlnaHRgOg0KDQpgYHtyfQ0KY2FiYmFnZV9leHANCmBgDQoNCkJ5IGRlZmF1bHQsIHRoZSBzdGFja2luZyBvcmRlciBvZiB0aGUgYmFycyBpcyB0aGUgc2FtZSBhcyB0aGUgb3JkZXIgb2YgaXRlbXMgaW4gdGhlIGxlZ2VuZC4gRm9yIHNvbWUgZGF0YSBzZXRzIGl0IG1pZ2h0IG1ha2Ugc2Vuc2UgdG8gcmV2ZXJzZSB0aGUgb3JkZXIgb2YgdGhlIGxlZ2VuZC4gVG8gZG8gdGhpcywgeW91IGNhbiB1c2UgdGhlIGBndWlkZXNgIGZ1bmN0aW9uIGFuZCBzcGVjaWZ5IHdoaWNoIGFlc3RoZXRpYyBmb3Igd2hpY2ggdGhlIGxlZ2VuZCBzaG91bGQgYmUgcmV2ZXJzZWQuIEluIHRoaXMgY2FzZSwgaXQncyBgZmlsbGA6DQoNCmBge3IgRklHLUJBUi1HUkFQSC1TVEFDS0VELUJBUi1SRVZMRVZFTFMsIGZpZy5jYXA9IlN0YWNrZWQgYmFyIGdyYXBoIHdpdGggcmV2ZXJzZWQgbGVnZW5kIG9yZGVyIiwgZmlnLmhlaWdodD0zLjV9DQpnZ3Bsb3QoY2FiYmFnZV9leHAsIGFlcyh4ID0gRGF0ZSwgeSA9IFdlaWdodCwgZmlsbCA9IEN1bHRpdmFyKSkgKw0KICBnZW9tX2NvbCgpICsNCiAgZ3VpZGVzKGZpbGwgPSBndWlkZV9sZWdlbmQocmV2ZXJzZSA9IFRSVUUpKQ0KYGANCg0KSWYgeW91J2QgbGlrZSB0byByZXZlcnNlIHRoZSBzdGFja2luZyBvcmRlciBvZiB0aGUgYmFycywgYXMgaW4gRmlndXJlIFxAcmVmKGZpZzpGSUctQkFSLUdSQVBILVNUQUNLRUQtQkFSLVJFVlNUQUNLKSwgdXNlIGBwb3NpdGlvbl9zdGFjayhyZXZlcnNlID0gVFJVRSlgLiBZb3UnbGwgYWxzbyBuZWVkIHRvIHJldmVyc2UgdGhlIG9yZGVyIG9mIHRoZSBsZWdlbmQgZm9yIGl0IHRvIG1hdGNoIHRoZSBvcmRlciBvZiB0aGUgYmFyczoNCg0KYGB7ciBGSUctQkFSLUdSQVBILVNUQUNLRUQtQkFSLVJFVlNUQUNLLCBmaWcuY2FwPSJTdGFja2VkIGJhciBncmFwaCB3aXRoIHJldmVyc2VkIHN0YWNraW5nIG9yZGVyIiwgZmlnLmhlaWdodD0zLjV9DQpnZ3Bsb3QoY2FiYmFnZV9leHAsIGFlcyh4ID0gRGF0ZSwgeSA9IFdlaWdodCwgZmlsbCA9IEN1bHRpdmFyKSkgKw0KICBnZW9tX2NvbChwb3NpdGlvbiA9IHBvc2l0aW9uX3N0YWNrKHJldmVyc2UgPSBUUlVFKSkgKw0KICBndWlkZXMoZmlsbCA9IGd1aWRlX2xlZ2VuZChyZXZlcnNlID0gVFJVRSkpDQpgYA0KDQpJdCdzIGFsc28gcG9zc2libGUgdG8gbW9kaWZ5IHRoZSBjb2x1bW4gb2YgdGhlIGRhdGEgZnJhbWUgc28gdGhhdCB0aGUgZmFjdG9yIGxldmVscyBhcmUgaW4gYSBkaWZmZXJlbnQgb3JkZXIgKHNlZSBSZWNpcGUgXEByZWYoUkVDSVBFLURBVEFQUkVQLUZBQ1RPUi1SRU9SREVSKSkuIERvIHRoaXMgd2l0aCBjYXJlLCBzaW5jZSB0aGUgbW9kaWZpZWQgZGF0YSBjb3VsZCBjaGFuZ2UgdGhlIHJlc3VsdHMgb2Ygb3RoZXIgYW5hbHlzZXMuDQoNCkZvciBhIG1vcmUgcG9saXNoZWQgZ3JhcGgsIHdlJ2xsIHVzZSBgc2NhbGVfZmlsbF9icmV3ZXIoKWAgdG8gZ2V0IGEgZGlmZmVyZW50IGNvbG9yIHBhbGV0dGUsIGFuZCB1c2UgYGNvbG91cj0iYmxhY2siYCB0byBnZXQgYSBibGFjayBvdXRsaW5lIChGaWd1cmUgXEByZWYoZmlnOkZJRy1CQVItR1JBUEgtU1RBQ0tFRC1CQVItQ09MT1JTKSk6DQoNCmBge3IgRklHLUJBUi1HUkFQSC1TVEFDS0VELUJBUi1DT0xPUlMsIGZpZy5jYXA9IlN0YWNrZWQgYmFyIGdyYXBoIHdpdGggcmV2ZXJzZWQgbGVnZW5kLCBuZXcgcGFsZXR0ZSwgYW5kIGJsYWNrIG91dGxpbmUiLCBmaWcuaGVpZ2h0PTMuNX0NCmdncGxvdChjYWJiYWdlX2V4cCwgYWVzKHggPSBEYXRlLCB5ID0gV2VpZ2h0LCBmaWxsID0gQ3VsdGl2YXIpKSArDQogIGdlb21fY29sKGNvbG91ciA9ICJibGFjayIpICsNCiAgc2NhbGVfZmlsbF9icmV3ZXIocGFsZXR0ZSA9ICJQYXN0ZWwxIikNCmBgDQoNCiMjIyBTZWUgQWxzbw0KDQpGb3IgbW9yZSBvbiB1c2luZyBjb2xvcnMgaW4gYmFyIGdyYXBocywgc2VlIFJlY2lwZSBcQHJlZihSRUNJUEUtQkFSLUdSQVBILUNPTE9SUykuDQoNClRvIHJlb3JkZXIgdGhlIGxldmVscyBvZiBhIGZhY3RvciBiYXNlZCBvbiB0aGUgdmFsdWVzIG9mIGFub3RoZXIgdmFyaWFibGUsIHNlZSBSZWNpcGUgXEByZWYoUkVDSVBFLURBVEFQUkVQLUZBQ1RPUi1SRU9SREVSLVZBTFVFKS4gVG8gbWFudWFsbHkgY2hhbmdlIHRoZSBvcmRlciBvZiBmYWN0b3IgbGV2ZWxzLCBzZWUgUmVjaXBlIFxAcmVmKFJFQ0lQRS1EQVRBUFJFUC1GQUNUT1ItUkVPUkRFUikuDQoNCg0KTWFraW5nIGEgUHJvcG9ydGlvbmFsIFN0YWNrZWQgQmFyIEdyYXBoIHsjUkVDSVBFLUJBUi1HUkFQSC1QUk9QT1JUSU9OQUwtU1RBQ0tFRC1CQVJ9DQotLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0NCg0KIyMjIFByb2JsZW0NCg0KWW91IHdhbnQgdG8gbWFrZSBhIHN0YWNrZWQgYmFyIGdyYXBoIHRoYXQgc2hvd3MgcHJvcG9ydGlvbnMgKGFsc28gY2FsbGVkIGEgMTAwJSBzdGFja2VkIGJhciBncmFwaCkuDQoNCiMjIyBTb2x1dGlvbg0KDQpVc2UgYGdlb21fY29sKHBvc2l0aW9uID0gImZpbGwiKWAgKEZpZ3VyZSBcQHJlZihmaWc6RklHLUJBUi1HUkFQSC1QUk9QLVNUQUNLRUQtQkFSKSk6DQoNCmBge3IgRklHLUJBUi1HUkFQSC1QUk9QLVNUQUNLRUQtQkFSLCBmaWcuY2FwPSJQcm9wb3J0aW9uYWwgc3RhY2tlZCBiYXIgZ3JhcGgiLCBmaWcuaGVpZ2h0PTMuNX0NCmxpYnJhcnkoZ2Nvb2tib29rKSAjIExvYWQgZ2Nvb2tib29rIGZvciB0aGUgY2FiYmFnZV9leHAgZGF0YSBzZXQNCg0KZ2dwbG90KGNhYmJhZ2VfZXhwLCBhZXMoeCA9IERhdGUsIHkgPSBXZWlnaHQsIGZpbGwgPSBDdWx0aXZhcikpICsNCiAgZ2VvbV9jb2wocG9zaXRpb24gPSAiZmlsbCIpDQpgYA0KDQoNCiMjIyBEaXNjdXNzaW9uDQoNCldpdGggYHBvc2l0aW9uID0gImZpbGwiYCwgdGhlIHkgdmFsdWVzIHdpbGwgYmUgc2NhbGVkIHRvIGdvIGZyb20gMCB0byAxLiBUbyBwcmludCB0aGUgbGFiZWxzIGFzIHBlcmNlbnRhZ2VzLCB1c2UgYHNjYWxlX3lfY29udGludW91cyhsYWJlbHMgPSBzY2FsZXM6OnBlcmNlbnQpYC4NCg0KYGB7ciBldmFsPUZBTFNFfQ0KZ2dwbG90KGNhYmJhZ2VfZXhwLCBhZXMoeCA9IERhdGUsIHkgPSBXZWlnaHQsIGZpbGwgPSBDdWx0aXZhcikpICsNCiAgZ2VvbV9jb2wocG9zaXRpb24gPSAiZmlsbCIpICsNCiAgc2NhbGVfeV9jb250aW51b3VzKGxhYmVscyA9IHNjYWxlczo6cGVyY2VudCkNCmBgDQoNCj4gKipOb3RlKioNCj4NCj4gVXNpbmcgYHNjYWxlczo6cGVyY2VudGAgaXMgYSB3YXkgb2YgdXNpbmcgdGhlIGBwZXJjZW50YCBmdW5jdGlvbiBmcm9tIHRoZSBzY2FsZXMgcGFja2FnZS4gWW91IGNvdWxkIGluc3RlYWQgZG8gYGxpYnJhcnkoc2NhbGVzKWAgYW5kIHRoZW4ganVzdCB1c2UgYHNjYWxlX3lfY29udGludW91cyhsYWJlbHMgPSBwZXJjZW50KWAuIFRoaXMgd291bGQgYWxzbyBtYWtlIGFsbCBvZiB0aGUgZnVuY3Rpb25zIGZyb20gc2NhbGVzIGF2YWlsYWJsZSBpbiB0aGUgY3VycmVudCBSIHNlc3Npb24uDQoNClRvIG1ha2UgdGhlIG91dHB1dCBsb29rIGEgbGl0dGxlIG5pY2VyLCB5b3UgY2FuIGNoYW5nZSB0aGUgY29sb3IgcGFsZXR0ZSBhbmQgYWRkIGFuIG91dGxpbmUuIFRoaXMgaXMgc2hvd24gaW4gKEZpZ3VyZSBcQHJlZihmaWc6RklHLUJBUi1HUkFQSC1QUk9QLVNUQUNLRUQtQkFSLUZJTkFMKSk6DQoNCmBge3IgRklHLUJBUi1HUkFQSC1QUk9QLVNUQUNLRUQtQkFSLUZJTkFMLCBmaWcuY2FwPSJQcm9wb3J0aW9uYWwgc3RhY2tlZCBiYXIgZ3JhcGggd2l0aCByZXZlcnNlZCBsZWdlbmQsIG5ldyBwYWxldHRlLCBhbmQgYmxhY2sgb3V0bGluZSIsIGZpZy5oZWlnaHQ9My41fQ0KZ2dwbG90KGNhYmJhZ2VfZXhwLCBhZXMoeCA9IERhdGUsIHkgPSBXZWlnaHQsIGZpbGwgPSBDdWx0aXZhcikpICsNCiAgZ2VvbV9jb2woY29sb3VyID0gImJsYWNrIiwgcG9zaXRpb24gPSAiZmlsbCIpICsNCiAgc2NhbGVfeV9jb250aW51b3VzKGxhYmVscyA9IHNjYWxlczo6cGVyY2VudCkgKw0KICBzY2FsZV9maWxsX2JyZXdlcihwYWxldHRlID0gIlBhc3RlbDEiKQ0KYGANCg0KSW5zdGVhZCBvZiBoYXZpbmcgZ2dwbG90MiBjb21wdXRlIHRoZSBwcm9wb3J0aW9ucyBhdXRvbWF0aWNhbGx5LCB5b3UgbWF5IHdhbnQgdG8gY29tcHV0ZSB0aGUgcHJvcG9ydGlvbmFsIHZhbHVlcyB5b3Vyc2VsZi4gVGhpcyBjYW4gYmUgdXNlZnVsIGlmIHlvdSB3YW50IHRvIHVzZSB0aG9zZSB2YWx1ZXMgaW4gb3RoZXIgY29tcHV0YXRpb25zLg0KDQpUbyBkbyB0aGlzLCBmaXJzdCBzY2FsZSB0aGUgZGF0YSB0byAxMDAlIHdpdGhpbiBlYWNoIHN0YWNrLiBUaGlzIGNhbiBiZSBkb25lIGJ5IHVzaW5nIGBncm91cF9ieSgpYCB0b2dldGhlciB3aXRoIGBtdXRhdGUoKWAgZnJvbSB0aGUgZHBseXIgcGFja2FnZS4NCg0KYGB7cn0NCmxpYnJhcnkoZ2Nvb2tib29rKQ0KbGlicmFyeShkcGx5cikNCg0KY2FiYmFnZV9leHANCg0KIyBEbyBhIGdyb3VwLXdpc2UgdHJhbnNmb3JtKCksIHNwbGl0dGluZyBvbiAiRGF0ZSINCmNlIDwtIGNhYmJhZ2VfZXhwICU+JQ0KICBncm91cF9ieShEYXRlKSAlPiUNCiAgbXV0YXRlKHBlcmNlbnRfd2VpZ2h0ID0gV2VpZ2h0IC8gc3VtKFdlaWdodCkgKiAxMDApDQoNCmNlDQpgYA0KDQpUbyBjYWxjdWxhdGUgdGhlIHBlcmNlbnRhZ2VzIHdpdGhpbiBlYWNoIGBXZWlnaHRgIGdyb3VwLCB3ZSB1c2VkIGRwbHlyJ3MgYGdyb3VwX2J5KClgIGFuZCBgbXV0YXRlKClgIGZ1bmN0aW9ucy4gSW4gdGhlIGV4YW1wbGUgaGVyZSwgdGhlIGBncm91cF9ieSgpYCBmdW5jdGlvbiB0ZWxscyBkcGx5ciB0aGF0IGZ1dHVyZSBvcGVyYXRpb25zIHNob3VsZCBvcGVyYXRlIG9uIHRoZSBkYXRhIGZyYW1lIGFzIHRob3VnaCBpdCB3ZXJlIHNwbGl0IHVwIGludG8gZ3JvdXBzLCBvbiB0aGUgYERhdGVgIGNvbHVtbi4gVGhlIGBtdXRhdGUoKWAgZnVuY3Rpb24gdGVsbHMgaXQgdG8gY2FsY3VsYXRlIGEgbmV3IGNvbHVtbiwgZGl2aWRpbmcgZWFjaCByb3cncyBgV2VpZ2h0YCB2YWx1ZSBieSB0aGUgc3VtIG9mIHRoZSBgV2VpZ2h0YCBjb2x1bW4gKndpdGhpbiBlYWNoIGdyb3VwKi4NCg0KPiAqKk5vdGUqKg0KPg0KPiBZb3UgbWF5IGhhdmUgbm90aWNlZCB0aGF0IGBjYWJiYWdlX2V4cGAgYW5kIGBjZWAgcHJpbnQgb3V0IGRpZmZlcmVudGx5LiBUaGlzIGlzIGJlY2F1c2UgYGNhYmJhZ2VfZXhwYCBpcyBhIHJlZ3VsYXIgZGF0YSBmcmFtZSwgd2hpbGUgYGNlYCBpcyBhICp0aWJibGUqLCB3aGljaCBpcyBhIGRhdGEgZnJhbWUgd2l0aCBzb21lIGV4dHJhIHByb3BlcnRpZXMuIFRoZSBkcGx5ciBwYWNrYWdlIGNyZWF0ZXMgdGliYmxlcy4gRm9yIG1vcmUgaW5mb3JtYXRpb24sIHNlZSBDaGFwdGVyIFxAcmVmKENIQVBURVItREFUQVBSRVApLg0KDQpBZnRlciBjb21wdXRpbmcgdGhlIG5ldyBjb2x1bW4sIG1ha2luZyB0aGUgZ3JhcGggaXMgdGhlIHNhbWUgYXMgd2l0aCBhIHJlZ3VsYXIgc3RhY2tlZCBiYXIgZ3JhcGguDQoNCmBge3IgZXZhbD1GQUxTRX0NCmdncGxvdChjZSwgYWVzKHggPSBEYXRlLCB5ID0gcGVyY2VudF93ZWlnaHQsIGZpbGwgPSBDdWx0aXZhcikpICsNCiAgZ2VvbV9jb2woKQ0KYGANCg0KIyMjIFNlZSBBbHNvDQoNCkZvciBtb3JlIG9uIHRyYW5zZm9ybWluZyBkYXRhIGJ5IGdyb3Vwcywgc2VlIFJlY2lwZSBcQHJlZihSRUNJUEUtREFUQVBSRVAtQ0FMQ1VMQVRFLUdST1VQKS4NCg0KDQpBZGRpbmcgTGFiZWxzIHRvIGEgQmFyIEdyYXBoIHsjUkVDSVBFLUJBUi1HUkFQSC1MQUJFTFN9DQotLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tDQoNCiMjIyBQcm9ibGVtDQoNCllvdSB3YW50IHRvIGFkZCBsYWJlbHMgdG8gdGhlIGJhcnMgaW4gYSBiYXIgZ3JhcGguDQoNCiMjIyBTb2x1dGlvbg0KDQpBZGQgYGdlb21fdGV4dCgpYCB0byB5b3VyIGdyYXBoLiBJdCByZXF1aXJlcyBhIG1hcHBpbmcgZm9yIHgsIHksIGFuZCB0aGUgdGV4dCBpdHNlbGYuIEJ5IHNldHRpbmcgYHZqdXN0YCAodGhlIHZlcnRpY2FsIGp1c3RpZmljYXRpb24pLCBpdCBpcyBwb3NzaWJsZSB0byBtb3ZlIHRoZSB0ZXh0IGFib3ZlIG9yIGJlbG93IHRoZSB0b3BzIG9mIHRoZSBiYXJzLCBhcyBzaG93biBpbiBGaWd1cmUgXEByZWYoZmlnOkZJRy1CQVItR1JBUEgtTEFCRUwpOg0KDQpgYHtyIEZJRy1CQVItR1JBUEgtTEFCRUwsIGZpZy5zaG93PSJob2xkIiwgZmlnLmNhcD0iTGFiZWxzIHVuZGVyIHRoZSB0b3BzIG9mIGJhcnMgKGxlZnQpOyBMYWJlbHMgYWJvdmUgYmFycyAocmlnaHQpIiwgZmlnLmhlaWdodD0zLjV9DQpsaWJyYXJ5KGdjb29rYm9vaykgIyBMb2FkIGdjb29rYm9vayBmb3IgdGhlIGNhYmJhZ2VfZXhwIGRhdGEgc2V0DQoNCiMgQmVsb3cgdGhlIHRvcA0KZ2dwbG90KGNhYmJhZ2VfZXhwLCBhZXMoeCA9IGludGVyYWN0aW9uKERhdGUsIEN1bHRpdmFyKSwgeSA9IFdlaWdodCkpICsNCiAgZ2VvbV9jb2woKSArDQogIGdlb21fdGV4dChhZXMobGFiZWwgPSBXZWlnaHQpLCB2anVzdCA9IDEuNSwgY29sb3VyID0gIndoaXRlIikNCg0KIyBBYm92ZSB0aGUgdG9wDQpnZ3Bsb3QoY2FiYmFnZV9leHAsIGFlcyh4ID0gaW50ZXJhY3Rpb24oRGF0ZSwgQ3VsdGl2YXIpLCB5ID0gV2VpZ2h0KSkgKw0KICBnZW9tX2NvbCgpICsNCiAgZ2VvbV90ZXh0KGFlcyhsYWJlbCA9IFdlaWdodCksIHZqdXN0ID0gLTAuMikNCmBgDQoNCk5vdGljZSB0aGF0IHdoZW4gdGhlIGxhYmVscyBhcmUgcGxhY2VkIGF0b3AgdGhlIGJhcnMsIHRoZXkgbWF5IGJlIGNsaXBwZWQuIFRvIHJlbWVkeSB0aGlzLCBzZWUgUmVjaXBlIFxAcmVmKFJFQ0lQRS1BWEVTLVJBTkdFKS4NCg0KDQpBbm90aGVyIGNvbW1vbiBzY2VuYXJpbyBpcyB0byBhZGQgbGFiZWxzIGZvciBhIGJhciBncmFwaCBvZiAqY291bnRzKiBpbnN0ZWFkIG9mIHZhbHVlcy4gVG8gZG8gdGhpcywgdXNlIGBnZW9tX2JhcigpYCwgd2hpY2ggYWRkcyBiYXJzIHdob3NlIGhlaWdodCBpcyBwcm9wb3J0aW9uYWwgdG8gdGhlIG51bWJlciBvZiByb3dzLCBhbmQgdGhlbiB1c2UgYGdlb21fdGV4dCgpYCB3aXRoIGNvdW50czoNCg0KYGB7ciBGSUctQkFSLUdSQVBILUNPVU5ULUxBQkVMLCBmaWcuY2FwPSJCYXIgZ3JhcGggb2YgY291bnRzIHdpdGggbGFiZWxzIHVuZGVyIHRoZSB0b3BzIG9mIGJhcnMiLCBmaWcud2lkdGg9NCwgZmlnLmhlaWdodD0zLjV9DQpnZ3Bsb3QobXRjYXJzLCBhZXMoeCA9IGZhY3RvcihjeWwpKSkgKw0KICBnZW9tX2JhcigpICsNCiAgZ2VvbV90ZXh0KGFlcyhsYWJlbCA9IC4uY291bnQuLiksIHN0YXQgPSAiY291bnQiLCB2anVzdCA9IDEuNSwgY29sb3VyID0gIndoaXRlIikNCmBgDQoNCldlIG5lZWRlZCB0byB0ZWxsIGBnZW9tX3RleHQoKWAgdG8gdXNlIHRoZSBgImNvdW50ImAgc3RhdGlzdGljIHRvIGNvbXB1dGUgdGhlIG51bWJlciBvZiByb3dzIGZvciBlYWNoIHggdmFsdWUsIGFuZCB0aGVuLCB0byB1c2UgdGhvc2UgY29tcHV0ZWQgY291bnRzIGFzIHRoZSBsYWJlbHMsIHdlIHRvbGQgaXQgdG8gdXNlIHRoZSBhZXN0aGV0aWMgbWFwcGluZyBgYWVzKGxhYmVsID0gLi5jb3VudC4uKWAuDQoNCg0KIyMjIERpc2N1c3Npb24NCg0KSW4gRmlndXJlIFxAcmVmKGZpZzpGSUctQkFSLUdSQVBILUxBQkVMKSwgdGhlICp5KiBjb29yZGluYXRlcyBvZiB0aGUgbGFiZWxzIGFyZSBjZW50ZXJlZCBhdCB0aGUgdG9wIG9mIGVhY2ggYmFyOyBieSBzZXR0aW5nIHRoZSB2ZXJ0aWNhbCBqdXN0aWZpY2F0aW9uIChgdmp1c3RgKSwgdGhleSBhcHBlYXIgYmVsb3cgb3IgYWJvdmUgdGhlIGJhciB0b3BzLiBPbmUgZHJhd2JhY2sgb2YgdGhpcyBpcyB0aGF0IHdoZW4gdGhlIGxhYmVsIGlzIGFib3ZlIHRoZSB0b3Agb2YgdGhlIGJhciwgaXQgY2FuIGdvIG9mZiB0aGUgdG9wIG9mIHRoZSBwbG90dGluZyBhcmVhLiBUbyBmaXggdGhpcywgeW91IGNhbiBtYW51YWxseSBzZXQgdGhlICp5KiBsaW1pdHMsIG9yIHlvdSBjYW4gc2V0IHRoZSAqeSogcG9zaXRpb25zIG9mIHRoZSB0ZXh0ICphYm92ZSogdGhlIGJhcnMgYW5kIG5vdCBjaGFuZ2UgdGhlIHZlcnRpY2FsIGp1c3RpZmljYXRpb24uIE9uZSBkcmF3YmFjayB0byBjaGFuZ2luZyB0aGUgdGV4dCdzICp5KiBwb3NpdGlvbiBpcyB0aGF0IGlmIHlvdSB3YW50IHRvIHBsYWNlIHRoZSB0ZXh0IGZ1bGx5IGFib3ZlIG9yIGJlbG93IHRoZSBiYXIgdG9wLCB0aGUgdmFsdWUgdG8gYWRkIHdpbGwgZGVwZW5kIG9uIHRoZSAqeSogcmFuZ2Ugb2YgdGhlIGRhdGE7IGluIGNvbnRyYXN0LCBjaGFuZ2luZyBgdmp1c3RgIHRvIGEgZGlmZmVyZW50IHZhbHVlIHdpbGwgYWx3YXlzIG1vdmUgdGhlIHRleHQgdGhlIHNhbWUgZGlzdGFuY2UgcmVsYXRpdmUgdG8gdGhlIGhlaWdodCBvZiB0aGUgYmFyOg0KDQpgYHtyLCBldmFsPUZBTFNFfQ0KIyBBZGp1c3QgeSBsaW1pdHMgdG8gYmUgYSBsaXR0bGUgaGlnaGVyDQpnZ3Bsb3QoY2FiYmFnZV9leHAsIGFlcyh4ID0gaW50ZXJhY3Rpb24oRGF0ZSwgQ3VsdGl2YXIpLCB5ID0gV2VpZ2h0KSkgKw0KICBnZW9tX2NvbCgpICsNCiAgZ2VvbV90ZXh0KGFlcyhsYWJlbCA9IFdlaWdodCksIHZqdXN0ID0gLTAuMikgKw0KICB5bGltKDAsIG1heChjYWJiYWdlX2V4cCRXZWlnaHQpICogMS4wNSkNCg0KIyBNYXAgeSBwb3NpdGlvbnMgc2xpZ2h0bHkgYWJvdmUgYmFyIHRvcCAtIHkgcmFuZ2Ugb2YgcGxvdCB3aWxsIGF1dG8tYWRqdXN0DQpnZ3Bsb3QoY2FiYmFnZV9leHAsIGFlcyh4ID0gaW50ZXJhY3Rpb24oRGF0ZSwgQ3VsdGl2YXIpLCB5ID0gV2VpZ2h0KSkgKw0KICBnZW9tX2NvbCgpICsNCiAgZ2VvbV90ZXh0KGFlcyh5ID0gV2VpZ2h0ICsgMC4xLCBsYWJlbCA9IFdlaWdodCkpDQpgYA0KDQpGb3IgZ3JvdXBlZCBiYXIgZ3JhcGhzLCB5b3UgYWxzbyBuZWVkIHRvIHNwZWNpZnkgcG9zaXRpb249cG9zaXRpb25fZG9kZ2UoKSBhbmQgZ2l2ZSBpdCBhIHZhbHVlIGZvciB0aGUgZG9kZ2luZyB3aWR0aC4gVGhlIGRlZmF1bHQgZG9kZ2Ugd2lkdGggaXMgMC45LiBCZWNhdXNlIHRoZSBiYXJzIGFyZSBuYXJyb3dlciwgeW91IG1pZ2h0IG5lZWQgdG8gdXNlIHNpemUgdG8gc3BlY2lmeSBhIHNtYWxsZXIgZm9udCB0byBtYWtlIHRoZSBsYWJlbHMgZml0LiBUaGUgZGVmYXVsdCB2YWx1ZSBvZiBzaXplIGlzIDUsIHNvIHdlJ2xsIG1ha2UgaXQgc21hbGxlciBieSB1c2luZyAzIChGaWd1cmUgXEByZWYoZmlnOkZJRy1CQVItTEFCRUwtR1JPVVBFRCkpOg0KDQpgYHtyIEZJRy1CQVItTEFCRUwtR1JPVVBFRCwgZmlnLmNhcD0iTGFiZWxzIG9uIGdyb3VwZWQgYmFycyIsIGZpZy5oZWlnaHQ9My41fQ0KZ2dwbG90KGNhYmJhZ2VfZXhwLCBhZXMoeCA9IERhdGUsIHkgPSBXZWlnaHQsIGZpbGwgPSBDdWx0aXZhcikpICsNCiAgZ2VvbV9jb2wocG9zaXRpb24gPSAiZG9kZ2UiKSArDQogIGdlb21fdGV4dCgNCiAgICBhZXMobGFiZWwgPSBXZWlnaHQpLA0KICAgIGNvbG91ciA9ICJ3aGl0ZSIsIHNpemUgPSAzLA0KICAgIHZqdXN0ID0gMS41LCBwb3NpdGlvbiA9IHBvc2l0aW9uX2RvZGdlKC45KQ0KICApDQpgYA0KDQpQdXR0aW5nIGxhYmVscyBvbiBzdGFja2VkIGJhciBncmFwaHMgcmVxdWlyZXMgZmluZGluZyB0aGUgY3VtdWxhdGl2ZSBzdW0gZm9yIGVhY2ggc3RhY2suIFRvIGRvIHRoaXMsIGZpcnN0IG1ha2Ugc3VyZSB0aGUgZGF0YSBpcyBzb3J0ZWQgcHJvcGVybHkgLS0gaWYgaXQgaXNuJ3QsIHRoZSBjdW11bGF0aXZlIHN1bSBtaWdodCBiZSBjYWxjdWxhdGVkIGluIHRoZSB3cm9uZyBvcmRlci4gV2UnbGwgdXNlIHRoZSBgYXJyYW5nZSgpYCBmdW5jdGlvbiBmcm9tIHRoZSBkcGx5ciBwYWNrYWdlLiBOb3RlIHRoYXQgd2UgaGF2ZSB0byB1c2UgdGhlIGByZXYoKWAgZnVuY3Rpb24gdG8gcmV2ZXJzZSB0aGUgb3JkZXIgb2YgYEN1bHRpdmFyYDoNCg0KYGB7cn0NCmxpYnJhcnkoZHBseXIpDQoNCiMgU29ydCBieSB0aGUgRGF0ZSBhbmQgQ3VsdGl2YXIgY29sdW1ucw0KY2UgPC0gY2FiYmFnZV9leHAgJT4lDQogIGFycmFuZ2UoRGF0ZSwgcmV2KEN1bHRpdmFyKSkNCmBgDQoNCk9uY2Ugd2UgbWFrZSBzdXJlIHRoZSBkYXRhIGlzIHNvcnRlZCBwcm9wZXJseSwgd2UnbGwgdXNlIGBncm91cF9ieSgpYCB0byBjaHVuayBpdCBpbnRvIGdyb3VwcyBieSBgRGF0ZWAsIHRoZW4gY2FsY3VsYXRlIGEgY3VtdWxhdGl2ZSBzdW0gb2YgYFdlaWdodGAgd2l0aGluIGVhY2ggY2h1bms6DQoNCmBge3IgRklHLUJBUi1MQUJFTC1TVEFDS0VELCBmaWcuY2FwPSJMYWJlbHMgb24gc3RhY2tlZCBiYXJzIiwgZmlnLmhlaWdodD0zLjV9DQojIEdldCB0aGUgY3VtdWxhdGl2ZSBzdW0NCmNlIDwtIGNlICU+JQ0KICBncm91cF9ieShEYXRlKSAlPiUNCiAgbXV0YXRlKGxhYmVsX3kgPSBjdW1zdW0oV2VpZ2h0KSkNCg0KY2UNCg0KZ2dwbG90KGNlLCBhZXMoeCA9IERhdGUsIHkgPSBXZWlnaHQsIGZpbGwgPSBDdWx0aXZhcikpICsNCiAgZ2VvbV9jb2woKSArDQogIGdlb21fdGV4dChhZXMoeSA9IGxhYmVsX3ksIGxhYmVsID0gV2VpZ2h0KSwgdmp1c3QgPSAxLjUsIGNvbG91ciA9ICJ3aGl0ZSIpDQpgYA0KDQpUaGUgcmVzdWx0IGlzIHNob3duIGluIEZpZ3VyZSBcQHJlZihmaWc6RklHLUJBUi1MQUJFTC1TVEFDS0VEKS4NCg0KV2hlbiB1c2luZyBsYWJlbHMsIGNoYW5nZXMgdG8gdGhlIHN0YWNraW5nIG9yZGVyIGFyZSBiZXN0IGRvbmUgYnkgbW9kaWZ5aW5nIHRoZSBvcmRlciBvZiBsZXZlbHMgaW4gdGhlIGZhY3RvciAoc2VlIFJlY2lwZSBcQHJlZihSRUNJUEUtREFUQVBSRVAtRkFDVE9SLVJFT1JERVIpKSBiZWZvcmUgdGFraW5nIHRoZSBjdW11bGF0aXZlIHN1bS4gVGhlIG90aGVyIG1ldGhvZCBvZiBjaGFuZ2luZyBzdGFja2luZyBvcmRlciwgYnkgc3BlY2lmeWluZyBicmVha3MgaW4gYSBzY2FsZSwgd29uJ3Qgd29yayBwcm9wZXJseSwgYmVjYXVzZSB0aGUgb3JkZXIgb2YgdGhlIGN1bXVsYXRpdmUgc3VtIHdvbid0IGJlIHRoZSBzYW1lIGFzIHRoZSBzdGFja2luZyBvcmRlci4NCg0KVG8gcHV0IHRoZSBsYWJlbHMgaW4gdGhlIG1pZGRsZSBvZiBlYWNoIGJhciAoRmlndXJlIFxAcmVmKGZpZzpGSUctQkFSLUxBQkVMLVNUQUNLRUQtTUlERExFKSksIHRoZXJlIG11c3QgYmUgYW4gYWRqdXN0bWVudCB0byB0aGUgY3VtdWxhdGl2ZSBzdW0sIGFuZCB0aGUgKnkqIG9mZnNldCBpbiBgZ2VvbV9iYXIoKWAgY2FuIGJlIHJlbW92ZWQ6DQoNCmBge3IgRklHLUJBUi1MQUJFTC1TVEFDS0VELU1JRERMRSwgZmlnLmNhcD0iTGFiZWxzIGluIHRoZSBtaWRkbGUgb2Ygc3RhY2tlZCBiYXJzIiwgZmlnLmhlaWdodD0zLjV9DQpjZSA8LSBjYWJiYWdlX2V4cCAlPiUNCiAgYXJyYW5nZShEYXRlLCByZXYoQ3VsdGl2YXIpKQ0KDQojIENhbGN1bGF0ZSB5IHBvc2l0aW9uLCBwbGFjaW5nIGl0IGluIHRoZSBtaWRkbGUNCmNlIDwtIGNlICU+JQ0KICBncm91cF9ieShEYXRlKSAlPiUNCiAgbXV0YXRlKGxhYmVsX3kgPSBjdW1zdW0oV2VpZ2h0KSAtIDAuNSAqIFdlaWdodCkNCg0KZ2dwbG90KGNlLCBhZXMoeCA9IERhdGUsIHkgPSBXZWlnaHQsIGZpbGwgPSBDdWx0aXZhcikpICsNCiAgZ2VvbV9jb2woKSArDQogIGdlb21fdGV4dChhZXMoeSA9IGxhYmVsX3ksIGxhYmVsID0gV2VpZ2h0KSwgY29sb3VyID0gIndoaXRlIikNCmBgDQoNCkZvciBhIG1vcmUgcG9saXNoZWQgZ3JhcGggKEZpZ3VyZSBcQHJlZihmaWc6RklHLUJBUi1MQUJFTC1TVEFDS0VELUZJTkFMKSksIHdlJ2xsIGNoYW5nZSB0aGUgY29sb3JzLCBhZGQgbGFiZWxzIGluIHRoZSBtaWRkbGUgd2l0aCBhIHNtYWxsZXIgZm9udCB1c2luZyBgc2l6ZWAsIGFkZCBhICJrZyIgc3VmZml4IHVzaW5nIGBwYXN0ZWAsIGFuZCBtYWtlIHN1cmUgdGhlcmUgYXJlIGFsd2F5cyB0d28gZGlnaXRzIGFmdGVyIHRoZSBkZWNpbWFsIHBvaW50IGJ5IHVzaW5nIGBmb3JtYXQoKWA6DQoNCmBge3IgRklHLUJBUi1MQUJFTC1TVEFDS0VELUZJTkFMLCBmaWcuY2FwPSJDdXN0b21pemVkIHN0YWNrZWQgYmFyIGdyYXBoIHdpdGggbGFiZWxzIiwgZmlnLmhlaWdodD0zLjV9DQpnZ3Bsb3QoY2UsIGFlcyh4ID0gRGF0ZSwgeSA9IFdlaWdodCwgZmlsbCA9IEN1bHRpdmFyKSkgKw0KICBnZW9tX2NvbChjb2xvdXIgPSAiYmxhY2siKSArDQogIGdlb21fdGV4dChhZXMoeSA9IGxhYmVsX3ksIGxhYmVsID0gcGFzdGUoZm9ybWF0KFdlaWdodCwgbnNtYWxsID0gMiksICJrZyIpKSwgc2l6ZSA9IDQpICsNCiAgc2NhbGVfZmlsbF9icmV3ZXIocGFsZXR0ZSA9ICJQYXN0ZWwxIikNCmBgDQoNCiMjIyBTZWUgQWxzbw0KDQpUbyBjb250cm9sIHRoZSBhcHBlYXJhbmNlIG9mIHRoZSB0ZXh0LCBzZWUgUmVjaXBlIFxAcmVmKFJFQ0lQRS1BUFBFQVJBTkNFLVRFWFQtQVBQRUFSQU5DRSkuDQoNCkZvciBtb3JlIG9uIHRyYW5zZm9ybWluZyBkYXRhIGJ5IGdyb3Vwcywgc2VlIFJlY2lwZSBcQHJlZihSRUNJUEUtREFUQVBSRVAtQ0FMQ1VMQVRFLUdST1VQKS4NCg0KDQpNYWtpbmcgYSBDbGV2ZWxhbmQgRG90IFBsb3QgeyNSRUNJUEUtQkFSLUdSQVBILURPVC1QTE9UfQ0KLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tDQoNCiMjIyBQcm9ibGVtDQoNCllvdSB3YW50IHRvIG1ha2UgYSBDbGV2ZWxhbmQgZG90IHBsb3QuDQoNCiMjIyBTb2x1dGlvbg0KDQpDbGV2ZWxhbmQgZG90IHBsb3RzIGFyZSBhbiBhbHRlcm5hdGl2ZSB0byBiYXIgZ3JhcGhzIHRoYXQgcmVkdWNlIHZpc3VhbCBjbHV0dGVyIGFuZCBjYW4gYmUgZWFzaWVyIHRvIHJlYWQuDQoNClRoZSBzaW1wbGVzdCB3YXkgdG8gY3JlYXRlIGEgZG90IHBsb3QgKGFzIHNob3duIGluIEZpZ3VyZSBcQHJlZihmaWc6RklHLUJBUi1HUkFQSC1ET1RQTE9UKSkgaXMgdG8gdXNlIGBnZW9tX3BvaW50KClgOg0KDQpgYHtyIEZJRy1CQVItR1JBUEgtRE9UUExPVCwgZmlnLmNhcD0iQmFzaWMgZG90IHBsb3QiLCBmaWcud2lkdGggPSA0LCBmaWcuaGVpZ2h0PTUsIG91dC53aWR0aD0iNTAlIn0NCmxpYnJhcnkoZ2Nvb2tib29rKSAjIExvYWQgZ2Nvb2tib29rIGZvciB0aGUgdG9waGl0dGVyczIwMDEgZGF0YSBzZXQNCnRvcGhpdCA8LSB0b3BoaXR0ZXJzMjAwMVsxOjI1LCBdICMgVGFrZSB0aGUgdG9wIDI1IGZyb20gdGhlIHRvcGhpdHRlcnMgZGF0YSBzZXQNCg0KZ2dwbG90KHRvcGhpdCwgYWVzKHggPSBhdmcsIHkgPSBuYW1lKSkgKw0KICBnZW9tX3BvaW50KCkNCmBgDQoNCiMjIyBEaXNjdXNzaW9uDQoNClRoZSBgdG9waGl0dGVyczIwMDFgIGRhdGEgc2V0IGNvbnRhaW5zIG1hbnkgY29sdW1ucywgYnV0IHdlJ2xsIGZvY3VzIG9uIGp1c3QgdGhyZWUgb2YgdGhlbSBmb3IgdGhpcyBleGFtcGxlOg0KDQpgYHtyfQ0KdG9waGl0WywgYygibmFtZSIsICJsZyIsICJhdmciKV0NCmBgDQoNCkluIEZpZ3VyZSBcQHJlZihmaWc6RklHLUJBUi1HUkFQSC1ET1RQTE9UKSB0aGUgbmFtZXMgYXJlIHNvcnRlZCBhbHBoYWJldGljYWxseSwgd2hpY2ggaXNuJ3QgdmVyeSB1c2VmdWwgaW4gdGhpcyBncmFwaC4gRG90IHBsb3RzIGFyZSBvZnRlbiBzb3J0ZWQgYnkgdGhlIHZhbHVlIG9mIHRoZSBjb250aW51b3VzIHZhcmlhYmxlIG9uIHRoZSBob3Jpem9udGFsIGF4aXMuDQoNCkFsdGhvdWdoIHRoZSByb3dzIG9mIGB0b3BoaXRgIGhhcHBlbiB0byBiZSBzb3J0ZWQgYnkgYGF2Z2AsIHRoYXQgZG9lc24ndCBtZWFuIHRoYXQgdGhlIGl0ZW1zIHdpbGwgYmUgb3JkZXJlZCB0aGF0IHdheSBpbiB0aGUgZ3JhcGguIEJ5IGRlZmF1bHQsIHRoZSBpdGVtcyBvbiB0aGUgZ2l2ZW4gYXhpcyB3aWxsIGJlIG9yZGVyZWQgaG93ZXZlciBpcyBhcHByb3ByaWF0ZSBmb3IgdGhlIGRhdGEgdHlwZS4gYG5hbWVgIGlzIGEgY2hhcmFjdGVyIHZlY3Rvciwgc28gaXQncyBvcmRlcmVkIGFscGhhYmV0aWNhbGx5LiBJZiBpdCB3ZXJlIGEgZmFjdG9yLCBpdCB3b3VsZCB1c2UgdGhlIG9yZGVyIGRlZmluZWQgaW4gdGhlIGZhY3RvciBsZXZlbHMuIEluIHRoaXMgY2FzZSwgd2Ugd2FudCBgbmFtZWAgdG8gYmUgc29ydGVkIGJ5IGEgZGlmZmVyZW50IHZhcmlhYmxlLCBgYXZnYC4NCg0KVG8gZG8gdGhpcywgd2UgY2FuIHVzZSBgcmVvcmRlcihuYW1lLCBhdmcpYCwgd2hpY2ggdGFrZXMgdGhlIG5hbWUgY29sdW1uLCB0dXJucyBpdCBpbnRvIGEgZmFjdG9yLCBhbmQgc29ydHMgdGhlIGZhY3RvciBsZXZlbHMgYnkgYGF2Z2AuIFRvIGZ1cnRoZXIgaW1wcm92ZSB0aGUgYXBwZWFyYW5jZSwgd2UnbGwgbWFrZSB0aGUgdmVydGljYWwgZ3JpZCBsaW5lcyBnbyBhd2F5IGJ5IHVzaW5nIHRoZSB0aGVtaW5nIHN5c3RlbSwgYW5kIHR1cm4gdGhlIGhvcml6b250YWwgZ3JpZCBsaW5lcyBpbnRvIGRhc2hlZCBsaW5lcyAoRmlndXJlIFxAcmVmKGZpZzpGSUctQkFSLUdSQVBILURPVFBMT1QtT1JERVJFRCkpOg0KDQpgYHtyIEZJRy1CQVItR1JBUEgtRE9UUExPVC1PUkRFUkVELCBmaWcuY2FwPSJEb3QgcGxvdCwgb3JkZXJlZCBieSBiYXR0aW5nIGF2ZXJhZ2UiLCBmaWcud2lkdGg9NCwgZmlnLmhlaWdodD01LCBvdXQud2lkdGg9IjUwJSJ9DQpnZ3Bsb3QodG9waGl0LCBhZXMoeCA9IGF2ZywgeSA9IHJlb3JkZXIobmFtZSwgYXZnKSkpICsNCiAgZ2VvbV9wb2ludChzaXplID0gMykgKyAgIyBVc2UgYSBsYXJnZXIgZG90DQogIHRoZW1lX2J3KCkgKw0KICB0aGVtZSgNCiAgICBwYW5lbC5ncmlkLm1ham9yLnggPSBlbGVtZW50X2JsYW5rKCksDQogICAgcGFuZWwuZ3JpZC5taW5vci54ID0gZWxlbWVudF9ibGFuaygpLA0KICAgIHBhbmVsLmdyaWQubWFqb3IueSA9IGVsZW1lbnRfbGluZShjb2xvdXIgPSAiZ3JleTYwIiwgbGluZXR5cGUgPSAiZGFzaGVkIikNCiAgKQ0KYGANCg0KSXQncyBhbHNvIHBvc3NpYmxlIHRvIHN3YXAgdGhlIGF4ZXMgc28gdGhhdCB0aGUgbmFtZXMgZ28gYWxvbmcgdGhlIHgtYXhpcyBhbmQgdGhlIHZhbHVlcyBnbyBhbG9uZyB0aGUgeS1heGlzLCBhcyBzaG93biBpbiBGaWd1cmUgXEByZWYoZmlnOkZJRy1CQVItR1JBUEgtRE9UUExPVC1PUkRFUkVELVNXQVApLiBXZSdsbCBhbHNvIHJvdGF0ZSB0aGUgdGV4dCBsYWJlbHMgYnkgNjAgZGVncmVlczoNCg0KYGB7ciBGSUctQkFSLUdSQVBILURPVFBMT1QtT1JERVJFRC1TV0FQLCBmaWcuY2FwPSJEb3QgcGxvdCB3aXRoIG5hbWVzIG9uIHgtYXhpcyBhbmQgdmFsdWVzIG9uIHktYXhpcyIsIGZpZy53aWR0aD02LCBmaWcuaGVpZ2h0PTQsIG91dC53aWR0aD0iODAlIn0NCmdncGxvdCh0b3BoaXQsIGFlcyh4ID0gcmVvcmRlcihuYW1lLCBhdmcpLCB5ID0gYXZnKSkgKw0KICBnZW9tX3BvaW50KHNpemUgPSAzKSArICAjIFVzZSBhIGxhcmdlciBkb3QNCiAgdGhlbWVfYncoKSArDQogIHRoZW1lKA0KICAgIHBhbmVsLmdyaWQubWFqb3IueSA9IGVsZW1lbnRfYmxhbmsoKSwNCiAgICBwYW5lbC5ncmlkLm1pbm9yLnkgPSBlbGVtZW50X2JsYW5rKCksDQogICAgcGFuZWwuZ3JpZC5tYWpvci54ID0gZWxlbWVudF9saW5lKGNvbG91ciA9ICJncmV5NjAiLCBsaW5ldHlwZSA9ICJkYXNoZWQiKSwNCiAgICBheGlzLnRleHQueCA9IGVsZW1lbnRfdGV4dChhbmdsZSA9IDYwLCBoanVzdCA9IDEpDQogICkNCmBgDQoNCkl0J3MgYWxzbyBzb21ldGltZXMgZGVzaXJhYmxlIHRvIGdyb3VwIHRoZSBpdGVtcyBieSBhbm90aGVyIHZhcmlhYmxlLiBJbiB0aGlzIGNhc2Ugd2UnbGwgdXNlIHRoZSBmYWN0b3IgYGxnYCwgd2hpY2ggaGFzIHRoZSBsZXZlbHMgYE5MYCBhbmQgYEFMYCwgcmVwcmVzZW50aW5nIHRoZSBOYXRpb25hbCBMZWFndWUgYW5kIHRoZSBBbWVyaWNhbiBMZWFndWUuIFRoaXMgdGltZSB3ZSB3YW50IHRvIHNvcnQgZmlyc3QgYnkgYGxnYCBhbmQgdGhlbiBieSBgYXZnYC4gVW5mb3J0dW5hdGVseSwgdGhlIGByZW9yZGVyKClgIGZ1bmN0aW9uIHdpbGwgb25seSBvcmRlciBmYWN0b3IgbGV2ZWxzIGJ5IG9uZSBvdGhlciB2YXJpYWJsZTsgdG8gb3JkZXIgdGhlIGZhY3RvciBsZXZlbHMgYnkgdHdvIHZhcmlhYmxlcywgd2UgbXVzdCBkbyBpdCBtYW51YWxseToNCg0KYGB7cn0NCiMgR2V0IHRoZSBuYW1lcywgc29ydGVkIGZpcnN0IGJ5IGxnLCB0aGVuIGJ5IGF2Zw0KbmFtZW9yZGVyIDwtIHRvcGhpdCRuYW1lW29yZGVyKHRvcGhpdCRsZywgdG9waGl0JGF2ZyldDQoNCiMgVHVybiBuYW1lIGludG8gYSBmYWN0b3IsIHdpdGggbGV2ZWxzIGluIHRoZSBvcmRlciBvZiBuYW1lb3JkZXINCnRvcGhpdCRuYW1lIDwtIGZhY3Rvcih0b3BoaXQkbmFtZSwgbGV2ZWxzID0gbmFtZW9yZGVyKQ0KYGANCg0KVG8gbWFrZSB0aGUgZ3JhcGggKEZpZ3VyZSBcQHJlZihmaWc6RklHLUJBUi1HUkFQSC1ET1RQTE9ULU9SREVSRUQyKSksIHdlJ2xsIGFsc28gYWRkIGEgbWFwcGluZyBvZiBgbGdgIHRvIHRoZSBjb2xvciBvZiB0aGUgcG9pbnRzLiBJbnN0ZWFkIG9mIHVzaW5nIGdyaWQgbGluZXMgdGhhdCBydW4gYWxsIHRoZSB3YXkgYWNyb3NzLCB0aGlzIHRpbWUgd2UnbGwgbWFrZSB0aGUgbGluZXMgZ28gb25seSB1cCB0byB0aGUgcG9pbnRzLCBieSB1c2luZyBgZ2VvbV9zZWdtZW50KClgLiBOb3RlIHRoYXQgYGdlb21fc2VnbWVudCgpYCBuZWVkcyB2YWx1ZXMgZm9yIGB4YCwgYHlgLCBgeGVuZGAsIGFuZCBgeWVuZGA6DQoNCmBge3IgRklHLUJBUi1HUkFQSC1ET1RQTE9ULU9SREVSRUQyLCBmaWcuY2FwPSJHcm91cGVkIGJ5IGxlYWd1ZSwgd2l0aCBsaW5lcyB0aGF0IHN0b3AgYXQgdGhlIHBvaW50IiwgZmlnLndpZHRoPTQsIGZpZy5oZWlnaHQ9Niwgb3V0LndpZHRoPSI1MCUifQ0KZ2dwbG90KHRvcGhpdCwgYWVzKHggPSBhdmcsIHkgPSBuYW1lKSkgKw0KICBnZW9tX3NlZ21lbnQoYWVzKHllbmQgPSBuYW1lKSwgeGVuZCA9IDAsIGNvbG91ciA9ICJncmV5NTAiKSArDQogIGdlb21fcG9pbnQoc2l6ZSA9IDMsIGFlcyhjb2xvdXIgPSBsZykpICsNCiAgc2NhbGVfY29sb3VyX2JyZXdlcihwYWxldHRlID0gIlNldDEiLCBsaW1pdHMgPSBjKCJOTCIsICJBTCIpKSArDQogIHRoZW1lX2J3KCkgKw0KICB0aGVtZSgNCiAgICBwYW5lbC5ncmlkLm1ham9yLnkgPSBlbGVtZW50X2JsYW5rKCksICAgIyBObyBob3Jpem9udGFsIGdyaWQgbGluZXMNCiAgICBsZWdlbmQucG9zaXRpb24gPSBjKDEsIDAuNTUpLCAgICAgICAgICAgIyBQdXQgbGVnZW5kIGluc2lkZSBwbG90IGFyZWENCiAgICBsZWdlbmQuanVzdGlmaWNhdGlvbiA9IGMoMSwgMC41KQ0KICApDQpgYA0KDQpBbm90aGVyIHdheSB0byBzZXBhcmF0ZSB0aGUgdHdvIGdyb3VwcyBpcyB0byB1c2UgZmFjZXRzLCBhcyBzaG93biBpbiBGaWd1cmUgXEByZWYoZmlnOkZJRy1CQVItR1JBUEgtRE9UUExPVC1PUkRFUkVEMi1GQUNFVCkuIFRoZSBvcmRlciBpbiB3aGljaCB0aGUgZmFjZXRzIGFyZSBkaXNwbGF5ZWQgaXMgZGlmZmVyZW50IGZyb20gdGhlIHNvcnRpbmcgb3JkZXIgaW4gRmlndXJlIFxAcmVmKGZpZzpGSUctQkFSLUdSQVBILURPVFBMT1QtT1JERVJFRDIpOyB0byBjaGFuZ2UgdGhlIGRpc3BsYXkgb3JkZXIsIHlvdSBtdXN0IGNoYW5nZSB0aGUgb3JkZXIgb2YgZmFjdG9yIGxldmVscyBpbiB0aGUgYGxnYCB2YXJpYWJsZToNCg0KYGB7ciBGSUctQkFSLUdSQVBILURPVFBMT1QtT1JERVJFRDItRkFDRVQsIGZpZy5jYXA9IkZhY2V0ZWQgYnkgbGVhZ3VlIiwgZmlnLndpZHRoPTQsIGZpZy5oZWlnaHQ9Niwgb3V0LndpZHRoPSI1MCUifQ0KZ2dwbG90KHRvcGhpdCwgYWVzKHggPSBhdmcsIHkgPSBuYW1lKSkgKw0KICBnZW9tX3NlZ21lbnQoYWVzKHllbmQgPSBuYW1lKSwgeGVuZCA9IDAsIGNvbG91ciA9ICJncmV5NTAiKSArDQogIGdlb21fcG9pbnQoc2l6ZSA9IDMsIGFlcyhjb2xvdXIgPSBsZykpICsNCiAgc2NhbGVfY29sb3VyX2JyZXdlcihwYWxldHRlID0gIlNldDEiLCBsaW1pdHMgPSBjKCJOTCIsICJBTCIpLCBndWlkZSA9IEZBTFNFKSArDQogIHRoZW1lX2J3KCkgKw0KICB0aGVtZShwYW5lbC5ncmlkLm1ham9yLnkgPSBlbGVtZW50X2JsYW5rKCkpICsNCiAgZmFjZXRfZ3JpZChsZyB+IC4sIHNjYWxlcyA9ICJmcmVlX3kiLCBzcGFjZSA9ICJmcmVlX3kiKQ0KYGANCg0KIyMjIFNlZSBBbHNvDQoNCkZvciBtb3JlIG9uIGNoYW5naW5nIHRoZSBvcmRlciBvZiBmYWN0b3IgbGV2ZWxzLCBzZWUgUmVjaXBlIFxAcmVmKFJFQ0lQRS1EQVRBUFJFUC1GQUNUT1ItUkVPUkRFUikuIEFsc28gc2VlIFJlY2lwZSBcQHJlZihSRUNJUEUtREFUQVBSRVAtRkFDVE9SLVJFT1JERVItVkFMVUUpIGZvciBkZXRhaWxzIG9uIGNoYW5naW5nIHRoZSBvcmRlciBvZiBmYWN0b3IgbGV2ZWxzIGJhc2VkIG9uIHNvbWUgb3RoZXIgdmFsdWVzLg0KDQpGb3IgbW9yZSBvbiBtb3ZpbmcgdGhlIGxlZ2VuZCwgc2VlIFJlY2lwZSBcQHJlZihSRUNJUEUtTEVHRU5ELVBPU0lUSU9OKS4gVG8gaGlkZSBncmlkIGxpbmVzLCBzZWUgUmVjaXBlIFxAcmVmKFJFQ0lQRS1BUFBFQVJBTkNFLUhJREUtR1JJRExJTkVTKS4NCg==" download="graphs.Rmd">Download graphs.Rmd</a>
+<a href="data:text/plain;base64,eGFyaW5nYW5FeHRyYTo6dXNlX2NsaXBib2FyZCgpDQoNCiMjICMgcmVtZW1iZXIgYHRpZHl2ZXJzZWAgaXMgZHBseXIsIHRpZHlyLCBnZ3Bsb3QyIGFuZCBhIG51bWJlciBvZiBvdGhlciBwYWNrYWdlcw0KIyMgaW5zdGFsbC5wYWNrYWdlcygidGlkeXZlcnNlIikNCiMjIGluc3RhbGwucGFja2FnZXMoImdjb29rYm9vayIpDQoNCmxpYnJhcnkodGlkeXZlcnNlKQ0KbGlicmFyeShnY29va2Jvb2spDQoNCiMjIGxpYnJhcnkoZ2dwbG90MikNCiMjIGxpYnJhcnkoZHBseXIpDQojIyBsaWJyYXJ5KGdjb29rYm9vaykNCg0Kc2ltcGxlZGF0DQoNCmJhcnBsb3Qoc2ltcGxlZGF0LCBiZXNpZGUgPSBUUlVFKQ0KDQp0KHNpbXBsZWRhdCkNCg0KYmFycGxvdCh0KHNpbXBsZWRhdCksIGJlc2lkZT1UUlVFKQ0KDQpwbG90KHNpbXBsZWRhdFsxLF0sIHR5cGU9ImwiKQ0KbGluZXMoc2ltcGxlZGF0WzIsXSwgdHlwZT0ibCIsIGNvbD0iYmx1ZSIpDQoNCnNpbXBsZWRhdC5sb25nPC0gZGF0YS5mcmFtZShzaW1wbGVkYXQpICU+JQ0KICB0aWJibGU6OnJvd25hbWVzX3RvX2NvbHVtbih2YXIgPSAiQnZhbCIpICU+JQ0KICBwaXZvdF9sb25nZXIgKA0KICAgIGNvbHM9IC1CdmFsLA0KICAgIG5hbWVzX3RvID0gIkF2YWwiLA0KICAgIHZhbHVlc190byA9ICJ2YWx1ZXMiKQ0KDQpnZ3Bsb3Qoc2ltcGxlZGF0X2xvbmcsIGFlcyh4ID0gQXZhbCwgeSA9IHZhbHVlLCBmaWxsID0gQnZhbCkpICsNCiAgICBnZW9tX2NvbChwb3NpdGlvbiA9ICJkb2RnZSIpDQoNCmdncGxvdChzaW1wbGVkYXRfbG9uZywgYWVzKHggPSBCdmFsLCB5ID0gdmFsdWUsIGZpbGwgPSBBdmFsKSkgKw0KICAgIGdlb21fY29sKHBvc2l0aW9uID0gImRvZGdlIikNCg0KZ2dwbG90KHNpbXBsZWRhdF9sb25nLCBhZXMoeCA9IEF2YWwsIHkgPSB2YWx1ZSwgY29sb3VyID0gQnZhbCwgZ3JvdXAgPSBCdmFsKSkgKw0KICAgIGdlb21fbGluZSgpDQoNCmtuaXRyOjppbmNsdWRlX2dyYXBoaWNzKCJpbGx1c3RyYXRpb25zL2dncGxvdF8xLnBuZyIpDQoNCmtuaXRyOjppbmNsdWRlX2dyYXBoaWNzKCJpbGx1c3RyYXRpb25zL2dncGxvdF8yLnBuZyIpDQoNCmRhdCA8LSBkYXRhLmZyYW1lKA0KICB4dmFsID0gMTo0LA0KICB5dmFsPWMoMywgNSwgNiwgOSksDQogIGdyb3VwPWMoIkEiLCJCIiwiQSIsIkIiKQ0KKQ0KDQpkYXQNCg0KZ2dwbG90KGRhdCwgYWVzKHggPSB4dmFsLCB5ID0geXZhbCkpDQoNCmdncGxvdChkYXQsIGFlcyh4ID0geHZhbCwgeSA9IHl2YWwpKSArDQogIGdlb21fcG9pbnQoKQ0KDQpwIDwtIGdncGxvdChkYXQsIGFlcyh4ID0geHZhbCwgeSA9IHl2YWwpKQ0KcCArDQogIGdlb21fcG9pbnQoKQ0KDQpwICsNCiAgZ2VvbV9wb2ludChhZXMoY29sb3VyID0gZ3JvdXApKQ0KDQpwICsNCiAgZ2VvbV9wb2ludChjb2xvdXIgPSAiYmx1ZSIpDQoNCnAgKw0KICBnZW9tX3BvaW50KCkgKw0KICBzY2FsZV94X2NvbnRpbnVvdXMobGltaXRzID0gYygwLCA4KSkNCg0KcCArDQogIGdlb21fcG9pbnQoYWVzKGNvbG91ciA9IGdyb3VwKSkgKw0KICBzY2FsZV9jb2xvdXJfbWFudWFsKHZhbHVlcyA9IGMoIm9yYW5nZSIsICJmb3Jlc3RncmVlbiIpKQ0KDQojIE1vdG9yIFRyZW5kIENhciBSb2FkIFRlc3RzDQojID9tdGNhcnMNCnBsb3QobXRjYXJzJHd0LCBtdGNhcnMkbXBnKQ0KDQpnZ3Bsb3QobXRjYXJzLCBhZXMoeCA9IHd0LCB5ID0gbXBnKSkgKw0KICBnZW9tX3BvaW50KCkNCg0KZ2dwbG90KGRhdGEgPSBOVUxMLCBhZXMoeCA9IG10Y2FycyR3dCwgeSA9IG10Y2FycyRtcGcpKSArDQogIGdlb21fcG9pbnQoKQ0KDQpwbG90KHByZXNzdXJlJHRlbXBlcmF0dXJlLCBwcmVzc3VyZSRwcmVzc3VyZSwgdHlwZSA9ICJsIikNCg0KcGxvdChwcmVzc3VyZSR0ZW1wZXJhdHVyZSwgcHJlc3N1cmUkcHJlc3N1cmUsIHR5cGUgPSAibCIpDQpwb2ludHMocHJlc3N1cmUkdGVtcGVyYXR1cmUsIHByZXNzdXJlJHByZXNzdXJlKQ0KDQpsaW5lcyhwcmVzc3VyZSR0ZW1wZXJhdHVyZSwgcHJlc3N1cmUkcHJlc3N1cmUvMiwgY29sID0gInJlZCIpDQpwb2ludHMocHJlc3N1cmUkdGVtcGVyYXR1cmUsIHByZXNzdXJlJHByZXNzdXJlLzIsIGNvbCA9ICJyZWQiKQ0KDQpnZ3Bsb3QocHJlc3N1cmUsIGFlcyh4ID0gdGVtcGVyYXR1cmUsIHkgPSBwcmVzc3VyZSkpICsNCiAgZ2VvbV9saW5lKCkNCg0KZ2dwbG90KHByZXNzdXJlLCBhZXMoeCA9IHRlbXBlcmF0dXJlLCB5ID0gcHJlc3N1cmUpKSArDQogIGdlb21fbGluZSgpICsNCiAgZ2VvbV9wb2ludCgpDQoNCiMgQmlvY2hlbWljYWwgT3h5Z2VuIERlbWFuZA0KIyA/Qk9EIA0KDQpiYXJwbG90KEJPRCRkZW1hbmQsIG5hbWVzLmFyZyA9IEJPRCRUaW1lKQ0KDQpiYXJwbG90KHRhYmxlKG10Y2FycyRjeWwpKQ0KDQojIEJhciBncmFwaCBvZiB2YWx1ZXMuIFRoaXMgdXNlcyB0aGUgQk9EIGRhdGEgZnJhbWUsIHdpdGggdGhlDQojICJUaW1lIiBjb2x1bW4gZm9yIHggdmFsdWVzIGFuZCB0aGUgImRlbWFuZCIgY29sdW1uIGZvciB5IHZhbHVlcy4NCmdncGxvdChCT0QsIGFlcyh4ID0gVGltZSwgeSA9IGRlbWFuZCkpICsNCiAgZ2VvbV9jb2woKQ0KIyBDb252ZXJ0IHRoZSB4IHZhcmlhYmxlIHRvIGEgZmFjdG9yLCBzbyB0aGF0IGl0IGlzIHRyZWF0ZWQgYXMgZGlzY3JldGUNCmdncGxvdChCT0QsIGFlcyh4ID0gZmFjdG9yKFRpbWUpLCB5ID0gZGVtYW5kKSkgKw0KICBnZW9tX2NvbCgpDQoNCiMgQmFyIGdyYXBoIG9mIGNvdW50cyB1c2luZyB0aGUgbXRjYXJzIGRhdGEgZnJhbWUsIHdpdGggdGhlICJjeWwiIGNvbHVtbiBmb3INCiMgeCBwb3NpdGlvbi4gVGhlIHkgcG9zaXRpb24gaXMgY2FsY3VsYXRlZCBieSBjb3VudGluZyB0aGUgbnVtYmVyIG9mIHJvd3MgZm9yDQojIGVhY2ggdmFsdWUgb2YgY3lsLg0KDQpnZ3Bsb3QobXRjYXJzLCBhZXMoeCA9IGN5bCkpICsNCiAgZ2VvbV9iYXIoKQ0KDQojIEJhciBncmFwaCBvZiBjb3VudHMNCmdncGxvdChtdGNhcnMsIGFlcyh4ID0gZmFjdG9yKGN5bCkpKSArDQogIGdlb21fYmFyKCkNCg0KaGlzdChtdGNhcnMkbXBnKQ0KIyBTcGVjaWZ5IGFwcHJveGltYXRlIG51bWJlciBvZiBiaW5zIHdpdGggYnJlYWtzDQpoaXN0KG10Y2FycyRtcGcsIGJyZWFrcyA9IDEwKQ0KDQpnZ3Bsb3QobXRjYXJzLCBhZXMoeCA9IG1wZykpICsNCiAgZ2VvbV9oaXN0b2dyYW0oKQ0KDQojIFdpdGggd2lkZXIgYmlucw0KZ2dwbG90KG10Y2FycywgYWVzKHggPSBtcGcpKSArDQogIGdlb21faGlzdG9ncmFtKGJpbndpZHRoID0gNCkNCg0KIyBUaGUgRWZmZWN0IG9mIFZpdGFtaW4gQyBvbiBUb290aCBHcm93dGggaW4gR3VpbmVhIFBpZ3MNCiMgP1Rvb3RoR3Jvd3RoDQpwbG90KFRvb3RoR3Jvd3RoJHN1cHAsIFRvb3RoR3Jvd3RoJGxlbikNCg0KIyBGb3JtdWxhIHN5bnRheA0KYm94cGxvdChsZW4gfiBzdXBwLCBkYXRhID0gVG9vdGhHcm93dGgpDQoNCiMgUHV0IGludGVyYWN0aW9uIG9mIHR3byB2YXJpYWJsZXMgb24geC1heGlzDQpib3hwbG90KGxlbiB+IHN1cHAgKyBkb3NlLCBkYXRhID0gVG9vdGhHcm93dGgpDQoNCmdncGxvdChUb290aEdyb3d0aCwgYWVzKHggPSBzdXBwLCB5ID0gbGVuKSkgKw0KICBnZW9tX2JveHBsb3QoKQ0KDQpnZ3Bsb3QoVG9vdGhHcm93dGgsIGFlcyh4ID0gaW50ZXJhY3Rpb24oc3VwcCwgZG9zZSksIHkgPSBsZW4pKSArDQogIGdlb21fYm94cGxvdCgpDQoNCmN1cnZlKHheMyAtIDUqeCwgZnJvbSA9IC00LCB0byA9IDQpDQoNCiMgUGxvdCBhIHVzZXItZGVmaW5lZCBmdW5jdGlvbg0KbXlmdW4gPC0gZnVuY3Rpb24oeHZhcikgew0KICAxIC8gKDEgKyBleHAoLXh2YXIgKyAxMCkpDQp9DQpjdXJ2ZShteWZ1bih4KSwgZnJvbSA9IDAsIHRvID0gMjApDQojIEFkZCBhIGxpbmU6DQpjdXJ2ZSgxIC0gbXlmdW4oeCksIGFkZCA9IFRSVUUsIGNvbCA9ICJyZWQiKQ0KDQojIFRoaXMgc2V0cyB0aGUgeCByYW5nZSBmcm9tIDAgdG8gMjANCmdncGxvdChkYXRhLmZyYW1lKHggPSBjKDAsIDIwKSksIGFlcyh4ID0geCkpICsNCiAgc3RhdF9mdW5jdGlvbihmdW4gPSBteWZ1biwgZ2VvbSA9ICJsaW5lIikNCg0KIyA/cGdfbWVhbg0KZ2dwbG90KHBnX21lYW4sIGFlcyh4ID0gZ3JvdXAsIHkgPSB3ZWlnaHQpKSArDQogIGdlb21fY29sKCkNCg0KZ2dwbG90KHBnX21lYW4sIGFlcyh4ID0gZ3JvdXAsIHkgPSB3ZWlnaHQpKSArDQogIGdlb21fY29sKGZpbGwgPSAibGlnaHRibHVlIiwgY29sb3VyID0gImJsYWNrIikNCg0KZ2dwbG90KGNhYmJhZ2VfZXhwLCBhZXMoeCA9IERhdGUsIHkgPSBXZWlnaHQsIGZpbGwgPSBDdWx0aXZhcikpICsNCiAgZ2VvbV9jb2wocG9zaXRpb24gPSAiZG9kZ2UiKQ0KDQpnZ3Bsb3QoY2FiYmFnZV9leHAsIGFlcyh4ID0gRGF0ZSwgeSA9IFdlaWdodCwgZmlsbCA9IEN1bHRpdmFyKSkgKw0KICBnZW9tX2NvbChwb3NpdGlvbiA9ICJkb2RnZSIsIGNvbG91ciA9ICJibGFjayIpICsNCiAgc2NhbGVfZmlsbF9icmV3ZXIocGFsZXR0ZSA9ICJQYXN0ZWwxIikgKw0KICB4bGFiKCJEYXRlIikNCiAgDQogICMgc2NhbGVfZmlsbF9tYW51YWwodmFsdWVzID0gYygiIzY2OTkzMyIsICIjRkZDQzY2IikpIA0KDQpjbGltYXRlX3N1YiA8LSBjbGltYXRlICU+JQ0KICBmaWx0ZXIoU291cmNlID09ICJCZXJrZWxleSIgJiBZZWFyID49IDE5MDApICU+JQ0KICBtdXRhdGUocG9zID0gQW5vbWFseTEweSA+PSAwKQ0KDQpnZ3Bsb3QoY2xpbWF0ZV9zdWIsIGFlcyh4ID0gWWVhciwgeSA9IEFub21hbHkxMHksIGZpbGwgPSBwb3MpKSArDQogIGdlb21fY29sKHBvc2l0aW9uID0gImlkZW50aXR5IiwgY29sb3VyID0gImJsYWNrIiwgbGluZXdpZHRoID0gMC4yNSkgKw0KICBzY2FsZV9maWxsX21hbnVhbCh2YWx1ZXMgPSBjKCIjQ0NFRUZGIiwgIiNGRkREREQiKSwgZ3VpZGUgPSBGQUxTRSkNCg0K" download="graphs.R">Download graphs.R</a>
+<hr />
+<p><em>This section of the course is largely extracted from <strong>R
+graphics Cookbook</strong> by Winston Chang available <a
+href="https://r-graphics.org/">HERE</a>.</em></p>
+<p>Simple plots can easily be produced with the plotting functions in
+<code>base</code> R. These are installed by default with R and do not
+require any additional packages to be installed. They’re quick to type,
+straightforward to use in simple cases, and run very quickly.</p>
+<p>If you want to do anything beyond very simple plots, though, it’s
+generally better to switch to ggplot2. This is in part because ggplot2
+provides a unified interface and set of options, instead of the grab bag
+of modifiers and special cases required in base graphics. Once you learn
+how ggplot2 works, you can use that knowledge for everything from
+scatter plots and histograms to violin plots and maps.</p>
+<p>In this section, we will illustrate how to make a graph with base
+graphics and how to make a similar graph with the ggplot() function in
+ggplot2. Having both of these examples side by side will help you
+transition to using ggplot2 for when you want to make more sophisticated
+graphics.</p>
+<div id="basics" class="section level1">
+<h1>Basics</h1>
+<div id="packages" class="section level2">
+<h2>Packages</h2>
+<p>Most of the recipes in this book require the <code>ggplot2</code>,
+<code>dplyr</code>, and <code>gcookbook</code> packages to be installed
+on your computer. (The <code>gcookbook</code> package contains data sets
+used in some of the examples, but is not necessary for doing your real
+work).</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="co"># remember `tidyverse` is dplyr, tidyr, ggplot2 and a number of other packages</span></span>
+<span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&quot;tidyverse&quot;</span>)</span>
+<span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&quot;gcookbook&quot;</span>)</span></code></pre></div>
+<p>Then, in each R session, before running the examples in this book,
+you can load them with:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code></pre></div>
+<pre><code>## Warning: package &#39;tidyverse&#39; was built under R version 4.3.3</code></pre>
+<pre><code>## Warning: package &#39;readr&#39; was built under R version 4.3.2</code></pre>
+<pre><code>## ── Attaching core tidyverse packages ────────────────────────────── tidyverse 2.0.0 ──
+## ✔ forcats   1.0.0     ✔ readr     2.1.4
+## ✔ lubridate 1.9.3     ✔ stringr   1.5.0
+## ✔ purrr     1.0.2     ✔ tibble    3.2.1
+## ── Conflicts ──────────────────────────────────────────────── tidyverse_conflicts() ──
+## ✖ dplyr::filter() masks stats::filter()
+## ✖ dplyr::lag()    masks stats::lag()
+## ℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors</code></pre>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" tabindex="-1"></a><span class="fu">library</span>(gcookbook)</span></code></pre></div>
+<p>If you want to keep your R session more streamlined and load only the
+packages that are strictly needed, you can load ggplot2 and dplyr
+packages individually:</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb7-2"><a href="#cb7-2" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb7-3"><a href="#cb7-3" tabindex="-1"></a><span class="fu">library</span>(gcookbook)</span></code></pre></div>
+</div>
+<div id="ggplot2" class="section level2">
+<h2><code>ggplot2</code></h2>
+<p>The <code>ggplot2</code> package was originally created by Hadley
+Wickham. It is not a part of <code>base</code> R, but it has attracted
+many users in the R community because of its versatility, clear and
+consistent interface, and beautiful output.</p>
+<p><code>ggplot2</code> takes a different approach to graphics than
+other plotting packages in R. It gets its name from Leland Wilkinson’s
+grammar of graphics, which provides a formal, structured perspective on
+how to describe data graphics.</p>
+<p>Even though, it doesn’t mean to say that it’s the be-all and end-all
+of graphics in R. For example, it is sometimes faster and easier to
+inspect and explore data with R’s base graphics, especially when the
+data isn’t already structured properly for use with ggplot2. There are
+some things that ggplot2 can’t do, or can’t do as well as other plotting
+packages. There are other things that ggplot2 can do, but that
+specialized packages are better suited to handling. For most purposes,
+though, I believe that ggplot2 gives the best return on time invested,
+and it provides beautiful, publication-ready results.</p>
+<p>Another excellent package for general-purpose plots is
+<code>lattice</code>, by Deepyan Sarkar, which is an implementation of
+trellis graphics. It is included as part of the base installation of
+R.</p>
+<div id="background" class="section level3">
+<h3>Background</h3>
+<p>In a data graphic, there is a mapping (or correspondence) from
+properties of the data to visual properties in the graphic. The data
+properties are typically numerical or categorical values, while the
+visual properties include the x and y positions of points, colors of
+lines, heights of bars, and so on. A data visualization that didn’t map
+the data to visual properties wouldn’t be a data visualization. On the
+surface, representing a number with an x coordinate may seem very
+different from representing a number with a color of a point, but at an
+abstract level, they are the same. Everyone who has made data graphics
+has at least an implicit understanding of this. For most of us, that’s
+where our understanding remains.</p>
+<p>In the grammar of graphics, this deep similarity is not just
+recognized, but made central. In R’s base graphics functions, each
+mapping of data properties to visual properties is its own special case,
+and changing the mappings may require restructuring your data, issuing
+completely different plotting commands, or both.</p>
+<p>To illustrate, I’ll show a graph made from the <code>simpledat</code>
+data set from the <code>gcookbook</code> package:</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" tabindex="-1"></a>simpledat</span></code></pre></div>
+<pre><code>##    A1 A2 A3
+## B1 10  7 12
+## B2  9 11  6</code></pre>
+<p>The following will make a simple grouped bar plot, with the As going
+along the x-axis and the bars grouped by the Bs:</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" tabindex="-1"></a><span class="fu">barplot</span>(simpledat, <span class="at">beside =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<p><img src="graphs_files/figure-html/unnamed-chunk-9-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>One thing we might want to do is switch things up so the Bs go along
+the x-axis and the As are used for grouping. To do this, we need to
+restructure the data by transposing the matrix:</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" tabindex="-1"></a><span class="fu">t</span>(simpledat)</span></code></pre></div>
+<pre><code>##    B1 B2
+## A1 10  9
+## A2  7 11
+## A3 12  6</code></pre>
+<p>With the restructured data, we can create the plot the same way as
+before</p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" tabindex="-1"></a><span class="fu">barplot</span>(<span class="fu">t</span>(simpledat), <span class="at">beside=</span><span class="cn">TRUE</span>)</span></code></pre></div>
+<p><img src="graphs_files/figure-html/unnamed-chunk-11-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>Another thing we might want to do is to represent the data with lines
+instead of bars. To do this with base graphics, we need to use a
+completely different set of commands. First we call <code>plot()</code>,
+which tells R to create a new plot and draw a line for one row of data.
+Then we tell it to draw a second row with <code>lines()</code>:</p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" tabindex="-1"></a><span class="fu">plot</span>(simpledat[<span class="dv">1</span>,], <span class="at">type=</span><span class="st">&quot;l&quot;</span>)</span>
+<span id="cb14-2"><a href="#cb14-2" tabindex="-1"></a><span class="fu">lines</span>(simpledat[<span class="dv">2</span>,], <span class="at">type=</span><span class="st">&quot;l&quot;</span>, <span class="at">col=</span><span class="st">&quot;blue&quot;</span>)</span></code></pre></div>
+<p><img src="graphs_files/figure-html/unnamed-chunk-12-1.png" width="672" style="display: block; margin: auto;" />
+The resulting plot has a few quirks. The second (blue) line runs below
+the visible range, because the y range was set only for the first line,
+when the <code>plot()</code> function was called. Additionally, the
+x-axis is numbered instead of categorical.</p>
+<p>Now let’s take a look at the corresponding code and plots with
+<code>ggplot2</code>. With <code>ggplot2</code>, the structure of the
+data is always the same: it requires a data frame in “long” format, as
+opposed to the “wide” format used previously. When the data is in long
+format, each row represents one item. Instead of having their groups
+determined by their positions in the matrix, the items have their groups
+specified in a separate column. Here is <code>simpledat</code>,
+converted to long format:</p>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" tabindex="-1"></a>simpledat.long<span class="ot">&lt;-</span> <span class="fu">data.frame</span>(simpledat) <span class="sc">%&gt;%</span></span>
+<span id="cb15-2"><a href="#cb15-2" tabindex="-1"></a>  tibble<span class="sc">::</span><span class="fu">rownames_to_column</span>(<span class="at">var =</span> <span class="st">&quot;Bval&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb15-3"><a href="#cb15-3" tabindex="-1"></a>  <span class="fu">pivot_longer</span> (</span>
+<span id="cb15-4"><a href="#cb15-4" tabindex="-1"></a>    <span class="at">cols=</span> <span class="sc">-</span>Bval,</span>
+<span id="cb15-5"><a href="#cb15-5" tabindex="-1"></a>    <span class="at">names_to =</span> <span class="st">&quot;Aval&quot;</span>,</span>
+<span id="cb15-6"><a href="#cb15-6" tabindex="-1"></a>    <span class="at">values_to =</span> <span class="st">&quot;values&quot;</span>)</span></code></pre></div>
+<p>This represents the same information, but with a different structure.
+Another term for it is tidy data, where each row represents one
+observation. There are advantages and disadvantages to this format, but
+on the whole, it makes things simpler when dealing with complicated data
+sets.</p>
+<p>To make the first grouped bar plot, we tell ggplot2 to map
+<code>Aval</code> to the <em>x</em> position, with
+<code>x = Aval</code>, and <code>Bval</code> to the fill color, with
+<code>fill = Bval</code>. This will make the <code>A</code>s run along
+the x-axis and the <code>B</code>s determine the grouping. We also tell
+it to map value to the y position, or height, of the bars, with
+<code>y = value</code>. Finally, we tell it to draw bars with
+<code>geom_col()</code> (don’t worry about the other details yet; we’ll
+get to those later):</p>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" tabindex="-1"></a><span class="fu">ggplot</span>(simpledat_long, <span class="fu">aes</span>(<span class="at">x =</span> Aval, <span class="at">y =</span> value, <span class="at">fill =</span> Bval)) <span class="sc">+</span></span>
+<span id="cb16-2"><a href="#cb16-2" tabindex="-1"></a>    <span class="fu">geom_col</span>(<span class="at">position =</span> <span class="st">&quot;dodge&quot;</span>)</span></code></pre></div>
+<p><img src="graphs_files/figure-html/unnamed-chunk-14-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>To switch things so that the <code>B</code>s go along the x-axis and
+the <code>A</code>s determine the grouping, we simply swap the mapping
+specification, with <code>x = Bval</code> and <code>fill = Aval</code>.
+Unlike with base graphics, we don’t have to change the data; we just
+change the commands for making the plot:</p>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" tabindex="-1"></a><span class="fu">ggplot</span>(simpledat_long, <span class="fu">aes</span>(<span class="at">x =</span> Bval, <span class="at">y =</span> value, <span class="at">fill =</span> Aval)) <span class="sc">+</span></span>
+<span id="cb17-2"><a href="#cb17-2" tabindex="-1"></a>    <span class="fu">geom_col</span>(<span class="at">position =</span> <span class="st">&quot;dodge&quot;</span>)</span></code></pre></div>
+<p><img src="graphs_files/figure-html/unnamed-chunk-15-1.png" width="672" style="display: block; margin: auto;" />
+&gt; You may have noticed that with <code>ggplot2</code>, components of
+the plot are combined with the <code>+</code> operator. You can
+gradually build up a ggplot object by adding components to it. Then,
+when you’re all done, you can tell it to print.</p>
+<p>To change it to a line plot, we’ll change <code>geom_col()</code> to
+<code>geom_line()</code>. We’ll also map <code>Bval</code> to the
+<em>line</em> color, with <code>colour</code>, instead of the
+<em>fill</em> colour (note the British spelling – the author of
+<code>ggplot2</code> is a Kiwi). Again, don’t worry about the other
+details yet:</p>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" tabindex="-1"></a><span class="fu">ggplot</span>(simpledat_long, <span class="fu">aes</span>(<span class="at">x =</span> Aval, <span class="at">y =</span> value, <span class="at">colour =</span> Bval, <span class="at">group =</span> Bval)) <span class="sc">+</span></span>
+<span id="cb18-2"><a href="#cb18-2" tabindex="-1"></a>    <span class="fu">geom_line</span>()</span></code></pre></div>
+<p><img src="graphs_files/figure-html/unnamed-chunk-16-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>With <code>base</code> graphics, we had to use completely different
+commands to make a line plot instead of a bar plot. With
+<code>ggplot2</code>, we just changed the <em>geom</em> from bars to
+lines. The resulting plot also has important differences from the base
+graphics version: the <em>y</em> range is automatically adjusted to fit
+all the data because all the lines are drawn together instead of one at
+a time, and the <em>x-axis</em> remains categorical instead of being
+converted to a numeric axis. The <code>ggplot2</code> plots also have
+automatically-generated legends.</p>
+<p>In summary, a plot in <code>ggplot2</code> consists of different
+<strong>primary layering components</strong>, with the three primary
+components being:</p>
+<ul>
+<li>The <strong>dataset</strong> that houses the data to be
+plotted;</li>
+<li>The <strong>aesthetics</strong> which describe how data are to be
+mapped to the geometric elements (color, shape, size, etc..);</li>
+<li>The <strong>geometric elements</strong> to use in the plot
+(i.e. points, lines, rectangles, etc…).</li>
+</ul>
+<p><strong>Additional (optional) layering components</strong>
+include:</p>
+<ul>
+<li><strong>Statistical</strong> elements such as smoothing, binning or
+transforming the variable</li>
+<li><strong>Facets</strong> for conditional or trellis plots</li>
+<li><strong>Coordinate systems</strong> for defining the plots shape
+(i.e. Cartesian, polar, spatial map projections, etc…)</li>
+</ul>
+<p>Using a long table:</p>
+<div class="figure" style="text-align: center">
+<img src="illustrations/ggplot_1.png" alt="Iris species data collection" width="100%" />
+<p class="caption">
+Iris species data collection
+</p>
+</div>
+<p>Then:</p>
+<div class="figure" style="text-align: center">
+<img src="illustrations/ggplot_2.png" alt="Iris species data collection" width="100%" />
+<p class="caption">
+Iris species data collection
+</p>
+</div>
+<p>If we want to plot lines instead of points, simply substitute the
+geometry type with the <code>geom_line</code> geometry.</p>
+</div>
+<div id="some-terminology-and-theory" class="section level3">
+<h3>Some Terminology and Theory</h3>
+<p>Before we go any further, it’ll be helpful to define some of the
+terminology used in <code>ggplot2</code>:</p>
+<ul>
+<li><p>The <em>data</em> is what we want to visualize. It consists of
+variables, which are stored as columns in a data frame.</p></li>
+<li><p><em>Geoms</em> are the geometric objects that are drawn to
+represent the data, such as bars, lines, and points.</p></li>
+<li><p>Aesthetic attributes, or <em>aesthetics</em>, are visual
+properties of geoms, such as x and y position, line color, point shapes,
+etc.</p></li>
+<li><p>There are <em>mappings</em> from data values to
+aesthetics.</p></li>
+<li><p><em>Scales</em> control the mapping from the values in the data
+space to values in the aesthetic space. A continuous y scale maps larger
+numerical values to vertically higher positions in space.</p></li>
+<li><p><em>Guides</em> show the viewer how to map the visual properties
+back to the data space. The most commonly used guides are the tick marks
+and labels on an axis.</p></li>
+</ul>
+<p>Here’s an example of how a typical mapping works. You have
+<em>data</em>, which is a set of numerical or categorical values. You
+have <em>geoms</em> to represent each observation. You have an
+<em>aesthetic</em>, such as y (vertical) position. And you have a
+<em>scale</em>, which defines the mapping from the data space (numeric
+values) to the aesthetic space (vertical position). A typical linear
+<em>y</em>-scale might map the value 0 to the baseline of the graph, 5
+to the middle, and 10 to the top. A logarithmic y scale would place them
+differently.</p>
+<p>These aren’t the only kinds of data and aesthetic spaces possible. In
+the abstract grammar of graphics, the data and aesthetics could be
+anything; in the ggplot2 implementation, there are some predetermined
+types of data and aesthetics. Commonly used data types include numeric
+values, categorical values, and text strings. Some commonly used
+aesthetics include horizontal and vertical position, color, size, and
+shape.</p>
+<p>To interpret the plot, viewers refer to the <em>guides</em>. An
+example of a guide is the <em>y</em>-axis, including the tick marks and
+labels. The viewer refers to this guide to interpret what it means when
+a point is in the middle of the scale. A <em>legend</em> is another type
+of scale. A legend might show people what it means for a point to be a
+circle or a triangle, or what it means for a line to be blue or red.</p>
+<p>Some aesthetics can only work with categorical variables, such as the
+shape of a point: triangles, circles, squares, etc. Some aesthetics work
+with categorical or continuous variables, such as <em>x</em>
+(horizontal) position. For a bar graph, the variable must be
+categorical-it would make no sense for there to be a continuous variable
+on the <em>x</em>-axis. For a scatter plot, the variable must be
+numeric. Both of these types of data (categorical and numeric) can be
+mapped to the aesthetic space of <em>x</em> position, but they require
+different types of scales.</p>
+<blockquote>
+<p>In ggplot2 terminology, categorical variables are called discrete,
+and numeric variables are called continuous. These terms may not always
+correspond to how they’re used elsewhere. Sometimes a variable that is
+continuous in the ggplot2 sense is discrete in the ordinary sense. For
+example, the number of visible sunspots must be an integer, so it’s
+numeric (continuous to <code>ggplot2</code>) and discrete (in ordinary
+language).</p>
+</blockquote>
+</div>
+<div id="building-a-simple-plot" class="section level3">
+<h3>Building a simple plot</h3>
+<p><code>ggplot2</code> has a simple requirement for data structures:
+they must be stored in data frames, and each type of variable that is
+mapped to an aesthetic must be stored in its own column. In the
+<code>simpledat</code> examples we looked at earlier, we first mapped
+one variable to the x aesthetic and another to the fill aesthetic; then
+we changed the mapping specification to change which variable was mapped
+to which aesthetic.</p>
+<p>We’ll walk through a simple example here. First, we’ll make a data
+frame of some sample data:</p>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" tabindex="-1"></a>dat <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb19-2"><a href="#cb19-2" tabindex="-1"></a>  <span class="at">xval =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>,</span>
+<span id="cb19-3"><a href="#cb19-3" tabindex="-1"></a>  <span class="at">yval=</span><span class="fu">c</span>(<span class="dv">3</span>, <span class="dv">5</span>, <span class="dv">6</span>, <span class="dv">9</span>),</span>
+<span id="cb19-4"><a href="#cb19-4" tabindex="-1"></a>  <span class="at">group=</span><span class="fu">c</span>(<span class="st">&quot;A&quot;</span>,<span class="st">&quot;B&quot;</span>,<span class="st">&quot;A&quot;</span>,<span class="st">&quot;B&quot;</span>)</span>
+<span id="cb19-5"><a href="#cb19-5" tabindex="-1"></a>)</span>
+<span id="cb19-6"><a href="#cb19-6" tabindex="-1"></a></span>
+<span id="cb19-7"><a href="#cb19-7" tabindex="-1"></a>dat</span></code></pre></div>
+<pre><code>##   xval yval group
+## 1    1    3     A
+## 2    2    5     B
+## 3    3    6     A
+## 4    4    9     B</code></pre>
+<p>A basic <code>ggplot()</code> specification looks like this.</p>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" tabindex="-1"></a><span class="fu">ggplot</span>(dat, <span class="fu">aes</span>(<span class="at">x =</span> xval, <span class="at">y =</span> yval))</span></code></pre></div>
+<p><img src="graphs_files/figure-html/unnamed-chunk-20-1.png" width="672" style="display: block; margin: auto;" />
+This creates a ggplot object using the dataframe <code>dat</code>. It
+also specifies default <em>aesthetic mappings</em> within
+<code>aes()</code>:</p>
+<ul>
+<li><p><code>x = xval</code> maps the column xval to the <em>x</em>
+position.</p></li>
+<li><p><code>y = yval</code> maps the column yval to the <em>y</em>
+position.</p></li>
+</ul>
+<p>After we’ve given ggplot the data frame and the aesthetic mappings,
+there’s one more critical component: we need to tell it what geometric
+objects to add. At this point, <code>ggplot2</code> doesn’t know if we
+want bars, lines, points, or something else to be drawn on the graph.
+We’ll add <code>geom_point()</code> to draw points, resulting in a
+scatter plot:</p>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" tabindex="-1"></a><span class="fu">ggplot</span>(dat, <span class="fu">aes</span>(<span class="at">x =</span> xval, <span class="at">y =</span> yval)) <span class="sc">+</span></span>
+<span id="cb22-2"><a href="#cb22-2" tabindex="-1"></a>  <span class="fu">geom_point</span>()</span></code></pre></div>
+<p><img src="graphs_files/figure-html/unnamed-chunk-21-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>If you’re going to reuse some of these components, you can store them
+in variables. We can save the ggplot object in <code>p</code>, and then
+add <code>geom_point()</code> to it. This has the same effect as the
+preceding code:</p>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(dat, <span class="fu">aes</span>(<span class="at">x =</span> xval, <span class="at">y =</span> yval))</span>
+<span id="cb23-2"><a href="#cb23-2" tabindex="-1"></a>p <span class="sc">+</span></span>
+<span id="cb23-3"><a href="#cb23-3" tabindex="-1"></a>  <span class="fu">geom_point</span>()</span></code></pre></div>
+<p><img src="graphs_files/figure-html/unnamed-chunk-22-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>We can also map the variable group to the color of the points, by
+putting <code>aes()</code> inside the call to <code>geom_point()</code>,
+and specifying <code>colour = group</code>:</p>
+<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" tabindex="-1"></a>p <span class="sc">+</span></span>
+<span id="cb24-2"><a href="#cb24-2" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">colour =</span> group))</span></code></pre></div>
+<p><img src="graphs_files/figure-html/unnamed-chunk-23-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>This doesn’t alter the <em>default</em> aesthetic mappings that we
+defined previously, inside of <code>ggplot(...)</code>. What it does is
+add an aesthetic mapping for this particular geom,
+<code>geom_point()</code>. If we added other geoms, this mapping would
+not apply to them.</p>
+<p>Contrast this <em>aesthetic</em> mapping with aesthetic
+<em>setting</em>. This time, we won’t use <code>aes()</code>; we’ll just
+set the value of colour directly:</p>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" tabindex="-1"></a>p <span class="sc">+</span></span>
+<span id="cb25-2"><a href="#cb25-2" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">colour =</span> <span class="st">&quot;blue&quot;</span>)</span></code></pre></div>
+<p><img src="graphs_files/figure-html/unnamed-chunk-24-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>We can also modify the <em>scales</em>; that is, the mappings from
+data to visual attributes. Here, we’ll change the x scale so that it has
+a larger range</p>
+<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" tabindex="-1"></a>p <span class="sc">+</span></span>
+<span id="cb26-2"><a href="#cb26-2" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb26-3"><a href="#cb26-3" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">8</span>))</span></code></pre></div>
+<p><img src="graphs_files/figure-html/unnamed-chunk-25-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>If we go back to the example with the <code>colour = group</code>
+mapping, we can also modify the color scale:</p>
+<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" tabindex="-1"></a>p <span class="sc">+</span></span>
+<span id="cb27-2"><a href="#cb27-2" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">colour =</span> group)) <span class="sc">+</span></span>
+<span id="cb27-3"><a href="#cb27-3" tabindex="-1"></a>  <span class="fu">scale_colour_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">&quot;orange&quot;</span>, <span class="st">&quot;forestgreen&quot;</span>))</span></code></pre></div>
+<p><img src="graphs_files/figure-html/unnamed-chunk-26-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>Both times when we modified the scale, the <em>guide</em> also
+changed. With the <em>x</em> scale, the guide was the markings along the
+x-axis. With the color scale, the guide was the legend.</p>
+<p>Notice that we’ve used <code>+</code> to join together the pieces. In
+this last example, we ended a line with <code>+</code>, then added more
+on the next line. If you are going to have multiple lines, you have to
+put the <code>+</code> at the end of each line, instead of at the
+beginning of the next line. Otherwise, R’s parser won’t know that
+there’s more stuff coming; it’ll think you’ve finished the expression
+and evaluate it.</p>
+</div>
+<div id="printing" class="section level3">
+<h3>Printing</h3>
+<p>In R’s base graphics, the graphing functions tell R to draw plots to
+the output device (the screen or a file). <code>ggplot2</code> is a
+little different. The commands don’t directly draw to the output device.
+Instead, the functions build plot <em>objects</em>, and the plots aren’t
+drawn until you use the <code>print()</code> function, as in
+<code>print(object)</code>. You might be thinking, “But wait, I haven’t
+told R to print anything, yet it’s made these plots!” Well, that’s not
+exactly true. In R, when you issue a command at the prompt, it really
+does two things: first it runs the command, then it calls
+<code>print()</code> with the result returned from that command.</p>
+<p>The behavior at the interactive R prompt is different from when you
+run a script or function. In scripts, commands aren’t automatically
+printed. The same is true for functions, but with a slight catch: the
+result of the last command in a function is returned, so if you call the
+function from the R prompt, the result of that last command will be
+printed because it’s the result of the function.</p>
+</div>
+<div id="stats" class="section level3">
+<h3>Stats</h3>
+<p>Sometimes your data must be transformed or summarized before it is
+mapped to an aesthetic. This is true, for example, with a histogram,
+where the samples are grouped into bins and counted. The counts for each
+bin are then used to specify the height of a bar. Some geoms, like
+<code>geom_histogram()</code>, automatically do this for you, but
+sometimes you’ll want to do this yourself, using various
+<code>stat_xx</code> functions.</p>
+</div>
+<div id="themes" class="section level3">
+<h3>Themes</h3>
+<p>Some aspects of a plot’s appearance fall outside the scope of the
+grammar of graphics. These include the color of the background and grid
+lines in the plotting area, the fonts used in the axis labels, and the
+text in the plot title. These are controlled with the
+<code>theme()</code> function.</p>
+</div>
+</div>
+</div>
+<div id="quick-data-exploration" class="section level1">
+<h1>Quick data exploration</h1>
+<div id="scatter-plot" class="section level2">
+<h2>Scatter plot</h2>
+<p>To make a scatter plot, use plot() and pass it a vector of x values
+followed by a vector of y values.</p>
+<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" tabindex="-1"></a><span class="co"># Motor Trend Car Road Tests</span></span>
+<span id="cb28-2"><a href="#cb28-2" tabindex="-1"></a><span class="co"># ?mtcars</span></span>
+<span id="cb28-3"><a href="#cb28-3" tabindex="-1"></a><span class="fu">plot</span>(mtcars<span class="sc">$</span>wt, mtcars<span class="sc">$</span>mpg)</span></code></pre></div>
+<p><img src="graphs_files/figure-html/unnamed-chunk-27-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>The <code>mtcars$wt</code> returns the column named <code>wt</code>
+from the <code>mtcars</code> dataframe, and <code>mtcars$mpg</code> is
+the <code>mpg</code> column.</p>
+<p>With ggplot2, you can get a similar result using the
+<code>ggplot()</code> function:</p>
+<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" tabindex="-1"></a><span class="fu">ggplot</span>(mtcars, <span class="fu">aes</span>(<span class="at">x =</span> wt, <span class="at">y =</span> mpg)) <span class="sc">+</span></span>
+<span id="cb29-2"><a href="#cb29-2" tabindex="-1"></a>  <span class="fu">geom_point</span>()</span></code></pre></div>
+<p><img src="graphs_files/figure-html/unnamed-chunk-28-1.png" width="672" style="display: block; margin: auto;" />
+The usual way to use <code>ggplot()</code> is to pass it a data frame
+(<code>mtcars</code>) and then tell it which columns to use for the
+<em>x</em> and <em>y</em> values. If you want to pass it two vectors for
+<em>x</em> and <em>y</em> values, you can use <code>data = NULL</code>,
+and then pass it the vectors. Keep in mind that <code>ggplot2</code> is
+designed to work with data frames as the data source, not individual
+vectors, and that using it this way will only allow you to use a limited
+part of its capabilities.</p>
+<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> <span class="cn">NULL</span>, <span class="fu">aes</span>(<span class="at">x =</span> mtcars<span class="sc">$</span>wt, <span class="at">y =</span> mtcars<span class="sc">$</span>mpg)) <span class="sc">+</span></span>
+<span id="cb30-2"><a href="#cb30-2" tabindex="-1"></a>  <span class="fu">geom_point</span>()</span></code></pre></div>
+<p><img src="graphs_files/figure-html/unnamed-chunk-29-1.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="line-plot" class="section level2">
+<h2>Line plot</h2>
+<p>To make a line graph using <code>plot()</code>, pass it a vector of
+<em>x</em> values and a vector of <em>y</em> values, and use
+<code>type = "l"</code></p>
+<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" tabindex="-1"></a><span class="fu">plot</span>(pressure<span class="sc">$</span>temperature, pressure<span class="sc">$</span>pressure, <span class="at">type =</span> <span class="st">&quot;l&quot;</span>)</span></code></pre></div>
+<p><img src="graphs_files/figure-html/unnamed-chunk-30-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>To add points and/or multiple lines, first call <code>plot()</code>
+for the first line, then add points with <code>points()</code> and
+additional lines with <code>lines()</code>:</p>
+<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" tabindex="-1"></a><span class="fu">plot</span>(pressure<span class="sc">$</span>temperature, pressure<span class="sc">$</span>pressure, <span class="at">type =</span> <span class="st">&quot;l&quot;</span>)</span>
+<span id="cb32-2"><a href="#cb32-2" tabindex="-1"></a><span class="fu">points</span>(pressure<span class="sc">$</span>temperature, pressure<span class="sc">$</span>pressure)</span>
+<span id="cb32-3"><a href="#cb32-3" tabindex="-1"></a></span>
+<span id="cb32-4"><a href="#cb32-4" tabindex="-1"></a><span class="fu">lines</span>(pressure<span class="sc">$</span>temperature, pressure<span class="sc">$</span>pressure<span class="sc">/</span><span class="dv">2</span>, <span class="at">col =</span> <span class="st">&quot;red&quot;</span>)</span>
+<span id="cb32-5"><a href="#cb32-5" tabindex="-1"></a><span class="fu">points</span>(pressure<span class="sc">$</span>temperature, pressure<span class="sc">$</span>pressure<span class="sc">/</span><span class="dv">2</span>, <span class="at">col =</span> <span class="st">&quot;red&quot;</span>)</span></code></pre></div>
+<p><img src="graphs_files/figure-html/unnamed-chunk-31-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>With <code>ggplot2</code>, you can get a similar result using
+<code>geom_line()</code></p>
+<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" tabindex="-1"></a><span class="fu">ggplot</span>(pressure, <span class="fu">aes</span>(<span class="at">x =</span> temperature, <span class="at">y =</span> pressure)) <span class="sc">+</span></span>
+<span id="cb33-2"><a href="#cb33-2" tabindex="-1"></a>  <span class="fu">geom_line</span>()</span></code></pre></div>
+<p><img src="graphs_files/figure-html/unnamed-chunk-32-1.png" width="672" style="display: block; margin: auto;" />
+As with scatter plots, you can pass you data in vectors instead of in a
+data frame (but this will limit the things you can do later with the
+plot):</p>
+<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" tabindex="-1"></a><span class="fu">ggplot</span>(pressure, <span class="fu">aes</span>(<span class="at">x =</span> temperature, <span class="at">y =</span> pressure)) <span class="sc">+</span></span>
+<span id="cb34-2"><a href="#cb34-2" tabindex="-1"></a>  <span class="fu">geom_line</span>() <span class="sc">+</span></span>
+<span id="cb34-3"><a href="#cb34-3" tabindex="-1"></a>  <span class="fu">geom_point</span>()</span></code></pre></div>
+<p><img src="graphs_files/figure-html/unnamed-chunk-33-1.png" width="672" style="display: block; margin: auto;" />
+&gt; It’s common with <code>ggplot()</code> to split the command on
+multiple lines, ending each line with a <code>+</code> so that R knows
+that the command will continue on the next line.</p>
+</div>
+<div id="bar-plot" class="section level2">
+<h2>Bar plot</h2>
+<p>To make a bar graph of values, use barplot() and pass it a vector of
+values for the height of each bar and (optionally) a vector of labels
+for each bar. If the vector has names for the elements, the names will
+automatically be used as labels:</p>
+<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" tabindex="-1"></a><span class="co"># Biochemical Oxygen Demand</span></span>
+<span id="cb35-2"><a href="#cb35-2" tabindex="-1"></a><span class="co"># ?BOD </span></span>
+<span id="cb35-3"><a href="#cb35-3" tabindex="-1"></a></span>
+<span id="cb35-4"><a href="#cb35-4" tabindex="-1"></a><span class="fu">barplot</span>(BOD<span class="sc">$</span>demand, <span class="at">names.arg =</span> BOD<span class="sc">$</span>Time)</span></code></pre></div>
+<p><img src="graphs_files/figure-html/unnamed-chunk-34-1.png" width="672" style="display: block; margin: auto;" />
+Sometimes “bar plot” refers to a graph where the bars represent the
+count of cases in each category. This is similar to a histogram, but
+with a discrete instead of continuous x-axis. To generate the count of
+each unique value in a vector, use the <code>table()</code> function
+then pass the resulting table to <code>barplot()</code> to generate the
+graph of counts:</p>
+<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" tabindex="-1"></a><span class="fu">barplot</span>(<span class="fu">table</span>(mtcars<span class="sc">$</span>cyl))</span></code></pre></div>
+<p><img src="graphs_files/figure-html/unnamed-chunk-35-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>With <code>ggplot2</code>, you can get a similar result using
+<code>geom_col()</code>. To plot a bar graph of values, use
+<code>geom_col()</code>. Notice the difference in the output when the x
+variable is continuous and when it is discrete:</p>
+<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" tabindex="-1"></a><span class="co"># Bar graph of values. This uses the BOD data frame, with the</span></span>
+<span id="cb37-2"><a href="#cb37-2" tabindex="-1"></a><span class="co"># &quot;Time&quot; column for x values and the &quot;demand&quot; column for y values.</span></span>
+<span id="cb37-3"><a href="#cb37-3" tabindex="-1"></a><span class="fu">ggplot</span>(BOD, <span class="fu">aes</span>(<span class="at">x =</span> Time, <span class="at">y =</span> demand)) <span class="sc">+</span></span>
+<span id="cb37-4"><a href="#cb37-4" tabindex="-1"></a>  <span class="fu">geom_col</span>()</span></code></pre></div>
+<p><img src="graphs_files/figure-html/unnamed-chunk-36-1.png" width="672" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" tabindex="-1"></a><span class="co"># Convert the x variable to a factor, so that it is treated as discrete</span></span>
+<span id="cb38-2"><a href="#cb38-2" tabindex="-1"></a><span class="fu">ggplot</span>(BOD, <span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">factor</span>(Time), <span class="at">y =</span> demand)) <span class="sc">+</span></span>
+<span id="cb38-3"><a href="#cb38-3" tabindex="-1"></a>  <span class="fu">geom_col</span>()</span></code></pre></div>
+<p><img src="graphs_files/figure-html/unnamed-chunk-37-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><code>ggplot2</code> can also be used to plot the count of the number
+of data rows in each category by using <code>geom_bar()</code> instead
+of <code>geom_col()</code>. Once again, notice the difference between a
+continuous x-axis and a discrete one. For some kinds of data, it may
+make more sense to convert the continuous x variable to a discrete one,
+with the <code>factor()</code> function.</p>
+<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" tabindex="-1"></a><span class="co"># Bar graph of counts using the mtcars data frame, with the &quot;cyl&quot; column for</span></span>
+<span id="cb39-2"><a href="#cb39-2" tabindex="-1"></a><span class="co"># x position. The y position is calculated by counting the number of rows for</span></span>
+<span id="cb39-3"><a href="#cb39-3" tabindex="-1"></a><span class="co"># each value of cyl.</span></span>
+<span id="cb39-4"><a href="#cb39-4" tabindex="-1"></a></span>
+<span id="cb39-5"><a href="#cb39-5" tabindex="-1"></a><span class="fu">ggplot</span>(mtcars, <span class="fu">aes</span>(<span class="at">x =</span> cyl)) <span class="sc">+</span></span>
+<span id="cb39-6"><a href="#cb39-6" tabindex="-1"></a>  <span class="fu">geom_bar</span>()</span></code></pre></div>
+<p><img src="graphs_files/figure-html/unnamed-chunk-38-1.png" width="672" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" tabindex="-1"></a><span class="co"># Bar graph of counts</span></span>
+<span id="cb40-2"><a href="#cb40-2" tabindex="-1"></a><span class="fu">ggplot</span>(mtcars, <span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">factor</span>(cyl))) <span class="sc">+</span></span>
+<span id="cb40-3"><a href="#cb40-3" tabindex="-1"></a>  <span class="fu">geom_bar</span>()</span></code></pre></div>
+<p><img src="graphs_files/figure-html/unnamed-chunk-38-2.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="histogram" class="section level2">
+<h2>Histogram</h2>
+<p>To make a histogram, use <code>hist()</code> and pass it a vector of
+values:</p>
+<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" tabindex="-1"></a><span class="fu">hist</span>(mtcars<span class="sc">$</span>mpg)</span></code></pre></div>
+<p><img src="graphs_files/figure-html/unnamed-chunk-39-1.png" width="672" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" tabindex="-1"></a><span class="co"># Specify approximate number of bins with breaks</span></span>
+<span id="cb42-2"><a href="#cb42-2" tabindex="-1"></a><span class="fu">hist</span>(mtcars<span class="sc">$</span>mpg, <span class="at">breaks =</span> <span class="dv">10</span>)</span></code></pre></div>
+<p><img src="graphs_files/figure-html/unnamed-chunk-39-2.png" width="672" style="display: block; margin: auto;" />
+With the <code>ggplot2</code>, you can get a similar result using
+<code>geom_histogram()</code>:</p>
+<div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" tabindex="-1"></a><span class="fu">ggplot</span>(mtcars, <span class="fu">aes</span>(<span class="at">x =</span> mpg)) <span class="sc">+</span></span>
+<span id="cb43-2"><a href="#cb43-2" tabindex="-1"></a>  <span class="fu">geom_histogram</span>()</span></code></pre></div>
+<pre><code>## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</code></pre>
+<p><img src="graphs_files/figure-html/unnamed-chunk-40-1.png" width="672" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" tabindex="-1"></a><span class="co"># With wider bins</span></span>
+<span id="cb45-2"><a href="#cb45-2" tabindex="-1"></a><span class="fu">ggplot</span>(mtcars, <span class="fu">aes</span>(<span class="at">x =</span> mpg)) <span class="sc">+</span></span>
+<span id="cb45-3"><a href="#cb45-3" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">binwidth =</span> <span class="dv">4</span>)</span></code></pre></div>
+<p><img src="graphs_files/figure-html/unnamed-chunk-40-2.png" width="672" style="display: block; margin: auto;" />
+When you create a histogram without specifying the bin width,
+<code>ggplot()</code> prints out a message telling you that it’s
+defaulting to 30 bins, and to pick a better bin width. This is because
+it’s important to explore your data using different bin widths; the
+default of 30 may or may not show you something useful about your
+data.</p>
+</div>
+<div id="box-plot" class="section level2">
+<h2>Box plot</h2>
+<p>To make a box plot, use <code>plot()</code> and pass it a factor of x
+values and a vector of y values. When x is a factor (as opposed to a
+numeric vector), it will automatically create a box plot:</p>
+<div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" tabindex="-1"></a><span class="co"># The Effect of Vitamin C on Tooth Growth in Guinea Pigs</span></span>
+<span id="cb46-2"><a href="#cb46-2" tabindex="-1"></a><span class="co"># ?ToothGrowth</span></span>
+<span id="cb46-3"><a href="#cb46-3" tabindex="-1"></a><span class="fu">plot</span>(ToothGrowth<span class="sc">$</span>supp, ToothGrowth<span class="sc">$</span>len)</span></code></pre></div>
+<p><img src="graphs_files/figure-html/unnamed-chunk-41-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>If the two vectors are in the same data frame, you can also use the
+<code>boxplot()</code> function with formula syntax. With this syntax,
+you can combine two variables on the x-axis.</p>
+<div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" tabindex="-1"></a><span class="co"># Formula syntax</span></span>
+<span id="cb47-2"><a href="#cb47-2" tabindex="-1"></a><span class="fu">boxplot</span>(len <span class="sc">~</span> supp, <span class="at">data =</span> ToothGrowth)</span></code></pre></div>
+<p><img src="graphs_files/figure-html/unnamed-chunk-42-1.png" width="672" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb48"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" tabindex="-1"></a><span class="co"># Put interaction of two variables on x-axis</span></span>
+<span id="cb48-2"><a href="#cb48-2" tabindex="-1"></a><span class="fu">boxplot</span>(len <span class="sc">~</span> supp <span class="sc">+</span> dose, <span class="at">data =</span> ToothGrowth)</span></code></pre></div>
+<p><img src="graphs_files/figure-html/unnamed-chunk-42-2.png" width="672" style="display: block; margin: auto;" /></p>
+<p>With the <code>ggplot2</code> package, you can get a similar result
+with <code>geom_boxplot()</code></p>
+<div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" tabindex="-1"></a><span class="fu">ggplot</span>(ToothGrowth, <span class="fu">aes</span>(<span class="at">x =</span> supp, <span class="at">y =</span> len)) <span class="sc">+</span></span>
+<span id="cb49-2"><a href="#cb49-2" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>()</span></code></pre></div>
+<p><img src="graphs_files/figure-html/unnamed-chunk-43-1.png" width="672" style="display: block; margin: auto;" />
+It’s also possible to make box plots for multiple variables, by
+combining the variables with <code>interaction()</code>:</p>
+<div class="sourceCode" id="cb50"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1" tabindex="-1"></a><span class="fu">ggplot</span>(ToothGrowth, <span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">interaction</span>(supp, dose), <span class="at">y =</span> len)) <span class="sc">+</span></span>
+<span id="cb50-2"><a href="#cb50-2" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>()</span></code></pre></div>
+<p><img src="graphs_files/figure-html/unnamed-chunk-44-1.png" width="672" style="display: block; margin: auto;" /></p>
+<blockquote>
+<p>You may have noticed that the box plots from <code>base</code>
+graphics are ever-so-slightly different from those from
+<code>ggplot2</code>. This is because they use slightly different
+methods for calculating quantiles. See <code>?geom_boxplot</code> and
+<code>?boxplot.stats</code> for more information on how they differ.</p>
+</blockquote>
+</div>
+<div id="curve-function" class="section level2">
+<h2>Curve function</h2>
+<p>To plot a function curve use <code>curve()</code> and pass it an
+expression with the variable x:</p>
+<div class="sourceCode" id="cb51"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1" tabindex="-1"></a><span class="fu">curve</span>(x<span class="sc">^</span><span class="dv">3</span> <span class="sc">-</span> <span class="dv">5</span><span class="sc">*</span>x, <span class="at">from =</span> <span class="sc">-</span><span class="dv">4</span>, <span class="at">to =</span> <span class="dv">4</span>)</span></code></pre></div>
+<p><img src="graphs_files/figure-html/unnamed-chunk-45-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>You can plot any function that takes a numeric vector as input and
+returns a numeric vector, including functions that you define yourself
+(more on this later). Using <code>add = TRUE</code> will add a curve to
+the previously created plot:</p>
+<div class="sourceCode" id="cb52"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1" tabindex="-1"></a><span class="co"># Plot a user-defined function</span></span>
+<span id="cb52-2"><a href="#cb52-2" tabindex="-1"></a>myfun <span class="ot">&lt;-</span> <span class="cf">function</span>(xvar) {</span>
+<span id="cb52-3"><a href="#cb52-3" tabindex="-1"></a>  <span class="dv">1</span> <span class="sc">/</span> (<span class="dv">1</span> <span class="sc">+</span> <span class="fu">exp</span>(<span class="sc">-</span>xvar <span class="sc">+</span> <span class="dv">10</span>))</span>
+<span id="cb52-4"><a href="#cb52-4" tabindex="-1"></a>}</span>
+<span id="cb52-5"><a href="#cb52-5" tabindex="-1"></a><span class="fu">curve</span>(<span class="fu">myfun</span>(x), <span class="at">from =</span> <span class="dv">0</span>, <span class="at">to =</span> <span class="dv">20</span>)</span>
+<span id="cb52-6"><a href="#cb52-6" tabindex="-1"></a><span class="co"># Add a line:</span></span>
+<span id="cb52-7"><a href="#cb52-7" tabindex="-1"></a><span class="fu">curve</span>(<span class="dv">1</span> <span class="sc">-</span> <span class="fu">myfun</span>(x), <span class="at">add =</span> <span class="cn">TRUE</span>, <span class="at">col =</span> <span class="st">&quot;red&quot;</span>)</span></code></pre></div>
+<p><img src="graphs_files/figure-html/unnamed-chunk-46-1.png" width="672" style="display: block; margin: auto;" />
+With <code>ggplot2</code>, you can get a similar result, by using
+<code>stat_function(geom = "line")</code> and passing it a function that
+takes a numeric vector as input and returns a numeric vector:</p>
+<div class="sourceCode" id="cb53"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1" tabindex="-1"></a><span class="co"># This sets the x range from 0 to 20</span></span>
+<span id="cb53-2"><a href="#cb53-2" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="fu">data.frame</span>(<span class="at">x =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">20</span>)), <span class="fu">aes</span>(<span class="at">x =</span> x)) <span class="sc">+</span></span>
+<span id="cb53-3"><a href="#cb53-3" tabindex="-1"></a>  <span class="fu">stat_function</span>(<span class="at">fun =</span> myfun, <span class="at">geom =</span> <span class="st">&quot;line&quot;</span>)</span></code></pre></div>
+<p><img src="graphs_files/figure-html/unnamed-chunk-47-1.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+</div>
+<div id="bar-plots" class="section level1">
+<h1>Bar plots</h1>
+<div id="basics-1" class="section level2">
+<h2>Basics</h2>
+<p>There’s an important distinction you should be aware of when making
+bar graphs: sometimes the bar heights represent <em>counts</em> of cases
+in the data set, and sometimes they represent <em>values</em> in the
+data set. Keep this distinction in mind – it can be a source of
+confusion since they have very different relationships to the data, but
+the same term is used for both of them.</p>
+<div class="sourceCode" id="cb54"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1" tabindex="-1"></a><span class="co"># ?pg_mean</span></span>
+<span id="cb54-2"><a href="#cb54-2" tabindex="-1"></a><span class="fu">ggplot</span>(pg_mean, <span class="fu">aes</span>(<span class="at">x =</span> group, <span class="at">y =</span> weight)) <span class="sc">+</span></span>
+<span id="cb54-3"><a href="#cb54-3" tabindex="-1"></a>  <span class="fu">geom_col</span>()</span></code></pre></div>
+<p><img src="graphs_files/figure-html/unnamed-chunk-48-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>By default, bar graphs use a dark grey for the bars. To use a color
+fill, use <code>fill</code>. Also, by default, there is no outline
+around the fill. To add an outline, use <code>colour</code>.</p>
+<div class="sourceCode" id="cb55"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb55-1"><a href="#cb55-1" tabindex="-1"></a><span class="fu">ggplot</span>(pg_mean, <span class="fu">aes</span>(<span class="at">x =</span> group, <span class="at">y =</span> weight)) <span class="sc">+</span></span>
+<span id="cb55-2"><a href="#cb55-2" tabindex="-1"></a>  <span class="fu">geom_col</span>(<span class="at">fill =</span> <span class="st">&quot;lightblue&quot;</span>, <span class="at">colour =</span> <span class="st">&quot;black&quot;</span>)</span></code></pre></div>
+<p><img src="graphs_files/figure-html/unnamed-chunk-49-1.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="grouping" class="section level2">
+<h2>Grouping</h2>
+<p>If you want to group bars together by a second variable, and map a
+variable to fill, and use <code>geom_col(position = "dodge")</code>.</p>
+<p>In this example we’ll use the <code>cabbage_exp</code> dataset, which
+has two categorical variables, <code>Cultivar</code> and
+<code>Date</code>, and one continuous variable, <code>Weight</code>.
+We’ll map <code>Date</code> to the <em>x</em> position and map
+<code>Cultivar</code> to the fill color.</p>
+<div class="sourceCode" id="cb56"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb56-1"><a href="#cb56-1" tabindex="-1"></a><span class="fu">ggplot</span>(cabbage_exp, <span class="fu">aes</span>(<span class="at">x =</span> Date, <span class="at">y =</span> Weight, <span class="at">fill =</span> Cultivar)) <span class="sc">+</span></span>
+<span id="cb56-2"><a href="#cb56-2" tabindex="-1"></a>  <span class="fu">geom_col</span>(<span class="at">position =</span> <span class="st">&quot;dodge&quot;</span>)</span></code></pre></div>
+<p><img src="graphs_files/figure-html/unnamed-chunk-50-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>To add a black outline, use <code>colour = "black"</code> inside
+<code>geom_col()</code>. To set the colors, you can use
+<code>scale_fill_brewer()</code> or
+<code>scale_fill_manual()</code>.</p>
+<div class="sourceCode" id="cb57"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb57-1"><a href="#cb57-1" tabindex="-1"></a><span class="fu">ggplot</span>(cabbage_exp, <span class="fu">aes</span>(<span class="at">x =</span> Date, <span class="at">y =</span> Weight, <span class="at">fill =</span> Cultivar)) <span class="sc">+</span></span>
+<span id="cb57-2"><a href="#cb57-2" tabindex="-1"></a>  <span class="fu">geom_col</span>(<span class="at">position =</span> <span class="st">&quot;dodge&quot;</span>, <span class="at">colour =</span> <span class="st">&quot;black&quot;</span>) <span class="sc">+</span></span>
+<span id="cb57-3"><a href="#cb57-3" tabindex="-1"></a>  <span class="fu">scale_fill_brewer</span>(<span class="at">palette =</span> <span class="st">&quot;Pastel1&quot;</span>) <span class="sc">+</span></span>
+<span id="cb57-4"><a href="#cb57-4" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">&quot;Date&quot;</span>)</span></code></pre></div>
+<p><img src="graphs_files/figure-html/unnamed-chunk-51-1.png" width="672" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb58"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb58-1"><a href="#cb58-1" tabindex="-1"></a>  <span class="co"># scale_fill_manual(values = c(&quot;#669933&quot;, &quot;#FFCC66&quot;)) </span></span></code></pre></div>
+</div>
+<div id="positivenegative" class="section level2">
+<h2>Positive/negative</h2>
+<p>We’ll use a subset of the climate data and create a new column called
+pos, which indicates whether the value is positive or negative:</p>
+<div class="sourceCode" id="cb59"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb59-1"><a href="#cb59-1" tabindex="-1"></a>climate_sub <span class="ot">&lt;-</span> climate <span class="sc">%&gt;%</span></span>
+<span id="cb59-2"><a href="#cb59-2" tabindex="-1"></a>  <span class="fu">filter</span>(Source <span class="sc">==</span> <span class="st">&quot;Berkeley&quot;</span> <span class="sc">&amp;</span> Year <span class="sc">&gt;=</span> <span class="dv">1900</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb59-3"><a href="#cb59-3" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">pos =</span> Anomaly10y <span class="sc">&gt;=</span> <span class="dv">0</span>)</span>
+<span id="cb59-4"><a href="#cb59-4" tabindex="-1"></a></span>
+<span id="cb59-5"><a href="#cb59-5" tabindex="-1"></a><span class="fu">ggplot</span>(climate_sub, <span class="fu">aes</span>(<span class="at">x =</span> Year, <span class="at">y =</span> Anomaly10y, <span class="at">fill =</span> pos)) <span class="sc">+</span></span>
+<span id="cb59-6"><a href="#cb59-6" tabindex="-1"></a>  <span class="fu">geom_col</span>(<span class="at">position =</span> <span class="st">&quot;identity&quot;</span>, <span class="at">colour =</span> <span class="st">&quot;black&quot;</span>, <span class="at">linewidth =</span> <span class="fl">0.25</span>) <span class="sc">+</span></span>
+<span id="cb59-7"><a href="#cb59-7" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">&quot;#CCEEFF&quot;</span>, <span class="st">&quot;#FFDDDD&quot;</span>), <span class="at">guide =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
+<p><img src="graphs_files/figure-html/unnamed-chunk-52-1.png" width="672" /></p>
+<p>Once we have the data, we can make the graph and map pos to the fill
+color, as in Figure @ref(fig:FIG-BAR-GRAPH-COLOR-NEG). Notice that we
+use position=“identity” with the bars. This will prevent a warning
+message about stacking not being well defined for negative numbers:</p>
+<p><code>{r FIG-BAR-GRAPH-COLOR-NEG, fig.cap="Different colors for positive and negative values", fig.width=10, fig.height=2.5, out.width="100%"} ggplot(climate_sub, aes(x = Year, y = Anomaly10y, fill = pos)) +   geom_col(position = "identity")</code></p>
+<div id="discussion" class="section level3">
+<h3>Discussion</h3>
+<p>There are a few problems with the first attempt. First, the colors
+are probably the reverse of what we want: usually, blue means cold and
+red means hot. Second, the legend is redundant and distracting.</p>
+<p>We can change the colors with <code>scale_fill_manual()</code> and
+remove the legend with <code>guide = FALSE</code>, as shown in Figure
+@ref(fig:FIG-BAR-GRAPH-COLOR-NEG2). We’ll also add a thin black outline
+around each of the bars by setting <code>colour</code> and specifying
+<code>size</code>, which is the thickness of the outline (in
+millimeters):</p>
+<p><code>{r FIG-BAR-GRAPH-COLOR-NEG2, fig.cap="Graph with customized colors and no legend", fig.width=10, fig.height=2.5, out.width="100%"} ggplot(climate_sub, aes(x = Year, y = Anomaly10y, fill = pos)) +   geom_col(position = "identity", colour = "black", size = 0.25) +   scale_fill_manual(values = c("#CCEEFF", "#FFDDDD"), guide = FALSE)</code></p>
+</div>
+<div id="see-also" class="section level3">
+<h3>See Also</h3>
+<p>To change the colors used, see Recipes Recipe
+@ref(RECIPE-COLORS-PALETTE-DISCRETE) and Recipe
+@ref(RECIPE-COLORS-PALETTE-DISCRETE-MANUAL).</p>
+<p>To hide the legend, see Recipe @ref(RECIPE-LEGEND-REMOVE).</p>
+</div>
+</div>
+<div id="RECIPE-BAR-GRAPH-ADJUST-WIDTH" class="section level2">
+<h2>Adjusting Bar Width and Spacing</h2>
+<div id="problem" class="section level3">
+<h3>Problem</h3>
+<p>You want to adjust the width of bars and the spacing between
+them.</p>
+</div>
+<div id="solution" class="section level3">
+<h3>Solution</h3>
+<p>To make the bars narrower or wider, set <code>width</code> in
+<code>geom_col()</code>. The default value is 0.9; larger values make
+the bars wider, and smaller values make the bars narrower (Figure
+@ref(fig:FIG-BAR-WIDTH)).</p>
+<p>For example, for standard-width bars:</p>
+<p>``{r eval=FALSE} library(gcookbook) # Load gcookbook for the pg_mean
+data set</p>
+<p>ggplot(pg_mean, aes(x = group, y = weight)) + geom_col() ``</p>
+<p>For narrower bars:</p>
+<p><code>{r eval=FALSE} ggplot(pg_mean, aes(x = group, y = weight)) +   geom_col(width = 0.5)</code></p>
+<p>And for wider bars (these have the maximum width of 1):</p>
+<p><code>{r eval=FALSE} ggplot(pg_mean, aes(x = group, y = weight)) +   geom_col(width = 1)</code></p>
+<p>``{r FIG-BAR-WIDTH, echo=FALSE, fig.show=“hold”, fig.cap=“Different
+bar widths”, fig.width=4, fig.height=3} ggplot(pg_mean, aes(x = group, y
+= weight)) + geom_col()</p>
+<p>ggplot(pg_mean, aes(x = group, y = weight)) + geom_col(width =
+0.5)</p>
+<p>ggplot(pg_mean, aes(x = group, y = weight)) + geom_col(width = 1)
+``</p>
+<p>For grouped bars, the default is to have no space between bars within
+each group. To add space between bars within a group, make width smaller
+and set the value for <code>position_dodge</code> to be larger than
+<code>width</code> (Figure @ref(fig:FIG-BAR-WIDTH-DODGE)).</p>
+<p>For a grouped bar graph with narrow bars:</p>
+<p><code>{r eval=FALSE} ggplot(cabbage_exp, aes(x = Date, y = Weight, fill = Cultivar)) +   geom_col(width = 0.5, position = "dodge")</code></p>
+<p>And with some space between the bars:</p>
+<p><code>{r eval=FALSE} ggplot(cabbage_exp, aes(x = Date, y = Weight, fill = Cultivar)) +   geom_col(width = 0.5, position = position_dodge(0.7))</code></p>
+<p>``{r FIG-BAR-WIDTH-DODGE, echo=FALSE, fig.show=“hold”, fig.cap=“Bar
+graph with narrow grouped bars (left); With space between the bars
+(right)”, fig.width=4.5, fig.height=3} ggplot(cabbage_exp, aes(x = Date,
+y = Weight, fill = Cultivar)) + geom_col(width = 0.5, position =
+“dodge”)</p>
+<p>ggplot(cabbage_exp, aes(x = Date, y = Weight, fill = Cultivar)) +
+geom_col(width = 0.5, position = position_dodge(0.7)) ``</p>
+<p>The first graph used <code>position = "dodge"</code>, and the second
+graph used <code>position = position_dodge()</code>. This is because
+<code>position = "dodge"</code> is simply shorthand for
+<code>position = position_dodge()</code> with the default value of 0.9,
+but when we want to set a specific value, we need to use the more
+verbose form.</p>
+</div>
+<div id="discussion-1" class="section level3">
+<h3>Discussion</h3>
+<p>The default <code>width</code> for bars is 0.9, and the default value
+used for <code>position_dodge()</code> is the same. To be more precise,
+the value of <code>width</code> in <code>position_dodge()</code> is
+<code>NULL</code>, which tells ggplot2 to use the same value as the
+width from <code>geom_bar()</code>.</p>
+<p>All of these will have the same result:</p>
+<p><code>{r eval=FALSE} geom_bar(position = "dodge") geom_bar(width = 0.9, position = position_dodge()) geom_bar(position = position_dodge(0.9)) geom_bar(width = 0.9, position = position_dodge(width=0.9))</code></p>
+<p>The items on the x-axis have x values of 1, 2, 3, and so on, though
+you typically don’t refer to them by these numerical values. When you
+use <code>geom_bar(width = 0.9)</code>, it makes each group take up a
+total width of 0.9 on the x-axis. When you use
+<code>position_dodge(width = 0.9)</code>, it spaces the bars so that the
+<em>middle</em> of each bar is right where it would be if the bar width
+were 0.9 and the bars were touching. This is illustrated in Figure
+@ref(fig:FIG-BAR-WIDTH-DODGE-EXPLANATION). The two graphs both have the
+same dodge width of 0.9, but while the top has a bar width of 0.9, the
+bottom has a bar width of 0.2. Despite the different bar widths, the
+middles of the bars stay aligned.</p>
+<p>``{r FIG-BAR-WIDTH-DODGE-EXPLANATION, echo=FALSE, fig.show=“hold”,
+fig.cap=“Same dodge width of 0.9, but different bar widths of 0.9 (left)
+and 0.2 (right)”, fig.width=4.5, fig.height=3} ggplot(cabbage_exp, aes(x
+= Date, y = Weight, fill = Cultivar)) + geom_col(position = “dodge”)</p>
+<p>ggplot(cabbage_exp, aes(x = Date, y = Weight, fill = Cultivar)) +
+geom_col(width = 0.2, position = position_dodge(width=0.9)) ``</p>
+<p>If you make the entire graph wider or narrower, the bar dimensions
+will scale proportionally. To see how this works, you can just resize
+the window in which the graphs appear. For information about controlling
+this when writing to a file, see Chapter @ref(CHAPTER-OUTPUT).</p>
+</div>
+</div>
+<div id="RECIPE-BAR-GRAPH-STACKED-BAR" class="section level2">
+<h2>Making a Stacked Bar Graph</h2>
+<div id="problem-1" class="section level3">
+<h3>Problem</h3>
+<p>You want to make a stacked bar graph.</p>
+</div>
+<div id="solution-1" class="section level3">
+<h3>Solution</h3>
+<p>Use <code>geom_bar()</code> and map a variable <code>fill</code>.
+This will put <code>Date</code> on the x-axis and use
+<code>Cultivar</code> for the fill color, as shown in Figure
+@ref(fig:FIG-BAR-GRAPH-STACKED-BAR):</p>
+<p>``{r FIG-BAR-GRAPH-STACKED-BAR, fig.cap=“Stacked bar graph”,
+fig.height=3.5} library(gcookbook) # Load gcookbook for the cabbage_exp
+data set</p>
+<p>ggplot(cabbage_exp, aes(x = Date, y = Weight, fill = Cultivar)) +
+geom_col() ``</p>
+</div>
+<div id="discussion-2" class="section level3">
+<h3>Discussion</h3>
+<p>To understand how the graph is made, it’s useful to see how the data
+is structured. There are three levels of <code>Date</code> and two
+levels of <code>Cultivar</code>, and for each combination there is a
+value for <code>Weight</code>:</p>
+<p><code>{r} cabbage_exp</code></p>
+<p>By default, the stacking order of the bars is the same as the order
+of items in the legend. For some data sets it might make sense to
+reverse the order of the legend. To do this, you can use the
+<code>guides</code> function and specify which aesthetic for which the
+legend should be reversed. In this case, it’s <code>fill</code>:</p>
+<p><code>{r FIG-BAR-GRAPH-STACKED-BAR-REVLEVELS, fig.cap="Stacked bar graph with reversed legend order", fig.height=3.5} ggplot(cabbage_exp, aes(x = Date, y = Weight, fill = Cultivar)) +   geom_col() +   guides(fill = guide_legend(reverse = TRUE))</code></p>
+<p>If you’d like to reverse the stacking order of the bars, as in Figure
+@ref(fig:FIG-BAR-GRAPH-STACKED-BAR-REVSTACK), use
+<code>position_stack(reverse = TRUE)</code>. You’ll also need to reverse
+the order of the legend for it to match the order of the bars:</p>
+<p><code>{r FIG-BAR-GRAPH-STACKED-BAR-REVSTACK, fig.cap="Stacked bar graph with reversed stacking order", fig.height=3.5} ggplot(cabbage_exp, aes(x = Date, y = Weight, fill = Cultivar)) +   geom_col(position = position_stack(reverse = TRUE)) +   guides(fill = guide_legend(reverse = TRUE))</code></p>
+<p>It’s also possible to modify the column of the data frame so that the
+factor levels are in a different order (see Recipe
+@ref(RECIPE-DATAPREP-FACTOR-REORDER)). Do this with care, since the
+modified data could change the results of other analyses.</p>
+<p>For a more polished graph, we’ll use <code>scale_fill_brewer()</code>
+to get a different color palette, and use <code>colour="black"</code> to
+get a black outline (Figure
+@ref(fig:FIG-BAR-GRAPH-STACKED-BAR-COLORS)):</p>
+<p><code>{r FIG-BAR-GRAPH-STACKED-BAR-COLORS, fig.cap="Stacked bar graph with reversed legend, new palette, and black outline", fig.height=3.5} ggplot(cabbage_exp, aes(x = Date, y = Weight, fill = Cultivar)) +   geom_col(colour = "black") +   scale_fill_brewer(palette = "Pastel1")</code></p>
+</div>
+<div id="see-also-1" class="section level3">
+<h3>See Also</h3>
+<p>For more on using colors in bar graphs, see Recipe
+@ref(RECIPE-BAR-GRAPH-COLORS).</p>
+<p>To reorder the levels of a factor based on the values of another
+variable, see Recipe @ref(RECIPE-DATAPREP-FACTOR-REORDER-VALUE). To
+manually change the order of factor levels, see Recipe
+@ref(RECIPE-DATAPREP-FACTOR-REORDER).</p>
+</div>
+</div>
+<div id="RECIPE-BAR-GRAPH-PROPORTIONAL-STACKED-BAR"
+class="section level2">
+<h2>Making a Proportional Stacked Bar Graph</h2>
+<div id="problem-2" class="section level3">
+<h3>Problem</h3>
+<p>You want to make a stacked bar graph that shows proportions (also
+called a 100% stacked bar graph).</p>
+</div>
+<div id="solution-2" class="section level3">
+<h3>Solution</h3>
+<p>Use <code>geom_col(position = "fill")</code> (Figure
+@ref(fig:FIG-BAR-GRAPH-PROP-STACKED-BAR)):</p>
+<p>``{r FIG-BAR-GRAPH-PROP-STACKED-BAR, fig.cap=“Proportional stacked
+bar graph”, fig.height=3.5} library(gcookbook) # Load gcookbook for the
+cabbage_exp data set</p>
+<p>ggplot(cabbage_exp, aes(x = Date, y = Weight, fill = Cultivar)) +
+geom_col(position = “fill”) ``</p>
+</div>
+<div id="discussion-3" class="section level3">
+<h3>Discussion</h3>
+<p>With <code>position = "fill"</code>, the y values will be scaled to
+go from 0 to 1. To print the labels as percentages, use
+<code>scale_y_continuous(labels = scales::percent)</code>.</p>
+<p><code>{r eval=FALSE} ggplot(cabbage_exp, aes(x = Date, y = Weight, fill = Cultivar)) +   geom_col(position = "fill") +   scale_y_continuous(labels = scales::percent)</code></p>
+<blockquote>
+<p><strong>Note</strong></p>
+<p>Using <code>scales::percent</code> is a way of using the
+<code>percent</code> function from the scales package. You could instead
+do <code>library(scales)</code> and then just use
+<code>scale_y_continuous(labels = percent)</code>. This would also make
+all of the functions from scales available in the current R session.</p>
+</blockquote>
+<p>To make the output look a little nicer, you can change the color
+palette and add an outline. This is shown in (Figure
+@ref(fig:FIG-BAR-GRAPH-PROP-STACKED-BAR-FINAL)):</p>
+<p><code>{r FIG-BAR-GRAPH-PROP-STACKED-BAR-FINAL, fig.cap="Proportional stacked bar graph with reversed legend, new palette, and black outline", fig.height=3.5} ggplot(cabbage_exp, aes(x = Date, y = Weight, fill = Cultivar)) +   geom_col(colour = "black", position = "fill") +   scale_y_continuous(labels = scales::percent) +   scale_fill_brewer(palette = "Pastel1")</code></p>
+<p>Instead of having ggplot2 compute the proportions automatically, you
+may want to compute the proportional values yourself. This can be useful
+if you want to use those values in other computations.</p>
+<p>To do this, first scale the data to 100% within each stack. This can
+be done by using <code>group_by()</code> together with
+<code>mutate()</code> from the dplyr package.</p>
+<p>``{r} library(gcookbook) library(dplyr)</p>
+<p>cabbage_exp</p>
+</div>
+</div>
+</div>
+<div id="do-a-group-wise-transform-splitting-on-date"
+class="section level1">
+<h1>Do a group-wise transform(), splitting on “Date”</h1>
+<p>ce &lt;- cabbage_exp %&gt;% group_by(Date) %&gt;%
+mutate(percent_weight = Weight / sum(Weight) * 100)</p>
+<p>ce ``</p>
+<p>To calculate the percentages within each <code>Weight</code> group,
+we used dplyr’s <code>group_by()</code> and <code>mutate()</code>
+functions. In the example here, the <code>group_by()</code> function
+tells dplyr that future operations should operate on the data frame as
+though it were split up into groups, on the <code>Date</code> column.
+The <code>mutate()</code> function tells it to calculate a new column,
+dividing each row’s <code>Weight</code> value by the sum of the
+<code>Weight</code> column <em>within each group</em>.</p>
+<blockquote>
+<p><strong>Note</strong></p>
+<p>You may have noticed that <code>cabbage_exp</code> and
+<code>ce</code> print out differently. This is because
+<code>cabbage_exp</code> is a regular data frame, while <code>ce</code>
+is a <em>tibble</em>, which is a data frame with some extra properties.
+The dplyr package creates tibbles. For more information, see Chapter
+@ref(CHAPTER-DATAPREP).</p>
+</blockquote>
+<p>After computing the new column, making the graph is the same as with
+a regular stacked bar graph.</p>
+<p><code>{r eval=FALSE} ggplot(ce, aes(x = Date, y = percent_weight, fill = Cultivar)) +   geom_col()</code></p>
+<div id="see-also-2" class="section level3">
+<h3>See Also</h3>
+<p>For more on transforming data by groups, see Recipe
+@ref(RECIPE-DATAPREP-CALCULATE-GROUP).</p>
+</div>
+<div id="RECIPE-BAR-GRAPH-LABELS" class="section level2">
+<h2>Adding Labels to a Bar Graph</h2>
+<div id="problem-3" class="section level3">
+<h3>Problem</h3>
+<p>You want to add labels to the bars in a bar graph.</p>
+</div>
+<div id="solution-3" class="section level3">
+<h3>Solution</h3>
+<p>Add <code>geom_text()</code> to your graph. It requires a mapping for
+x, y, and the text itself. By setting <code>vjust</code> (the vertical
+justification), it is possible to move the text above or below the tops
+of the bars, as shown in Figure @ref(fig:FIG-BAR-GRAPH-LABEL):</p>
+<p>``{r FIG-BAR-GRAPH-LABEL, fig.show=“hold”, fig.cap=“Labels under the
+tops of bars (left); Labels above bars (right)”, fig.height=3.5}
+library(gcookbook) # Load gcookbook for the cabbage_exp data set</p>
+</div>
+</div>
+</div>
+<div id="below-the-top" class="section level1">
+<h1>Below the top</h1>
+<p>ggplot(cabbage_exp, aes(x = interaction(Date, Cultivar), y = Weight))
++ geom_col() + geom_text(aes(label = Weight), vjust = 1.5, colour =
+“white”)</p>
+</div>
+<div id="above-the-top" class="section level1">
+<h1>Above the top</h1>
+<p>ggplot(cabbage_exp, aes(x = interaction(Date, Cultivar), y = Weight))
++ geom_col() + geom_text(aes(label = Weight), vjust = -0.2) ``</p>
+<p>Notice that when the labels are placed atop the bars, they may be
+clipped. To remedy this, see Recipe @ref(RECIPE-AXES-RANGE).</p>
+<p>Another common scenario is to add labels for a bar graph of
+<em>counts</em> instead of values. To do this, use
+<code>geom_bar()</code>, which adds bars whose height is proportional to
+the number of rows, and then use <code>geom_text()</code> with
+counts:</p>
+<p><code>{r FIG-BAR-GRAPH-COUNT-LABEL, fig.cap="Bar graph of counts with labels under the tops of bars", fig.width=4, fig.height=3.5} ggplot(mtcars, aes(x = factor(cyl))) +   geom_bar() +   geom_text(aes(label = ..count..), stat = "count", vjust = 1.5, colour = "white")</code></p>
+<p>We needed to tell <code>geom_text()</code> to use the
+<code>"count"</code> statistic to compute the number of rows for each x
+value, and then, to use those computed counts as the labels, we told it
+to use the aesthetic mapping <code>aes(label = ..count..)</code>.</p>
+<div id="discussion-4" class="section level3">
+<h3>Discussion</h3>
+<p>In Figure @ref(fig:FIG-BAR-GRAPH-LABEL), the <em>y</em> coordinates
+of the labels are centered at the top of each bar; by setting the
+vertical justification (<code>vjust</code>), they appear below or above
+the bar tops. One drawback of this is that when the label is above the
+top of the bar, it can go off the top of the plotting area. To fix this,
+you can manually set the <em>y</em> limits, or you can set the
+<em>y</em> positions of the text <em>above</em> the bars and not change
+the vertical justification. One drawback to changing the text’s
+<em>y</em> position is that if you want to place the text fully above or
+below the bar top, the value to add will depend on the <em>y</em> range
+of the data; in contrast, changing <code>vjust</code> to a different
+value will always move the text the same distance relative to the height
+of the bar:</p>
+<p>``{r, eval=FALSE} # Adjust y limits to be a little higher
+ggplot(cabbage_exp, aes(x = interaction(Date, Cultivar), y = Weight)) +
+geom_col() + geom_text(aes(label = Weight), vjust = -0.2) + ylim(0,
+max(cabbage_exp$Weight) * 1.05)</p>
+</div>
+</div>
+<div
+id="map-y-positions-slightly-above-bar-top---y-range-of-plot-will-auto-adjust"
+class="section level1">
+<h1>Map y positions slightly above bar top - y range of plot will
+auto-adjust</h1>
+<p>ggplot(cabbage_exp, aes(x = interaction(Date, Cultivar), y = Weight))
++ geom_col() + geom_text(aes(y = Weight + 0.1, label = Weight)) ``</p>
+<p>For grouped bar graphs, you also need to specify
+position=position_dodge() and give it a value for the dodging width. The
+default dodge width is 0.9. Because the bars are narrower, you might
+need to use size to specify a smaller font to make the labels fit. The
+default value of size is 5, so we’ll make it smaller by using 3 (Figure
+@ref(fig:FIG-BAR-LABEL-GROUPED)):</p>
+<p><code>{r FIG-BAR-LABEL-GROUPED, fig.cap="Labels on grouped bars", fig.height=3.5} ggplot(cabbage_exp, aes(x = Date, y = Weight, fill = Cultivar)) +   geom_col(position = "dodge") +   geom_text(     aes(label = Weight),     colour = "white", size = 3,     vjust = 1.5, position = position_dodge(.9)   )</code></p>
+<p>Putting labels on stacked bar graphs requires finding the cumulative
+sum for each stack. To do this, first make sure the data is sorted
+properly – if it isn’t, the cumulative sum might be calculated in the
+wrong order. We’ll use the <code>arrange()</code> function from the
+dplyr package. Note that we have to use the <code>rev()</code> function
+to reverse the order of <code>Cultivar</code>:</p>
+<p>``{r} library(dplyr)</p>
+</div>
+<div id="sort-by-the-date-and-cultivar-columns" class="section level1">
+<h1>Sort by the Date and Cultivar columns</h1>
+<p>ce &lt;- cabbage_exp %&gt;% arrange(Date, rev(Cultivar)) ``</p>
+<p>Once we make sure the data is sorted properly, we’ll use
+<code>group_by()</code> to chunk it into groups by <code>Date</code>,
+then calculate a cumulative sum of <code>Weight</code> within each
+chunk:</p>
+<p>``{r FIG-BAR-LABEL-STACKED, fig.cap=“Labels on stacked bars”,
+fig.height=3.5} # Get the cumulative sum ce &lt;- ce %&gt;%
+group_by(Date) %&gt;% mutate(label_y = cumsum(Weight))</p>
+<p>ce</p>
+<p>ggplot(ce, aes(x = Date, y = Weight, fill = Cultivar)) + geom_col() +
+geom_text(aes(y = label_y, label = Weight), vjust = 1.5, colour =
+“white”) ``</p>
+<p>The result is shown in Figure @ref(fig:FIG-BAR-LABEL-STACKED).</p>
+<p>When using labels, changes to the stacking order are best done by
+modifying the order of levels in the factor (see Recipe
+@ref(RECIPE-DATAPREP-FACTOR-REORDER)) before taking the cumulative sum.
+The other method of changing stacking order, by specifying breaks in a
+scale, won’t work properly, because the order of the cumulative sum
+won’t be the same as the stacking order.</p>
+<p>To put the labels in the middle of each bar (Figure
+@ref(fig:FIG-BAR-LABEL-STACKED-MIDDLE)), there must be an adjustment to
+the cumulative sum, and the <em>y</em> offset in <code>geom_bar()</code>
+can be removed:</p>
+<p>``{r FIG-BAR-LABEL-STACKED-MIDDLE, fig.cap=“Labels in the middle of
+stacked bars”, fig.height=3.5} ce &lt;- cabbage_exp %&gt;% arrange(Date,
+rev(Cultivar))</p>
+</div>
+<div id="calculate-y-position-placing-it-in-the-middle"
+class="section level1">
+<h1>Calculate y position, placing it in the middle</h1>
+<p>ce &lt;- ce %&gt;% group_by(Date) %&gt;% mutate(label_y =
+cumsum(Weight) - 0.5 * Weight)</p>
+<p>ggplot(ce, aes(x = Date, y = Weight, fill = Cultivar)) + geom_col() +
+geom_text(aes(y = label_y, label = Weight), colour = “white”) ``</p>
+<p>For a more polished graph (Figure
+@ref(fig:FIG-BAR-LABEL-STACKED-FINAL)), we’ll change the colors, add
+labels in the middle with a smaller font using <code>size</code>, add a
+“kg” suffix using <code>paste</code>, and make sure there are always two
+digits after the decimal point by using <code>format()</code>:</p>
+<p><code>{r FIG-BAR-LABEL-STACKED-FINAL, fig.cap="Customized stacked bar graph with labels", fig.height=3.5} ggplot(ce, aes(x = Date, y = Weight, fill = Cultivar)) +   geom_col(colour = "black") +   geom_text(aes(y = label_y, label = paste(format(Weight, nsmall = 2), "kg")), size = 4) +   scale_fill_brewer(palette = "Pastel1")</code></p>
+<div id="see-also-3" class="section level3">
+<h3>See Also</h3>
+<p>To control the appearance of the text, see Recipe
+@ref(RECIPE-APPEARANCE-TEXT-APPEARANCE).</p>
+<p>For more on transforming data by groups, see Recipe
+@ref(RECIPE-DATAPREP-CALCULATE-GROUP).</p>
+</div>
+<div id="RECIPE-BAR-GRAPH-DOT-PLOT" class="section level2">
+<h2>Making a Cleveland Dot Plot</h2>
+<div id="problem-4" class="section level3">
+<h3>Problem</h3>
+<p>You want to make a Cleveland dot plot.</p>
+</div>
+<div id="solution-4" class="section level3">
+<h3>Solution</h3>
+<p>Cleveland dot plots are an alternative to bar graphs that reduce
+visual clutter and can be easier to read.</p>
+<p>The simplest way to create a dot plot (as shown in Figure
+@ref(fig:FIG-BAR-GRAPH-DOTPLOT)) is to use
+<code>geom_point()</code>:</p>
+<p>``{r FIG-BAR-GRAPH-DOTPLOT, fig.cap=“Basic dot plot”, fig.width = 4,
+fig.height=5, out.width=“50%”} library(gcookbook) # Load gcookbook for
+the tophitters2001 data set tophit &lt;- tophitters2001[1:25, ] # Take
+the top 25 from the tophitters data set</p>
+<p>ggplot(tophit, aes(x = avg, y = name)) + geom_point() ``</p>
+</div>
+<div id="discussion-5" class="section level3">
+<h3>Discussion</h3>
+<p>The <code>tophitters2001</code> data set contains many columns, but
+we’ll focus on just three of them for this example:</p>
+<p><code>{r} tophit[, c("name", "lg", "avg")]</code></p>
+<p>In Figure @ref(fig:FIG-BAR-GRAPH-DOTPLOT) the names are sorted
+alphabetically, which isn’t very useful in this graph. Dot plots are
+often sorted by the value of the continuous variable on the horizontal
+axis.</p>
+<p>Although the rows of <code>tophit</code> happen to be sorted by
+<code>avg</code>, that doesn’t mean that the items will be ordered that
+way in the graph. By default, the items on the given axis will be
+ordered however is appropriate for the data type. <code>name</code> is a
+character vector, so it’s ordered alphabetically. If it were a factor,
+it would use the order defined in the factor levels. In this case, we
+want <code>name</code> to be sorted by a different variable,
+<code>avg</code>.</p>
+<p>To do this, we can use <code>reorder(name, avg)</code>, which takes
+the name column, turns it into a factor, and sorts the factor levels by
+<code>avg</code>. To further improve the appearance, we’ll make the
+vertical grid lines go away by using the theming system, and turn the
+horizontal grid lines into dashed lines (Figure
+@ref(fig:FIG-BAR-GRAPH-DOTPLOT-ORDERED)):</p>
+<p><code>{r FIG-BAR-GRAPH-DOTPLOT-ORDERED, fig.cap="Dot plot, ordered by batting average", fig.width=4, fig.height=5, out.width="50%"} ggplot(tophit, aes(x = avg, y = reorder(name, avg))) +   geom_point(size = 3) +  # Use a larger dot   theme_bw() +   theme(     panel.grid.major.x = element_blank(),     panel.grid.minor.x = element_blank(),     panel.grid.major.y = element_line(colour = "grey60", linetype = "dashed")   )</code></p>
+<p>It’s also possible to swap the axes so that the names go along the
+x-axis and the values go along the y-axis, as shown in Figure
+@ref(fig:FIG-BAR-GRAPH-DOTPLOT-ORDERED-SWAP). We’ll also rotate the text
+labels by 60 degrees:</p>
+<p><code>{r FIG-BAR-GRAPH-DOTPLOT-ORDERED-SWAP, fig.cap="Dot plot with names on x-axis and values on y-axis", fig.width=6, fig.height=4, out.width="80%"} ggplot(tophit, aes(x = reorder(name, avg), y = avg)) +   geom_point(size = 3) +  # Use a larger dot   theme_bw() +   theme(     panel.grid.major.y = element_blank(),     panel.grid.minor.y = element_blank(),     panel.grid.major.x = element_line(colour = "grey60", linetype = "dashed"),     axis.text.x = element_text(angle = 60, hjust = 1)   )</code></p>
+<p>It’s also sometimes desirable to group the items by another variable.
+In this case we’ll use the factor <code>lg</code>, which has the levels
+<code>NL</code> and <code>AL</code>, representing the National League
+and the American League. This time we want to sort first by
+<code>lg</code> and then by <code>avg</code>. Unfortunately, the
+<code>reorder()</code> function will only order factor levels by one
+other variable; to order the factor levels by two variables, we must do
+it manually:</p>
+<p>``{r} # Get the names, sorted first by lg, then by avg nameorder
+&lt;- tophit<span class="math inline">\(name[order(tophit\)</span>lg,
+tophit$avg)]</p>
+</div>
+</div>
+</div>
+<div id="turn-name-into-a-factor-with-levels-in-the-order-of-nameorder"
+class="section level1">
+<h1>Turn name into a factor, with levels in the order of nameorder</h1>
+<p>tophit<span class="math inline">\(name &lt;-
+factor(tophit\)</span>name, levels = nameorder) ``</p>
+<p>To make the graph (Figure @ref(fig:FIG-BAR-GRAPH-DOTPLOT-ORDERED2)),
+we’ll also add a mapping of <code>lg</code> to the color of the points.
+Instead of using grid lines that run all the way across, this time we’ll
+make the lines go only up to the points, by using
+<code>geom_segment()</code>. Note that <code>geom_segment()</code> needs
+values for <code>x</code>, <code>y</code>, <code>xend</code>, and
+<code>yend</code>:</p>
+<p><code>{r FIG-BAR-GRAPH-DOTPLOT-ORDERED2, fig.cap="Grouped by league, with lines that stop at the point", fig.width=4, fig.height=6, out.width="50%"} ggplot(tophit, aes(x = avg, y = name)) +   geom_segment(aes(yend = name), xend = 0, colour = "grey50") +   geom_point(size = 3, aes(colour = lg)) +   scale_colour_brewer(palette = "Set1", limits = c("NL", "AL")) +   theme_bw() +   theme(     panel.grid.major.y = element_blank(),   # No horizontal grid lines     legend.position = c(1, 0.55),           # Put legend inside plot area     legend.justification = c(1, 0.5)   )</code></p>
+<p>Another way to separate the two groups is to use facets, as shown in
+Figure @ref(fig:FIG-BAR-GRAPH-DOTPLOT-ORDERED2-FACET). The order in
+which the facets are displayed is different from the sorting order in
+Figure @ref(fig:FIG-BAR-GRAPH-DOTPLOT-ORDERED2); to change the display
+order, you must change the order of factor levels in the <code>lg</code>
+variable:</p>
+<p><code>{r FIG-BAR-GRAPH-DOTPLOT-ORDERED2-FACET, fig.cap="Faceted by league", fig.width=4, fig.height=6, out.width="50%"} ggplot(tophit, aes(x = avg, y = name)) +   geom_segment(aes(yend = name), xend = 0, colour = "grey50") +   geom_point(size = 3, aes(colour = lg)) +   scale_colour_brewer(palette = "Set1", limits = c("NL", "AL"), guide = FALSE) +   theme_bw() +   theme(panel.grid.major.y = element_blank()) +   facet_grid(lg ~ ., scales = "free_y", space = "free_y")</code></p>
+<div id="see-also-4" class="section level3">
+<h3>See Also</h3>
+<p>For more on changing the order of factor levels, see Recipe
+@ref(RECIPE-DATAPREP-FACTOR-REORDER). Also see Recipe
+@ref(RECIPE-DATAPREP-FACTOR-REORDER-VALUE) for details on changing the
+order of factor levels based on some other values.</p>
+<p>For more on moving the legend, see Recipe
+@ref(RECIPE-LEGEND-POSITION). To hide grid lines, see Recipe
+@ref(RECIPE-APPEARANCE-HIDE-GRIDLINES).</p>
+</div>
+</div>
+
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+<script>
+$(document).ready(function () {
+  window.initializeCodeFolding("show" === "show");
+});
+</script>
+
+<script>
+$(document).ready(function ()  {
+
+    // temporarily add toc-ignore selector to headers for the consistency with Pandoc
+    $('.unlisted.unnumbered').addClass('toc-ignore')
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
