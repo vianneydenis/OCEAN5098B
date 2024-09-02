@@ -196,7 +196,6 @@ plot(te, col='light blue', add=TRUE)
 plot(e, add=TRUE, lwd=3, border="blue")
 
 u <- terra::union(Taiwan, z)
-u
 
 set.seed(5)
 plot(u, col=sample(rainbow(length(u))))

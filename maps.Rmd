@@ -576,7 +576,6 @@ Get the union of two SpatVectors.
 
 ```{r,  eval=T}
 u <- terra::union(Taiwan, z)
-u
 ```
 
 Note that there are many more polygons now. One for each unique combination of polygons (and attributes in this case).

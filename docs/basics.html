@@ -13,7 +13,7 @@
 
 <title>Basics</title>
 
-<script src="site_libs/header-attrs-2.25/header-attrs.js"></script>
+<script src="site_libs/header-attrs-2.21/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/flatly.min.css" rel="stylesheet" />
@@ -29,7 +29,7 @@
        h6 {font-size: 12px;}
        code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
        pre:not([class]) { background-color: white }</style>
-<script src="site_libs/jqueryui-1.13.2/jquery-ui.min.js"></script>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
 <link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
 <script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
@@ -451,7 +451,10 @@ div.tocify {
   <a href="TEMP_types.html">Types &amp; structures</a>
 </li>
 <li>
-  <a href="maps.html">Mapping</a>
+  <a href="TEMP_graphs.html">Graphics</a>
+</li>
+<li>
+  <a href="TEMP_maps.html">Mapping</a>
 </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
@@ -693,11 +696,11 @@ individuals; (3) applying the filter to the dataset:</p>
 <pre><code>## [1] 1 2 3 4 5</code></pre>
 <div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" tabindex="-1"></a>sf<span class="ot">&lt;-</span><span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(females), <span class="dv">2</span>) <span class="co"># filter with two randomly selected female students</span></span>
 <span id="cb27-2"><a href="#cb27-2" tabindex="-1"></a>sf <span class="co"># the selection</span></span></code></pre></div>
-<pre><code>## [1] 2 5</code></pre>
+<pre><code>## [1] 4 2</code></pre>
 <div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" tabindex="-1"></a>females[sf,] <span class="co"># apply the filter on our original dataset</span></span></code></pre></div>
-<pre><code>##          height shoesize gender population
-## Vicky       164       39 female     taiwan
-## Victoria    158       36 female     taiwan</code></pre>
+<pre><code>##       height shoesize gender population
+## Joyce    162       37 female     taiwan
+## Vicky    164       39 female     taiwan</code></pre>
 </div>
 </div>
 <div id="sorting" class="section level1">

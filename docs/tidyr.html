@@ -13,7 +13,7 @@
 
 <title>tidyr</title>
 
-<script src="site_libs/header-attrs-2.25/header-attrs.js"></script>
+<script src="site_libs/header-attrs-2.21/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/flatly.min.css" rel="stylesheet" />
@@ -29,7 +29,7 @@
        h6 {font-size: 12px;}
        code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
        pre:not([class]) { background-color: white }</style>
-<script src="site_libs/jqueryui-1.13.2/jquery-ui.min.js"></script>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
 <link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
 <script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
@@ -451,7 +451,10 @@ div.tocify {
   <a href="TEMP_types.html">Types &amp; structures</a>
 </li>
 <li>
-  <a href="maps.html">Mapping</a>
+  <a href="TEMP_graphs.html">Graphics</a>
+</li>
+<li>
+  <a href="TEMP_maps.html">Mapping</a>
 </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
@@ -540,10 +543,8 @@ class="sourceCode r fold-show"><code class="sourceCode r"><span id="cb1-1"><a hr
 reef region:</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a>TW_corals<span class="ot">&lt;-</span><span class="fu">read.table</span>(<span class="st">&#39;Data/tw_corals.txt&#39;</span>, <span class="at">header=</span>T, <span class="at">sep=</span><span class="st">&#39;</span><span class="sc">\t</span><span class="st">&#39;</span>, <span class="at">dec=</span><span class="st">&#39;.&#39;</span>) </span>
 <span id="cb2-2"><a href="#cb2-2" tabindex="-1"></a>TW_corals</span></code></pre></div>
-<pre><code>##   Southern_TW Northern_TW Eastern_TW Ludao Lanyu Xiaoliuqiu Penghu_North Penghu_East
-## 1         280         136        210   250   248        239          107          84
-##   Penghu_Inner Penghu.South Dongsha Taiping Northern_Is
-## 1           75           99     229     163         112</code></pre>
+<pre><code>##   Southern_TW Northern_TW Eastern_TW Ludao Lanyu Xiaoliuqiu Penghu_North Penghu_East Penghu_Inner Penghu.South Dongsha Taiping Northern_Is
+## 1         280         136        210   250   248        239          107          84           75           99     229     163         112</code></pre>
 <p>This table is a <strong>wide table</strong>. It can easily be
 reformatted into a long table by combining the pipe operator
 <code>%&gt;%</code> with <code>pivot_longer</code> as follows:</p>
@@ -573,11 +574,9 @@ order to recreate the wide version of our table:</p>
 <span id="cb6-2"><a href="#cb6-2" tabindex="-1"></a>  <span class="fu">pivot_wider</span>( <span class="at">names_from =</span> Region, <span class="at">values_from =</span> Richness) </span>
 <span id="cb6-3"><a href="#cb6-3" tabindex="-1"></a>TW_corals_wide</span></code></pre></div>
 <pre><code>## # A tibble: 1 × 13
-##   Southern_TW Northern_TW Eastern_TW Ludao Lanyu Xiaoliuqiu Penghu_North Penghu_East
-##         &lt;int&gt;       &lt;int&gt;      &lt;int&gt; &lt;int&gt; &lt;int&gt;      &lt;int&gt;        &lt;int&gt;       &lt;int&gt;
-## 1         280         136        210   250   248        239          107          84
-## # ℹ 5 more variables: Penghu_Inner &lt;int&gt;, Penghu.South &lt;int&gt;, Dongsha &lt;int&gt;,
-## #   Taiping &lt;int&gt;, Northern_Is &lt;int&gt;</code></pre>
+##   Southern_TW Northern_TW Eastern_TW Ludao Lanyu Xiaoliuqiu Penghu_North Penghu_East Penghu_Inner Penghu.South Dongsha Taiping Northern_Is
+##         &lt;int&gt;       &lt;int&gt;      &lt;int&gt; &lt;int&gt; &lt;int&gt;      &lt;int&gt;        &lt;int&gt;       &lt;int&gt;        &lt;int&gt;        &lt;int&gt;   &lt;int&gt;   &lt;int&gt;       &lt;int&gt;
+## 1         280         136        210   250   248        239          107          84           75           99     229     163         112</code></pre>
 <p><span style="color: red"><strong>Note</strong>: The pipe operator
 <code>%&gt;%</code> is optional, but it is generally more elegant and
 you will discover its importance as your programming skills mature and

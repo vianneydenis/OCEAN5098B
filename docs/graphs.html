@@ -13,7 +13,7 @@
 
 <title>Graphics</title>
 
-<script src="site_libs/header-attrs-2.25/header-attrs.js"></script>
+<script src="site_libs/header-attrs-2.21/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/flatly.min.css" rel="stylesheet" />
@@ -29,7 +29,7 @@
        h6 {font-size: 12px;}
        code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
        pre:not([class]) { background-color: white }</style>
-<script src="site_libs/jqueryui-1.13.2/jquery-ui.min.js"></script>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
 <link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
 <script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
@@ -451,7 +451,10 @@ div.tocify {
   <a href="TEMP_types.html">Types &amp; structures</a>
 </li>
 <li>
-  <a href="maps.html">Mapping</a>
+  <a href="TEMP_graphs.html">Graphics</a>
+</li>
+<li>
+  <a href="TEMP_maps.html">Mapping</a>
 </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
@@ -513,24 +516,14 @@ work).</p>
 <span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&quot;gcookbook&quot;</span>)</span></code></pre></div>
 <p>Then, in each R session, before running the examples in this book,
 you can load them with:</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code></pre></div>
-<pre><code>## Warning: package &#39;tidyverse&#39; was built under R version 4.3.3</code></pre>
-<pre><code>## Warning: package &#39;readr&#39; was built under R version 4.3.2</code></pre>
-<pre><code>## ── Attaching core tidyverse packages ────────────────────────────── tidyverse 2.0.0 ──
-## ✔ forcats   1.0.0     ✔ readr     2.1.4
-## ✔ lubridate 1.9.3     ✔ stringr   1.5.0
-## ✔ purrr     1.0.2     ✔ tibble    3.2.1
-## ── Conflicts ──────────────────────────────────────────────── tidyverse_conflicts() ──
-## ✖ dplyr::filter() masks stats::filter()
-## ✖ dplyr::lag()    masks stats::lag()
-## ℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors</code></pre>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" tabindex="-1"></a><span class="fu">library</span>(gcookbook)</span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb2-2"><a href="#cb2-2" tabindex="-1"></a><span class="fu">library</span>(gcookbook)</span></code></pre></div>
 <p>If you want to keep your R session more streamlined and load only the
 packages that are strictly needed, you can load ggplot2 and dplyr
 packages individually:</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
-<span id="cb7-2"><a href="#cb7-2" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
-<span id="cb7-3"><a href="#cb7-3" tabindex="-1"></a><span class="fu">library</span>(gcookbook)</span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb3-2"><a href="#cb3-2" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb3-3"><a href="#cb3-3" tabindex="-1"></a><span class="fu">library</span>(gcookbook)</span></code></pre></div>
 </div>
 <div id="ggplot2" class="section level2">
 <h2><code>ggplot2</code></h2>
@@ -575,33 +568,33 @@ and changing the mappings may require restructuring your data, issuing
 completely different plotting commands, or both.</p>
 <p>To illustrate, I’ll show a graph made from the <code>simpledat</code>
 data set from the <code>gcookbook</code> package:</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" tabindex="-1"></a>simpledat</span></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a>simpledat</span></code></pre></div>
 <pre><code>##    A1 A2 A3
 ## B1 10  7 12
 ## B2  9 11  6</code></pre>
 <p>The following will make a simple grouped bar plot, with the As going
 along the x-axis and the bars grouped by the Bs:</p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" tabindex="-1"></a><span class="fu">barplot</span>(simpledat, <span class="at">beside =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" tabindex="-1"></a><span class="fu">barplot</span>(simpledat, <span class="at">beside =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
 <p><img src="graphs_files/figure-html/unnamed-chunk-9-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>One thing we might want to do is switch things up so the Bs go along
 the x-axis and the As are used for grouping. To do this, we need to
 restructure the data by transposing the matrix:</p>
-<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" tabindex="-1"></a><span class="fu">t</span>(simpledat)</span></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" tabindex="-1"></a><span class="fu">t</span>(simpledat)</span></code></pre></div>
 <pre><code>##    B1 B2
 ## A1 10  9
 ## A2  7 11
 ## A3 12  6</code></pre>
 <p>With the restructured data, we can create the plot the same way as
 before</p>
-<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" tabindex="-1"></a><span class="fu">barplot</span>(<span class="fu">t</span>(simpledat), <span class="at">beside=</span><span class="cn">TRUE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" tabindex="-1"></a><span class="fu">barplot</span>(<span class="fu">t</span>(simpledat), <span class="at">beside=</span><span class="cn">TRUE</span>)</span></code></pre></div>
 <p><img src="graphs_files/figure-html/unnamed-chunk-11-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>Another thing we might want to do is to represent the data with lines
 instead of bars. To do this with base graphics, we need to use a
 completely different set of commands. First we call <code>plot()</code>,
 which tells R to create a new plot and draw a line for one row of data.
 Then we tell it to draw a second row with <code>lines()</code>:</p>
-<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" tabindex="-1"></a><span class="fu">plot</span>(simpledat[<span class="dv">1</span>,], <span class="at">type=</span><span class="st">&quot;l&quot;</span>)</span>
-<span id="cb14-2"><a href="#cb14-2" tabindex="-1"></a><span class="fu">lines</span>(simpledat[<span class="dv">2</span>,], <span class="at">type=</span><span class="st">&quot;l&quot;</span>, <span class="at">col=</span><span class="st">&quot;blue&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" tabindex="-1"></a><span class="fu">plot</span>(simpledat[<span class="dv">1</span>,], <span class="at">type=</span><span class="st">&quot;l&quot;</span>)</span>
+<span id="cb10-2"><a href="#cb10-2" tabindex="-1"></a><span class="fu">lines</span>(simpledat[<span class="dv">2</span>,], <span class="at">type=</span><span class="st">&quot;l&quot;</span>, <span class="at">col=</span><span class="st">&quot;blue&quot;</span>)</span></code></pre></div>
 <p><img src="graphs_files/figure-html/unnamed-chunk-12-1.png" width="672" style="display: block; margin: auto;" />
 The resulting plot has a few quirks. The second (blue) line runs below
 the visible range, because the y range was set only for the first line,
@@ -615,12 +608,12 @@ format, each row represents one item. Instead of having their groups
 determined by their positions in the matrix, the items have their groups
 specified in a separate column. Here is <code>simpledat</code>,
 converted to long format:</p>
-<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" tabindex="-1"></a>simpledat.long<span class="ot">&lt;-</span> <span class="fu">data.frame</span>(simpledat) <span class="sc">%&gt;%</span></span>
-<span id="cb15-2"><a href="#cb15-2" tabindex="-1"></a>  tibble<span class="sc">::</span><span class="fu">rownames_to_column</span>(<span class="at">var =</span> <span class="st">&quot;Bval&quot;</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb15-3"><a href="#cb15-3" tabindex="-1"></a>  <span class="fu">pivot_longer</span> (</span>
-<span id="cb15-4"><a href="#cb15-4" tabindex="-1"></a>    <span class="at">cols=</span> <span class="sc">-</span>Bval,</span>
-<span id="cb15-5"><a href="#cb15-5" tabindex="-1"></a>    <span class="at">names_to =</span> <span class="st">&quot;Aval&quot;</span>,</span>
-<span id="cb15-6"><a href="#cb15-6" tabindex="-1"></a>    <span class="at">values_to =</span> <span class="st">&quot;values&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" tabindex="-1"></a>simpledat.long<span class="ot">&lt;-</span> <span class="fu">data.frame</span>(simpledat) <span class="sc">%&gt;%</span></span>
+<span id="cb11-2"><a href="#cb11-2" tabindex="-1"></a>  tibble<span class="sc">::</span><span class="fu">rownames_to_column</span>(<span class="at">var =</span> <span class="st">&quot;Bval&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb11-3"><a href="#cb11-3" tabindex="-1"></a>  <span class="fu">pivot_longer</span> (</span>
+<span id="cb11-4"><a href="#cb11-4" tabindex="-1"></a>    <span class="at">cols=</span> <span class="sc">-</span>Bval,</span>
+<span id="cb11-5"><a href="#cb11-5" tabindex="-1"></a>    <span class="at">names_to =</span> <span class="st">&quot;Aval&quot;</span>,</span>
+<span id="cb11-6"><a href="#cb11-6" tabindex="-1"></a>    <span class="at">values_to =</span> <span class="st">&quot;values&quot;</span>)</span></code></pre></div>
 <p>This represents the same information, but with a different structure.
 Another term for it is tidy data, where each row represents one
 observation. There are advantages and disadvantages to this format, but
@@ -635,16 +628,16 @@ it to map value to the y position, or height, of the bars, with
 <code>y = value</code>. Finally, we tell it to draw bars with
 <code>geom_col()</code> (don’t worry about the other details yet; we’ll
 get to those later):</p>
-<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" tabindex="-1"></a><span class="fu">ggplot</span>(simpledat_long, <span class="fu">aes</span>(<span class="at">x =</span> Aval, <span class="at">y =</span> value, <span class="at">fill =</span> Bval)) <span class="sc">+</span></span>
-<span id="cb16-2"><a href="#cb16-2" tabindex="-1"></a>    <span class="fu">geom_col</span>(<span class="at">position =</span> <span class="st">&quot;dodge&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" tabindex="-1"></a><span class="fu">ggplot</span>(simpledat_long, <span class="fu">aes</span>(<span class="at">x =</span> Aval, <span class="at">y =</span> value, <span class="at">fill =</span> Bval)) <span class="sc">+</span></span>
+<span id="cb12-2"><a href="#cb12-2" tabindex="-1"></a>    <span class="fu">geom_col</span>(<span class="at">position =</span> <span class="st">&quot;dodge&quot;</span>)</span></code></pre></div>
 <p><img src="graphs_files/figure-html/unnamed-chunk-14-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>To switch things so that the <code>B</code>s go along the x-axis and
 the <code>A</code>s determine the grouping, we simply swap the mapping
 specification, with <code>x = Bval</code> and <code>fill = Aval</code>.
 Unlike with base graphics, we don’t have to change the data; we just
 change the commands for making the plot:</p>
-<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" tabindex="-1"></a><span class="fu">ggplot</span>(simpledat_long, <span class="fu">aes</span>(<span class="at">x =</span> Bval, <span class="at">y =</span> value, <span class="at">fill =</span> Aval)) <span class="sc">+</span></span>
-<span id="cb17-2"><a href="#cb17-2" tabindex="-1"></a>    <span class="fu">geom_col</span>(<span class="at">position =</span> <span class="st">&quot;dodge&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" tabindex="-1"></a><span class="fu">ggplot</span>(simpledat_long, <span class="fu">aes</span>(<span class="at">x =</span> Bval, <span class="at">y =</span> value, <span class="at">fill =</span> Aval)) <span class="sc">+</span></span>
+<span id="cb13-2"><a href="#cb13-2" tabindex="-1"></a>    <span class="fu">geom_col</span>(<span class="at">position =</span> <span class="st">&quot;dodge&quot;</span>)</span></code></pre></div>
 <p><img src="graphs_files/figure-html/unnamed-chunk-15-1.png" width="672" style="display: block; margin: auto;" />
 &gt; You may have noticed that with <code>ggplot2</code>, components of
 the plot are combined with the <code>+</code> operator. You can
@@ -656,8 +649,8 @@ when you’re all done, you can tell it to print.</p>
 <em>fill</em> colour (note the British spelling – the author of
 <code>ggplot2</code> is a Kiwi). Again, don’t worry about the other
 details yet:</p>
-<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" tabindex="-1"></a><span class="fu">ggplot</span>(simpledat_long, <span class="fu">aes</span>(<span class="at">x =</span> Aval, <span class="at">y =</span> value, <span class="at">colour =</span> Bval, <span class="at">group =</span> Bval)) <span class="sc">+</span></span>
-<span id="cb18-2"><a href="#cb18-2" tabindex="-1"></a>    <span class="fu">geom_line</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" tabindex="-1"></a><span class="fu">ggplot</span>(simpledat_long, <span class="fu">aes</span>(<span class="at">x =</span> Aval, <span class="at">y =</span> value, <span class="at">colour =</span> Bval, <span class="at">group =</span> Bval)) <span class="sc">+</span></span>
+<span id="cb14-2"><a href="#cb14-2" tabindex="-1"></a>    <span class="fu">geom_line</span>()</span></code></pre></div>
 <p><img src="graphs_files/figure-html/unnamed-chunk-16-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>With <code>base</code> graphics, we had to use completely different
 commands to make a line plot instead of a bar plot. With
@@ -778,20 +771,20 @@ we changed the mapping specification to change which variable was mapped
 to which aesthetic.</p>
 <p>We’ll walk through a simple example here. First, we’ll make a data
 frame of some sample data:</p>
-<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" tabindex="-1"></a>dat <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
-<span id="cb19-2"><a href="#cb19-2" tabindex="-1"></a>  <span class="at">xval =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>,</span>
-<span id="cb19-3"><a href="#cb19-3" tabindex="-1"></a>  <span class="at">yval=</span><span class="fu">c</span>(<span class="dv">3</span>, <span class="dv">5</span>, <span class="dv">6</span>, <span class="dv">9</span>),</span>
-<span id="cb19-4"><a href="#cb19-4" tabindex="-1"></a>  <span class="at">group=</span><span class="fu">c</span>(<span class="st">&quot;A&quot;</span>,<span class="st">&quot;B&quot;</span>,<span class="st">&quot;A&quot;</span>,<span class="st">&quot;B&quot;</span>)</span>
-<span id="cb19-5"><a href="#cb19-5" tabindex="-1"></a>)</span>
-<span id="cb19-6"><a href="#cb19-6" tabindex="-1"></a></span>
-<span id="cb19-7"><a href="#cb19-7" tabindex="-1"></a>dat</span></code></pre></div>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" tabindex="-1"></a>dat <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb15-2"><a href="#cb15-2" tabindex="-1"></a>  <span class="at">xval =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>,</span>
+<span id="cb15-3"><a href="#cb15-3" tabindex="-1"></a>  <span class="at">yval=</span><span class="fu">c</span>(<span class="dv">3</span>, <span class="dv">5</span>, <span class="dv">6</span>, <span class="dv">9</span>),</span>
+<span id="cb15-4"><a href="#cb15-4" tabindex="-1"></a>  <span class="at">group=</span><span class="fu">c</span>(<span class="st">&quot;A&quot;</span>,<span class="st">&quot;B&quot;</span>,<span class="st">&quot;A&quot;</span>,<span class="st">&quot;B&quot;</span>)</span>
+<span id="cb15-5"><a href="#cb15-5" tabindex="-1"></a>)</span>
+<span id="cb15-6"><a href="#cb15-6" tabindex="-1"></a></span>
+<span id="cb15-7"><a href="#cb15-7" tabindex="-1"></a>dat</span></code></pre></div>
 <pre><code>##   xval yval group
 ## 1    1    3     A
 ## 2    2    5     B
 ## 3    3    6     A
 ## 4    4    9     B</code></pre>
 <p>A basic <code>ggplot()</code> specification looks like this.</p>
-<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" tabindex="-1"></a><span class="fu">ggplot</span>(dat, <span class="fu">aes</span>(<span class="at">x =</span> xval, <span class="at">y =</span> yval))</span></code></pre></div>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" tabindex="-1"></a><span class="fu">ggplot</span>(dat, <span class="fu">aes</span>(<span class="at">x =</span> xval, <span class="at">y =</span> yval))</span></code></pre></div>
 <p><img src="graphs_files/figure-html/unnamed-chunk-20-1.png" width="672" style="display: block; margin: auto;" />
 This creates a ggplot object using the dataframe <code>dat</code>. It
 also specifies default <em>aesthetic mappings</em> within
@@ -808,22 +801,22 @@ objects to add. At this point, <code>ggplot2</code> doesn’t know if we
 want bars, lines, points, or something else to be drawn on the graph.
 We’ll add <code>geom_point()</code> to draw points, resulting in a
 scatter plot:</p>
-<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" tabindex="-1"></a><span class="fu">ggplot</span>(dat, <span class="fu">aes</span>(<span class="at">x =</span> xval, <span class="at">y =</span> yval)) <span class="sc">+</span></span>
-<span id="cb22-2"><a href="#cb22-2" tabindex="-1"></a>  <span class="fu">geom_point</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" tabindex="-1"></a><span class="fu">ggplot</span>(dat, <span class="fu">aes</span>(<span class="at">x =</span> xval, <span class="at">y =</span> yval)) <span class="sc">+</span></span>
+<span id="cb18-2"><a href="#cb18-2" tabindex="-1"></a>  <span class="fu">geom_point</span>()</span></code></pre></div>
 <p><img src="graphs_files/figure-html/unnamed-chunk-21-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>If you’re going to reuse some of these components, you can store them
 in variables. We can save the ggplot object in <code>p</code>, and then
 add <code>geom_point()</code> to it. This has the same effect as the
 preceding code:</p>
-<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(dat, <span class="fu">aes</span>(<span class="at">x =</span> xval, <span class="at">y =</span> yval))</span>
-<span id="cb23-2"><a href="#cb23-2" tabindex="-1"></a>p <span class="sc">+</span></span>
-<span id="cb23-3"><a href="#cb23-3" tabindex="-1"></a>  <span class="fu">geom_point</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(dat, <span class="fu">aes</span>(<span class="at">x =</span> xval, <span class="at">y =</span> yval))</span>
+<span id="cb19-2"><a href="#cb19-2" tabindex="-1"></a>p <span class="sc">+</span></span>
+<span id="cb19-3"><a href="#cb19-3" tabindex="-1"></a>  <span class="fu">geom_point</span>()</span></code></pre></div>
 <p><img src="graphs_files/figure-html/unnamed-chunk-22-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>We can also map the variable group to the color of the points, by
 putting <code>aes()</code> inside the call to <code>geom_point()</code>,
 and specifying <code>colour = group</code>:</p>
-<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" tabindex="-1"></a>p <span class="sc">+</span></span>
-<span id="cb24-2"><a href="#cb24-2" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">colour =</span> group))</span></code></pre></div>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" tabindex="-1"></a>p <span class="sc">+</span></span>
+<span id="cb20-2"><a href="#cb20-2" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">colour =</span> group))</span></code></pre></div>
 <p><img src="graphs_files/figure-html/unnamed-chunk-23-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>This doesn’t alter the <em>default</em> aesthetic mappings that we
 defined previously, inside of <code>ggplot(...)</code>. What it does is
@@ -833,21 +826,21 @@ not apply to them.</p>
 <p>Contrast this <em>aesthetic</em> mapping with aesthetic
 <em>setting</em>. This time, we won’t use <code>aes()</code>; we’ll just
 set the value of colour directly:</p>
-<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" tabindex="-1"></a>p <span class="sc">+</span></span>
-<span id="cb25-2"><a href="#cb25-2" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">colour =</span> <span class="st">&quot;blue&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" tabindex="-1"></a>p <span class="sc">+</span></span>
+<span id="cb21-2"><a href="#cb21-2" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">colour =</span> <span class="st">&quot;blue&quot;</span>)</span></code></pre></div>
 <p><img src="graphs_files/figure-html/unnamed-chunk-24-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>We can also modify the <em>scales</em>; that is, the mappings from
 data to visual attributes. Here, we’ll change the x scale so that it has
 a larger range</p>
-<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" tabindex="-1"></a>p <span class="sc">+</span></span>
-<span id="cb26-2"><a href="#cb26-2" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
-<span id="cb26-3"><a href="#cb26-3" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">8</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" tabindex="-1"></a>p <span class="sc">+</span></span>
+<span id="cb22-2"><a href="#cb22-2" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb22-3"><a href="#cb22-3" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">8</span>))</span></code></pre></div>
 <p><img src="graphs_files/figure-html/unnamed-chunk-25-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>If we go back to the example with the <code>colour = group</code>
 mapping, we can also modify the color scale:</p>
-<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" tabindex="-1"></a>p <span class="sc">+</span></span>
-<span id="cb27-2"><a href="#cb27-2" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">colour =</span> group)) <span class="sc">+</span></span>
-<span id="cb27-3"><a href="#cb27-3" tabindex="-1"></a>  <span class="fu">scale_colour_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">&quot;orange&quot;</span>, <span class="st">&quot;forestgreen&quot;</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" tabindex="-1"></a>p <span class="sc">+</span></span>
+<span id="cb23-2"><a href="#cb23-2" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">colour =</span> group)) <span class="sc">+</span></span>
+<span id="cb23-3"><a href="#cb23-3" tabindex="-1"></a>  <span class="fu">scale_colour_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">&quot;orange&quot;</span>, <span class="st">&quot;forestgreen&quot;</span>))</span></code></pre></div>
 <p><img src="graphs_files/figure-html/unnamed-chunk-26-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>Both times when we modified the scale, the <em>guide</em> also
 changed. With the <em>x</em> scale, the guide was the markings along the
@@ -905,17 +898,17 @@ text in the plot title. These are controlled with the
 <h2>Scatter plot</h2>
 <p>To make a scatter plot, use plot() and pass it a vector of x values
 followed by a vector of y values.</p>
-<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" tabindex="-1"></a><span class="co"># Motor Trend Car Road Tests</span></span>
-<span id="cb28-2"><a href="#cb28-2" tabindex="-1"></a><span class="co"># ?mtcars</span></span>
-<span id="cb28-3"><a href="#cb28-3" tabindex="-1"></a><span class="fu">plot</span>(mtcars<span class="sc">$</span>wt, mtcars<span class="sc">$</span>mpg)</span></code></pre></div>
+<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" tabindex="-1"></a><span class="co"># Motor Trend Car Road Tests</span></span>
+<span id="cb24-2"><a href="#cb24-2" tabindex="-1"></a><span class="co"># ?mtcars</span></span>
+<span id="cb24-3"><a href="#cb24-3" tabindex="-1"></a><span class="fu">plot</span>(mtcars<span class="sc">$</span>wt, mtcars<span class="sc">$</span>mpg)</span></code></pre></div>
 <p><img src="graphs_files/figure-html/unnamed-chunk-27-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>The <code>mtcars$wt</code> returns the column named <code>wt</code>
 from the <code>mtcars</code> dataframe, and <code>mtcars$mpg</code> is
 the <code>mpg</code> column.</p>
 <p>With ggplot2, you can get a similar result using the
 <code>ggplot()</code> function:</p>
-<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" tabindex="-1"></a><span class="fu">ggplot</span>(mtcars, <span class="fu">aes</span>(<span class="at">x =</span> wt, <span class="at">y =</span> mpg)) <span class="sc">+</span></span>
-<span id="cb29-2"><a href="#cb29-2" tabindex="-1"></a>  <span class="fu">geom_point</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" tabindex="-1"></a><span class="fu">ggplot</span>(mtcars, <span class="fu">aes</span>(<span class="at">x =</span> wt, <span class="at">y =</span> mpg)) <span class="sc">+</span></span>
+<span id="cb25-2"><a href="#cb25-2" tabindex="-1"></a>  <span class="fu">geom_point</span>()</span></code></pre></div>
 <p><img src="graphs_files/figure-html/unnamed-chunk-28-1.png" width="672" style="display: block; margin: auto;" />
 The usual way to use <code>ggplot()</code> is to pass it a data frame
 (<code>mtcars</code>) and then tell it which columns to use for the
@@ -925,8 +918,8 @@ and then pass it the vectors. Keep in mind that <code>ggplot2</code> is
 designed to work with data frames as the data source, not individual
 vectors, and that using it this way will only allow you to use a limited
 part of its capabilities.</p>
-<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> <span class="cn">NULL</span>, <span class="fu">aes</span>(<span class="at">x =</span> mtcars<span class="sc">$</span>wt, <span class="at">y =</span> mtcars<span class="sc">$</span>mpg)) <span class="sc">+</span></span>
-<span id="cb30-2"><a href="#cb30-2" tabindex="-1"></a>  <span class="fu">geom_point</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> <span class="cn">NULL</span>, <span class="fu">aes</span>(<span class="at">x =</span> mtcars<span class="sc">$</span>wt, <span class="at">y =</span> mtcars<span class="sc">$</span>mpg)) <span class="sc">+</span></span>
+<span id="cb26-2"><a href="#cb26-2" tabindex="-1"></a>  <span class="fu">geom_point</span>()</span></code></pre></div>
 <p><img src="graphs_files/figure-html/unnamed-chunk-29-1.png" width="672" style="display: block; margin: auto;" /></p>
 </div>
 <div id="line-plot" class="section level2">
@@ -934,28 +927,28 @@ part of its capabilities.</p>
 <p>To make a line graph using <code>plot()</code>, pass it a vector of
 <em>x</em> values and a vector of <em>y</em> values, and use
 <code>type = "l"</code></p>
-<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" tabindex="-1"></a><span class="fu">plot</span>(pressure<span class="sc">$</span>temperature, pressure<span class="sc">$</span>pressure, <span class="at">type =</span> <span class="st">&quot;l&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" tabindex="-1"></a><span class="fu">plot</span>(pressure<span class="sc">$</span>temperature, pressure<span class="sc">$</span>pressure, <span class="at">type =</span> <span class="st">&quot;l&quot;</span>)</span></code></pre></div>
 <p><img src="graphs_files/figure-html/unnamed-chunk-30-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>To add points and/or multiple lines, first call <code>plot()</code>
 for the first line, then add points with <code>points()</code> and
 additional lines with <code>lines()</code>:</p>
-<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" tabindex="-1"></a><span class="fu">plot</span>(pressure<span class="sc">$</span>temperature, pressure<span class="sc">$</span>pressure, <span class="at">type =</span> <span class="st">&quot;l&quot;</span>)</span>
-<span id="cb32-2"><a href="#cb32-2" tabindex="-1"></a><span class="fu">points</span>(pressure<span class="sc">$</span>temperature, pressure<span class="sc">$</span>pressure)</span>
-<span id="cb32-3"><a href="#cb32-3" tabindex="-1"></a></span>
-<span id="cb32-4"><a href="#cb32-4" tabindex="-1"></a><span class="fu">lines</span>(pressure<span class="sc">$</span>temperature, pressure<span class="sc">$</span>pressure<span class="sc">/</span><span class="dv">2</span>, <span class="at">col =</span> <span class="st">&quot;red&quot;</span>)</span>
-<span id="cb32-5"><a href="#cb32-5" tabindex="-1"></a><span class="fu">points</span>(pressure<span class="sc">$</span>temperature, pressure<span class="sc">$</span>pressure<span class="sc">/</span><span class="dv">2</span>, <span class="at">col =</span> <span class="st">&quot;red&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" tabindex="-1"></a><span class="fu">plot</span>(pressure<span class="sc">$</span>temperature, pressure<span class="sc">$</span>pressure, <span class="at">type =</span> <span class="st">&quot;l&quot;</span>)</span>
+<span id="cb28-2"><a href="#cb28-2" tabindex="-1"></a><span class="fu">points</span>(pressure<span class="sc">$</span>temperature, pressure<span class="sc">$</span>pressure)</span>
+<span id="cb28-3"><a href="#cb28-3" tabindex="-1"></a></span>
+<span id="cb28-4"><a href="#cb28-4" tabindex="-1"></a><span class="fu">lines</span>(pressure<span class="sc">$</span>temperature, pressure<span class="sc">$</span>pressure<span class="sc">/</span><span class="dv">2</span>, <span class="at">col =</span> <span class="st">&quot;red&quot;</span>)</span>
+<span id="cb28-5"><a href="#cb28-5" tabindex="-1"></a><span class="fu">points</span>(pressure<span class="sc">$</span>temperature, pressure<span class="sc">$</span>pressure<span class="sc">/</span><span class="dv">2</span>, <span class="at">col =</span> <span class="st">&quot;red&quot;</span>)</span></code></pre></div>
 <p><img src="graphs_files/figure-html/unnamed-chunk-31-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>With <code>ggplot2</code>, you can get a similar result using
 <code>geom_line()</code></p>
-<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" tabindex="-1"></a><span class="fu">ggplot</span>(pressure, <span class="fu">aes</span>(<span class="at">x =</span> temperature, <span class="at">y =</span> pressure)) <span class="sc">+</span></span>
-<span id="cb33-2"><a href="#cb33-2" tabindex="-1"></a>  <span class="fu">geom_line</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" tabindex="-1"></a><span class="fu">ggplot</span>(pressure, <span class="fu">aes</span>(<span class="at">x =</span> temperature, <span class="at">y =</span> pressure)) <span class="sc">+</span></span>
+<span id="cb29-2"><a href="#cb29-2" tabindex="-1"></a>  <span class="fu">geom_line</span>()</span></code></pre></div>
 <p><img src="graphs_files/figure-html/unnamed-chunk-32-1.png" width="672" style="display: block; margin: auto;" />
 As with scatter plots, you can pass you data in vectors instead of in a
 data frame (but this will limit the things you can do later with the
 plot):</p>
-<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" tabindex="-1"></a><span class="fu">ggplot</span>(pressure, <span class="fu">aes</span>(<span class="at">x =</span> temperature, <span class="at">y =</span> pressure)) <span class="sc">+</span></span>
-<span id="cb34-2"><a href="#cb34-2" tabindex="-1"></a>  <span class="fu">geom_line</span>() <span class="sc">+</span></span>
-<span id="cb34-3"><a href="#cb34-3" tabindex="-1"></a>  <span class="fu">geom_point</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" tabindex="-1"></a><span class="fu">ggplot</span>(pressure, <span class="fu">aes</span>(<span class="at">x =</span> temperature, <span class="at">y =</span> pressure)) <span class="sc">+</span></span>
+<span id="cb30-2"><a href="#cb30-2" tabindex="-1"></a>  <span class="fu">geom_line</span>() <span class="sc">+</span></span>
+<span id="cb30-3"><a href="#cb30-3" tabindex="-1"></a>  <span class="fu">geom_point</span>()</span></code></pre></div>
 <p><img src="graphs_files/figure-html/unnamed-chunk-33-1.png" width="672" style="display: block; margin: auto;" />
 &gt; It’s common with <code>ggplot()</code> to split the command on
 multiple lines, ending each line with a <code>+</code> so that R knows
@@ -967,10 +960,10 @@ that the command will continue on the next line.</p>
 values for the height of each bar and (optionally) a vector of labels
 for each bar. If the vector has names for the elements, the names will
 automatically be used as labels:</p>
-<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" tabindex="-1"></a><span class="co"># Biochemical Oxygen Demand</span></span>
-<span id="cb35-2"><a href="#cb35-2" tabindex="-1"></a><span class="co"># ?BOD </span></span>
-<span id="cb35-3"><a href="#cb35-3" tabindex="-1"></a></span>
-<span id="cb35-4"><a href="#cb35-4" tabindex="-1"></a><span class="fu">barplot</span>(BOD<span class="sc">$</span>demand, <span class="at">names.arg =</span> BOD<span class="sc">$</span>Time)</span></code></pre></div>
+<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" tabindex="-1"></a><span class="co"># Biochemical Oxygen Demand</span></span>
+<span id="cb31-2"><a href="#cb31-2" tabindex="-1"></a><span class="co"># ?BOD </span></span>
+<span id="cb31-3"><a href="#cb31-3" tabindex="-1"></a></span>
+<span id="cb31-4"><a href="#cb31-4" tabindex="-1"></a><span class="fu">barplot</span>(BOD<span class="sc">$</span>demand, <span class="at">names.arg =</span> BOD<span class="sc">$</span>Time)</span></code></pre></div>
 <p><img src="graphs_files/figure-html/unnamed-chunk-34-1.png" width="672" style="display: block; margin: auto;" />
 Sometimes “bar plot” refers to a graph where the bars represent the
 count of cases in each category. This is similar to a histogram, but
@@ -978,20 +971,20 @@ with a discrete instead of continuous x-axis. To generate the count of
 each unique value in a vector, use the <code>table()</code> function
 then pass the resulting table to <code>barplot()</code> to generate the
 graph of counts:</p>
-<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" tabindex="-1"></a><span class="fu">barplot</span>(<span class="fu">table</span>(mtcars<span class="sc">$</span>cyl))</span></code></pre></div>
+<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" tabindex="-1"></a><span class="fu">barplot</span>(<span class="fu">table</span>(mtcars<span class="sc">$</span>cyl))</span></code></pre></div>
 <p><img src="graphs_files/figure-html/unnamed-chunk-35-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>With <code>ggplot2</code>, you can get a similar result using
 <code>geom_col()</code>. To plot a bar graph of values, use
 <code>geom_col()</code>. Notice the difference in the output when the x
 variable is continuous and when it is discrete:</p>
-<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" tabindex="-1"></a><span class="co"># Bar graph of values. This uses the BOD data frame, with the</span></span>
-<span id="cb37-2"><a href="#cb37-2" tabindex="-1"></a><span class="co"># &quot;Time&quot; column for x values and the &quot;demand&quot; column for y values.</span></span>
-<span id="cb37-3"><a href="#cb37-3" tabindex="-1"></a><span class="fu">ggplot</span>(BOD, <span class="fu">aes</span>(<span class="at">x =</span> Time, <span class="at">y =</span> demand)) <span class="sc">+</span></span>
-<span id="cb37-4"><a href="#cb37-4" tabindex="-1"></a>  <span class="fu">geom_col</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" tabindex="-1"></a><span class="co"># Bar graph of values. This uses the BOD data frame, with the</span></span>
+<span id="cb33-2"><a href="#cb33-2" tabindex="-1"></a><span class="co"># &quot;Time&quot; column for x values and the &quot;demand&quot; column for y values.</span></span>
+<span id="cb33-3"><a href="#cb33-3" tabindex="-1"></a><span class="fu">ggplot</span>(BOD, <span class="fu">aes</span>(<span class="at">x =</span> Time, <span class="at">y =</span> demand)) <span class="sc">+</span></span>
+<span id="cb33-4"><a href="#cb33-4" tabindex="-1"></a>  <span class="fu">geom_col</span>()</span></code></pre></div>
 <p><img src="graphs_files/figure-html/unnamed-chunk-36-1.png" width="672" style="display: block; margin: auto;" /></p>
-<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" tabindex="-1"></a><span class="co"># Convert the x variable to a factor, so that it is treated as discrete</span></span>
-<span id="cb38-2"><a href="#cb38-2" tabindex="-1"></a><span class="fu">ggplot</span>(BOD, <span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">factor</span>(Time), <span class="at">y =</span> demand)) <span class="sc">+</span></span>
-<span id="cb38-3"><a href="#cb38-3" tabindex="-1"></a>  <span class="fu">geom_col</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" tabindex="-1"></a><span class="co"># Convert the x variable to a factor, so that it is treated as discrete</span></span>
+<span id="cb34-2"><a href="#cb34-2" tabindex="-1"></a><span class="fu">ggplot</span>(BOD, <span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">factor</span>(Time), <span class="at">y =</span> demand)) <span class="sc">+</span></span>
+<span id="cb34-3"><a href="#cb34-3" tabindex="-1"></a>  <span class="fu">geom_col</span>()</span></code></pre></div>
 <p><img src="graphs_files/figure-html/unnamed-chunk-37-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p><code>ggplot2</code> can also be used to plot the count of the number
 of data rows in each category by using <code>geom_bar()</code> instead
@@ -999,36 +992,36 @@ of <code>geom_col()</code>. Once again, notice the difference between a
 continuous x-axis and a discrete one. For some kinds of data, it may
 make more sense to convert the continuous x variable to a discrete one,
 with the <code>factor()</code> function.</p>
-<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" tabindex="-1"></a><span class="co"># Bar graph of counts using the mtcars data frame, with the &quot;cyl&quot; column for</span></span>
-<span id="cb39-2"><a href="#cb39-2" tabindex="-1"></a><span class="co"># x position. The y position is calculated by counting the number of rows for</span></span>
-<span id="cb39-3"><a href="#cb39-3" tabindex="-1"></a><span class="co"># each value of cyl.</span></span>
-<span id="cb39-4"><a href="#cb39-4" tabindex="-1"></a></span>
-<span id="cb39-5"><a href="#cb39-5" tabindex="-1"></a><span class="fu">ggplot</span>(mtcars, <span class="fu">aes</span>(<span class="at">x =</span> cyl)) <span class="sc">+</span></span>
-<span id="cb39-6"><a href="#cb39-6" tabindex="-1"></a>  <span class="fu">geom_bar</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" tabindex="-1"></a><span class="co"># Bar graph of counts using the mtcars data frame, with the &quot;cyl&quot; column for</span></span>
+<span id="cb35-2"><a href="#cb35-2" tabindex="-1"></a><span class="co"># x position. The y position is calculated by counting the number of rows for</span></span>
+<span id="cb35-3"><a href="#cb35-3" tabindex="-1"></a><span class="co"># each value of cyl.</span></span>
+<span id="cb35-4"><a href="#cb35-4" tabindex="-1"></a></span>
+<span id="cb35-5"><a href="#cb35-5" tabindex="-1"></a><span class="fu">ggplot</span>(mtcars, <span class="fu">aes</span>(<span class="at">x =</span> cyl)) <span class="sc">+</span></span>
+<span id="cb35-6"><a href="#cb35-6" tabindex="-1"></a>  <span class="fu">geom_bar</span>()</span></code></pre></div>
 <p><img src="graphs_files/figure-html/unnamed-chunk-38-1.png" width="672" style="display: block; margin: auto;" /></p>
-<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" tabindex="-1"></a><span class="co"># Bar graph of counts</span></span>
-<span id="cb40-2"><a href="#cb40-2" tabindex="-1"></a><span class="fu">ggplot</span>(mtcars, <span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">factor</span>(cyl))) <span class="sc">+</span></span>
-<span id="cb40-3"><a href="#cb40-3" tabindex="-1"></a>  <span class="fu">geom_bar</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" tabindex="-1"></a><span class="co"># Bar graph of counts</span></span>
+<span id="cb36-2"><a href="#cb36-2" tabindex="-1"></a><span class="fu">ggplot</span>(mtcars, <span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">factor</span>(cyl))) <span class="sc">+</span></span>
+<span id="cb36-3"><a href="#cb36-3" tabindex="-1"></a>  <span class="fu">geom_bar</span>()</span></code></pre></div>
 <p><img src="graphs_files/figure-html/unnamed-chunk-38-2.png" width="672" style="display: block; margin: auto;" /></p>
 </div>
 <div id="histogram" class="section level2">
 <h2>Histogram</h2>
 <p>To make a histogram, use <code>hist()</code> and pass it a vector of
 values:</p>
-<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" tabindex="-1"></a><span class="fu">hist</span>(mtcars<span class="sc">$</span>mpg)</span></code></pre></div>
+<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" tabindex="-1"></a><span class="fu">hist</span>(mtcars<span class="sc">$</span>mpg)</span></code></pre></div>
 <p><img src="graphs_files/figure-html/unnamed-chunk-39-1.png" width="672" style="display: block; margin: auto;" /></p>
-<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" tabindex="-1"></a><span class="co"># Specify approximate number of bins with breaks</span></span>
-<span id="cb42-2"><a href="#cb42-2" tabindex="-1"></a><span class="fu">hist</span>(mtcars<span class="sc">$</span>mpg, <span class="at">breaks =</span> <span class="dv">10</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" tabindex="-1"></a><span class="co"># Specify approximate number of bins with breaks</span></span>
+<span id="cb38-2"><a href="#cb38-2" tabindex="-1"></a><span class="fu">hist</span>(mtcars<span class="sc">$</span>mpg, <span class="at">breaks =</span> <span class="dv">10</span>)</span></code></pre></div>
 <p><img src="graphs_files/figure-html/unnamed-chunk-39-2.png" width="672" style="display: block; margin: auto;" />
 With the <code>ggplot2</code>, you can get a similar result using
 <code>geom_histogram()</code>:</p>
-<div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" tabindex="-1"></a><span class="fu">ggplot</span>(mtcars, <span class="fu">aes</span>(<span class="at">x =</span> mpg)) <span class="sc">+</span></span>
-<span id="cb43-2"><a href="#cb43-2" tabindex="-1"></a>  <span class="fu">geom_histogram</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" tabindex="-1"></a><span class="fu">ggplot</span>(mtcars, <span class="fu">aes</span>(<span class="at">x =</span> mpg)) <span class="sc">+</span></span>
+<span id="cb39-2"><a href="#cb39-2" tabindex="-1"></a>  <span class="fu">geom_histogram</span>()</span></code></pre></div>
 <pre><code>## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</code></pre>
 <p><img src="graphs_files/figure-html/unnamed-chunk-40-1.png" width="672" style="display: block; margin: auto;" /></p>
-<div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" tabindex="-1"></a><span class="co"># With wider bins</span></span>
-<span id="cb45-2"><a href="#cb45-2" tabindex="-1"></a><span class="fu">ggplot</span>(mtcars, <span class="fu">aes</span>(<span class="at">x =</span> mpg)) <span class="sc">+</span></span>
-<span id="cb45-3"><a href="#cb45-3" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">binwidth =</span> <span class="dv">4</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" tabindex="-1"></a><span class="co"># With wider bins</span></span>
+<span id="cb41-2"><a href="#cb41-2" tabindex="-1"></a><span class="fu">ggplot</span>(mtcars, <span class="fu">aes</span>(<span class="at">x =</span> mpg)) <span class="sc">+</span></span>
+<span id="cb41-3"><a href="#cb41-3" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">binwidth =</span> <span class="dv">4</span>)</span></code></pre></div>
 <p><img src="graphs_files/figure-html/unnamed-chunk-40-2.png" width="672" style="display: block; margin: auto;" />
 When you create a histogram without specifying the bin width,
 <code>ggplot()</code> prints out a message telling you that it’s
@@ -1042,28 +1035,28 @@ data.</p>
 <p>To make a box plot, use <code>plot()</code> and pass it a factor of x
 values and a vector of y values. When x is a factor (as opposed to a
 numeric vector), it will automatically create a box plot:</p>
-<div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" tabindex="-1"></a><span class="co"># The Effect of Vitamin C on Tooth Growth in Guinea Pigs</span></span>
-<span id="cb46-2"><a href="#cb46-2" tabindex="-1"></a><span class="co"># ?ToothGrowth</span></span>
-<span id="cb46-3"><a href="#cb46-3" tabindex="-1"></a><span class="fu">plot</span>(ToothGrowth<span class="sc">$</span>supp, ToothGrowth<span class="sc">$</span>len)</span></code></pre></div>
+<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" tabindex="-1"></a><span class="co"># The Effect of Vitamin C on Tooth Growth in Guinea Pigs</span></span>
+<span id="cb42-2"><a href="#cb42-2" tabindex="-1"></a><span class="co"># ?ToothGrowth</span></span>
+<span id="cb42-3"><a href="#cb42-3" tabindex="-1"></a><span class="fu">plot</span>(ToothGrowth<span class="sc">$</span>supp, ToothGrowth<span class="sc">$</span>len)</span></code></pre></div>
 <p><img src="graphs_files/figure-html/unnamed-chunk-41-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>If the two vectors are in the same data frame, you can also use the
 <code>boxplot()</code> function with formula syntax. With this syntax,
 you can combine two variables on the x-axis.</p>
-<div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" tabindex="-1"></a><span class="co"># Formula syntax</span></span>
-<span id="cb47-2"><a href="#cb47-2" tabindex="-1"></a><span class="fu">boxplot</span>(len <span class="sc">~</span> supp, <span class="at">data =</span> ToothGrowth)</span></code></pre></div>
+<div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" tabindex="-1"></a><span class="co"># Formula syntax</span></span>
+<span id="cb43-2"><a href="#cb43-2" tabindex="-1"></a><span class="fu">boxplot</span>(len <span class="sc">~</span> supp, <span class="at">data =</span> ToothGrowth)</span></code></pre></div>
 <p><img src="graphs_files/figure-html/unnamed-chunk-42-1.png" width="672" style="display: block; margin: auto;" /></p>
-<div class="sourceCode" id="cb48"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" tabindex="-1"></a><span class="co"># Put interaction of two variables on x-axis</span></span>
-<span id="cb48-2"><a href="#cb48-2" tabindex="-1"></a><span class="fu">boxplot</span>(len <span class="sc">~</span> supp <span class="sc">+</span> dose, <span class="at">data =</span> ToothGrowth)</span></code></pre></div>
+<div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" tabindex="-1"></a><span class="co"># Put interaction of two variables on x-axis</span></span>
+<span id="cb44-2"><a href="#cb44-2" tabindex="-1"></a><span class="fu">boxplot</span>(len <span class="sc">~</span> supp <span class="sc">+</span> dose, <span class="at">data =</span> ToothGrowth)</span></code></pre></div>
 <p><img src="graphs_files/figure-html/unnamed-chunk-42-2.png" width="672" style="display: block; margin: auto;" /></p>
 <p>With the <code>ggplot2</code> package, you can get a similar result
 with <code>geom_boxplot()</code></p>
-<div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" tabindex="-1"></a><span class="fu">ggplot</span>(ToothGrowth, <span class="fu">aes</span>(<span class="at">x =</span> supp, <span class="at">y =</span> len)) <span class="sc">+</span></span>
-<span id="cb49-2"><a href="#cb49-2" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" tabindex="-1"></a><span class="fu">ggplot</span>(ToothGrowth, <span class="fu">aes</span>(<span class="at">x =</span> supp, <span class="at">y =</span> len)) <span class="sc">+</span></span>
+<span id="cb45-2"><a href="#cb45-2" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>()</span></code></pre></div>
 <p><img src="graphs_files/figure-html/unnamed-chunk-43-1.png" width="672" style="display: block; margin: auto;" />
 It’s also possible to make box plots for multiple variables, by
 combining the variables with <code>interaction()</code>:</p>
-<div class="sourceCode" id="cb50"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1" tabindex="-1"></a><span class="fu">ggplot</span>(ToothGrowth, <span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">interaction</span>(supp, dose), <span class="at">y =</span> len)) <span class="sc">+</span></span>
-<span id="cb50-2"><a href="#cb50-2" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" tabindex="-1"></a><span class="fu">ggplot</span>(ToothGrowth, <span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">interaction</span>(supp, dose), <span class="at">y =</span> len)) <span class="sc">+</span></span>
+<span id="cb46-2"><a href="#cb46-2" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>()</span></code></pre></div>
 <p><img src="graphs_files/figure-html/unnamed-chunk-44-1.png" width="672" style="display: block; margin: auto;" /></p>
 <blockquote>
 <p>You may have noticed that the box plots from <code>base</code>
@@ -1077,26 +1070,26 @@ methods for calculating quantiles. See <code>?geom_boxplot</code> and
 <h2>Curve function</h2>
 <p>To plot a function curve use <code>curve()</code> and pass it an
 expression with the variable x:</p>
-<div class="sourceCode" id="cb51"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1" tabindex="-1"></a><span class="fu">curve</span>(x<span class="sc">^</span><span class="dv">3</span> <span class="sc">-</span> <span class="dv">5</span><span class="sc">*</span>x, <span class="at">from =</span> <span class="sc">-</span><span class="dv">4</span>, <span class="at">to =</span> <span class="dv">4</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" tabindex="-1"></a><span class="fu">curve</span>(x<span class="sc">^</span><span class="dv">3</span> <span class="sc">-</span> <span class="dv">5</span><span class="sc">*</span>x, <span class="at">from =</span> <span class="sc">-</span><span class="dv">4</span>, <span class="at">to =</span> <span class="dv">4</span>)</span></code></pre></div>
 <p><img src="graphs_files/figure-html/unnamed-chunk-45-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>You can plot any function that takes a numeric vector as input and
 returns a numeric vector, including functions that you define yourself
 (more on this later). Using <code>add = TRUE</code> will add a curve to
 the previously created plot:</p>
-<div class="sourceCode" id="cb52"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1" tabindex="-1"></a><span class="co"># Plot a user-defined function</span></span>
-<span id="cb52-2"><a href="#cb52-2" tabindex="-1"></a>myfun <span class="ot">&lt;-</span> <span class="cf">function</span>(xvar) {</span>
-<span id="cb52-3"><a href="#cb52-3" tabindex="-1"></a>  <span class="dv">1</span> <span class="sc">/</span> (<span class="dv">1</span> <span class="sc">+</span> <span class="fu">exp</span>(<span class="sc">-</span>xvar <span class="sc">+</span> <span class="dv">10</span>))</span>
-<span id="cb52-4"><a href="#cb52-4" tabindex="-1"></a>}</span>
-<span id="cb52-5"><a href="#cb52-5" tabindex="-1"></a><span class="fu">curve</span>(<span class="fu">myfun</span>(x), <span class="at">from =</span> <span class="dv">0</span>, <span class="at">to =</span> <span class="dv">20</span>)</span>
-<span id="cb52-6"><a href="#cb52-6" tabindex="-1"></a><span class="co"># Add a line:</span></span>
-<span id="cb52-7"><a href="#cb52-7" tabindex="-1"></a><span class="fu">curve</span>(<span class="dv">1</span> <span class="sc">-</span> <span class="fu">myfun</span>(x), <span class="at">add =</span> <span class="cn">TRUE</span>, <span class="at">col =</span> <span class="st">&quot;red&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb48"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" tabindex="-1"></a><span class="co"># Plot a user-defined function</span></span>
+<span id="cb48-2"><a href="#cb48-2" tabindex="-1"></a>myfun <span class="ot">&lt;-</span> <span class="cf">function</span>(xvar) {</span>
+<span id="cb48-3"><a href="#cb48-3" tabindex="-1"></a>  <span class="dv">1</span> <span class="sc">/</span> (<span class="dv">1</span> <span class="sc">+</span> <span class="fu">exp</span>(<span class="sc">-</span>xvar <span class="sc">+</span> <span class="dv">10</span>))</span>
+<span id="cb48-4"><a href="#cb48-4" tabindex="-1"></a>}</span>
+<span id="cb48-5"><a href="#cb48-5" tabindex="-1"></a><span class="fu">curve</span>(<span class="fu">myfun</span>(x), <span class="at">from =</span> <span class="dv">0</span>, <span class="at">to =</span> <span class="dv">20</span>)</span>
+<span id="cb48-6"><a href="#cb48-6" tabindex="-1"></a><span class="co"># Add a line:</span></span>
+<span id="cb48-7"><a href="#cb48-7" tabindex="-1"></a><span class="fu">curve</span>(<span class="dv">1</span> <span class="sc">-</span> <span class="fu">myfun</span>(x), <span class="at">add =</span> <span class="cn">TRUE</span>, <span class="at">col =</span> <span class="st">&quot;red&quot;</span>)</span></code></pre></div>
 <p><img src="graphs_files/figure-html/unnamed-chunk-46-1.png" width="672" style="display: block; margin: auto;" />
 With <code>ggplot2</code>, you can get a similar result, by using
 <code>stat_function(geom = "line")</code> and passing it a function that
 takes a numeric vector as input and returns a numeric vector:</p>
-<div class="sourceCode" id="cb53"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1" tabindex="-1"></a><span class="co"># This sets the x range from 0 to 20</span></span>
-<span id="cb53-2"><a href="#cb53-2" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="fu">data.frame</span>(<span class="at">x =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">20</span>)), <span class="fu">aes</span>(<span class="at">x =</span> x)) <span class="sc">+</span></span>
-<span id="cb53-3"><a href="#cb53-3" tabindex="-1"></a>  <span class="fu">stat_function</span>(<span class="at">fun =</span> myfun, <span class="at">geom =</span> <span class="st">&quot;line&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" tabindex="-1"></a><span class="co"># This sets the x range from 0 to 20</span></span>
+<span id="cb49-2"><a href="#cb49-2" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="fu">data.frame</span>(<span class="at">x =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">20</span>)), <span class="fu">aes</span>(<span class="at">x =</span> x)) <span class="sc">+</span></span>
+<span id="cb49-3"><a href="#cb49-3" tabindex="-1"></a>  <span class="fu">stat_function</span>(<span class="at">fun =</span> myfun, <span class="at">geom =</span> <span class="st">&quot;line&quot;</span>)</span></code></pre></div>
 <p><img src="graphs_files/figure-html/unnamed-chunk-47-1.png" width="672" style="display: block; margin: auto;" /></p>
 </div>
 </div>
@@ -1110,15 +1103,15 @@ in the data set, and sometimes they represent <em>values</em> in the
 data set. Keep this distinction in mind – it can be a source of
 confusion since they have very different relationships to the data, but
 the same term is used for both of them.</p>
-<div class="sourceCode" id="cb54"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1" tabindex="-1"></a><span class="co"># ?pg_mean</span></span>
-<span id="cb54-2"><a href="#cb54-2" tabindex="-1"></a><span class="fu">ggplot</span>(pg_mean, <span class="fu">aes</span>(<span class="at">x =</span> group, <span class="at">y =</span> weight)) <span class="sc">+</span></span>
-<span id="cb54-3"><a href="#cb54-3" tabindex="-1"></a>  <span class="fu">geom_col</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb50"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1" tabindex="-1"></a><span class="co"># ?pg_mean</span></span>
+<span id="cb50-2"><a href="#cb50-2" tabindex="-1"></a><span class="fu">ggplot</span>(pg_mean, <span class="fu">aes</span>(<span class="at">x =</span> group, <span class="at">y =</span> weight)) <span class="sc">+</span></span>
+<span id="cb50-3"><a href="#cb50-3" tabindex="-1"></a>  <span class="fu">geom_col</span>()</span></code></pre></div>
 <p><img src="graphs_files/figure-html/unnamed-chunk-48-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>By default, bar graphs use a dark grey for the bars. To use a color
 fill, use <code>fill</code>. Also, by default, there is no outline
 around the fill. To add an outline, use <code>colour</code>.</p>
-<div class="sourceCode" id="cb55"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb55-1"><a href="#cb55-1" tabindex="-1"></a><span class="fu">ggplot</span>(pg_mean, <span class="fu">aes</span>(<span class="at">x =</span> group, <span class="at">y =</span> weight)) <span class="sc">+</span></span>
-<span id="cb55-2"><a href="#cb55-2" tabindex="-1"></a>  <span class="fu">geom_col</span>(<span class="at">fill =</span> <span class="st">&quot;lightblue&quot;</span>, <span class="at">colour =</span> <span class="st">&quot;black&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb51"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1" tabindex="-1"></a><span class="fu">ggplot</span>(pg_mean, <span class="fu">aes</span>(<span class="at">x =</span> group, <span class="at">y =</span> weight)) <span class="sc">+</span></span>
+<span id="cb51-2"><a href="#cb51-2" tabindex="-1"></a>  <span class="fu">geom_col</span>(<span class="at">fill =</span> <span class="st">&quot;lightblue&quot;</span>, <span class="at">colour =</span> <span class="st">&quot;black&quot;</span>)</span></code></pre></div>
 <p><img src="graphs_files/figure-html/unnamed-chunk-49-1.png" width="672" style="display: block; margin: auto;" /></p>
 </div>
 <div id="grouping" class="section level2">
@@ -1130,31 +1123,31 @@ has two categorical variables, <code>Cultivar</code> and
 <code>Date</code>, and one continuous variable, <code>Weight</code>.
 We’ll map <code>Date</code> to the <em>x</em> position and map
 <code>Cultivar</code> to the fill color.</p>
-<div class="sourceCode" id="cb56"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb56-1"><a href="#cb56-1" tabindex="-1"></a><span class="fu">ggplot</span>(cabbage_exp, <span class="fu">aes</span>(<span class="at">x =</span> Date, <span class="at">y =</span> Weight, <span class="at">fill =</span> Cultivar)) <span class="sc">+</span></span>
-<span id="cb56-2"><a href="#cb56-2" tabindex="-1"></a>  <span class="fu">geom_col</span>(<span class="at">position =</span> <span class="st">&quot;dodge&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb52"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1" tabindex="-1"></a><span class="fu">ggplot</span>(cabbage_exp, <span class="fu">aes</span>(<span class="at">x =</span> Date, <span class="at">y =</span> Weight, <span class="at">fill =</span> Cultivar)) <span class="sc">+</span></span>
+<span id="cb52-2"><a href="#cb52-2" tabindex="-1"></a>  <span class="fu">geom_col</span>(<span class="at">position =</span> <span class="st">&quot;dodge&quot;</span>)</span></code></pre></div>
 <p><img src="graphs_files/figure-html/unnamed-chunk-50-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>To add a black outline, use <code>colour = "black"</code> inside
 <code>geom_col()</code>. To set the colors, you can use
 <code>scale_fill_brewer()</code> or
 <code>scale_fill_manual()</code>.</p>
-<div class="sourceCode" id="cb57"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb57-1"><a href="#cb57-1" tabindex="-1"></a><span class="fu">ggplot</span>(cabbage_exp, <span class="fu">aes</span>(<span class="at">x =</span> Date, <span class="at">y =</span> Weight, <span class="at">fill =</span> Cultivar)) <span class="sc">+</span></span>
-<span id="cb57-2"><a href="#cb57-2" tabindex="-1"></a>  <span class="fu">geom_col</span>(<span class="at">position =</span> <span class="st">&quot;dodge&quot;</span>, <span class="at">colour =</span> <span class="st">&quot;black&quot;</span>) <span class="sc">+</span></span>
-<span id="cb57-3"><a href="#cb57-3" tabindex="-1"></a>  <span class="fu">scale_fill_brewer</span>(<span class="at">palette =</span> <span class="st">&quot;Pastel1&quot;</span>) <span class="sc">+</span></span>
-<span id="cb57-4"><a href="#cb57-4" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">&quot;Date&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb53"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1" tabindex="-1"></a><span class="fu">ggplot</span>(cabbage_exp, <span class="fu">aes</span>(<span class="at">x =</span> Date, <span class="at">y =</span> Weight, <span class="at">fill =</span> Cultivar)) <span class="sc">+</span></span>
+<span id="cb53-2"><a href="#cb53-2" tabindex="-1"></a>  <span class="fu">geom_col</span>(<span class="at">position =</span> <span class="st">&quot;dodge&quot;</span>, <span class="at">colour =</span> <span class="st">&quot;black&quot;</span>) <span class="sc">+</span></span>
+<span id="cb53-3"><a href="#cb53-3" tabindex="-1"></a>  <span class="fu">scale_fill_brewer</span>(<span class="at">palette =</span> <span class="st">&quot;Pastel1&quot;</span>) <span class="sc">+</span></span>
+<span id="cb53-4"><a href="#cb53-4" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">&quot;Date&quot;</span>)</span></code></pre></div>
 <p><img src="graphs_files/figure-html/unnamed-chunk-51-1.png" width="672" style="display: block; margin: auto;" /></p>
-<div class="sourceCode" id="cb58"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb58-1"><a href="#cb58-1" tabindex="-1"></a>  <span class="co"># scale_fill_manual(values = c(&quot;#669933&quot;, &quot;#FFCC66&quot;)) </span></span></code></pre></div>
+<div class="sourceCode" id="cb54"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1" tabindex="-1"></a>  <span class="co"># scale_fill_manual(values = c(&quot;#669933&quot;, &quot;#FFCC66&quot;)) </span></span></code></pre></div>
 </div>
 <div id="positivenegative" class="section level2">
 <h2>Positive/negative</h2>
 <p>We’ll use a subset of the climate data and create a new column called
 pos, which indicates whether the value is positive or negative:</p>
-<div class="sourceCode" id="cb59"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb59-1"><a href="#cb59-1" tabindex="-1"></a>climate_sub <span class="ot">&lt;-</span> climate <span class="sc">%&gt;%</span></span>
-<span id="cb59-2"><a href="#cb59-2" tabindex="-1"></a>  <span class="fu">filter</span>(Source <span class="sc">==</span> <span class="st">&quot;Berkeley&quot;</span> <span class="sc">&amp;</span> Year <span class="sc">&gt;=</span> <span class="dv">1900</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb59-3"><a href="#cb59-3" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">pos =</span> Anomaly10y <span class="sc">&gt;=</span> <span class="dv">0</span>)</span>
-<span id="cb59-4"><a href="#cb59-4" tabindex="-1"></a></span>
-<span id="cb59-5"><a href="#cb59-5" tabindex="-1"></a><span class="fu">ggplot</span>(climate_sub, <span class="fu">aes</span>(<span class="at">x =</span> Year, <span class="at">y =</span> Anomaly10y, <span class="at">fill =</span> pos)) <span class="sc">+</span></span>
-<span id="cb59-6"><a href="#cb59-6" tabindex="-1"></a>  <span class="fu">geom_col</span>(<span class="at">position =</span> <span class="st">&quot;identity&quot;</span>, <span class="at">colour =</span> <span class="st">&quot;black&quot;</span>, <span class="at">linewidth =</span> <span class="fl">0.25</span>) <span class="sc">+</span></span>
-<span id="cb59-7"><a href="#cb59-7" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">&quot;#CCEEFF&quot;</span>, <span class="st">&quot;#FFDDDD&quot;</span>), <span class="at">guide =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb55"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb55-1"><a href="#cb55-1" tabindex="-1"></a>climate_sub <span class="ot">&lt;-</span> climate <span class="sc">%&gt;%</span></span>
+<span id="cb55-2"><a href="#cb55-2" tabindex="-1"></a>  <span class="fu">filter</span>(Source <span class="sc">==</span> <span class="st">&quot;Berkeley&quot;</span> <span class="sc">&amp;</span> Year <span class="sc">&gt;=</span> <span class="dv">1900</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb55-3"><a href="#cb55-3" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">pos =</span> Anomaly10y <span class="sc">&gt;=</span> <span class="dv">0</span>)</span>
+<span id="cb55-4"><a href="#cb55-4" tabindex="-1"></a></span>
+<span id="cb55-5"><a href="#cb55-5" tabindex="-1"></a><span class="fu">ggplot</span>(climate_sub, <span class="fu">aes</span>(<span class="at">x =</span> Year, <span class="at">y =</span> Anomaly10y, <span class="at">fill =</span> pos)) <span class="sc">+</span></span>
+<span id="cb55-6"><a href="#cb55-6" tabindex="-1"></a>  <span class="fu">geom_col</span>(<span class="at">position =</span> <span class="st">&quot;identity&quot;</span>, <span class="at">colour =</span> <span class="st">&quot;black&quot;</span>, <span class="at">linewidth =</span> <span class="fl">0.25</span>) <span class="sc">+</span></span>
+<span id="cb55-7"><a href="#cb55-7" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">&quot;#CCEEFF&quot;</span>, <span class="st">&quot;#FFDDDD&quot;</span>), <span class="at">guide =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
 <p><img src="graphs_files/figure-html/unnamed-chunk-52-1.png" width="672" /></p>
 <p>Once we have the data, we can make the graph and map pos to the fill
 color, as in Figure @ref(fig:FIG-BAR-GRAPH-COLOR-NEG). Notice that we
