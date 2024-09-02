@@ -57,24 +57,14 @@ After attending this course, a student should:
 
 **Disclaimer** The format of this course is largely based on the online documentation. Examples are often illustrated using known, publicly available data sets.
 
-**Useful References**
+**Useful references** 
 
-Borcard, D., Gillet, F. and Legendre, P. (2018) Numerical Ecology with R. Springer. DOI: [10.1007/978-3-319-71404-2](https://www.springer.com/gp/book/9783319714035)
-
-Paradis, E. (2005) R for beginner. Available among many others documentation at https://cran.r-project.org/other-docs.html (page frozen and no longer actively maintained) 
-
-Ramette, A. (2007) Multivariate analyses in microbial ecology. FEMS Microbiology Ecology, 62: 142-160. DOI: [10.1111/j.1574-6941.2007.00375.x](https://onlinelibrary.wiley.com/doi/full/10.1111/j.1574-6941.2007.00375.x)
-
-Xie, Y., Allaire, J.J.,Grolemund, G. (2020) R Markdown: The Definitive Guide. Chapman & Hall/CRC. The online version of this book is free to read [here](https://bookdown.org/yihui/rmarkdown/). 
-
-Zuur, A. F., Ieno E. N., Smith, G. M. (2007) Analysing Ecological Data. Springer.  DOI: [10.1007/978-0-387-45972-1](https://www.springer.com/gp/book/9780387459677)
-
-Zuur, A. F. (2010) A protocol for data exploration to avoid common statistical problems. Methods in Ecology and Evolution, 1: 3-14. DOI: [10.1111/j.2041-210X.2009.00001.x](https://besjournals.onlinelibrary.wiley.com/doi/10.1111/j.2041-210X.2009.00001.x)
-
+Many useful references (books, websites, blogs) will be provided along the semester. Please signal any dead links. 
 
 # Schedule
 
-The schedule is subject to change as the semester progresses - the table below is merely a reference for the topics we will go over.
+The schedule is always changing as I keep updating this class. Progress is also dependent on the students' engagement and feedback, which helps me refine the content to better suit their needs. This year, we should have fewer stats but an updated section on using spatial data and making some cool maps in R (update in progress).
+
 
 |Week |Tentative Topic           |             Content (main)                         |
 |-----|--------------------------|----------------------------------------------------|
