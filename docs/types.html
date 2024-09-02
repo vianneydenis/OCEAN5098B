@@ -13,7 +13,7 @@
 
 <title>Data types and structures</title>
 
-<script src="site_libs/header-attrs-2.21/header-attrs.js"></script>
+<script src="site_libs/header-attrs-2.25/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/flatly.min.css" rel="stylesheet" />
@@ -29,7 +29,7 @@
        h6 {font-size: 12px;}
        code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
        pre:not([class]) { background-color: white }</style>
-<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<script src="site_libs/jqueryui-1.13.2/jquery-ui.min.js"></script>
 <link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
 <script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
@@ -799,10 +799,10 @@ between 0 and 10 that fill this matrix.</p>
 <div class="sourceCode" id="cb57"><pre
 class="sourceCode r fold-show"><code class="sourceCode r"><span id="cb57-1"><a href="#cb57-1" tabindex="-1"></a>m <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">runif</span>(<span class="dv">9</span>,<span class="dv">0</span>,<span class="dv">10</span>), <span class="at">nrow =</span> <span class="dv">3</span>, <span class="at">ncol =</span> <span class="dv">3</span>)</span>
 <span id="cb57-2"><a href="#cb57-2" tabindex="-1"></a>m</span></code></pre></div>
-<pre><code>##           [,1]     [,2]     [,3]
-## [1,] 2.1836717 7.098305 5.047680
-## [2,] 7.8783635 2.178230 1.885869
-## [3,] 0.9785304 2.679436 4.394293</code></pre>
+<pre><code>##          [,1]     [,2]      [,3]
+## [1,] 9.783257 4.981209 7.0514273
+## [2,] 1.952677 7.687243 0.8334285
+## [3,] 1.466545 2.900771 0.9437721</code></pre>
 <p>If a vector of higher dimensions is desired, use the
 <code>array</code> function to create the n-dimensional object. A 3x3x3
 array can be created as follows:</p>
@@ -812,23 +812,23 @@ class="sourceCode r fold-show"><code class="sourceCode r"><span id="cb59-1"><a h
 <pre><code>## , , 1
 ## 
 ##          [,1]     [,2]     [,3]
-## [1,] 6.698193 8.827564 9.410875
-## [2,] 2.408832 8.140633 6.939114
-## [3,] 8.932649 6.332646 8.437022
+## [1,] 5.861737 6.233172 8.840771
+## [2,] 4.012787 9.248332 8.399909
+## [3,] 6.509699 6.578295 9.421632
 ## 
 ## , , 2
 ## 
-##          [,1]     [,2]      [,3]
-## [1,] 3.846445 5.304775 8.4422599
-## [2,] 3.911299 9.776359 0.9502792
-## [3,] 5.884818 1.976496 3.8115100
+##          [,1]     [,2]     [,3]
+## [1,] 8.039371 6.551904 8.014440
+## [2,] 6.582947 7.979511 2.144857
+## [3,] 5.781367 5.690331 9.746556
 ## 
 ## , , 3
 ## 
-##           [,1]     [,2]     [,3]
-## [1,] 0.4588412 3.945864 3.220115
-## [2,] 1.5262384 3.615131 5.521608
-## [3,] 7.7471819 4.210900 9.712655</code></pre>
+##          [,1]     [,2]     [,3]
+## [1,] 1.736854 8.342558 5.946785
+## [2,] 0.158069 6.405850 2.996524
+## [3,] 8.894984 8.739082 8.401163</code></pre>
 <p>Matrices and arrays can store numeric or character data types, but
 not both. They are derived directly from the vector structure, but have
 a higher number of dimensions.</p>
@@ -972,7 +972,7 @@ class="sourceCode r fold-show"><code class="sourceCode r"><span id="cb82-1"><a h
 ## [[3]]
 ## function (expr, name) 
 ## .External(C_doD, expr, name)
-## &lt;bytecode: 0x00000184df077738&gt;
+## &lt;bytecode: 0x000002497df0e6a8&gt;
 ## &lt;environment: namespace:stats&gt;</code></pre>
 <p>When lists do not have component names, the <code>names</code>
 function will return NULL.</p>
@@ -1045,7 +1045,8 @@ class="sourceCode r fold-show"><code class="sourceCode r"><span id="cb86-1"><a h
 ##  - attr(*, &quot;class&quot;)= chr &quot;lm&quot;</code></pre>
 <div class="sourceCode" id="cb88"><pre
 class="sourceCode r fold-show"><code class="sourceCode r"><span id="cb88-1"><a href="#cb88-1" tabindex="-1"></a><span class="fu">names</span>(M)</span></code></pre></div>
-<pre><code>##  [1] &quot;coefficients&quot;  &quot;residuals&quot;     &quot;effects&quot;       &quot;rank&quot;          &quot;fitted.values&quot; &quot;assign&quot;        &quot;qr&quot;            &quot;df.residual&quot;   &quot;xlevels&quot;       &quot;call&quot;         
+<pre><code>##  [1] &quot;coefficients&quot;  &quot;residuals&quot;     &quot;effects&quot;       &quot;rank&quot;          &quot;fitted.values&quot;
+##  [6] &quot;assign&quot;        &quot;qr&quot;            &quot;df.residual&quot;   &quot;xlevels&quot;       &quot;call&quot;         
 ## [11] &quot;terms&quot;         &quot;model&quot;</code></pre>
 <p>The list <code>M</code> is more complex than the simple list
 <code>my.list</code> that was created before. Not only does it have more
