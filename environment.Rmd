@@ -204,6 +204,8 @@ R is case sensitive `pi` will work, whereas`Pi` will not
 The list function `ls()` will provide you with all the objects in the memory.
 
 ```{r,  eval=T}
+# Deleting all objects using rm()
+rm(list = ls())
 # my current list is empty 
 ls()
 ```

@@ -46,6 +46,8 @@ median
 ## (5 + 3) / 4 # define priority using () or {}
 ## pi*4 # common function
 
+# Deleting all objects using rm()
+rm(list = ls())
 # my current list is empty 
 ls()
 
