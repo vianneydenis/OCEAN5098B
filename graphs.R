@@ -1,192 +1,347 @@
 xaringanExtra::use_clipboard()
 
-## # remember `tidyverse` is dplyr, tidyr, ggplot2 and a number of other packages
-## install.packages("tidyverse")
-## install.packages("gcookbook")
+treatment <- c(0.02,1.8, 17.5, 55,75.7, 80)
 
-library(tidyverse)
-library(gcookbook)
+plot(treatment)
 
-## library(ggplot2)
-## library(dplyr)
-## library(gcookbook)
+plot(treatment, type = 'o')
 
-simpledat
+plot(treatment, type="l")
 
-barplot(simpledat, beside = TRUE)
+plot(treatment, main="My Plot", sub="a plot")
 
-t(simpledat)
+plot(treatment, xlab="Position", ylab="score")
 
-barplot(t(simpledat), beside=TRUE)
+plot(treatment, las=1)
+plot(treatment, las=2)
 
-plot(simpledat[1,], type="l")
-lines(simpledat[2,], type="l", col="blue")
+plot(treatment, cex=2)
+plot(treatment, cex=0.5)
 
-simpledat.long<- data.frame(simpledat) %>%
-  tibble::rownames_to_column(var = "Bval") %>%
-  pivot_longer (
-    cols= -Bval,
-    names_to = "Aval",
-    values_to = "values")
+plot(treatment, pch=1)
+plot(treatment, pch=20)
 
-ggplot(simpledat_long, aes(x = Aval, y = value, fill = Bval)) +
-    geom_col(position = "dodge")
+plot(treatment, type="l",lwd=10)
+plot(treatment, type="l",lwd=0.5)
 
-ggplot(simpledat_long, aes(x = Bval, y = value, fill = Aval)) +
-    geom_col(position = "dodge")
+plot(treatment, type="l",lty=1)
+plot(treatment, type="l",lty=2)
 
-ggplot(simpledat_long, aes(x = Aval, y = value, colour = Bval, group = Bval)) +
-    geom_line()
+plot(treatment, type="l", col="red")
+plot(treatment, type="l", col="dodgerblue")
 
-knitr::include_graphics("illustrations/ggplot_1.png")
+myRed <- rgb(1,0,0, alpha=0.5)
+plot(treatment, type="p", cex=4, pch=20, col=myRed)
 
-knitr::include_graphics("illustrations/ggplot_2.png")
+par(mfrow = c(1, 2))
+plot(treatment, type="p", cex=4, pch=20, col=myRed)
+plot(treatment, type="p", cex=4, pch=20, col='#87736f')
 
-dat <- data.frame(
-  xval = 1:4,
-  yval=c(3, 5, 6, 9),
-  group=c("A","B","A","B")
-)
+dev.off()
 
-dat
+control <- c(0, 20, 40, 60, 80,100)
+plot(control,treatment)
 
-ggplot(dat, aes(x = xval, y = yval))
+plot(treatment, type="o", col="blue")
+lines(control, type="o", pch=22, lty=2, col="red")
 
-ggplot(dat, aes(x = xval, y = yval)) +
+plot(treatment, type="o", col="blue",ylim=c(0,100))
+lines(control, type="o", pch=22, lty=2, col="red")
+
+g_range <- range(0, treatment, control)
+g_range
+
+plot(treatment, type="o", col="blue", ylim=g_range)
+
+plot(treatment, type="o", col="blue", ylim=g_range, axes=FALSE, ann=FALSE)
+
+plot(treatment, type="o", col="blue", ylim=g_range, axes=FALSE, ann=FALSE)
+axis(side=1, at=1:6, lab=c("Mon","Tue","Wed","Thu","Fri","Sat"))
+
+plot(treatment, type="o", col="blue", ylim=g_range, axes=FALSE, ann=FALSE)
+axis(side=1, at=1:6, lab=c("Mon","Tue","Wed","Thu","Fri","Sat"))
+axis(2, las=1, at=seq(0,g_range[2],by=20))
+
+plot(treatment, type="o", col="blue", ylim=g_range, axes=FALSE, ann=FALSE)
+axis(side=1, at=1:6, lab=c("Mon","Tue","Wed","Thu","Fri","Sat"))
+axis(2, las=1, at=seq(0,g_range[2],by=20))
+box()
+
+plot(treatment, type="o", col="blue", ylim=g_range, axes=FALSE, ann=FALSE)
+axis(side=1, at=1:6, lab=c("Mon","Tue","Wed","Thu","Fri","Sat"))
+axis(2, las=1, at=seq(0,g_range[2],by=20))
+lines(control, type="o", pch=22, lty=2, col="red")
+box()
+
+plot(treatment, type="o", col="blue", ylim=g_range, axes=FALSE, ann=FALSE)
+axis(side=1, at=1:6, lab=c("Mon","Tue","Wed","Thu","Fri","Sat"))
+axis(2, las=1, at=seq(0,g_range[2],by=20))
+box()
+
+legend("topleft",legend=c("treatment","control"), col=c("blue","red"), pch=21:22, lty=1:2) 
+
+plot(treatment, type="o", col="blue", lwd=1, ylim=g_range,axes=FALSE, ann=FALSE)
+axis(1, at=1:6, lab=c("Mon","Tue","Wed","Thu","Fri","Sat"))
+axis(2, las=1, at=20*0:g_range[2])
+box()
+
+lines(control, type="o", pch=22, lty=2, col="red", lwd=2.5)
+legend("topleft",legend=c("treatment","control"),col=c("blue","red"), pch=21:22, lty=1:2, lwd=c(1,2.5))
+
+# install.packages('viridis')
+library(viridis)
+viridis(5)
+
+hist(treatment)
+
+hist(treatment, col="lightblue", ylim=c(0,5),cex.main=0.8)
+
+par(mfrow = c(1, 2))
+hist(treatment, col="lightblue", ylim=c(0,5), cex.main=0.8, breaks = 2)
+hist(treatment, col="lightblue", ylim=c(0,5), cex.main=0.8, breaks = 10)
+dev.off()
+
+data<-data.frame(treatment, control)
+row.names(data)<-c("Mon","Tue","Wed","Thu","Fri","Sat")
+
+dotchart(as.matrix(t(data)))
+
+dotchart(as.matrix(t(data)), color=c("red","blue"),main="Dotchart", cex=0.5)
+
+knitr::include_graphics("illustrations/boxplot.png")
+
+exprs <- read.delim("data/gene_data.txt",sep="\t",h=T,row.names = 1)
+head(exprs)
+
+boxplot(exprs)
+
+boxplot(log2(exprs),ylab="log2 Expression", col=c("red","red","blue","blue"))
+
+boxplot(len ~ dose, data = ToothGrowth,
+        boxwex = 0.25, at = 1:3 - 0.2,
+        horizontal=T, las= 1,
+        subset = supp == "VC", col = "yellow",
+        main = "Guinea Pigs' Tooth Growth",
+        xlab = "tooth length",
+        ylab = "Vitamin C dose mg",
+        xlim = c(0.5, 3.5), ylim = c(0, 35), yaxs='i')
+
+plot(control, treatment)
+text(20,60, 'THIS AREA OF \n THE PLOT HAS \n NO SAMPLE', col='red')
+text(control, treatment, letters[1:6], adj=c(0,-1), col='blue')
+
+plot(control, treatment)
+abline(h=10, col='blue')
+abline(v=50, col='red', lwd=2)
+abline(a=0, b=1, lty=2)
+
+plot(control, treatment)
+polygon(c(50,50,100,100),c(50,80,80,50), col='gray', density=5)
+
+## bmp(filename, width = 480, height = 480, units = "px",
+##     pointsize = 12)
+## jpeg(filename, width = 480, height = 480, units = "px",
+##      pointsize  = 12, quality = 75)
+
+bmp(file = "outputs/control.bmp")
+plot(control)
+dev.off()
+
+jpeg(file = "control.jpg", quality = 20)
+plot(control)
+dev.off()
+
+postscript(file = "control.ps")
+plot(control)
+dev.off()
+
+pdf(file = "control.pdf", paper = "A4")
+plot(control)
+dev.off()
+
+knitr::include_graphics("illustrations/iris-plot.png")
+
+knitr::include_graphics("illustrations/base-lattice.jfif")
+
+knitr::include_graphics("illustrations/ggplot-map.jfif")
+
+## ggplot(data = <default data set>,
+##        aes(x = <default x axis variable>,
+##            y = <default y axis variable>,
+##            ... <other default aesthetic mappings>),
+##        ... <other plot defaults>) +
+## 
+##        geom_scatter(aes(size = <size variable for this geom>,
+##                       ... <other aesthetic mappings>),
+##                   data = <data for this point geom>,
+##                   stat = <statistic string or function>,
+##                   position = <position string or function>,
+##                   color = <"fixed color specification">,
+##                   <other arguments, possibly passed to the _stat_ function) +
+## 
+##   scale_<aesthetic>_<type>(name = <"scale label">,
+##                      breaks = <where to put tick marks>,
+##                      labels = <labels for tick marks>,
+##                      ... <other options for the scale>) +
+## 
+##   ggtitle("Graphics/Plot")+
+##   xlab("Weight")+
+##   ylab("Height")+
+## 
+##   theme(plot.title = element_text(color = "gray"),
+##         ... <other theme elements>)
+
+knitr::include_graphics("illustrations/ggplot-map-simple.jfif")
+
+ggiris <- ggplot(data=iris)
+class(ggiris)
+ggiris$data[1:4,]
+
+ggiris$mapping
+
+ggiris$theme
+
+ggiris$layers
+
+ggiris <- ggplot(data=iris)
+ggiris2 <- ggiris+aes(x=Petal.Length,y=Petal.Width)
+ggiris2$mapping
+
+ggiris2$theme
+
+ggiris2$layers
+
+ggiris <- ggplot(data=iris)
+ggiris2 <- ggiris+aes(x=Petal.Length,y=Petal.Width)
+ggiris3 <- ggiris2+geom_point()
+
+ggiris3$mapping
+
+ggiris3$theme
+
+ggiris3$layers
+
+ggiris3
+
+ggiris3 <- ggplot(data=iris,
+                 mapping=aes(x=Petal.Length,y=Petal.Width))
+ggiris3+geom_point()
+
+ggiris_line<- ggiris3 + geom_line()
+ggiris_line
+
+ggiris_smooth<- ggiris3 + geom_smooth()
+ggiris_smooth
+
+ggiris_bar<- ggplot(data=iris, mapping=aes(x=Species))
+ggiris_bar2<- ggiris_bar + geom_bar()
+ggiris_bar2
+
+ggiris_hist <- ggplot(data=iris,
+        mapping=aes(x=Petal.Length))
+ggiris_hist2 <- ggiris_hist + geom_histogram() 
+ggiris_hist2
+
+ggiris_dens <- ggiris_hist + geom_density() 
+ggiris_dens
+
+ggiris_box <- ggplot(data=iris,
+        mapping=aes(x=Species,y=Petal.Length))
+ggiris_box2 <- ggiris_box+geom_boxplot() 
+ggiris_box2
+
+pcPlot_violin <- ggiris_box+geom_violin() 
+pcPlot_violin
+
+ggiris_scatter <- ggplot(data=iris,
+                 mapping=aes(x=Petal.Length,y=Petal.Width))
+ggiris_scatter+geom_point(colour="red")
+
+ggiris_scatter <- ggplot(data=iris,
+                 mapping=aes(x=Petal.Length,y=Petal.Width))
+ggiris_scatter+geom_point()
+
+ggiris_scatter2 <- ggplot(data=iris,
+                  mapping=aes(x=Petal.Length,y=Petal.Width,color=Species))
+ggiris_scatter2 + geom_point()
+
+ggiris_scatter3 <- ggplot(data=iris,
+                  mapping=aes(x=Petal.Length,y=Petal.Width,shape=Species))
+ggiris_scatter3 + geom_point()
+
+ggiris_scatter4 <- ggplot(data=iris)
+ggiris_scatter4 + geom_point(aes(x=Petal.Length,y=Petal.Width,color=Species, shape=Species))
+
+## ?geom_point
+
+pcPlot <- ggplot(data=patients_clean,aes(x=Height,y=Weight, 
+                                         colour=Sex))+geom_point()
+pcPlot + facet_grid(Smokes~Sex)
+
+pcPlot <- ggplot(data=patients_clean,aes(x=Height,y=Weight,
+                                         colour=Sex))+geom_point()
+pcPlot + facet_grid(~Sex)
+
+pcPlot <- ggplot(data=patients_clean,aes(x=Height,y=Weight,
+                                         colour=Sex))+geom_point()
+pcPlot + facet_grid(Sex~.)
+
+pcPlot <- ggplot(data=patients_clean,aes(x=Height,y=Weight,
+                                         colour=Sex))+geom_point()
+pcPlot + facet_wrap(~Smokes)
+
+pcPlot <- ggplot(data=patients_clean,aes(x=Height,y=Weight,
+                                         colour=Sex))+geom_point()
+pcPlot + facet_wrap(~Pet+Smokes+Sex)
+
+pcPlot + facet_grid(Smokes~Sex+Pet)
+
+ggplot(patients_clean, aes(x=Sex, y=Weight)) + geom_boxplot()
+
+levels(patients_clean$Sex)
+
+patients_clean$Sex <- factor(patients_clean$Sex, 
+                             levels=c("Male","Female"))
+ggplot(patients_clean,aes(x=Sex, y=Weight)) + geom_boxplot()
+
+pcPlot + geom_point() + facet_grid(Smokes~Sex)+
+  scale_x_continuous(name="height ('cm')",
+                     limits = c(100,200),
+                     breaks=c(125,150,175),
+                     labels=c("small","justright","tall"))
+
+pcPlot <- ggplot(data=patients_clean,aes(x=Sex,y=Height))
+pcPlot +
+  geom_violin(aes(x=Sex,y=Height)) +
+  scale_x_discrete(labels=c("Women", "Men"))
+
+pcPlot <- ggplot(data=patients_clean,aes(x=Sex,y=Height,fill=Smokes))
+pcPlot +
+  geom_violin(aes(x=Sex,y=Height)) +
+  scale_x_discrete(labels=c("Women", "Men"))+
+  scale_y_continuous(breaks=c(160,180),labels=c("Short", "Tall"))
+
+pcPlot <- ggplot(data=patients_clean,
+                 aes(x=Height,y=Weight,colour=Sex))
+pcPlot + geom_point(size=4)
+
+pcPlot <- ggplot(data=patients_clean,
+                 aes(x=Height,y=Weight,colour=Sex))
+pcPlot + geom_point(size=4) + 
+  scale_colour_manual(values = c("Green","Purple"),
+                     name="Gender")
+
+pcPlot <- ggplot(data=patients_clean,
+                 aes(x=Height,y=Weight,colour=Pet))
+pcPlot + geom_point(size=4) + 
+  scale_colour_brewer(palette = "Set2")
+
+ggplot(data=patients_clean,
+       aes(y=Weight,x=Height,colour=Sex,
+           size=BMI,shape=Pet)) + 
   geom_point()
 
-p <- ggplot(dat, aes(x = xval, y = yval))
-p +
+ggplot(data=patients_clean,
+       aes(y=Weight,x=Height,colour=Sex,
+           size=BMI,shape=Pet)) + 
   geom_point()
-
-p +
-  geom_point(aes(colour = group))
-
-p +
-  geom_point(colour = "blue")
-
-p +
-  geom_point() +
-  scale_x_continuous(limits = c(0, 8))
-
-p +
-  geom_point(aes(colour = group)) +
-  scale_colour_manual(values = c("orange", "forestgreen"))
-
-# Motor Trend Car Road Tests
-# ?mtcars
-plot(mtcars$wt, mtcars$mpg)
-
-ggplot(mtcars, aes(x = wt, y = mpg)) +
-  geom_point()
-
-ggplot(data = NULL, aes(x = mtcars$wt, y = mtcars$mpg)) +
-  geom_point()
-
-plot(pressure$temperature, pressure$pressure, type = "l")
-
-plot(pressure$temperature, pressure$pressure, type = "l")
-points(pressure$temperature, pressure$pressure)
-
-lines(pressure$temperature, pressure$pressure/2, col = "red")
-points(pressure$temperature, pressure$pressure/2, col = "red")
-
-ggplot(pressure, aes(x = temperature, y = pressure)) +
-  geom_line()
-
-ggplot(pressure, aes(x = temperature, y = pressure)) +
-  geom_line() +
-  geom_point()
-
-# Biochemical Oxygen Demand
-# ?BOD 
-
-barplot(BOD$demand, names.arg = BOD$Time)
-
-barplot(table(mtcars$cyl))
-
-# Bar graph of values. This uses the BOD data frame, with the
-# "Time" column for x values and the "demand" column for y values.
-ggplot(BOD, aes(x = Time, y = demand)) +
-  geom_col()
-# Convert the x variable to a factor, so that it is treated as discrete
-ggplot(BOD, aes(x = factor(Time), y = demand)) +
-  geom_col()
-
-# Bar graph of counts using the mtcars data frame, with the "cyl" column for
-# x position. The y position is calculated by counting the number of rows for
-# each value of cyl.
-
-ggplot(mtcars, aes(x = cyl)) +
-  geom_bar()
-
-# Bar graph of counts
-ggplot(mtcars, aes(x = factor(cyl))) +
-  geom_bar()
-
-hist(mtcars$mpg)
-# Specify approximate number of bins with breaks
-hist(mtcars$mpg, breaks = 10)
-
-ggplot(mtcars, aes(x = mpg)) +
-  geom_histogram()
-
-# With wider bins
-ggplot(mtcars, aes(x = mpg)) +
-  geom_histogram(binwidth = 4)
-
-# The Effect of Vitamin C on Tooth Growth in Guinea Pigs
-# ?ToothGrowth
-plot(ToothGrowth$supp, ToothGrowth$len)
-
-# Formula syntax
-boxplot(len ~ supp, data = ToothGrowth)
-
-# Put interaction of two variables on x-axis
-boxplot(len ~ supp + dose, data = ToothGrowth)
-
-ggplot(ToothGrowth, aes(x = supp, y = len)) +
-  geom_boxplot()
-
-ggplot(ToothGrowth, aes(x = interaction(supp, dose), y = len)) +
-  geom_boxplot()
-
-curve(x^3 - 5*x, from = -4, to = 4)
-
-# Plot a user-defined function
-myfun <- function(xvar) {
-  1 / (1 + exp(-xvar + 10))
-}
-curve(myfun(x), from = 0, to = 20)
-# Add a line:
-curve(1 - myfun(x), add = TRUE, col = "red")
-
-# This sets the x range from 0 to 20
-ggplot(data.frame(x = c(0, 20)), aes(x = x)) +
-  stat_function(fun = myfun, geom = "line")
-
-# ?pg_mean
-ggplot(pg_mean, aes(x = group, y = weight)) +
-  geom_col()
-
-ggplot(pg_mean, aes(x = group, y = weight)) +
-  geom_col(fill = "lightblue", colour = "black")
-
-ggplot(cabbage_exp, aes(x = Date, y = Weight, fill = Cultivar)) +
-  geom_col(position = "dodge")
-
-ggplot(cabbage_exp, aes(x = Date, y = Weight, fill = Cultivar)) +
-  geom_col(position = "dodge", colour = "black") +
-  scale_fill_brewer(palette = "Pastel1") +
-  xlab("Date")
-  
-  # scale_fill_manual(values = c("#669933", "#FFCC66")) 
-
-climate_sub <- climate %>%
-  filter(Source == "Berkeley" & Year >= 1900) %>%
-  mutate(pos = Anomaly10y >= 0)
-
-ggplot(climate_sub, aes(x = Year, y = Anomaly10y, fill = pos)) +
-  geom_col(position = "identity", colour = "black", linewidth = 0.25) +
-  scale_fill_manual(values = c("#CCEEFF", "#FFDDDD"), guide = FALSE)
-
