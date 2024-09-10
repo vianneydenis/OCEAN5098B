@@ -124,7 +124,7 @@ library("abc")
 **Practice 1.1** The `vegan` package provides tools for descriptive community ecology. It has most basic functions of diversity analysis, community ordination and dissimilarity analysis. Most of its multivariate tools can be used for other data types as well, not restricted to ecological purpose.Install and load the package `vegan`.
 </p>
 
-```{r, code_folding = 'Show Solution',  eval=FALSE}
+```{r, class.source = "fold-hide", eval=FALSE}
 # Install & load `vegan` package
 install.packages('vegan')
 library('vegan')
