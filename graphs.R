@@ -274,6 +274,7 @@ ggiris_scatter4 + geom_point(aes(x=Petal.Length,y=Petal.Width,color=Species, sha
 
 ## ?geom_point
 
+patients_clean<-read.delim('data/patients_clean.txt')
 pcPlot <- ggplot(data=patients_clean,aes(x=Height,y=Weight, 
                                          colour=Sex))+geom_point()
 pcPlot + facet_grid(Smokes~Sex)

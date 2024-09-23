@@ -1,0 +1,1585 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+
+
+<title>Graphics</title>
+
+<script src="site_libs/header-attrs-2.21/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/flatly.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<script src="site_libs/navigation-1.1/codefolding.js"></script>
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+
+
+<style type="text/css">
+  code {
+    white-space: pre;
+  }
+  .sourceCode {
+    overflow: visible;
+  }
+</style>
+<style type="text/css" data-origin="pandoc">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; } /* Alert */
+code span.an { color: #008000; } /* Annotation */
+code span.at { } /* Attribute */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #0000ff; } /* ControlFlow */
+code span.ch { color: #008080; } /* Char */
+code span.cn { color: #585cf6; } /* Constant */
+code span.co { color: #4c886b; } /* Comment */
+code span.cv { color: #008000; } /* CommentVar */
+code span.do { color: #008000; } /* Documentation */
+code span.dv { color: #0000cd; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #0000cd; } /* Float */
+code span.im { } /* Import */
+code span.in { color: #008000; } /* Information */
+code span.kw { color: #0000ff; } /* Keyword */
+code span.op { color: #687687; } /* Operator */
+code span.ot { color: #ff4000; } /* Other */
+code span.pp { color: #ff4000; } /* Preprocessor */
+code span.sc { color: #008080; } /* SpecialChar */
+code span.ss { color: #008080; } /* SpecialString */
+code span.st { color: #036a07; } /* String */
+code span.va { } /* Variable */
+code span.vs { color: #008080; } /* VerbatimString */
+code span.wa { color: #008000; font-weight: bold; } /* Warning */
+
+.sourceCode .row {
+  width: 100%;
+}
+.sourceCode {
+  overflow-x: auto;
+}
+.code-folding-btn {
+  margin-right: -30px;
+}
+</style>
+<script>
+// apply pandoc div.sourceCode style to pre.sourceCode instead
+(function() {
+  var sheets = document.styleSheets;
+  for (var i = 0; i < sheets.length; i++) {
+    if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
+    try { var rules = sheets[i].cssRules; } catch (e) { continue; }
+    var j = 0;
+    while (j < rules.length) {
+      var rule = rules[j];
+      // check if there is a div.sourceCode rule
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") {
+        j++;
+        continue;
+      }
+      var style = rule.style.cssText;
+      // check if color or background-color is set
+      if (rule.style.color === '' && rule.style.backgroundColor === '') {
+        j++;
+        continue;
+      }
+      // replace div.sourceCode by a pre.sourceCode rule
+      sheets[i].deleteRule(j);
+      sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
+    }
+  }
+})();
+</script>
+
+
+
+
+<link rel="stylesheet" href="styles.css" type="text/css" />
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "\e258";
+  font-family: 'Glyphicons Halflings';
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+<style type="text/css">
+.code-folding-btn { margin-bottom: 4px; }
+</style>
+
+
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">OCEAN_5098</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Home</a>
+</li>
+<li>
+  <a href="environment.html">Environment</a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Manipulation
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="basics.html">Basics</a>
+    </li>
+    <li>
+      <a href="dplyr.html">dplyr</a>
+    </li>
+    <li>
+      <a href="tidyr.html">tidyr</a>
+    </li>
+  </ul>
+</li>
+<li>
+  <a href="TEMP_types.html">Types &amp; structures</a>
+</li>
+<li>
+  <a href="TEMP_graphs.html">Graphics</a>
+</li>
+<li>
+  <a href="TEMP_maps.html">Mapping</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+<div class="btn-group pull-right float-right">
+<button type="button" class="btn btn-default btn-xs btn-secondary btn-sm dropdown-toggle" data-toggle="dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span>Code</span> <span class="caret"></span></button>
+<ul class="dropdown-menu dropdown-menu-right" style="min-width: 50px;">
+<li><a id="rmd-show-all-code" href="#">Show All Code</a></li>
+<li><a id="rmd-hide-all-code" href="#">Hide All Code</a></li>
+</ul>
+</div>
+
+
+
+<h1 class="title toc-ignore">Graphics</h1>
+
+</div>
+
+
+<a href="data:text/x-markdown;base64,LS0tDQp0aXRsZTogIkdyYXBoaWNzIg0KLS0tDQoNCmBgYHtyIGV2YWwgPSBUUlVFLCAgbWVzc2FnZT1GLCBpbmNsdWRlPUYsIHdhcm5pbmc9RiwgcHVybD1GLCByZXN1bHRzPSJoaWRlIn0NCmtuaXRyOjpwdXJsKCdncmFwaHMuUm1kJywgZG9jdW1lbnRhdGlvbiA9IEYpDQpgYGANCg0KYGBge3IgZWNobz1GQUxTRSwgcHVybD1GfQ0KeGZ1bjo6ZW1iZWRfZmlsZSgnZ3JhcGhzLlJtZCcpDQpgYGANCg0KYGBge3IgZWNobz1GQUxTRSwgcHVybD1GfQ0KeGZ1bjo6ZW1iZWRfZmlsZSgnZ3JhcGhzLlInKQ0KYGBgDQoNCmBgYHtyIGVjaG89RkFMU0UsIHB1cmw9Rn0NCnhmdW46OmVtYmVkX2ZpbGUoJ2RhdGEvZ2VuZV9kYXRhLnR4dCcsIHNlcD0iXHQiLCBoPVQsIHJvdy5uYW1lcyA9IDEpDQpgYGANCg0KYGBge3IgZWNobz1GQUxTRX0NCnhhcmluZ2FuRXh0cmE6OnVzZV9jbGlwYm9hcmQoKQ0KYGBgDQoNCi0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tDQoNClNpbXBsZSBwbG90cyBjYW4gZWFzaWx5IGJlIHByb2R1Y2VkIHdpdGggdGhlIHBsb3R0aW5nIGZ1bmN0aW9ucyBpbiBgYmFzZWAgUi4gVGhlc2UgYXJlIGluc3RhbGxlZCBieSBkZWZhdWx0IHdpdGggUiBhbmQgZG8gbm90IHJlcXVpcmUgYW55IGFkZGl0aW9uYWwgcGFja2FnZXMgdG8gYmUgaW5zdGFsbGVkLiBUaGV54oCZcmUgcXVpY2sgdG8gdHlwZSwgc3RyYWlnaHRmb3J3YXJkIHRvIHVzZSBpbiBzaW1wbGUgY2FzZXMsIGFuZCBydW4gdmVyeSBxdWlja2x5Lg0KDQoNCklmIHlvdSB3YW50IHRvIGRvIGFueXRoaW5nIGJleW9uZCB2ZXJ5IHNpbXBsZSBwbG90cywgdGhvdWdoLCBpdOKAmXMgZ2VuZXJhbGx5IGJldHRlciB0byBzd2l0Y2ggdG8gZ2dwbG90Mi4gVGhpcyBpcyBpbiBwYXJ0IGJlY2F1c2UgZ2dwbG90MiBwcm92aWRlcyBhIHVuaWZpZWQgaW50ZXJmYWNlIGFuZCBzZXQgb2Ygb3B0aW9ucywgaW5zdGVhZCBvZiB0aGUgZ3JhYiBiYWcgb2YgbW9kaWZpZXJzIGFuZCBzcGVjaWFsIGNhc2VzIHJlcXVpcmVkIGluIGJhc2UgZ3JhcGhpY3MuIE9uY2UgeW91IGxlYXJuIGhvdyBnZ3Bsb3QyIHdvcmtzLCB5b3UgY2FuIHVzZSB0aGF0IGtub3dsZWRnZSBmb3IgZXZlcnl0aGluZyBmcm9tIHNjYXR0ZXIgcGxvdHMgYW5kIGhpc3RvZ3JhbXMgdG8gdmlvbGluIHBsb3RzIGFuZCBtYXBzLg0KDQoNCkluIHRoaXMgc2VjdGlvbiwgd2Ugd2lsbCBpbGx1c3RyYXRlIGhvdyB0byBtYWtlIGEgZ3JhcGggd2l0aCBiYXNlIGdyYXBoaWNzIGFuZCANCmhvdyB0byBtYWtlIGEgc2ltaWxhciBncmFwaCB3aXRoIHRoZSBnZ3Bsb3QoKSBmdW5jdGlvbiBpbiBnZ3Bsb3QyLiBIYXZpbmcgYm90aCBvZiB0aGVzZSBleGFtcGxlcyB3aWxsIGhlbHAgeW91IHRyYW5zaXRpb24gdG8gdXNpbmcgZ2dwbG90MiBmb3Igd2hlbiB5b3Ugd2FudCB0byBtYWtlIG1vcmUgc29waGlzdGljYXRlZCBncmFwaGljcy4NCg0KR2V0IGluc3BpcmVkIGJ5IFsqKlRIRSBSIEdSQVBIIEdBTExFUlkqKl0oaHR0cHM6Ly9yLWdyYXBoLWdhbGxlcnkuY29tLykNCg0KIyBgYmFzZWAgcGFja2FnZQ0KDQojIyBCYXNpYyBzY2F0dGVyIGFuZCBsaW5lIGNoYXJ0cw0KDQpGaXJzdCB3ZeKAmWxsIHByb2R1Y2UgYSB2ZXJ5IHNpbXBsZSBncmFwaCB1c2luZyB0aGUgdmFsdWVzIGluIGEgbnVtZXJpYyB2ZWN0b3I6DQoNCmBgYHtyLCAgZXZhbD1UfQ0KdHJlYXRtZW50IDwtIGMoMC4wMiwxLjgsIDE3LjUsIDU1LDc1LjcsIDgwKQ0KYGBgDQoNCk5vdyB3ZSBwbG90IHRoZSB0cmVhdG1lbnQgdmVjdG9yIHdpdGggZGVmYXVsdCBwYXJhbWV0ZXJzLg0KDQpgYGB7ciwgIGV2YWw9VCwgZmlnLmFsaWduPSdjZW50ZXInfQ0KcGxvdCh0cmVhdG1lbnQpDQpgYGANCg0KV2UgcHJvZHVjZWQgYSBzaW1wbGUgKipzY2F0dGVyKiogcGxvdC4gTGV0IG1ha2UgaXQgYSAqKmxpbmUqKiBwbG90OiANCg0KYGBge3IsICBldmFsPVQsIGZpZy5hbGlnbj0nY2VudGVyJ30NCnBsb3QodHJlYXRtZW50LCB0eXBlID0gJ28nKQ0KYGBgDQoNCldlIGNoYW5nZWQgdGhlIHR5cGUgb2YgcGxvdCB0byBgb2Agd2hpY2ggcGxvdCBib3RoICoqcG9pbnRzKiogYW5kICoqbGluZXMqKi4gQ2hlY2sgYD9wbG90YCB0byBzZWUgYSBjb21wbGV0ZSBsaXN0IGFuZCBtYWtlIGEgKipsaW5lKiogcGxvdC4gQnkgY2hhbmdpbmcgdGhlIGFyZ3VtZW50IGB0eXBlYCwgd2UgYXJlICoqY3VzdG9taXppbmcqKiB0aGUgcGxvdC4NCg0KIyMgUGxvdCBjdXN0b21pemF0aW9uDQoNCiMjIyBUeXBlDQoNClNlZSB0aGUgY29tcGxldGUgbGlzdCBvZiBwbG90IGB0eXBlYCB1c2luZyBgP3Bsb3RgLiANCg0KYGBge3IsICBldmFsPVQsIGZpZy5hbGlnbj0nY2VudGVyJ30NCnBsb3QodHJlYXRtZW50LCB0eXBlPSJsIikNCmBgYA0KDQojIyMgVGl0bGUNCg0KV2UgYWRkIGEgdGl0bGUgd2l0aCBgbWFpbmAgYXJndW1lbnQgYW5kIG9yIGEgc3ViLXRpdGxlIHdpdGggdGhlIGBzdWJgIGFyZ3VtZW50Lg0KDQpgYGB7ciwgIGV2YWw9VCwgZmlnLmFsaWduPSdjZW50ZXInfQ0KcGxvdCh0cmVhdG1lbnQsIG1haW49Ik15IFBsb3QiLCBzdWI9ImEgcGxvdCIpDQpgYGANCg0KIyMjIEF4aXMgbGFiZWxzDQoNCldlIGNhbiBjdXN0b21pemUgb3VyIHggYW5kIHkgYXhpcyBsYWJlbCB3aXRoIHRoZSBgeGxhYmAgYW5kIGB5bGFiYCBhcmd1bWVudHMgcmVzcGVjdGl2ZWx5Lg0KDQpgYGB7ciwgIGV2YWw9VCwgZmlnLmFsaWduPSdjZW50ZXInfQ0KcGxvdCh0cmVhdG1lbnQsIHhsYWI9IlBvc2l0aW9uIiwgeWxhYj0ic2NvcmUiKQ0KYGBgDQoNCldlIGNhbiBjb250cm9sIHRoZSBvcmllbnRhdGlvbiBvZiBsYWJlbHMgb24gYXhpcyB1c2luZyBgbGFzYCBhcmd1bWVudC4NCg0KYGBge3IsICBldmFsPVQsIGZpZy5hbGlnbj0nY2VudGVyJ30NCnBsb3QodHJlYXRtZW50LCBsYXM9MSkNCnBsb3QodHJlYXRtZW50LCBsYXM9MikNCmBgYA0KDQojIyMgUG9pbnQgc2l6ZQ0KDQpXZSBjYW4gY29udHJvbCB0aGUgc2l6ZSBvZiBwb2ludHMgaW4gb3VyIHBsb3QgdXNpbmcgdGhlIGBjZXhgIHBhcmFtZXRlci4NCg0KYGBge3IsICBldmFsPVQsIGZpZy5hbGlnbj0nY2VudGVyJ30NCnBsb3QodHJlYXRtZW50LCBjZXg9MikNCnBsb3QodHJlYXRtZW50LCBjZXg9MC41KQ0KYGBgDQoNCiMjIyBQb2ludCBzaGFwZQ0KDQpXZSBjYW4gY29udHJvbCB0aGUgdHlwZSBvZiBwb2ludHMgaW4gb3VyIHBsb3QgdXNpbmcgdGhlIGBwY2hgIHBhcmFtZXRlci4NCg0KYGBge3IsICBldmFsPVQsIGZpZy5hbGlnbj0nY2VudGVyJ30NCnBsb3QodHJlYXRtZW50LCBwY2g9MSkNCnBsb3QodHJlYXRtZW50LCBwY2g9MjApDQpgYGANCg0KIyMjIExpbmUgd2VpZ2h0DQoNClNpbWlsYXJseSB3aGVuIHBsb3R0aW5nIGEgbGluZSB3ZSBjb250cm9sIHNpemUgd2l0aCBgbHdkYCBwYXJhbWV0ZXIuDQoNCmBgYHtyLCAgZXZhbD1ULCBmaWcuYWxpZ249J2NlbnRlcid9DQpwbG90KHRyZWF0bWVudCwgdHlwZT0ibCIsbHdkPTEwKQ0KcGxvdCh0cmVhdG1lbnQsIHR5cGU9ImwiLGx3ZD0wLjUpDQpgYGANCg0KIyMjIExpbmUgdHlwZQ0KDQpXZSBjYW4gYWxzbyBjb250cm9sIHRoZSB0eXBlIG9mIGxpbmUgd2l0aCBgbHR5YCBwYXJhbWV0ZXIuDQoNCmBgYHtyLCAgZXZhbD1ULCBmaWcuYWxpZ249J2NlbnRlcid9DQpwbG90KHRyZWF0bWVudCwgdHlwZT0ibCIsbHR5PTEpDQpwbG90KHRyZWF0bWVudCwgdHlwZT0ibCIsbHR5PTIpDQpgYGANCg0KIyMjIENvbG9yDQoNCkFuIGltcG9ydGFudCBwYXJhbWV0ZXIgd2UgY2FuIGNvbnRyb2wgaXMgY29sb3IuIFdlIGNhbiBjb250cm9sIGNvbG9yIG9yIGxpbmVzIG9yIHBvaW50cyB1c2luZyB0aGUgYGNvbGAgYXJndW1lbnQuDQoNCmBgYHtyLCAgZXZhbD1ULCBmaWcuYWxpZ249J2NlbnRlcid9DQpwbG90KHRyZWF0bWVudCwgdHlwZT0ibCIsIGNvbD0icmVkIikNCnBsb3QodHJlYXRtZW50LCB0eXBlPSJsIiwgY29sPSJkb2RnZXJibHVlIikNCmBgYA0KDQpZb3UgY2FuIGZpbmQgYW4gZXh0ZW5zaXZlIGxpc3Qgb2YgUiBjb2xvcnMgW2hlcmVdKGh0dHA6Ly93d3cuc3RhdC5jb2x1bWJpYS5lZHUvfnR6aGVuZy9maWxlcy9SY29sb3IucGRmI3BhZ2U9OC4wMCkuIEJ1dCB5b3UgY2FuIGFsc28gdXNlIGhleGFkZWNpbWFsIGNvZGUgY29sb3IgW2hlcmVdKGh0dHBzOi8vaHRtbGNvbG9yY29kZXMuY29tLykuIFlvdSBjYW4gYWxzbyBzcGVjaWZ5IGByZ2JgIGNvbG9yIGFuZCB1c2UgZGVmaW5lIGBhbHBoYWAgdG8gc2V0IHRyYW5zcGFyZW5jeS4NCg0KYGBge3IsICBldmFsPVQsIGZpZy5hbGlnbj0nY2VudGVyJ30NCm15UmVkIDwtIHJnYigxLDAsMCwgYWxwaGE9MC41KQ0KcGxvdCh0cmVhdG1lbnQsIHR5cGU9InAiLCBjZXg9NCwgcGNoPTIwLCBjb2w9bXlSZWQpDQpgYGANCg0KYHBhcmAgc2V0IG9yIHF1ZXJ5IGdyYXBoaWNhbCBwYXJhbWV0ZXJzLiBBbW9uZyBvdGhlciB1c2VzIChzaXplIG9mIHBsb3QgbWFyZ2lucyBgbWFyYCwgc3BhY2luZyBiZXR3ZWVuIG1hcmdpbiBlbGVtZW50cyBgbWdwYCwgZGltZW5zaW9ucyBvZiB3aG9sZSBwbG90IGBmaWdgLCBldGMuKSwgeW91IG1vZGlmeSBgcGFyYCB0byBwbG90IHR3byBncmFwaHMgbmV4dCB0byBlYWNoIG90aGVycw0KDQoNCmBgYHtyLCAgZXZhbD1ULCBmaWcuYWxpZ249J2NlbnRlcid9DQpwYXIobWZyb3cgPSBjKDEsIDIpKQ0KcGxvdCh0cmVhdG1lbnQsIHR5cGU9InAiLCBjZXg9NCwgcGNoPTIwLCBjb2w9bXlSZWQpDQpwbG90KHRyZWF0bWVudCwgdHlwZT0icCIsIGNleD00LCBwY2g9MjAsIGNvbD0nIzg3NzM2ZicpDQpgYGANCg0KVXNpbmcgYHBhcihtZnJvdyA9IGMoMSwgMikpYCwgeW91IHNwbGl0IHlvdXIgZ3JhcGhpY2FsIHdpbmRvdyBpbnRvIGEgZ3JpZCBieSBzcGVjaWZ5aW5nIHRoZSBudW1iZXIgb2Ygcm93IGZpcnN0IGFuZCB0aGUgbnVtYmVyIG9mIGNvbHVtbiB0aGVtLiBBbnkgbW9kaWZpY2F0aW9uIHVzaW5nIGBwYXJgIHdpbGwgYmUgYXBwbGllZCB0byBuZXh0IHBsb3RzLiBZb3UgY2FuIHRlcm1pbmF0ZWQgdXNpbmcgYGRldi5vZmYoKWAuDQoNCmBgYHtyLCAgZXZhbD1UfQ0KZGV2Lm9mZigpDQpgYGANCg0KQSBsb3Qgb2YgZ3JhcGhpY2FsIHBhcmFtZXRlcnMgY2FuIGJlIG1vZGlmaWVkIHVzaW5nIGBwYXJgLiBTZWUgdGhlIGZ1bGwgbGlzdCBvZiBzZXQgcGFyYW1ldGVycyB1c2luZyBgcGFyKClgIG9yIGA/cGFyYC4gQ2hhbmdlIHdpbGwgYXBwbHkgdG8gYWxsIHN1YnNlcXVlbnQgcGxvdHMgdW50aWwgeW91ciByZXNldCB5b3VyIGdyYXBoaWNhbCBwYXJhbWV0ZXJzIHVzaW5nIGBkZXYub2ZmKClgLg0KDQojIyBNdWx0aXBsb3QgdmVjdG9ycyBwbG90DQoNCkluZGV4IHBsb3QgYXJlIGdlbmVyYWxseSB1c2UgZXhwbG9yZSB5b3VyIGRhdGEgbnV0IG9mIGNvdXJzZSB0aGUgYHBsb3RgIGZ1bmN0aW9uIHdpbGwgYWNjZXB0IHR3byB2ZWN0b3JzIHRvIGJlIHBsb3R0ZWQgYWdhaW5zdCBlYWNoIG90aGVyLg0KDQpgYGB7ciwgIGV2YWw9VCwgIGZpZy5hbGlnbj0nY2VudGVyJ30NCmNvbnRyb2wgPC0gYygwLCAyMCwgNDAsIDYwLCA4MCwxMDApDQpwbG90KGNvbnRyb2wsdHJlYXRtZW50KQ0KYGBgDQoNCldlIG9mdGVuIHdhbnQgbXVsdGlwbGUgbGluZXMgaW4gc2FtZSBwbG90LiBTbyBpZiB3ZSB3YW50IHRvIHBsb3Qgc2NvcmVzIGZvciBjb250cm9sIGFuZCB0cmVhdG1lbnQgYWdhaW5zdCBwb3NpdGlvbiB3ZSB3aWxsIG5lZWQgYSBuZXcgbWV0aG9kLg0KDQpXZSBjYW4gYWRkIGFuIGFkZGl0aW9uYWwgbGluZSB0byBvdXIgZXhpc3RpbmcgcGxvdCB1c2luZyB0aGUgYGxpbmVzKClgIGZ1bmN0aW9uLg0KDQpgYGB7ciwgIGV2YWw9VCwgIGZpZy5hbGlnbj0nY2VudGVyJ30NCnBsb3QodHJlYXRtZW50LCB0eXBlPSJvIiwgY29sPSJibHVlIikNCmxpbmVzKGNvbnRyb2wsIHR5cGU9Im8iLCBwY2g9MjIsIGx0eT0yLCBjb2w9InJlZCIpDQpgYGANCg0KIyMjIERlZmluaW5nIHlvdXIgbGltaXRzIA0KDQpUaGUgbmV3IGxpbmUgZG9lc27igJl0IHF1aXRlIGZpdCBpbnRvIG91ciBvcmlnaW5hbCBwbG90LiBXZSBjYW4gZXh0ZW5kIG91ciB4IG9yIHkgYXhpcyBieSBzcGVjaWZ5aW5nIHZhbHVlcyB0byBgeGxpbWAgYW5kIGB5bGltYCBhcmd1bWVudHMgZGlyZWN0bHkuDQoNCmBgYHtyLCAgZXZhbD1ULCAgZmlnLmFsaWduPSdjZW50ZXInfQ0KcGxvdCh0cmVhdG1lbnQsIHR5cGU9Im8iLCBjb2w9ImJsdWUiLHlsaW09YygwLDEwMCkpDQpsaW5lcyhjb250cm9sLCB0eXBlPSJvIiwgcGNoPTIyLCBsdHk9MiwgY29sPSJyZWQiKQ0KYGBgDQoNCkluc3RlYWQgb2YgZGVmaW5pbmcgdGhlIGF4aXMgbGltaXRzIGV4cGxpY2l0bHkgd2UgY2FuIGNvbXB1dGUgdGhlIHktYXhpcyB2YWx1ZXMgdXNpbmcgdGhlIHJhbmdlIGZ1bmN0aW9uLiBUaGlzIG1lYW5zIGFueSB1cGRhdGVzIHRvIG91ciBkYXRhIHdpbGwgYmUgYXV0b21hdGljYWxseSByZWZsZWN0ZWQgaW4gb3VyIGdyYXBoLiBgcmFuZ2UoKWAgcmV0dXJucyBhIHZlY3RvciBjb250YWluaW5nIHRoZSBtaW5pbXVtIGFuZCBtYXhpbXVtIG9mIGFsbCB0aGUgZ2l2ZW4gYXJndW1lbnRzLg0KDQpDYWxjdWxhdGUgcmFuZ2UgZnJvbSAwIHRvIG1heCB2YWx1ZSBvZiBkYXRhLg0KDQpgYGB7ciwgIGV2YWw9VH0NCmdfcmFuZ2UgPC0gcmFuZ2UoMCwgdHJlYXRtZW50LCBjb250cm9sKQ0KZ19yYW5nZQ0KYGBgDQoNClRoZW4gcGxvdCB1c2luZyB0aGlzIHJhbmdlIHZhbHVlcyBhcyB5b3VyIGxpbWl0cw0KDQpgYGB7ciwgIGV2YWw9VCwgZmlnLmFsaWduPSdjZW50ZXInfQ0KcGxvdCh0cmVhdG1lbnQsIHR5cGU9Im8iLCBjb2w9ImJsdWUiLCB5bGltPWdfcmFuZ2UpDQpgYGANCg0KIyMjIEN1c3RvbWl6ZSBheGVzDQoNClRvIGJlIGFibGUgdG8gY3VzdG9taXplIGF4ZXMgd2UgbmVlZCB0byB0dXJuIG9mZiBheGVzIGFuZCBhbm5vdGF0aW9ucyAoYXhpcyBsYWJlbHMpLiBXZSB3aWxsIHRoZW4gYmUgYWJsZSB0byBzcGVjaWZ5IHRoZW0gb3Vyc2VsdmVzLiBXZSB0dXJuIG9mIGF4aXMgYW5kIGFubm90YXRpb24gcGxvdHRpbmcgdXNpbmcgYGF4ZXM9RkFMU0VgIGFuZCBgYW5uPUZBTFNFYA0KDQpgYGB7ciwgIGV2YWw9VCwgZmlnLmFsaWduPSdjZW50ZXInfQ0KcGxvdCh0cmVhdG1lbnQsIHR5cGU9Im8iLCBjb2w9ImJsdWUiLCB5bGltPWdfcmFuZ2UsIGF4ZXM9RkFMU0UsIGFubj1GQUxTRSkNCmBgYA0KDQpXZSBjYW4gY3JlYXRlIG91ciBvd24gWCBheGlzIGJ5IHVzaW5nIHRoZSBgYXhpcygpYCBmdW5jdGlvbi4gV2Ugc3BlY2lmeSB0aGUgYHNpZGVgIGFyZ3VtZW50IGZvciB3aGVyZSB0byBwbGFjZSBheGlzLCB0aGUgYGF0YCBhcmd1bWVudCB0byBzcGVjaWZ5IHdoZXJlIHRvIHB1dCBheGlzIHRpY2tzIGFuZCBgbGFiYCBhcmd1bWVudCB0byBzcGVjaWZ5IGxhYmVscyBmb3IgYXhpcyB0aWNrcy4NCg0KYGBge3IsICBldmFsPVQsIGZpZy5hbGlnbj0nY2VudGVyJ30NCnBsb3QodHJlYXRtZW50LCB0eXBlPSJvIiwgY29sPSJibHVlIiwgeWxpbT1nX3JhbmdlLCBheGVzPUZBTFNFLCBhbm49RkFMU0UpDQpheGlzKHNpZGU9MSwgYXQ9MTo2LCBsYWI9YygiTW9uIiwiVHVlIiwiV2VkIiwiVGh1IiwiRnJpIiwiU2F0IikpDQpgYGANCg0KV2UgY2FuIG1ha2Ugb3VyIHkgYXhpcyB3aXRoIGhvcml6b250YWwgbGFiZWxzIHRoYXQgZGlzcGxheSB0aWNrcyBhdCBldmVyeSAyMCBtYXJrcyBpbiBhIHNpbWlsYXIgd2F5LiBXZSBzcGVjaWZ5IG91ciBgc2lkZWAgYW5kIHVzZSBgc2VxKClgIGZ1bmN0aW9uIHRvIG1ha2UgYXhpcyB0aWNrIHBvc3Rpb25zIGZvciBgYXRgIGFyZ3VtZW50LiBXZSBjYW4gdXNlIG91ciB5LWF4aXMgcmFuZ2UgYWdhaW4gdG8gaGVscCBkZWZpbmUgaG93IG1hbnkgdGlja3Mgd2UgbmVlZC4NCg0KYGBge3IsICBldmFsPVQsIGZpZy5hbGlnbj0nY2VudGVyJ30NCnBsb3QodHJlYXRtZW50LCB0eXBlPSJvIiwgY29sPSJibHVlIiwgeWxpbT1nX3JhbmdlLCBheGVzPUZBTFNFLCBhbm49RkFMU0UpDQpheGlzKHNpZGU9MSwgYXQ9MTo2LCBsYWI9YygiTW9uIiwiVHVlIiwiV2VkIiwiVGh1IiwiRnJpIiwiU2F0IikpDQpheGlzKDIsIGxhcz0xLCBhdD1zZXEoMCxnX3JhbmdlWzJdLGJ5PTIwKSkNCmBgYA0KDQojIyMgRnJhbWluZyBwbG90DQoNCldlIGNhbiBub3cgYWRkIGEgYm94IGFyb3VuZCBvdXIgcGxvdCB1c2luZyB0aGUgYGJveCgpYCBmdW5jdGlvbi4NCg0KYGBge3IsICBldmFsPVQsIGZpZy5hbGlnbj0nY2VudGVyJ30NCnBsb3QodHJlYXRtZW50LCB0eXBlPSJvIiwgY29sPSJibHVlIiwgeWxpbT1nX3JhbmdlLCBheGVzPUZBTFNFLCBhbm49RkFMU0UpDQpheGlzKHNpZGU9MSwgYXQ9MTo2LCBsYWI9YygiTW9uIiwiVHVlIiwiV2VkIiwiVGh1IiwiRnJpIiwiU2F0IikpDQpheGlzKDIsIGxhcz0xLCBhdD1zZXEoMCxnX3JhbmdlWzJdLGJ5PTIwKSkNCmJveCgpDQpgYGANCg0KQW5kIGFkZCBiYWNrIG91ciBjb250cm9sIHVzaW5nIHRoZSBgbGluZWAgYXJndW1lbnQuDQoNCmBgYHtyLCAgZXZhbD1ULCBmaWcuYWxpZ249J2NlbnRlcid9DQpwbG90KHRyZWF0bWVudCwgdHlwZT0ibyIsIGNvbD0iYmx1ZSIsIHlsaW09Z19yYW5nZSwgYXhlcz1GQUxTRSwgYW5uPUZBTFNFKQ0KYXhpcyhzaWRlPTEsIGF0PTE6NiwgbGFiPWMoIk1vbiIsIlR1ZSIsIldlZCIsIlRodSIsIkZyaSIsIlNhdCIpKQ0KYXhpcygyLCBsYXM9MSwgYXQ9c2VxKDAsZ19yYW5nZVsyXSxieT0yMCkpDQpsaW5lcyhjb250cm9sLCB0eXBlPSJvIiwgcGNoPTIyLCBsdHk9MiwgY29sPSJyZWQiKQ0KYm94KCkNCmBgYA0KDQojIyMgTGVnZW5kcw0KDQpGaW5hbGx5IHdlIG1heSB3aXNoIHRvIGFkZCBhIGxlZ2VuZCB0byBvdXQgcGxvdC4gV2UgY2FuIGFkZCBhIGxlZ2VuZCB0byBjdXJyZW50IHBsb3QgdXNpbmcgdGhlIGBsZWdlbmQoKWAgZnVuY3Rpb24uIFdlIG5lZWQgdG8gc3BlY2lmeSB3aGVyZSB0byBwbGFjZSBsZWdlbmQgaW4gcGxvdCwgdGhlIG5hbWVzIGluIGxlZ2VuZCB0byBgbGVnZW5kYCBhcmd1bWVudCBhbmQgYW55IGFkZGl0aW9uYWwgcG9pbnQvbGluZSB0eXBlIGNvbmZpZ3VyYXRpb24gd2UgdXNlZCBlLmcgdGhlIGNvbG9yIGFuZCBzaGFwZS4NCg0KYGBge3IsICBldmFsPVQsIGZpZy5hbGlnbj0nY2VudGVyJ30NCnBsb3QodHJlYXRtZW50LCB0eXBlPSJvIiwgY29sPSJibHVlIiwgeWxpbT1nX3JhbmdlLCBheGVzPUZBTFNFLCBhbm49RkFMU0UpDQpheGlzKHNpZGU9MSwgYXQ9MTo2LCBsYWI9YygiTW9uIiwiVHVlIiwiV2VkIiwiVGh1IiwiRnJpIiwiU2F0IikpDQpheGlzKDIsIGxhcz0xLCBhdD1zZXEoMCxnX3JhbmdlWzJdLGJ5PTIwKSkNCmJveCgpDQoNCmxlZ2VuZCgidG9wbGVmdCIsbGVnZW5kPWMoInRyZWF0bWVudCIsImNvbnRyb2wiKSwgY29sPWMoImJsdWUiLCJyZWQiKSwgcGNoPTIxOjIyLCBsdHk9MToyKSANCmBgYA0KDQojIyMgRmluYWwNCg0KSW4gb3VyIGxpbmUgcGxvdCB3ZSBoYXZlIGFscmVhZHkgZG9uZSBhIGdvb2Qgam9iIG9mIG1ha2luZyBpdCBlYXNpZXIgdG8gZGlmZmVyZW50aWF0ZSB0aGUgbGluZXMgYXMgd2UgaGF2ZSBkaWZmZXJlbnQgbGluZSBzdHlsZXMgYW5kIGRpZmZlcmVudCBzaGFwZSBwb2ludHMuIE90aGVyIHRoaW5ncyB3ZSBjYW4gZG8gaXMgYWxzbyBkaWZmZXJlbnRpYXRlIHRoaWNrbmVzcy4gVG8gbWFrZSB0aGF0IGZpbmFsIHBsb3QgeW91IGNhbiBzZWUgdGhhdCB0aGVyZSBhcmUgbWFueSBsaW5lcyBvZiBjb2RlIHdlIHB1dCB0b2dldGhlci4NCg0KYGBge3IsICBldmFsPVQsIGZpZy5hbGlnbj0nY2VudGVyJ30NCnBsb3QodHJlYXRtZW50LCB0eXBlPSJvIiwgY29sPSJibHVlIiwgbHdkPTEsIHlsaW09Z19yYW5nZSxheGVzPUZBTFNFLCBhbm49RkFMU0UpDQpheGlzKDEsIGF0PTE6NiwgbGFiPWMoIk1vbiIsIlR1ZSIsIldlZCIsIlRodSIsIkZyaSIsIlNhdCIpKQ0KYXhpcygyLCBsYXM9MSwgYXQ9MjAqMDpnX3JhbmdlWzJdKQ0KYm94KCkNCg0KbGluZXMoY29udHJvbCwgdHlwZT0ibyIsIHBjaD0yMiwgbHR5PTIsIGNvbD0icmVkIiwgbHdkPTIuNSkNCmxlZ2VuZCgidG9wbGVmdCIsbGVnZW5kPWMoInRyZWF0bWVudCIsImNvbnRyb2wiKSxjb2w9YygiYmx1ZSIsInJlZCIpLCBwY2g9MjE6MjIsIGx0eT0xOjIsIGx3ZD1jKDEsMi41KSkNCmBgYA0KDQojIyMgUGFsZXR0ZXMNCg0KfjQlIG9mIHBlb3BsZSBhcmUgY29sb3IgYmxpbmQuIEluIHdoaXRlIG1hbGVzIHRoaXMgbnVtYmVyIHJhaXNlcyB0byB+MTAlLiBDb25zaWRlcmluZyB0aGUgZGVtb2dyYXBoaWNzIGluIHNjaWVuY2UsIHRoZXJlIHdpbGwgbGlrZWx5IGJlIHNvbWVvbmUgd2l0aCBjb2xvciBibGluZG5lc3MgaW4geW91ciBtZWV0aW5nLiBQYWxldHRlIHBhY2thZ2VzIGV4aXN0IHRoYXQgY29udGFpbiBhIGN1cmF0ZWQgY29sbGVjdGlvbiBjb2xvcnMuIFRoZXNlIGNhbiBiZSB0aGVtZWQgZm9yIGFueXRoaW5nLCBmcm9tIExhIENyb2l4IGZsYXZvcnMgdG8gUG9rZW1vbi4gQSBsaXN0IG9mIHBhbGV0dGVzIGNhbiBiZSBmb3VuZCBbaGVyZV0oaHR0cHM6Ly9naXRodWIuY29tL0VtaWxIdml0ZmVsZHQvcGFsZXR0ZWVyKS4gU29tZSBvZiB0aGUgbW9yZSB1c2VmdWwgcGFsZXR0ZXMgYXJlIGRlc2lnbmVkIHRvIGJlIGNvbG9yIGJsaW5kIGZyaWVuZGx5LCBsaWtlIGB2aXJpZGlzYC4gVG8gZ2V0IGNvbG9ycyBmcm9tIHRoZSBwYWNrYWdlIHlvdSBqdXN0IGhhdmUgdG8gY2FsbCB0aGUgZnVuY3Rpb24gd2l0aCB0aGUgbnVtYmVyIG9mIGNvbG9ycyB5b3Ugd2FudC4NCg0KYGBge3IsICBldmFsPVQsIHdhcm5pbmc9RiwgbWVzc2FnZT1GfQ0KIyBpbnN0YWxsLnBhY2thZ2VzKCd2aXJpZGlzJykNCmxpYnJhcnkodmlyaWRpcykNCnZpcmlkaXMoNSkNCmBgYA0KDQojIyMgR29vZCBkYXRhIHZpc3VhbGl6YXRpb24NCg0KVGhlcmUgYXJlIG9mdGVuIGEgdHJhZGUgb2ZmcyBpbiBjcmVhdGluZyBnb29kIHBsb3RzLg0KDQotIElzIGl0IGVhc3kgdG8gZGlnZXN0IGFuZCBhY2Nlc2libGUgdG8gZXZlcnlvbmU/DQotIElzIGl0IGVuZ2FnaW5nIGFuZCBhcHBlYWxpbmc/DQotIERvZXMgaXQgY29udGFpbiBhbGwgdGhlIGluZm9ybWF0aW9uIHdpdGggbm90aGluZyBzdXBlcmZsdW91cz8NCi0gSXMgaXQgdGhlIGJlc3Qgd2F5IHRvIHRlbGwgdGhlIHN0b3J5IEkgd2FudCB0byB0ZWxsPw0KDQpbRnVuZGFtZW50YWxzIG9mIERhdGEgVmlzdWFsaXphdGlvbl0oaHR0cHM6Ly9jbGF1c3dpbGtlLmNvbS9kYXRhdml6LykgYnkgQ2xhdXMgTy4gV2lsa2UgaXMgYSBnb29kIHJlc291cmNlIG9uIHRoZSB0aGVvcnkgb2YgbWFraW5nIGRhdGEgdmlzdWFsaXphdGlvbnMgdGhlIHJpZ2h0IHdheS4NCg0KIyMgSGlzdG9ncmFtcw0KDQpCYXNlIGdyYXBoaWNzIGhhcyBhIHVzZWZ1bCBidWlsdC1pbiBmdW5jdGlvbiBmb3IgaGlzdG9ncmFtcyB0b28uIFRoaXMgaXMgdGhlIGBoaXN0KClgIGZ1bmN0aW9uLCB3aGljaCBqdXN0IG5lZWRzIGEgbnVtZXJpYyB2ZWN0b3IuDQoNCmBgYHtyLCAgZXZhbD1ULCBmaWcuYWxpZ249J2NlbnRlcid9DQpoaXN0KHRyZWF0bWVudCkNCmBgYA0KDQpTaW1pbGFyIGN1c3RvbWl6YXRpb24gZXhpc3RzIGFzIGZvciBvdGhlciBwbG90cy4NCg0KYGBge3IsICBldmFsPVQsIGZpZy5hbGlnbj0nY2VudGVyJ30NCmhpc3QodHJlYXRtZW50LCBjb2w9ImxpZ2h0Ymx1ZSIsIHlsaW09YygwLDUpLGNleC5tYWluPTAuOCkNCmBgYA0KDQpXZSBjYW4gY3JlYXRlIG1vcmUgZmluZSBncmFpbmVkIGhpc3RvZ3JhbSBieSBzcGVjaWZ5IHRoZSBudW1iZXIgb2YgcmVxdWlyZWQgYmlucyB0byB0aGUgYGJyZWFrc2AgYXJndW1lbnQuDQoNCmBgYHtyLCAgZXZhbD1ULCBmaWcuYWxpZ249J2NlbnRlcid9DQpwYXIobWZyb3cgPSBjKDEsIDIpKQ0KaGlzdCh0cmVhdG1lbnQsIGNvbD0ibGlnaHRibHVlIiwgeWxpbT1jKDAsNSksIGNleC5tYWluPTAuOCwgYnJlYWtzID0gMikNCmhpc3QodHJlYXRtZW50LCBjb2w9ImxpZ2h0Ymx1ZSIsIHlsaW09YygwLDUpLCBjZXgubWFpbj0wLjgsIGJyZWFrcyA9IDEwKQ0KZGV2Lm9mZigpDQpgYGANCg0KIyMgRG90IGNoYXJ0cw0KDQpCYXNlIGdyYXBoaWNzIGFsc28gaGFzIGEgYGRvdGNoYXJ0KClgIGZ1bmN0aW9uLiBEb3QgY2hhcnRzIGhlbHAgY29tcGFyZSAqKnBhaXJlZCoqIGRhdGEuIEZpcnN0IHRob3VnaCB3ZSBuZWVkIHRvIG1vZGlmeSBkYXRhIHRvIGEgbWF0cml4LiBBcyB3ZSBhcmUgY29tcGFyaW5nIGluIHBhaXJzIGFzIG9wcG9zZWQgdG8gYWxsIGNvbnRyb2wgdmVyc3VzIHRyZWF0bWVudCwgd2UgdXNlIHRoZSBmdW5jdGlvbiBgdGAgdG8gcmV0dXJuIHRoZSB0cmFuc3Bvc2Ugb2YgYSBtYXRyaXguIFRoaXMgbWVhbnMgcm93cyBhcmUgbm93IGNvbHVtbnMgYW5kIHRoZSBjb2x1bW5zIGFyZSBub3cgcm93cy4NCg0KYGBge3IsICBldmFsPVR9DQpkYXRhPC1kYXRhLmZyYW1lKHRyZWF0bWVudCwgY29udHJvbCkNCnJvdy5uYW1lcyhkYXRhKTwtYygiTW9uIiwiVHVlIiwiV2VkIiwiVGh1IiwiRnJpIiwiU2F0IikNCmBgYA0KDQpUaGUgQ2xldmVsYW5kIHBsb3Qgb24gdGhlIHRyYW5zcG9zZWQgbWF0cml4Og0KDQpgYGB7ciwgIGV2YWw9VCwgZmlnLmFsaWduPSdjZW50ZXInfQ0KZG90Y2hhcnQoYXMubWF0cml4KHQoZGF0YSkpKQ0KYGBgDQoNClNvbWUgY3VzdG9taXphdGlvbjogDQoNCmBgYHtyLCAgZXZhbD1ULCBmaWcuYWxpZ249J2NlbnRlcid9DQpkb3RjaGFydChhcy5tYXRyaXgodChkYXRhKSksIGNvbG9yPWMoInJlZCIsImJsdWUiKSxtYWluPSJEb3RjaGFydCIsIGNleD0wLjUpDQpgYGANCg0KDQojIyBCb3ggcGxvdHMNCg0KVGhlIGZpbmFsIHBsb3Qgd2Ugd2lsbCBsb29rIGF0IGhlcmUgaXMgYSBib3ggYW5kIHdoaXNrZXIgcGxvdC4gQm94cGxvdHMgYWxsb3cgeW91IHRvIHF1aWNrbHkgcmV2aWV3IGRhdGEgZGlzdHJpYnV0aW9ucywgc2hvd2luZyB0aGUgbWVkaWFuIGFuZCAxc3QvM3JkIHF1YXJ0aWxlLg0KDQpgYGB7ciwgZWNobz1GQUxTRSwgZmlnLmFsaWduPSdjZW50ZXInLCBmaWcuY2FwPSJJbnRyb2R1Y3Rpb24gdG8gYm94cGxvdCIsIG91dC53aWR0aCA9ICcxMDAlJ30NCmtuaXRyOjppbmNsdWRlX2dyYXBoaWNzKCJpbGx1c3RyYXRpb25zL2JveHBsb3QucG5nIikNCmBgYA0KDQoNCkZpcnN0IGxldHMgcmVhZCBzb21lIGdlbmUgZXhwcmVzc2lvbiBkYXRhDQoNCmBgYHtyLCAgZXZhbD1UfQ0KZXhwcnMgPC0gcmVhZC5kZWxpbSgiZGF0YS9nZW5lX2RhdGEudHh0IixzZXA9Ilx0IixoPVQscm93Lm5hbWVzID0gMSkNCmhlYWQoZXhwcnMpDQpgYGANCg0KTm93IHdlIGNhbiB1c2UgdGhlIGBib3hwbG90KClgIGZ1bmN0aW9uIG9uIG91ciBkYXRhLmZyYW1lIHRvIGdldCBvdXIgYm94cGxvdA0KDQpgYGB7ciwgIGV2YWw9VCwgZmlnLmFsaWduPSdjZW50ZXInfQ0KYm94cGxvdChleHBycykNCmBgYA0KDQpUaGlzIHBsb3Qgd291bGQgbG9vayBiZXR0ZXIgb24gYSBsb2cgc2NhbGUuIFdlIGNhbiBhZGQgYWRkaXRpb24gY29sb3JzIGFuZCBsYWJlbHMgYXMgd2l0aCBvdGhlciBwbG90cy4NCg0KYGBge3IsICBldmFsPVQsIGZpZy5hbGlnbj0nY2VudGVyJ30NCmJveHBsb3QobG9nMihleHBycykseWxhYj0ibG9nMiBFeHByZXNzaW9uIiwgY29sPWMoInJlZCIsInJlZCIsImJsdWUiLCJibHVlIikpDQpgYGANCg0KQ2hlY2sgYXQgYD9ib3hwbG90YC4gYHhgIGNhbiBiZSBhIGZvcm11bGEgb2YgdGhlIHR5cGUgYHkgfiBncnBgIHdoZXJlIGB5YCBpcyBhIG51bWVyaWMgdmVjdG9yIG9mIGRhdGEgdmFsdWVzIHRvIGJlIHNwbGl0IGludG8gZ3JvdXBzIGFjY29yZGluZyB0byB0aGUgZ3JvdXBpbmcgdmFyaWFibGUgYGdycGAgKHVzdWFsbHkgYSBmYWN0b3IpLg0KDQpgYGB7ciwgIGV2YWw9VCwgZmlnLmFsaWduPSdjZW50ZXInfQ0KYm94cGxvdChsZW4gfiBkb3NlLCBkYXRhID0gVG9vdGhHcm93dGgsDQogICAgICAgIGJveHdleCA9IDAuMjUsIGF0ID0gMTozIC0gMC4yLA0KICAgICAgICBob3Jpem9udGFsPVQsIGxhcz0gMSwNCiAgICAgICAgc3Vic2V0ID0gc3VwcCA9PSAiVkMiLCBjb2wgPSAieWVsbG93IiwNCiAgICAgICAgbWFpbiA9ICJHdWluZWEgUGlncycgVG9vdGggR3Jvd3RoIiwNCiAgICAgICAgeGxhYiA9ICJ0b290aCBsZW5ndGgiLA0KICAgICAgICB5bGFiID0gIlZpdGFtaW4gQyBkb3NlIG1nIiwNCiAgICAgICAgeGxpbSA9IGMoMC41LCAzLjUpLCB5bGltID0gYygwLCAzNSksIHlheHM9J2knKQ0KYGBgDQoNCk5vdGUgdGhhdCBieSBkZWZhdWx0IHRoZSBzcGVjaWZpZWQgcmFuZ2VzIG9mIGEgcGxvdCBhcmUgZW5sYXJnZWQgYnkgNiUsIHNvIHRoYXQgdGhlIHNwZWNpZmllZCB2YWx1ZXMgZG8gbm90IGxpZSBhdCB0aGUgdmVyeSBlZGdlcyBvZiB0aGUgcGxvdCByZWdpb24uIFRoaXMgaXMNCmFwcHJvcHJpYXRlIGZvciBtb3N0IHR5cGVzIG9mIHBsb3QsIGJ1dCBzb21ldGltZXMgd2Ugd2FudCB0aGUgc3BlY2lmaWVkIGxpbWl0cyB0byBsaWUgYXQgdGhlIGVkZ2VzIG9mIHRoZSBwbG90IHdpbmRvdy4gVGhpcyBjYW4gYmUgc3BlY2lmaWVkIHNlcGFyYXRlbHkgZm9yIGVhY2ggYXhpcyB1c2luZyB0aGUgYXJndW1lbnRzIGB4YXhzPSdpJ2AgYW5kIGB5YXhzPSdpJ2AuDQoNCiMjIEV4dHJhIGVsZW1lbnRzDQoNCiMjIyBUZXh0DQoNCkN1c3RvbSB0ZXh0IGNhbiBiZSBhZGRlZCB0byB5b3UgcGxvdCB1c2luZyB0aGUgYHRleHRgIGZ1bmN0aW9uLiBTaW1wbHkgcHJvdmlkZSB0aGUgcG9zaXRpb24gYW5kIHRoZSBsYWJlbC4gWW91IGNhbiB1c2UgdGhlIGRhdGEgaXRzZWxmIHRvIGxhYmVsIGRhdGEgcG9pbnRzLiBUaGUgYGFkamAgYXJndW1lbnQgYWxsb3dzIHlvdSB0byBudWRnZSB0aGUgYW5ub3RhdGlvbiBhIGNvbnN0YW50IGFtb3VudCBhd2F5IGZyb20gdGhlIGRlZmluZWQgcG9zaXRpb24uIEFueSBsYWJlbHMgdG8gYmUgYWRkZWQgdG8gdGhlIG1hcmdpbiBuZWVkIHRvIHVzZSBgbXRleHRgIGluc3RlYWQuDQoNCmBgYHtyLCAgZXZhbD1ULCBmaWcuYWxpZ249J2NlbnRlcid9DQpwbG90KGNvbnRyb2wsIHRyZWF0bWVudCkNCnRleHQoMjAsNjAsICdUSElTIEFSRUEgT0YgXG4gVEhFIFBMT1QgSEFTIFxuIE5PIFNBTVBMRScsIGNvbD0ncmVkJykNCnRleHQoY29udHJvbCwgdHJlYXRtZW50LCBsZXR0ZXJzWzE6Nl0sIGFkaj1jKDAsLTEpLCBjb2w9J2JsdWUnKQ0KYGBgDQoNCiMjIyBMaW5lcyANCg0KYGFibGluZWAgYWxsb3dzIHlvdSB0byBhZGQgc3BlY2lmaWMgc3RyYWlnaHQgbGluZXMuIFRoaXMgaXMgb2Z0ZW4gdXNlZnVsIHRvIGhlbHAgZGVtb25zdHJhdGUga25vd24gbGluZWFyIHJlbGF0aW9uc2hpcHMgb3IgdGhyZXNob2xkcyBhcyByZWZlcmVuY2UgcG9pbnRzIGZvciB5b3VyIGRhdGEuIGBoYCA9IGhvcml6b250YWwgbGluZSB3aXRoIHktaW50ZXJjZXB0IGB2YCA9IHZlcnRpY2FsIGxpbmUgd2l0aCB4LWludGVyY2VwdCAgYGFgLGBiYCA9IGludGVyY2VwdCBhbmQgc2xvcGUuDQoNCmBgYHtyLCAgZXZhbD1ULCBmaWcuYWxpZ249J2NlbnRlcid9DQpwbG90KGNvbnRyb2wsIHRyZWF0bWVudCkNCmFibGluZShoPTEwLCBjb2w9J2JsdWUnKQ0KYWJsaW5lKHY9NTAsIGNvbD0ncmVkJywgbHdkPTIpDQphYmxpbmUoYT0wLCBiPTEsIGx0eT0yKQ0KYGBgDQoNCiMjIyBTaGFwZXMNCg0KYHBvbHlnb25gIGFsbG93cyB5b3UgdG8gZHJhdyBzcGVjaWZpYyBwb2x5Z29ucy4gWW91IGp1c3QgbmVlZCB0byBnaXZlIGl0IHRoZSBjb29yZGluYXRlcyBvZiBlYWNoIHZlcnRleC4gQWdhaW4gdGhpcyBpcyBvZnRlbiB0byBoaWdobGlnaHQgc3BlY2lmaWMgcGFydHMgb2YgdGhlIHBsb3QuIFRoaXMgY2FuIGJlIGZpbGxlZCwgb3IgaWYgeW91IGdpdmUgdGhlIGRlbmlzdHkgYXJndW1lbnQgdGhlcmUgd2lsbCBiZSBhIGhhc2ggZmlsbC4NCg0KYGBge3IsICBldmFsPVQsIGZpZy5hbGlnbj0nY2VudGVyJ30NCnBsb3QoY29udHJvbCwgdHJlYXRtZW50KQ0KcG9seWdvbihjKDUwLDUwLDEwMCwxMDApLGMoNTAsODAsODAsNTApLCBjb2w9J2dyYXknLCBkZW5zaXR5PTUpDQpgYGANCg0KIyMgU2F2aW5nDQoNClRoZXJlIGFyZSBtYW55IGRpZmZlcmVudCB3YXlzIG9mIHNhdmluZyB5b3VyIHBsb3RzIGluIFIuIFRoZSBlYXNpZXN0IHdheSBpcyB0byB1c2UgdGhlIGV4cG9ydCBidXR0b24gaW4gdGhlIHBsb3QgcGFuZSBpbiBSU3R1ZGlvLiBUaGlzIGlzIG5vdCBnb29kIHJlcHJvZHVjaWJsZSBwcmFjdGljZSB0aG91Z2ggYXMgdGhlIGNvZGUgaXMgbm90IHRpZWQgdG8gdGhlIHBsb3QuDQoNClRvIHNhdmUgcGxvdHMgdGhyb3VnaCB0aGUgY29uc29sZSwgdGhlIGFyZ3VtZW50IHlvdSB3b3VsZCBuZWVkIGlzIG5hbWUgb2YgZmlsZSBpbiB3aGljaCB5b3Ugd2FudCB0byBzYXZlIHRoZSBwbG90LiBQbG90dGluZyBjb21tYW5kcyB0aGVuIGNhbiBiZSBlbnRlcmVkIGFzIHVzdWFsLiBUaGUgb3V0cHV0IHdvdWxkIGJlIHJlZGlyZWN0ZWQgdG8gdGhlIGZpbGUuDQoNCmBgYHtyLCAgZXZhbD1GfQ0KYm1wKGZpbGVuYW1lLCB3aWR0aCA9IDQ4MCwgaGVpZ2h0ID0gNDgwLCB1bml0cyA9ICJweCIsIA0KICAgIHBvaW50c2l6ZSA9IDEyKQ0KanBlZyhmaWxlbmFtZSwgd2lkdGggPSA0ODAsIGhlaWdodCA9IDQ4MCwgdW5pdHMgPSAicHgiLCANCiAgICAgcG9pbnRzaXplICA9IDEyLCBxdWFsaXR5ID0gNzUpDQpgYGANCg0KV2hlbiB5b3XigJlyZSBkb25lIHdpdGggeW91ciBwbG90dGluZyBjb21tYW5kcywgZW50ZXIgdGhlIGBkZXYub2ZmKClgIGNvbW1hbmQuDQoNCiMjIyBTYXZpbmcgaW4gYml0bWFwIGZvcm1hdA0KDQpgYGB7ciwgIGV2YWw9VH0NCmJtcChmaWxlID0gIm91dHB1dHMvY29udHJvbC5ibXAiKQ0KcGxvdChjb250cm9sKQ0KZGV2Lm9mZigpDQpgYGANCg0KDQojIyMgU2F2aW5nIGluIGpwZWcgZm9ybWF0DQoNCmBgYHtyLCAgZXZhbD1UfQ0KanBlZyhmaWxlID0gImNvbnRyb2wuanBnIiwgcXVhbGl0eSA9IDIwKQ0KcGxvdChjb250cm9sKQ0KZGV2Lm9mZigpDQpgYGANCg0KIyMjIFNhdmluZyBpbiBwb3N0c2NyaXB0IGZvcm1hdA0KDQpgYGB7ciwgIGV2YWw9VH0NCnBvc3RzY3JpcHQoZmlsZSA9ICJjb250cm9sLnBzIikNCnBsb3QoY29udHJvbCkNCmRldi5vZmYoKQ0KYGBgDQoNCiMjIyBTYXZpbmcgaW4gcGRmIGZvcm1hdA0KDQpQREZzIGFyZSBtYXliZSB0aGUgbW9zdCB1c2VmdWwgZm9ybWF0IHRvIGV4cG9ydCBpbnRvLiBQREZzIGFyZSB2ZWN0b3ItYmFzZWQgc28gZWFjaCBwYXJ0IG9mIHRoZSBwbG90IGlzIHNhdmVkIGFzIHNjYWxhYmxlIGNvb3JkaW5hdGVzIGFzIG9wcG9zZWQgdG8gc3BlY2lmaWMgcGl4ZWxzLg0KDQpQREZzIGNhbiB0aGVuIGJlIG9wZW5lZCBpbiBpbWFnaW5nIHNvZnR3YXJlIGxpa2UgaWxsdXN0cmF0b3Igb3IgW2lua3NjYXBlXShodHRwczovL2lua3NjYXBlLm9yZy8pICh0aGlzIGlzIGEgb3BlbiBzb3VyY2UgYW5kIGZyZWUgc29mdHdhcmUpLiBXaGVuIHlvdSBvcGVuIGEgUERGIGluIHRoZXNlIHByb2dyYW1zIHlvdSBjYW4gZnVsbHkgY3VzdG9taXplIHRoZSBwbG90cyB0byB5b3VyIGFlc3RoZXRpYyB3aXRoIGEgZ3JhcGhpYyB1c2VyIGludGVyZmFjZS4gRnVydGhlcm1vcmUgYXMgdGhleSBhcmUgdmVjdG9yLWJhc2VkLCB0aGV5IGNhbiBiZSBlYXNpbHkgYXNzZW1ibGVkIGludG8gcHVibGljYXRpb24gcXVhbGl0eSBmaWd1cmVzIHdpdGhvdXQgcmVzb2x1dGlvbiBpc3N1ZXMgYW5kIHBpeGVsYXRpb24uDQoNCmBgYHtyLCAgZXZhbD1UfQ0KcGRmKGZpbGUgPSAiY29udHJvbC5wZGYiLCBwYXBlciA9ICJBNCIpDQpwbG90KGNvbnRyb2wpDQpkZXYub2ZmKCkNCmBgYA0KDQoNCg0KPHAgY2xhc3M9ImNvbW1lbnQiPg0KKipQcmFjdGljZSA1LjEqKiBVc2luZyB0aGUgYGlyaXNgIGRhdGFzZXQsIHJlcHJvZHVjZSB0aGUgcGxvdCBiZWxvdy4gRXhwbG9yZSB0aGUgZnVuY3Rpb24gYHBhaXJzYCBhbGxvd2luZyB0byBnZW5lcmF0ZSBhIG1hdHJpeCBvZiBzY2F0dGVyIHBsb3RzLg0KPC9wPg0KDQoNCmBgYHtyLCBlY2hvPUZBTFNFLCBmaWcuYWxpZ249J2NlbnRlcicsIGZpZy5jYXA9IkEgcmVmaW5lZCBzY2F0dGVyIHBsb3QgdXNpbmcgYmFzZSBSIGdyYXBoaWNzIiwgb3V0LndpZHRoID0gJzUwJSd9DQprbml0cjo6aW5jbHVkZV9ncmFwaGljcygiaWxsdXN0cmF0aW9ucy9pcmlzLXBsb3QucG5nIikNCmBgYA0KDQojIGBnZ3Bsb3QyYA0KDQpUaGUgUiBsYW5ndWFnZSBoYXMgZXh0ZW5zaXZlIGdyYXBoaWNhbCBjYXBhYmlsaXRpZXMuIEdyYXBoaWNzIGluIFIgbWF5IGJlIGNyZWF0ZWQgYnkgbWFueSBkaWZmZXJlbnQgbWV0aG9kcyBpbmNsdWRpbmcgYGJhc2VgIGdyYXBoaWNzIGFuZCBtb3JlIGFkdmFuY2VkIHBsb3R0aW5nIHBhY2thZ2VzIHN1Y2ggYXMgYGxhdHRpY2VgLg0KDQpgYGB7ciwgZWNobz1GQUxTRSwgZmlnLmFsaWduPSdjZW50ZXInLCBmaWcuY2FwPSJBIHJlZmluZWQgc2NhdHRlciBwbG90IHVzaW5nIGJhc2UgUiBncmFwaGljcyIsIG91dC53aWR0aCA9ICc1MCUnfQ0Ka25pdHI6OmluY2x1ZGVfZ3JhcGhpY3MoImlsbHVzdHJhdGlvbnMvYmFzZS1sYXR0aWNlLmpmaWYiKQ0KYGBgDQoNClRoZSBgZ2dwbG90MmAgcGFja2FnZSB3YXMgY3JlYXRlZCBieSBIYWRsZXkgV2lja2hhbSB0byBwcm92aWRlIGFuIGludHVpdGl2ZSBwbG90dGluZyBzeXN0ZW0gdG8gcmFwaWRseSBnZW5lcmF0ZSBwdWJsaWNhdGlvbiBxdWFsaXR5IGdyYXBoaWNzLiBgZ2dwbG90MmAgYnVpbGRzIG9uIHRoZSBjb25jZXB0IG9mIHRoZSAqKuKAnEdyYW1tYXIgb2YgR3JhcGhpY3PigJ0qKiAoV2lsa2luc29uIDIwMDUsIEJlcnRpbiAxOTgzKSB3aGljaCBkZXNjcmliZXMgYSBjb25zaXN0ZW50IHN5bnRheCBmb3IgdGhlIGNvbnN0cnVjdGlvbiBvZiBhIHdpZGUgcmFuZ2Ugb2YgY29tcGxleCBncmFwaGljcyBieSBhIGNvbmNpc2UgZGVzY3JpcHRpb24gb2YgdGhlaXIgY29tcG9uZW50cy4gYGdncGxvdDJgIGlzIGEgY29yZSBwYXJ0IG9mIHRoZSAqKlRpZHl2ZXJzZSoqLCB0aGUgZ3JvdXAgb2YgcGFja2FnZXMgZGVzaWduZWQgdG8gbWFrZSBkYXRhIHNjaWVuY2UgZWFzeSBhbmQgZnVuY3Rpb25hbCBpbiBSLiBUbyBnZXQgYW4gaW50cm9kdWN0aW9uIHRvIHRoZSBjb3JlIGNvbmNlcHRzIG9mIFRpZHl2ZXJzZSBjaGVjayBvdXQgcHJldmlvdXMgbWF0ZXJpYWxzIG9uIGB0aWR5cmAgYW5kIGBkcGx5cmAuDQoNCkZvciBhbiBleHRlbnNpdmUgZ2lkZSBvbiBgZ2dwbG90MmAgcGxlYXNlIHJlZmVyIHRvICoqUiBncmFwaGljcyBDb29rYm9vayoqIGJ5IFdpbnN0b24gQ2hhbmcgYXZhaWxhYmxlIFtIRVJFXShodHRwczovL3ItZ3JhcGhpY3Mub3JnLykuIA0KDQojIyBXaHkgdXNlIGBnZ3Bsb3QyYD8NCg0KVGhlIHN0cnVjdHVyZWQgc3ludGF4IGFuZCBoaWdoIGxldmVsIG9mIGFic3RyYWN0aW9uIHVzZWQgYnkgZ2dwbG90MiBzaG91bGQgYWxsb3cgZm9yIHRoZSB1c2VyIHRvIGNvbmNlbnRyYXRlIG9uIHRoZSB2aXN1YWxpemF0aW9ucyBpbnN0ZWFkIG9mIGNyZWF0aW5nIHRoZSB1bmRlcmx5aW5nIGNvZGUuIE9uIHRvcCBvZiB0aGlzIGNlbnRyYWwgcGhpbG9zb3BoeSBgZ2dwbG90MmAgaGFzOg0KDQotIEluY3JlYXNlZCBmbGV4aWJsZSBvdmVyIG1hbnkgcGxvdHRpbmcgc3lzdGVtcy4NCi0gQW4gYWR2YW5jZWQgdGhlbWUgc3lzdGVtIGZvciBwcm9mZXNzaW9uYWwvcHVibGljYXRpb24gbGV2ZWwgZ3JhcGhpY3MuDQotIExhcmdlIGRldmVsb3BlciBiYXNlIOKAkyBNYW55IGxpYnJhcmllcyBleHRlbmRpbmcgaXRzIGZsZXhpYmlsaXR5Lg0KLSBMYXJnZSB1c2VyIGJhc2Ug4oCTIEdyZWF0IGRvY3VtZW50YXRpb24gYW5kIGFjdGl2ZSBtYWlsaW5nIGxpc3QuDQoNCiMjIEdyYW1tYXIgb2YgZ3JhcGhpY3MNCg0KIyMjIEhvdyBgZ2dwbG90YCBidWlsZHMgYSBwbG90Lg0KDQpBIHBsb3QgaW4gYGdncGxvdDJgIGNvbnNpc3RzIG9mIGRpZmZlcmVudCAqKnByaW1hcnkgbGF5ZXJpbmcgY29tcG9uZW50cyoqLCB3aXRoIHRoZSB0aHJlZSBwcmltYXJ5IGNvbXBvbmVudHMgYmVpbmc6DQoNCisgVGhlICoqZGF0YXNldCoqIHRoYXQgaG91c2VzIHRoZSBkYXRhIHRvIGJlIHBsb3R0ZWQuIFRoZSAqZGF0YSogaXMgd2hhdCB3ZSB3YW50IHRvIHZpc3VhbGl6ZS4gSXQgY29uc2lzdHMgb2YgdmFyaWFibGVzLCB3aGljaCBhcmUgc3RvcmVkIGFzIGNvbHVtbnMgaW4gYSBkYXRhIGZyYW1lLg0KKyBUaGUgKiphZXN0aGV0aWNzKiogd2hpY2ggZGVzY3JpYmUgaG93IGRhdGEgYXJlIHRvIGJlIG1hcHBlZCB0byB0aGUgZ2VvbWV0cmljIGVsZW1lbnRzIChjb2xvciwgc2hhcGUsIHNpemUsIGV0Yy4uKS4gQWVzdGhldGljIGF0dHJpYnV0ZXMsIG9yICphZXN0aGV0aWNzKiwgYXJlIHZpc3VhbCBwcm9wZXJ0aWVzIG9mICoqZ2VvbXMqKiwgc3VjaCBhcyB4IGFuZCB5IHBvc2l0aW9uLCBsaW5lIGNvbG9yLCBwb2ludCBzaGFwZXMsIGV0Yy4gVGhlcmUgYXJlICptYXBwaW5ncyogZnJvbSBkYXRhIHZhbHVlcyB0byBhZXN0aGV0aWNzLg0KKyBUaGUgKipnZW9tZXRyaWMgZWxlbWVudHMqKiB0byB1c2UgaW4gdGhlIHBsb3QgKGkuZS4gcG9pbnRzLCBsaW5lcywgcmVjdGFuZ2xlcywgZXRj4oCmKS4gKkdlb21zKiBhcmUgdGhlIGdlb21ldHJpYyBvYmplY3RzIHRoYXQgYXJlIGRyYXduIHRvIHJlcHJlc2VudCB0aGUgZGF0YSwgc3VjaCBhcyBiYXJzLCBsaW5lcywgYW5kIHBvaW50cy4NCg0KKipBZGRpdGlvbmFsIChvcHRpb25hbCkgbGF5ZXJpbmcgY29tcG9uZW50cyoqIGluY2x1ZGU6DQoNCisgKipTdGF0aXN0aWNhbCoqIGVsZW1lbnRzIHN1Y2ggYXMgc21vb3RoaW5nLCBiaW5uaW5nIG9yIHRyYW5zZm9ybWluZyB0aGUgdmFyaWFibGUNCisgKipTY2FsZXMqKiBjb250cm9sIHRoZSBtYXBwaW5nIGZyb20gdGhlIHZhbHVlcyBpbiB0aGUgZGF0YSBzcGFjZSB0byB2YWx1ZXMgaW4gdGhlIGFlc3RoZXRpYyBzcGFjZS4gDQorICoqR3VpZGVzKiogc2hvdyB0aGUgdmlld2VyIGhvdyB0byBtYXAgdGhlIHZpc3VhbCBwcm9wZXJ0aWVzIGJhY2sgdG8gdGhlIGRhdGEgc3BhY2UuIFRoZSBtb3N0IGNvbW1vbmx5IHVzZWQgZ3VpZGVzIGFyZSB0aGUgdGljayBtYXJrcyBhbmQgbGFiZWxzIG9uIGFuIGF4aXMuDQorICoqRmFjZXRzKiogZm9yIGNvbmRpdGlvbmFsIG9yIHRyZWxsaXMgcGxvdHMNCisgKipDb29yZGluYXRlIHN5c3RlbXMqKiBmb3IgZGVmaW5pbmcgdGhlIHBsb3RzIHNoYXBlIChpLmUuIENhcnRlc2lhbiwgcG9sYXIsIHNwYXRpYWwgbWFwIHByb2plY3Rpb25zLCBldGPigKYpDQoNCg0KYGBge3IsIGVjaG89RkFMU0UsIGZpZy5hbGlnbj0nY2VudGVyJywgZmlnLmNhcD0iQSByZWZpbmVkIHNjYXR0ZXIgcGxvdCB1c2luZyBiYXNlIFIgZ3JhcGhpY3MiLCBvdXQud2lkdGggPSAnNTAlJ30NCmtuaXRyOjppbmNsdWRlX2dyYXBoaWNzKCJpbGx1c3RyYXRpb25zL2dncGxvdC1tYXAuamZpZiIpDQpgYGANCg0KIyMjIE92ZXJ2aWV3IG9mIGEgc2NhdHRlciBwbG90DQoNCg0KT3ZlcnZpZXcgb2YgZXhhbXBsZSBjb2RlIGZvciBhIGBnZ3Bsb3QyYCBzY2F0dGVyIHBsb3QuDQoNCmBgYHtyLCAgZXZhbD1GfQ0KZ2dwbG90KGRhdGEgPSA8ZGVmYXVsdCBkYXRhIHNldD4sIA0KICAgICAgIGFlcyh4ID0gPGRlZmF1bHQgeCBheGlzIHZhcmlhYmxlPiwNCiAgICAgICAgICAgeSA9IDxkZWZhdWx0IHkgYXhpcyB2YXJpYWJsZT4sDQogICAgICAgICAgIC4uLiA8b3RoZXIgZGVmYXVsdCBhZXN0aGV0aWMgbWFwcGluZ3M+KSwNCiAgICAgICAuLi4gPG90aGVyIHBsb3QgZGVmYXVsdHM+KSArDQoNCiAgICAgICBnZW9tX3NjYXR0ZXIoYWVzKHNpemUgPSA8c2l6ZSB2YXJpYWJsZSBmb3IgdGhpcyBnZW9tPiwgDQogICAgICAgICAgICAgICAgICAgICAgLi4uIDxvdGhlciBhZXN0aGV0aWMgbWFwcGluZ3M+KSwNCiAgICAgICAgICAgICAgICAgIGRhdGEgPSA8ZGF0YSBmb3IgdGhpcyBwb2ludCBnZW9tPiwNCiAgICAgICAgICAgICAgICAgIHN0YXQgPSA8c3RhdGlzdGljIHN0cmluZyBvciBmdW5jdGlvbj4sDQogICAgICAgICAgICAgICAgICBwb3NpdGlvbiA9IDxwb3NpdGlvbiBzdHJpbmcgb3IgZnVuY3Rpb24+LA0KICAgICAgICAgICAgICAgICAgY29sb3IgPSA8ImZpeGVkIGNvbG9yIHNwZWNpZmljYXRpb24iPiwNCiAgICAgICAgICAgICAgICAgIDxvdGhlciBhcmd1bWVudHMsIHBvc3NpYmx5IHBhc3NlZCB0byB0aGUgX3N0YXRfIGZ1bmN0aW9uKSArDQoNCiAgc2NhbGVfPGFlc3RoZXRpYz5fPHR5cGU+KG5hbWUgPSA8InNjYWxlIGxhYmVsIj4sDQogICAgICAgICAgICAgICAgICAgICBicmVha3MgPSA8d2hlcmUgdG8gcHV0IHRpY2sgbWFya3M+LA0KICAgICAgICAgICAgICAgICAgICAgbGFiZWxzID0gPGxhYmVscyBmb3IgdGljayBtYXJrcz4sDQogICAgICAgICAgICAgICAgICAgICAuLi4gPG90aGVyIG9wdGlvbnMgZm9yIHRoZSBzY2FsZT4pICsNCiAgDQogIGdndGl0bGUoIkdyYXBoaWNzL1Bsb3QiKSsNCiAgeGxhYigiV2VpZ2h0IikrDQogIHlsYWIoIkhlaWdodCIpKw0KDQogIHRoZW1lKHBsb3QudGl0bGUgPSBlbGVtZW50X3RleHQoY29sb3IgPSAiZ3JheSIpLA0KICAgICAgICAuLi4gPG90aGVyIHRoZW1lIGVsZW1lbnRzPikNCmBgYA0KDQpEb24ndCBwYW5pYywgeW91IHVzdWFsbHkgc3BlY2lmeSBvbmx5IGEgc3Vic2V0IG9mIGFyZ3VtZW50cy4gDQoNCmBgYHtyLCBlY2hvPUZBTFNFLCBmaWcuYWxpZ249J2NlbnRlcicsIGZpZy5jYXA9IkEgcmVmaW5lZCBzY2F0dGVyIHBsb3QgdXNpbmcgYmFzZSBSIGdyYXBoaWNzIiwgb3V0LndpZHRoID0gJzUwJSd9DQprbml0cjo6aW5jbHVkZV9ncmFwaGljcygiaWxsdXN0cmF0aW9ucy9nZ3Bsb3QtbWFwLXNpbXBsZS5qZmlmIikNCmBgYA0KDQoNCiMjIyBFeGFtcGxlDQoNCkFzIHNlZW4gYWJvdmUsIGluIG9yZGVyIHRvIHByb2R1Y2UgYSBnZ3Bsb3QyIGdyYXBoIHdlIG5lZWQgYSBtaW5pbXVtIG9mOg0KDQotIERhdGEgdG8gYmUgdXNlZCBpbiBncmFwaA0KLSBNYXBwaW5ncyBvZiBkYXRhIHRvIHRoZSBncmFwaCAoYWVzdGhldGljIG1hcHBpbmcpDQotIFdoYXQgdHlwZSBvZiBncmFwaCB3ZSB3YW50IHRvIHVzZSAoVGhlIGdlb20gdG8gdXNlKS4NCg0KSW4gdGhlIGNvZGUgYmVsb3cgd2UgZGVmaW5lIHRoZSBkYXRhIGFzIG91ciBgaXJpc2AgZGF0YSBmcmFtZS4NCg0KYGBge3IsICBldmFsPVR9DQpnZ2lyaXMgPC0gZ2dwbG90KGRhdGE9aXJpcykNCmNsYXNzKGdnaXJpcykNCmdnaXJpcyRkYXRhWzE6NCxdDQpgYGANCg0KTm93IHdlIGNhbiBzZWUgdGhhdCB3ZSBoYXZlIGdnL2dncGxvdCBvYmplY3QgKGBnZ2lyaXNgKS4gV2l0aGluIHRoaXMgZ2cvZ2dwbG90IG9iamVjdCB0aGUgZGF0YSBoYXMgYmVlbiBkZWZpbmVkLCBob3dldmVyIGltcG9ydGFudCBpbmZvcm1hdGlvbiBvbiBob3cgdG8gbWFwIHRoZSBkYXRhIHRvIHRoZSB2aXN1YWwgcHJvcGVydGllcyAoYWVzdGhldGljcykgb2YgdGhlIHBsb3QgYXMgd2VsbCBhcyB3aGF0IHR5cGUgb2YgcGxvdCB0byB1c2UgKGdlb20pIGhhdmUgaG93ZXZlciB5ZXQgdG8gc3BlY2lmaWVkLg0KDQpgYGB7ciwgIGV2YWw9VH0NCmdnaXJpcyRtYXBwaW5nDQpgYGANCg0KYGBge3IsICBldmFsPVR9DQpnZ2lyaXMkdGhlbWUNCmBgYA0KDQpgYGB7ciwgIGV2YWw9VH0NCmdnaXJpcyRsYXllcnMNCmBgYA0KDQpUaGUgaW5mb3JtYXRpb24gdG8gbWFwIHRoZSBkYXRhIHRvIHRoZSBwbG90IGNhbiBiZSBhZGRlZCBub3cgdXNpbmcgdGhlIGBhZXMoKWAgZnVuY3Rpb24uDQoNCg0KYGBge3IsICBldmFsPVR9DQpnZ2lyaXMgPC0gZ2dwbG90KGRhdGE9aXJpcykNCmdnaXJpczIgPC0gZ2dpcmlzK2Flcyh4PVBldGFsLkxlbmd0aCx5PVBldGFsLldpZHRoKQ0KZ2dpcmlzMiRtYXBwaW5nDQpgYGANCg0KYGBge3IsICBldmFsPVR9DQpnZ2lyaXMyJHRoZW1lDQpgYGANCg0KYGBge3IsICBldmFsPVR9DQpnZ2lyaXMyJGxheWVycw0KYGBgDQoNCkJ1dCB3ZSBhcmUgc3RpbGwgbWlzc2luZyB0aGUgZmluYWwgY29tcG9uZW50IG9mIG91ciBwbG90LCB0aGUgdHlwZSBvZiBwbG90IHRvIHVzZSAoZ2VvbSkuIEJlbG93IHRoZSBgZ2VvbV9wb2ludGAgZnVuY3Rpb24gaXMgdXNlZCB0byBzcGVjaWZ5IGEgcG9pbnQgcGxvdCwgYSBzY2F0dGVyIHBsb3Qgb2YgKkxlbmdodCogdmFsdWVzIG9uIHRoZSB4LWF4aXMgdmVyc3VzICpXaWR0aCogdmFsdWVzIG9uIHRoZSB5IHZhbHVlcy4NCg0KYGBge3IsICBldmFsPVQsIGZpZy5hbGlnbj0nY2VudGVyJ30NCmdnaXJpcyA8LSBnZ3Bsb3QoZGF0YT1pcmlzKQ0KZ2dpcmlzMiA8LSBnZ2lyaXMrYWVzKHg9UGV0YWwuTGVuZ3RoLHk9UGV0YWwuV2lkdGgpDQpnZ2lyaXMzIDwtIGdnaXJpczIrZ2VvbV9wb2ludCgpDQpgYGANCg0KDQpgYGB7ciwgIGV2YWw9VH0NCmdnaXJpczMkbWFwcGluZw0KYGBgDQoNCmBgYHtyLCAgZXZhbD1UfQ0KZ2dpcmlzMyR0aGVtZQ0KYGBgDQoNCmBgYHtyLCAgZXZhbD1UfQ0KZ2dpcmlzMyRsYXllcnMNCmBgYA0KDQpOb3cgd2UgaGF2ZSBhbGwgdGhlIGNvbXBvbmVudHMgb2Ygb3VyIHBsb3QsIHdlIG5lZWQgd2UgY2FuIGRpc3BsYXkgdGhlIHJlc3VsdHMuDQoNCmBgYHtyLCAgZXZhbD1ULCBmaWcuYWxpZ249J2NlbnRlcid9DQpnZ2lyaXMzDQpgYGANCg0KIyMjIEdlb21zDQoNCk1vcmUgdHlwaWNhbGx5LCB0aGUgZGF0YSBhbmQgYWVzdGhldGljcyBhcmUgZGVmaW5lZCB3aXRoaW4gZ2dwbG90IGZ1bmN0aW9uIGFuZCBnZW9tcyBhcHBsaWVkIGFmdGVyd2FyZHMuIFRoaXMgbWFrZXMgaXQgZWFzaWVyIHRvIHN3aXRjaCBiZXR3ZWVuIHBsb3QgdHlwZXMgdG8gZmluZCB0aGUgYmVzdCB3YXkgdG8gdmlzdWFsaXplIHlvdXIgZGF0YS4NCg0KYGBge3IsICBldmFsPVR9DQpnZ2lyaXMzIDwtIGdncGxvdChkYXRhPWlyaXMsDQogICAgICAgICAgICAgICAgIG1hcHBpbmc9YWVzKHg9UGV0YWwuTGVuZ3RoLHk9UGV0YWwuV2lkdGgpKQ0KZ2dpcmlzMytnZW9tX3BvaW50KCkNCmBgYA0KDQpUaGVyZSBhcmUgbWFueSBnZW9tcyBhdmFpbGFibGUgaW4gZ2dwbG90MjoNCg0KLSBgZ2VvbV9wb2ludCgpYCAtIFNjYXR0ZXIgcGxvdHMNCi0gYGdlb21fbGluZSgpYCAtIExpbmUgcGxvdHMNCi0gYGdlb21fc21vb3RoKClgIC0gRml0dGVkIGxpbmUgcGxvdHMNCi0gYGdlb21fYmFyKClgIC0gQmFyIHBsb3RzDQotIGBnZW9tX2JveHBsb3QoKWAgLSBCb3hwbG90cw0KLSBgZ2VvbV9qaXR0ZXIoKWAgLSBKaXR0ZXIgdG8gcGxvdHMNCi0gYGdlb21faGlzdG9ncmFtKClgIC0gSGlzdG9ncmFtIHBsb3RzDQotIGBnZW9tX2RlbnNpdHkoKWAgLSBEZW5zaXR5IHBsb3RzDQotIGBnZW9tX3RleHQoKWAgLSBUZXh0IHRvIHBsb3RzDQotIGBnZW9tX2Vycm9yYmFyKClgIC0gRXJyb3JiYXJzIHRvIHBsb3RzDQotIGBnZW9tX3Zpb2xpbigpYCAtIFZpb2xpbiBwbG90cw0KDQoNCiMjIyMgTGluZSBwbG90cyANCg0KYGBge3IsICBldmFsPVQsIGZpZy5hbGlnbj0nY2VudGVyJ30NCmdnaXJpc19saW5lPC0gZ2dpcmlzMyArIGdlb21fbGluZSgpDQpnZ2lyaXNfbGluZQ0KYGBgDQoNCiMjIyMgU21vb3RoZWQgbGluZSBwbG90cw0KDQpgYGB7ciwgIGV2YWw9VCwgZmlnLmFsaWduPSdjZW50ZXInfQ0KZ2dpcmlzX3Ntb290aDwtIGdnaXJpczMgKyBnZW9tX3Ntb290aCgpDQpnZ2lyaXNfc21vb3RoDQpgYGANCg0KIyMjIyBCYXIgcGxvdHMNCg0KYGBge3IsICBldmFsPVQsIGZpZy5hbGlnbj0nY2VudGVyJ30NCmdnaXJpc19iYXI8LSBnZ3Bsb3QoZGF0YT1pcmlzLCBtYXBwaW5nPWFlcyh4PVNwZWNpZXMpKQ0KZ2dpcmlzX2JhcjI8LSBnZ2lyaXNfYmFyICsgZ2VvbV9iYXIoKQ0KZ2dpcmlzX2JhcjINCmBgYA0KDQojIyMjIEhpc3RvZ3JhbXMNCg0KYGBge3IsICBldmFsPVQsIGZpZy5hbGlnbj0nY2VudGVyJ30NCmdnaXJpc19oaXN0IDwtIGdncGxvdChkYXRhPWlyaXMsDQogICAgICAgIG1hcHBpbmc9YWVzKHg9UGV0YWwuTGVuZ3RoKSkNCmdnaXJpc19oaXN0MiA8LSBnZ2lyaXNfaGlzdCArIGdlb21faGlzdG9ncmFtKCkgDQpnZ2lyaXNfaGlzdDINCmBgYA0KDQoNCiMjIyMgRGVuc2l0eSBwbG90cw0KDQpgYGB7ciwgIGV2YWw9VCwgZmlnLmFsaWduPSdjZW50ZXInfQ0KZ2dpcmlzX2RlbnMgPC0gZ2dpcmlzX2hpc3QgKyBnZW9tX2RlbnNpdHkoKSANCmdnaXJpc19kZW5zDQpgYGANCg0KIyMjIyBCb3ggcGxvdHMNCg0KYGBge3IsICBldmFsPVQsIGZpZy5hbGlnbj0nY2VudGVyJ30NCmdnaXJpc19ib3ggPC0gZ2dwbG90KGRhdGE9aXJpcywNCiAgICAgICAgbWFwcGluZz1hZXMoeD1TcGVjaWVzLHk9UGV0YWwuTGVuZ3RoKSkNCmdnaXJpc19ib3gyIDwtIGdnaXJpc19ib3grZ2VvbV9ib3hwbG90KCkgDQpnZ2lyaXNfYm94Mg0KYGBgDQoNCiMjIyMgVmlvbGluIHBsb3RzDQoNCmBgYHtyLCAgZXZhbD1ULCBmaWcuYWxpZ249J2NlbnRlcid9DQpwY1Bsb3RfdmlvbGluIDwtIGdnaXJpc19ib3grZ2VvbV92aW9saW4oKSANCnBjUGxvdF92aW9saW4NCmBgYA0KDQojIyMjIE90aGVyIGdlb21zDQoNCkFuIG92ZXJ2aWV3IG9mIGdlb21zIGFuZCB0aGVpciBhcmd1bWVudHMgY2FuIGJlIGZvdW5kIGluIHRoZSBgZ2dwbG90MmAgZG9jdW1lbnRhdGlvbiBvciB3aXRoaW4gdGhlIGBnZ3Bsb3QyYCBxdWljayByZWZlcmVuY2UgZ3VpZGVzLg0KDQotIFtnZ3Bsb3QyIGRvY3VtZW50YXRpb25dKGh0dHBzOi8vZ2dwbG90Mi50aWR5dmVyc2Uub3JnLykNCi0gW2dncGxvdDIgZ3VpZGVdKGh0dHBzOi8vc2FwZS5pbmYudXNpLmNoL3F1aWNrLXJlZmVyZW5jZS9nZ3Bsb3QyL2dlb20pDQoNCg0KIyMjIEFlc3RoZXRpY3MNCg0KSW4gb3JkZXIgdG8gY2hhbmdlIHRoZSBwcm9wZXJ0eSBvbiBhbiBhZXN0aGV0aWMgb2YgYSBwbG90IGludG8gYSAqKmNvbnN0YW50KiogdmFsdWUgKGUuZy4gc2V0IGNvbG9yIG9mIGFsbCBwb2ludHMgdG8gcmVkKSB3ZSBjYW4gc3VwcGx5IHRoZSBjb2xvciBhcmd1bWVudCB0byB0aGUgYGdlb21fcG9pbnQoKWAgZnVuY3Rpb24uDQoNCmBgYHtyLCAgZXZhbD1ULCBmaWcuYWxpZ249J2NlbnRlcid9DQpnZ2lyaXNfc2NhdHRlciA8LSBnZ3Bsb3QoZGF0YT1pcmlzLA0KICAgICAgICAgICAgICAgICBtYXBwaW5nPWFlcyh4PVBldGFsLkxlbmd0aCx5PVBldGFsLldpZHRoKSkNCmdnaXJpc19zY2F0dGVyK2dlb21fcG9pbnQoY29sb3VyPSJyZWQiKQ0KYGBgDQoNCkFzIHdlIGRpc2N1c3NlZCBlYXJsaWVyIGhvd2V2ZXIsIGBnZ3Bsb3QyYCBtYWtlcyB1c2Ugb2YgYWVzdGhldGljIG1hcHBpbmdzIHRvIGFzc2lnbiB2YXJpYWJsZXMgaW4gdGhlIGRhdGEgdG8gdGhlIHByb3BlcnRpZXMvYWVzdGhldGljcyBvZiB0aGUgcGxvdC4gVGhpcyBhbGxvd3MgdGhlIHByb3BlcnRpZXMgb2YgdGhlIHBsb3QgdG8gcmVmbGVjdCB2YXJpYWJsZXMgaW4gdGhlIGRhdGEgZHluYW1pY2FsbHkuIEluIHRoZXNlIGV4YW1wbGVzIHdlIHN1cHBseSBhZGRpdGlvbmFsIGluZm9ybWF0aW9uIHRvIHRoZSBgYWVzKClgIGZ1bmN0aW9uIHRvIGRlZmluZSB3aGF0IGluZm9ybWF0aW9uIHRvIGRpc3BsYXkgYW5kIGhvdyBpdCBpcyByZXByZXNlbnRlZCBpbiB0aGUgcGxvdC4NCg0KRmlyc3Qgd2UgY2FuIHJlY3JlYXRlIHRoZSBwbG90IHdlIHNhdyBlYXJsaWVyLg0KDQoNCmBgYHtyLCAgZXZhbD1ULCBmaWcuYWxpZ249J2NlbnRlcid9DQpnZ2lyaXNfc2NhdHRlciA8LSBnZ3Bsb3QoZGF0YT1pcmlzLA0KICAgICAgICAgICAgICAgICBtYXBwaW5nPWFlcyh4PVBldGFsLkxlbmd0aCx5PVBldGFsLldpZHRoKSkNCmdnaXJpc19zY2F0dGVyK2dlb21fcG9pbnQoKQ0KYGBgDQoNCk5vdyB3ZSBjYW4gYWRqdXN0IHRoZSBgYWVzYCBtYXBwaW5nIGJ5IHN1cHBseWluZyBhbiBhcmd1bWVudCB0byB0aGUgY29sb3IgcGFyYW1ldGVyIGluIHRoZSBgYWVzYCBmdW5jdGlvbi4gKE5vdGUgdGhhdCBgZ2dwbG90MmAgYWNjZXB0cyDigJxjb2xvcuKAnSBvciDigJxjb2xvdXLigJ0gYXMgcGFyYW1ldGVyIG5hbWUpDQoNClRoaXMgc2ltcGxlIGFkanVzdG1lbnQgYWxsb3dzIGZvciBpZGVudGlmaWNhdGlvbiBvZiB0aGUgc2VwYXJhdGlvbiBiZXR3ZWVuIHNwZWNpZXMgZm9yIGBQZXRhbC5MZW5ndGhgIGFuZCBgUGV0YWwuV2lkdGhgLg0KDQpgYGB7ciwgIGV2YWw9VCwgZmlnLmFsaWduPSdjZW50ZXInfQ0KZ2dpcmlzX3NjYXR0ZXIyIDwtIGdncGxvdChkYXRhPWlyaXMsDQogICAgICAgICAgICAgICAgICBtYXBwaW5nPWFlcyh4PVBldGFsLkxlbmd0aCx5PVBldGFsLldpZHRoLGNvbG9yPVNwZWNpZXMpKQ0KZ2dpcmlzX3NjYXR0ZXIyICsgZ2VvbV9wb2ludCgpDQpgYGANCg0KU2ltaWxhcmx5IHRoZSBzaGFwZSBvZiBwb2ludHMgbWF5IGJlIGFkanVzdGVkLg0KDQpgYGB7ciwgIGV2YWw9VCwgZmlnLmFsaWduPSdjZW50ZXInfQ0KZ2dpcmlzX3NjYXR0ZXIzIDwtIGdncGxvdChkYXRhPWlyaXMsDQogICAgICAgICAgICAgICAgICBtYXBwaW5nPWFlcyh4PVBldGFsLkxlbmd0aCx5PVBldGFsLldpZHRoLHNoYXBlPVNwZWNpZXMpKQ0KZ2dpcmlzX3NjYXR0ZXIzICsgZ2VvbV9wb2ludCgpDQpgYGANCg0KVGhlIGFlc3RoZXRpYyBtYXBwaW5ncyBtYXkgYmUgc2V0IGRpcmVjdGx5IGluIHRoZSBgZ2VvbV9wb2ludHMoKWAgZnVuY3Rpb24gYXMgcHJldmlvdXNseSB3aGVuIHNwZWNpZnlpbmcgcmVkLiBUaGlzIGNhbiBhbGxvdyB0aGUgc2FtZSBnZ3Bsb3Qgb2JqZWN0IHRvIGJlIHVzZWQgYnkgZGlmZmVyZW50IGFlc3RoZXRpYyBtYXBwaW5ncyBhbmQgdmFyeWluZyBnZW9tcw0KDQpgYGB7ciwgIGV2YWw9VCwgZmlnLmFsaWduPSdjZW50ZXInfQ0KZ2dpcmlzX3NjYXR0ZXI0IDwtIGdncGxvdChkYXRhPWlyaXMpDQpnZ2lyaXNfc2NhdHRlcjQgKyBnZW9tX3BvaW50KGFlcyh4PVBldGFsLkxlbmd0aCx5PVBldGFsLldpZHRoLGNvbG9yPVNwZWNpZXMsIHNoYXBlPVNwZWNpZXMpKQ0KYGBgDQoNCkFnYWluLCBmb3IgYSBjb21wcmVoZW5zaXZlIGxpc3Qgb2YgcGFyYW1ldGVycyBhbmQgYWVzdGhldGljIG1hcHBpbmdzIHVzZWQgaW4gYGdlb21fdHlwZWAgZnVuY3Rpb25zIHNlZSB0aGUgYGdncGxvdDJgIGRvY3VtZW50YXRpb24gZm9yIGluZGl2aWR1YWwgZ2VvbXMgYnkgdXNpbmcgYD9nZW9tX3R5cGVgDQoNCmBgYHtyLCAgZXZhbD1GfQ0KP2dlb21fcG9pbnQNCmBgYA0KDQpvciB2aXNpdCB0aGUgZ2dwbG90MiBkb2N1bWVudGF0aW9ucyBwYWdlcyBhbmQgcXVpY2sgcmVmZXJlbmNlOg0KDQotIFtnZ3Bsb3QyIGRvY3VtZW50YXRpb25dKGh0dHBzOi8vZ2dwbG90Mi50aWR5dmVyc2Uub3JnLykNCi0gW2dncGxvdDIgZ3VpZGVdKGh0dHBzOi8vc2FwZS5pbmYudXNpLmNoL3F1aWNrLXJlZmVyZW5jZS9nZ3Bsb3QyL2dlb20pDQoNCiMjIEZhY2V0aW5nDQoNCk9uZSB2ZXJ5IHVzZWZ1bCBmZWF0dXJlIG9mIGdncGxvdCBpcyBmYWNldGluZy4gVGhpcyBhbGxvd3MgeW91IHRvIHByb2R1Y2Ugc2V2ZXJhbCBwbG90cyB0aGF0IHN1YnNldCBieSB2YXJpYWJsZXMgaW4geW91ciBkYXRhLiBUbyBmYWNldCBvdXIgZGF0YSBpbnRvIG11bHRpcGxlIHBsb3RzIHdlIGNhbiB1c2UgdGhlIGBmYWNldF93cmFwYCBvciBgZmFjZXRfZ3JpZGAgZnVuY3Rpb24gc3BlY2lmeWluZyB0aGUgdmFyaWFibGUgd2Ugc3BsaXQgYnkuIFRoZSBgZmFjZXRfZ3JpZGAgZnVuY3Rpb24gaXMgd2VsbCBzdWl0ZWQgdG8gc3BsaXR0aW5nIHRoZSBkYXRhIGJ5IHR3byBmYWN0b3JzLg0KDQpMZXQncyBnZXQgYW5vdGhlciBkYXRhc2V0IGZvciB0aGUgZGVtby4gSGVyZSB3ZSBjYW4gcGxvdCB0aGUgZGF0YSB3aXRoIHRoZSBgU21va2VzYCB2YXJpYWJsZSBhcyByb3dzIGFuZCBgU2V4YCB2YXJpYWJsZSBhcyBjb2x1bW5zLg0KDQpgYGB7ciwgIGV2YWw9VCwgZmlnLmFsaWduPSdjZW50ZXInfQ0KcGF0aWVudHNfY2xlYW48LXJlYWQuZGVsaW0oJ2RhdGEvcGF0aWVudHNfY2xlYW4udHh0JykNCnBjUGxvdCA8LSBnZ3Bsb3QoZGF0YT1wYXRpZW50c19jbGVhbixhZXMoeD1IZWlnaHQseT1XZWlnaHQsIA0KICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBjb2xvdXI9U2V4KSkrZ2VvbV9wb2ludCgpDQpwY1Bsb3QgKyBmYWNldF9ncmlkKFNtb2tlc35TZXgpDQpgYGANCg0KVG8gc3BsaXQgYnkgb25lIGZhY3RvciB3ZSB1c2UgdGhlIHRoZSBgZmFjZXRfZ3JpZCgpYCBmdW5jdGlvbiBhZ2FpbiwgYnV0IG9taXQgdGhlIHZhcmlhYmxlIGJlZm9yZSB0aGUg4oCcfuKAnS4gVGhpcyB3aWxsIGZhY2V0IGFsb25nIGNvbHVtbnMgaW4gcGxvdC4NCg0KYGBge3IsICBldmFsPVQsIGZpZy5hbGlnbj0nY2VudGVyJ30NCnBjUGxvdCA8LSBnZ3Bsb3QoZGF0YT1wYXRpZW50c19jbGVhbixhZXMoeD1IZWlnaHQseT1XZWlnaHQsDQogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIGNvbG91cj1TZXgpKStnZW9tX3BvaW50KCkNCnBjUGxvdCArIGZhY2V0X2dyaWQoflNleCkNCmBgYA0KDQpTaW1pbGFybHksIHRvIHNwbGl0IGFsb25nIHJvd3MgaW4gcGxvdCwgdGhlIHZhcmlhYmxlIGlzIHBsYWNlZCBiZWZvcmUgdGhlIOKAnH4u4oCdLg0KDQpgYGB7ciwgIGV2YWw9VCwgZmlnLmFsaWduPSdjZW50ZXInfQ0KcGNQbG90IDwtIGdncGxvdChkYXRhPXBhdGllbnRzX2NsZWFuLGFlcyh4PUhlaWdodCx5PVdlaWdodCwNCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgY29sb3VyPVNleCkpK2dlb21fcG9pbnQoKQ0KcGNQbG90ICsgZmFjZXRfZ3JpZChTZXh+LikNCmBgYA0KDQpUaGUgYGZhY2V0X3dyYXAoKWAgZnVuY3Rpb24gb2ZmZXJzIGEgbGVzcyBncmlkLWJhc2VkIHN0cnVjdHVyZSBidXQgaXMgd2VsbCBzdWl0ZWQgdG8gZmFjZXRpbmcgZGF0YSBieSBvbmUgdmFyaWFibGUuIEZvciBgZmFjZXRfd3JhcCgpYCB3ZSBmb2xsb3cgYXMgc2ltaWxhciBzeW50YXggdG8gZmFjZXRfZ3JpZCgpLg0KDQpgYGB7ciwgIGV2YWw9VCwgZmlnLmFsaWduPSdjZW50ZXInfQ0KcGNQbG90IDwtIGdncGxvdChkYXRhPXBhdGllbnRzX2NsZWFuLGFlcyh4PUhlaWdodCx5PVdlaWdodCwNCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgY29sb3VyPVNleCkpK2dlb21fcG9pbnQoKQ0KcGNQbG90ICsgZmFjZXRfd3JhcCh+U21va2VzKQ0KYGBgDQoNCkZvciBtb3JlIGNvbXBsZXggZmFjZXRpbmcgYm90aCBgZmFjZXRfZ3JpZGAgYW5kIGBmYWNldF93cmFwYCBjYW4gYWNjZXB0IGNvbWJpbmF0aW9ucyBvZiB2YXJpYWJsZXMuIEhlcmUgd2UgdXNlIGBmYWNldF93cmFwYC4NCg0KYGBge3IsICBldmFsPVQsIGZpZy5hbGlnbj0nY2VudGVyJ30NCnBjUGxvdCA8LSBnZ3Bsb3QoZGF0YT1wYXRpZW50c19jbGVhbixhZXMoeD1IZWlnaHQseT1XZWlnaHQsDQogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIGNvbG91cj1TZXgpKStnZW9tX3BvaW50KCkNCnBjUGxvdCArIGZhY2V0X3dyYXAoflBldCtTbW9rZXMrU2V4KQ0KYGBgDQoNCk9yIGluIGEgbmljZSBncmlkIGZvcm1hdCB1c2luZyBmYWNldF9ncmlkKCkgYW5kIHRoZSBTbW9rZXMgdmFyaWFibGUgYWdhaW5zdCBhIGNvbWJpbmF0aW9uIG9mIEdlbmRlciBhbmQgUGV0Lg0KDQpgYGB7ciwgIGV2YWw9VCwgZmlnLmFsaWduPSdjZW50ZXInfQ0KcGNQbG90ICsgZmFjZXRfZ3JpZChTbW9rZXN+U2V4K1BldCkNCmBgYA0KDQojIyBQbG90dGluZyBvcmRlcg0KDQpXZSB3aWxsIHNob3J0bHkgZGlzY3VzcyBob3cgdG8gY2hhbmdlIHZhcmlvdXMgYXNwZWN0cyBvZiB0aGUgcGxvdCBsYXlvdXQgYW5kIGFwcGVhcmFuY2UuIEhvd2V2ZXIsIGEgY29tbW9uLWFza2VkIHF1ZXN0aW9uIGlzIGhvdyB0byBjaGFuZ2UgdGhlIG9yZGVyIGluIHdoaWNoIFIgcGxvdHMgYSBjYXRlZ29yaWNhbCB2YXJpYWJsZS4gQ29uc2lkZXIgdGhlIGJveHBsb3QgdG8gY29tcGFyZSB3ZWlnaHRzIG9mIG1hbGVzIGFuZCBmZW1hbGVzOg0KDQpgYGB7ciwgIGV2YWw9VCwgZmlnLmFsaWduPSdjZW50ZXInfQ0KZ2dwbG90KHBhdGllbnRzX2NsZWFuLCBhZXMoeD1TZXgsIHk9V2VpZ2h0KSkgKyBnZW9tX2JveHBsb3QoKQ0KYGBgDQoNClRoaXMgaXMgcmVsYXRlZCB0aGUgcXVlc3Rpb24gcmFpc2VkIGJlZm9yZSBhYm91dCB0aGUgb3JkZXIgb2YgdGhlIGZhY3RvciBsZXZlbHMuIEhlcmUsIFIgZGVjaWRlcyB0aGUgb3JkZXIgdG8gYXJyYW5nZSB0aGUgYm94ZXMgYWNjb3JkaW5nIHRvIHRoZSBsZXZlbHMgb2YgdGhlIGNhdGVnb3JpY2FsIHZhcmlhYmxlLiBJZiB0aGVyZSBhcmUgbm8gbGV2ZWxzIG9yIHRoZSBsZXZlbHMgYXJlIG5vdCBvcmRlcmVkIGl0IGRlZmF1bHRzIHRvIHRoZSBhbHBoYWJldGljYWwgb3JkZXIuIGkuZS4gRmVtYWxlIGJlZm9yZSBNYWxlLg0KDQpgYGB7ciwgIGV2YWw9VH0NCmxldmVscyhwYXRpZW50c19jbGVhbiRTZXgpDQpgYGANCg0KRGVwZW5kaW5nIG9uIHRoZSBtZXNzYWdlIHdlIHdhbnQgdGhlIHBsb3QgdG8gY29udmV5LCB3ZSBtaWdodCB3YW50IGNvbnRyb2wgb3ZlciB0aGUgb3JkZXIgb2YgYm94ZXMuIFRoZSBmYWN0b3IgZnVuY3Rpb25zIGFsbG93cyB1cyB0byBleHBsaWNpdGx5IGNoYW5nZSB0aGUgb3JkZXIgb2YgdGhlIGxldmVscy4NCg0KDQpgYGB7ciwgIGV2YWw9VCwgZmlnLmFsaWduPSdjZW50ZXInfQ0KcGF0aWVudHNfY2xlYW4kU2V4IDwtIGZhY3RvcihwYXRpZW50c19jbGVhbiRTZXgsIA0KICAgICAgICAgICAgICAgICAgICAgICAgICAgICBsZXZlbHM9YygiTWFsZSIsIkZlbWFsZSIpKQ0KZ2dwbG90KHBhdGllbnRzX2NsZWFuLGFlcyh4PVNleCwgeT1XZWlnaHQpKSArIGdlb21fYm94cGxvdCgpDQpgYGANCg0KDQojIyBTY2FsZXMNCg0KDQpTY2FsZXMgYW5kIHRoZWlyIGxlZ2VuZHMgaGF2ZSBzbyBmYXIgYmVlbiBoYW5kbGVkIHVzaW5nIGdncGxvdDIgZGVmYXVsdHMuIGBnZ3Bsb3QyYCBvZmZlcnMgZnVuY3Rpb25hbGl0eSB0byBoYXZlIGZpbmVyIGNvbnRyb2wgb3ZlciBzY2FsZXMgYW5kIGxlZ2VuZHMgdXNpbmcgdGhlICpzY2FsZSogbWV0aG9kcy4NCg0KU2NhbGUgbWV0aG9kcyBhcmUgZGl2aWRlZCBpbnRvIGZ1bmN0aW9ucyBieSBjb21iaW5hdGlvbnMgb2Y6DQoNCi0gdGhlIGFlc3RoZXRpY3MgdGhleSBjb250cm9sLg0KDQotIHRoZSB0eXBlIG9mIGRhdGEgbWFwcGVkIHRvIHNjYWxlLg0KDQpUcnkgdHlwaW5nIGluIGBzY2FsZV9gIHRoZW4gdGFiIHRvIGF1dG9jb21wbGV0ZS4gVGhpcyB3aWxsIHByb3ZpZGUgc29tZSBleGFtcGxlcyBvZiB0aGUgc2NhbGUgZnVuY3Rpb25zIGF2YWlsYWJsZSBpbiBgZ2dwbG90MmAuIEFsdGhvdWdoIGRpZmZlcmVudCBzY2FsZSBmdW5jdGlvbnMgYWNjZXB0IHNvbWUgdmFyaWV0eSBpbiB0aGVpciBhcmd1bWVudHMsIGNvbW1vbiBhcmd1bWVudHMgdG8gc2NhbGUgZnVuY3Rpb25zIGluY2x1ZGU6DQoNCg0KLSBuYW1lIC0gVGhlIGF4aXMgb3IgbGVnZW5kIHRpdGxlDQoNCi0gbGltaXRzIC0gTWluaW11bSBhbmQgbWF4aW11bSBvZiB0aGUgc2NhbGUNCg0KLSBicmVha3MgLSBMYWJlbC90aWNrIHBvc2l0aW9ucyBhbG9uZyBhbiBheGlzDQoNCi0gbGFiZWxzIC0gTGFiZWwgbmFtZXMgYXQgZWFjaCBicmVhaw0KDQpWZXJ5IGNvbW1vbiAqc2NhbGUqIGZ1bmN0aW9ucyBhcmUgKipzY2FsZV8oeC95KV8oY29udGludW91cy9kaXNjcmV0ZSkqKi4gSW4gdGhlIGZvbGx3b2luZyBleGFtcGxlIHdlIGNvbnRyb2wgdGhlIGNvbnRpbnVvdXMgc2NhbGUgb24gdGhlIHgtYXhpcyBieSBwcm92aWRpbmcgYSBuYW1lLCBYLWF4aXMgbGltaXRzLCB0aGUgcG9zaXRpb25zIG9mIGJyZWFrcyAodGlja3MvbGFiZWxzKSBhbmQgdGhlIGxhYmVscyB0byBwbGFjZSBhdCBicmVha3MuDQoNCmBgYHtyLCAgZXZhbD1ULCBmaWcuYWxpZ249J2NlbnRlcid9DQpwY1Bsb3QgKyBnZW9tX3BvaW50KCkgKyBmYWNldF9ncmlkKFNtb2tlc35TZXgpKw0KICBzY2FsZV94X2NvbnRpbnVvdXMobmFtZT0iaGVpZ2h0ICgnY20nKSIsDQogICAgICAgICAgICAgICAgICAgICBsaW1pdHMgPSBjKDEwMCwyMDApLA0KICAgICAgICAgICAgICAgICAgICAgYnJlYWtzPWMoMTI1LDE1MCwxNzUpLA0KICAgICAgICAgICAgICAgICAgICAgbGFiZWxzPWMoInNtYWxsIiwianVzdHJpZ2h0IiwidGFsbCIpKQ0KYGBgDQoNClNpbWlsYXJ5IGNvbnRyb2wgb3ZlciBkaXNjcmV0ZSBzY2FsZXMgaXMgc2hvd24gYmVsb3cuDQoNCmBgYHtyLCAgZXZhbD1ULCBmaWcuYWxpZ249J2NlbnRlcid9DQpwY1Bsb3QgPC0gZ2dwbG90KGRhdGE9cGF0aWVudHNfY2xlYW4sYWVzKHg9U2V4LHk9SGVpZ2h0KSkNCnBjUGxvdCArDQogIGdlb21fdmlvbGluKGFlcyh4PVNleCx5PUhlaWdodCkpICsNCiAgc2NhbGVfeF9kaXNjcmV0ZShsYWJlbHM9YygiV29tZW4iLCAiTWVuIikpDQpgYGANCg0KTXVsdGlwbGUgWC9ZIHNjYWxlcyBjYW4gYmUgY29tYmluZWQgdG8gZ2l2ZSBmdWxsIGNvbnRyb2wgb2YgYXhpcyBtYXJrcy4NCg0KYGBge3IsICBldmFsPVQsIGZpZy5hbGlnbj0nY2VudGVyJ30NCnBjUGxvdCA8LSBnZ3Bsb3QoZGF0YT1wYXRpZW50c19jbGVhbixhZXMoeD1TZXgseT1IZWlnaHQsZmlsbD1TbW9rZXMpKQ0KcGNQbG90ICsNCiAgZ2VvbV92aW9saW4oYWVzKHg9U2V4LHk9SGVpZ2h0KSkgKw0KICBzY2FsZV94X2Rpc2NyZXRlKGxhYmVscz1jKCJXb21lbiIsICJNZW4iKSkrDQogIHNjYWxlX3lfY29udGludW91cyhicmVha3M9YygxNjAsMTgwKSxsYWJlbHM9YygiU2hvcnQiLCAiVGFsbCIpKQ0KYGBgDQoNCldoZW4gdXNpbmcgZmlsbCwgY29sb3IsIGxpbmV0eXBlLCBzaGFwZSwgc2l6ZSBvciBhbHBoYSBhZXN0aGV0aWMgbWFwcGluZ3MgdGhlIHNjYWxlcyBhcmUgYXV0b21hdGljYWxseSBzZWxlY3RlZCBmb3IgeW91IGFuZCB0aGUgYXBwcm9wcmlhdGUgbGVnZW5kcyBjcmVhdGVkLg0KDQpgYGB7ciwgIGV2YWw9VCwgZmlnLmFsaWduPSdjZW50ZXInfQ0KcGNQbG90IDwtIGdncGxvdChkYXRhPXBhdGllbnRzX2NsZWFuLA0KICAgICAgICAgICAgICAgICBhZXMoeD1IZWlnaHQseT1XZWlnaHQsY29sb3VyPVNleCkpDQpwY1Bsb3QgKyBnZW9tX3BvaW50KHNpemU9NCkNCmBgYA0KDQpJbiB0aGUgYWJvdmUgZXhhbXBsZSB0aGUgZGlzY3JldGUgY29sb3VycyBmb3IgdGhlIFNleCB2YXJpYWJsZSB3YXMgc2VsZWN0ZWQgYnkgZGVmYXVsdC4gTWFudWFsIGNvbnRyb2wgb2YgZGlzY3JldGUgdmFyaWFibGVzIGNhbiBiZSBwZXJmb3JtZWQgdXNpbmcgYHNjYWxlX2NvbG91cl9tYW51YWxgIHdpdGggdGhlIHZhbHVlcyBwYXJhbWV0ZXIuIEFkZGl0aW9uYWxseSBpbiB0aGlzIGV4YW1wbGUgYW4gdXBkYXRlZCBuYW1lIGZvciB0aGUgbGVnZW5kIGlzIHByb3ZpZGVkLg0KDQpgYGB7ciwgIGV2YWw9VCwgZmlnLmFsaWduPSdjZW50ZXInfQ0KcGNQbG90IDwtIGdncGxvdChkYXRhPXBhdGllbnRzX2NsZWFuLA0KICAgICAgICAgICAgICAgICBhZXMoeD1IZWlnaHQseT1XZWlnaHQsY29sb3VyPVNleCkpDQpwY1Bsb3QgKyBnZW9tX3BvaW50KHNpemU9NCkgKyANCiAgc2NhbGVfY29sb3VyX21hbnVhbCh2YWx1ZXMgPSBjKCJHcmVlbiIsIlB1cnBsZSIpLA0KICAgICAgICAgICAgICAgICAgICAgbmFtZT0iR2VuZGVyIikNCmBgYA0KDQoNCiMjIENvbG9yYnJld2VyDQoNCkhlcmUgd2UgaGF2ZSBzcGVjaWZpZWQgdGhlIGNvbG91cnMgdG8gYmUgdXNlZCAoaGVuY2UgdGhlIG1hbnVhbCkgYnV0IHdoZW4gdGhlIG51bWJlciBvZiBsZXZlbHMgdG8gYSB2YXJpYWJsZSBhcmUgaGlnaCB0aGlzIG1heSBiZSBpbXByYWN0aWNhbCBhbmQgb2Z0ZW4gd2Ugd291bGQgbGlrZSBnZ3Bsb3QyIHRvIGNob29zZSBjb2xvdXJzIGZyb20gYSBzY2FsZSBvZiBvdXIgY2hvaWNlLg0KDQpUaGUgYnJld2VyIHNldCBvZiBzY2FsZSBmdW5jdGlvbnMgYWxsb3cgdGhlIHVzZXIgdG8gbWFrZSB1c2Ugb2YgYSByYW5nZSBvZiBwYWxldHRlcyBhdmFpbGFibGUgZnJvbSBjb2xvcmJyZXdlci4NCg0KLSBEaXZlcmdpbmcNCg0KKipCckJHLCBQaVlHLCBQUkduLCBQdU9yLCBSZEJ1LCBSZEd5LCBSZFlsQnUsIFJkWWxHbiwgU3BlY3RyYWwqKg0KDQotIFF1YWxpdGF0aXZlDQoNCioqQWNjZW50LCBEYXJrMiwgUGFpcmVkLCBQYXN0ZWwxLCBQYXN0ZWwyLCBTZXQxLCBTZXQyLCBTZXQzKioNCg0KLSBTZXF1ZW50aWFsDQoNCioqQmx1ZXMsIEJ1R24sIEJ1UHUsIEduQnUsIEdyZWVucywgR3JleXMsIE9yYW5nZXMsIE9yUmQsIFB1QnUsIFB1QnVHbiwgUHVSZCwgUHVycGxlcywgUmRQdSwgUmVkcywgWWxHbiwgWWxHbkJ1LCBZbE9yQnIsIFlsT3JSZCoqDQoNCg0KIyMjIGBzY2FsZV9jb2xvcl9icmV3ZXJgDQoNCmBgYHtyLCAgZXZhbD1ULCBmaWcuYWxpZ249J2NlbnRlcid9DQpwY1Bsb3QgPC0gZ2dwbG90KGRhdGE9cGF0aWVudHNfY2xlYW4sDQogICAgICAgICAgICAgICAgIGFlcyh4PUhlaWdodCx5PVdlaWdodCxjb2xvdXI9UGV0KSkNCnBjUGxvdCArIGdlb21fcG9pbnQoc2l6ZT00KSArIA0KICBzY2FsZV9jb2xvdXJfYnJld2VyKHBhbGV0dGUgPSAiU2V0MiIpDQpgYGANCg0KDQoNCg0KDQoNCg0KcGNQbG90IDwtIGdncGxvdChkYXRhPXBhdGllbnRzX2NsZWFuLA0KICAgICAgICBtYXBwaW5nPWFlcyh4PUhlaWdodCx5PVdlaWdodCkpDQoNCnBjUGxvdF9zbW9vdGggPC0gcGNQbG90K2dlb21fc21vb3RoKCkgDQoNCnBjUGxvdF9zbW9vdGgNCg0KDQoNCg0KYGBge3IsICBldmFsPVR9DQpnZ3Bsb3QoZGF0YT1wYXRpZW50c19jbGVhbiwNCiAgICAgICBhZXMoeT1XZWlnaHQseD1IZWlnaHQsY29sb3VyPVNleCwNCiAgICAgICAgICAgc2l6ZT1CTUksc2hhcGU9UGV0KSkgKyANCiAgZ2VvbV9wb2ludCgpDQpgYGANCg0KVGhlIGFlc3RoZXRpYyBtYXBwaW5ncyBtYXkgYmUgc2V0IGRpcmVjdGx5IGluIHRoZSBgZ2VvbV9wb2ludHMoKWAgZnVuY3Rpb24gYXMgcHJldmlvdXNseSB3aGVuIHNwZWNpZnlpbmcgcmVkLiBUaGlzIGNhbiBhbGxvdyB0aGUgc2FtZSBnZ3Bsb3Qgb2JqZWN0IHRvIGJlIHVzZWQgYnkgZGlmZmVyZW50IGFlc2V0aGV0aWMgbWFwcGluZ3MgYW5kIHZhcnlpbmcgZ2VvbXMNCg0KYGBge3IsICBldmFsPVR9DQpnZ3Bsb3QoZGF0YT1wYXRpZW50c19jbGVhbiwNCiAgICAgICBhZXMoeT1XZWlnaHQseD1IZWlnaHQsY29sb3VyPVNleCwNCiAgICAgICAgICAgc2l6ZT1CTUksc2hhcGU9UGV0KSkgKyANCiAgZ2VvbV9wb2ludCgpDQpgYGANCg0KDQoNCg0KDQo=" download="graphs.Rmd">Download graphs.Rmd</a>
+<a href="data:text/plain;base64,eGFyaW5nYW5FeHRyYTo6dXNlX2NsaXBib2FyZCgpDQoNCnRyZWF0bWVudCA8LSBjKDAuMDIsMS44LCAxNy41LCA1NSw3NS43LCA4MCkNCg0KcGxvdCh0cmVhdG1lbnQpDQoNCnBsb3QodHJlYXRtZW50LCB0eXBlID0gJ28nKQ0KDQpwbG90KHRyZWF0bWVudCwgdHlwZT0ibCIpDQoNCnBsb3QodHJlYXRtZW50LCBtYWluPSJNeSBQbG90Iiwgc3ViPSJhIHBsb3QiKQ0KDQpwbG90KHRyZWF0bWVudCwgeGxhYj0iUG9zaXRpb24iLCB5bGFiPSJzY29yZSIpDQoNCnBsb3QodHJlYXRtZW50LCBsYXM9MSkNCnBsb3QodHJlYXRtZW50LCBsYXM9MikNCg0KcGxvdCh0cmVhdG1lbnQsIGNleD0yKQ0KcGxvdCh0cmVhdG1lbnQsIGNleD0wLjUpDQoNCnBsb3QodHJlYXRtZW50LCBwY2g9MSkNCnBsb3QodHJlYXRtZW50LCBwY2g9MjApDQoNCnBsb3QodHJlYXRtZW50LCB0eXBlPSJsIixsd2Q9MTApDQpwbG90KHRyZWF0bWVudCwgdHlwZT0ibCIsbHdkPTAuNSkNCg0KcGxvdCh0cmVhdG1lbnQsIHR5cGU9ImwiLGx0eT0xKQ0KcGxvdCh0cmVhdG1lbnQsIHR5cGU9ImwiLGx0eT0yKQ0KDQpwbG90KHRyZWF0bWVudCwgdHlwZT0ibCIsIGNvbD0icmVkIikNCnBsb3QodHJlYXRtZW50LCB0eXBlPSJsIiwgY29sPSJkb2RnZXJibHVlIikNCg0KbXlSZWQgPC0gcmdiKDEsMCwwLCBhbHBoYT0wLjUpDQpwbG90KHRyZWF0bWVudCwgdHlwZT0icCIsIGNleD00LCBwY2g9MjAsIGNvbD1teVJlZCkNCg0KcGFyKG1mcm93ID0gYygxLCAyKSkNCnBsb3QodHJlYXRtZW50LCB0eXBlPSJwIiwgY2V4PTQsIHBjaD0yMCwgY29sPW15UmVkKQ0KcGxvdCh0cmVhdG1lbnQsIHR5cGU9InAiLCBjZXg9NCwgcGNoPTIwLCBjb2w9JyM4NzczNmYnKQ0KDQpkZXYub2ZmKCkNCg0KY29udHJvbCA8LSBjKDAsIDIwLCA0MCwgNjAsIDgwLDEwMCkNCnBsb3QoY29udHJvbCx0cmVhdG1lbnQpDQoNCnBsb3QodHJlYXRtZW50LCB0eXBlPSJvIiwgY29sPSJibHVlIikNCmxpbmVzKGNvbnRyb2wsIHR5cGU9Im8iLCBwY2g9MjIsIGx0eT0yLCBjb2w9InJlZCIpDQoNCnBsb3QodHJlYXRtZW50LCB0eXBlPSJvIiwgY29sPSJibHVlIix5bGltPWMoMCwxMDApKQ0KbGluZXMoY29udHJvbCwgdHlwZT0ibyIsIHBjaD0yMiwgbHR5PTIsIGNvbD0icmVkIikNCg0KZ19yYW5nZSA8LSByYW5nZSgwLCB0cmVhdG1lbnQsIGNvbnRyb2wpDQpnX3JhbmdlDQoNCnBsb3QodHJlYXRtZW50LCB0eXBlPSJvIiwgY29sPSJibHVlIiwgeWxpbT1nX3JhbmdlKQ0KDQpwbG90KHRyZWF0bWVudCwgdHlwZT0ibyIsIGNvbD0iYmx1ZSIsIHlsaW09Z19yYW5nZSwgYXhlcz1GQUxTRSwgYW5uPUZBTFNFKQ0KDQpwbG90KHRyZWF0bWVudCwgdHlwZT0ibyIsIGNvbD0iYmx1ZSIsIHlsaW09Z19yYW5nZSwgYXhlcz1GQUxTRSwgYW5uPUZBTFNFKQ0KYXhpcyhzaWRlPTEsIGF0PTE6NiwgbGFiPWMoIk1vbiIsIlR1ZSIsIldlZCIsIlRodSIsIkZyaSIsIlNhdCIpKQ0KDQpwbG90KHRyZWF0bWVudCwgdHlwZT0ibyIsIGNvbD0iYmx1ZSIsIHlsaW09Z19yYW5nZSwgYXhlcz1GQUxTRSwgYW5uPUZBTFNFKQ0KYXhpcyhzaWRlPTEsIGF0PTE6NiwgbGFiPWMoIk1vbiIsIlR1ZSIsIldlZCIsIlRodSIsIkZyaSIsIlNhdCIpKQ0KYXhpcygyLCBsYXM9MSwgYXQ9c2VxKDAsZ19yYW5nZVsyXSxieT0yMCkpDQoNCnBsb3QodHJlYXRtZW50LCB0eXBlPSJvIiwgY29sPSJibHVlIiwgeWxpbT1nX3JhbmdlLCBheGVzPUZBTFNFLCBhbm49RkFMU0UpDQpheGlzKHNpZGU9MSwgYXQ9MTo2LCBsYWI9YygiTW9uIiwiVHVlIiwiV2VkIiwiVGh1IiwiRnJpIiwiU2F0IikpDQpheGlzKDIsIGxhcz0xLCBhdD1zZXEoMCxnX3JhbmdlWzJdLGJ5PTIwKSkNCmJveCgpDQoNCnBsb3QodHJlYXRtZW50LCB0eXBlPSJvIiwgY29sPSJibHVlIiwgeWxpbT1nX3JhbmdlLCBheGVzPUZBTFNFLCBhbm49RkFMU0UpDQpheGlzKHNpZGU9MSwgYXQ9MTo2LCBsYWI9YygiTW9uIiwiVHVlIiwiV2VkIiwiVGh1IiwiRnJpIiwiU2F0IikpDQpheGlzKDIsIGxhcz0xLCBhdD1zZXEoMCxnX3JhbmdlWzJdLGJ5PTIwKSkNCmxpbmVzKGNvbnRyb2wsIHR5cGU9Im8iLCBwY2g9MjIsIGx0eT0yLCBjb2w9InJlZCIpDQpib3goKQ0KDQpwbG90KHRyZWF0bWVudCwgdHlwZT0ibyIsIGNvbD0iYmx1ZSIsIHlsaW09Z19yYW5nZSwgYXhlcz1GQUxTRSwgYW5uPUZBTFNFKQ0KYXhpcyhzaWRlPTEsIGF0PTE6NiwgbGFiPWMoIk1vbiIsIlR1ZSIsIldlZCIsIlRodSIsIkZyaSIsIlNhdCIpKQ0KYXhpcygyLCBsYXM9MSwgYXQ9c2VxKDAsZ19yYW5nZVsyXSxieT0yMCkpDQpib3goKQ0KDQpsZWdlbmQoInRvcGxlZnQiLGxlZ2VuZD1jKCJ0cmVhdG1lbnQiLCJjb250cm9sIiksIGNvbD1jKCJibHVlIiwicmVkIiksIHBjaD0yMToyMiwgbHR5PTE6MikgDQoNCnBsb3QodHJlYXRtZW50LCB0eXBlPSJvIiwgY29sPSJibHVlIiwgbHdkPTEsIHlsaW09Z19yYW5nZSxheGVzPUZBTFNFLCBhbm49RkFMU0UpDQpheGlzKDEsIGF0PTE6NiwgbGFiPWMoIk1vbiIsIlR1ZSIsIldlZCIsIlRodSIsIkZyaSIsIlNhdCIpKQ0KYXhpcygyLCBsYXM9MSwgYXQ9MjAqMDpnX3JhbmdlWzJdKQ0KYm94KCkNCg0KbGluZXMoY29udHJvbCwgdHlwZT0ibyIsIHBjaD0yMiwgbHR5PTIsIGNvbD0icmVkIiwgbHdkPTIuNSkNCmxlZ2VuZCgidG9wbGVmdCIsbGVnZW5kPWMoInRyZWF0bWVudCIsImNvbnRyb2wiKSxjb2w9YygiYmx1ZSIsInJlZCIpLCBwY2g9MjE6MjIsIGx0eT0xOjIsIGx3ZD1jKDEsMi41KSkNCg0KIyBpbnN0YWxsLnBhY2thZ2VzKCd2aXJpZGlzJykNCmxpYnJhcnkodmlyaWRpcykNCnZpcmlkaXMoNSkNCg0KaGlzdCh0cmVhdG1lbnQpDQoNCmhpc3QodHJlYXRtZW50LCBjb2w9ImxpZ2h0Ymx1ZSIsIHlsaW09YygwLDUpLGNleC5tYWluPTAuOCkNCg0KcGFyKG1mcm93ID0gYygxLCAyKSkNCmhpc3QodHJlYXRtZW50LCBjb2w9ImxpZ2h0Ymx1ZSIsIHlsaW09YygwLDUpLCBjZXgubWFpbj0wLjgsIGJyZWFrcyA9IDIpDQpoaXN0KHRyZWF0bWVudCwgY29sPSJsaWdodGJsdWUiLCB5bGltPWMoMCw1KSwgY2V4Lm1haW49MC44LCBicmVha3MgPSAxMCkNCmRldi5vZmYoKQ0KDQpkYXRhPC1kYXRhLmZyYW1lKHRyZWF0bWVudCwgY29udHJvbCkNCnJvdy5uYW1lcyhkYXRhKTwtYygiTW9uIiwiVHVlIiwiV2VkIiwiVGh1IiwiRnJpIiwiU2F0IikNCg0KZG90Y2hhcnQoYXMubWF0cml4KHQoZGF0YSkpKQ0KDQpkb3RjaGFydChhcy5tYXRyaXgodChkYXRhKSksIGNvbG9yPWMoInJlZCIsImJsdWUiKSxtYWluPSJEb3RjaGFydCIsIGNleD0wLjUpDQoNCmtuaXRyOjppbmNsdWRlX2dyYXBoaWNzKCJpbGx1c3RyYXRpb25zL2JveHBsb3QucG5nIikNCg0KZXhwcnMgPC0gcmVhZC5kZWxpbSgiZGF0YS9nZW5lX2RhdGEudHh0IixzZXA9Ilx0IixoPVQscm93Lm5hbWVzID0gMSkNCmhlYWQoZXhwcnMpDQoNCmJveHBsb3QoZXhwcnMpDQoNCmJveHBsb3QobG9nMihleHBycykseWxhYj0ibG9nMiBFeHByZXNzaW9uIiwgY29sPWMoInJlZCIsInJlZCIsImJsdWUiLCJibHVlIikpDQoNCmJveHBsb3QobGVuIH4gZG9zZSwgZGF0YSA9IFRvb3RoR3Jvd3RoLA0KICAgICAgICBib3h3ZXggPSAwLjI1LCBhdCA9IDE6MyAtIDAuMiwNCiAgICAgICAgaG9yaXpvbnRhbD1ULCBsYXM9IDEsDQogICAgICAgIHN1YnNldCA9IHN1cHAgPT0gIlZDIiwgY29sID0gInllbGxvdyIsDQogICAgICAgIG1haW4gPSAiR3VpbmVhIFBpZ3MnIFRvb3RoIEdyb3d0aCIsDQogICAgICAgIHhsYWIgPSAidG9vdGggbGVuZ3RoIiwNCiAgICAgICAgeWxhYiA9ICJWaXRhbWluIEMgZG9zZSBtZyIsDQogICAgICAgIHhsaW0gPSBjKDAuNSwgMy41KSwgeWxpbSA9IGMoMCwgMzUpLCB5YXhzPSdpJykNCg0KcGxvdChjb250cm9sLCB0cmVhdG1lbnQpDQp0ZXh0KDIwLDYwLCAnVEhJUyBBUkVBIE9GIFxuIFRIRSBQTE9UIEhBUyBcbiBOTyBTQU1QTEUnLCBjb2w9J3JlZCcpDQp0ZXh0KGNvbnRyb2wsIHRyZWF0bWVudCwgbGV0dGVyc1sxOjZdLCBhZGo9YygwLC0xKSwgY29sPSdibHVlJykNCg0KcGxvdChjb250cm9sLCB0cmVhdG1lbnQpDQphYmxpbmUoaD0xMCwgY29sPSdibHVlJykNCmFibGluZSh2PTUwLCBjb2w9J3JlZCcsIGx3ZD0yKQ0KYWJsaW5lKGE9MCwgYj0xLCBsdHk9MikNCg0KcGxvdChjb250cm9sLCB0cmVhdG1lbnQpDQpwb2x5Z29uKGMoNTAsNTAsMTAwLDEwMCksYyg1MCw4MCw4MCw1MCksIGNvbD0nZ3JheScsIGRlbnNpdHk9NSkNCg0KIyMgYm1wKGZpbGVuYW1lLCB3aWR0aCA9IDQ4MCwgaGVpZ2h0ID0gNDgwLCB1bml0cyA9ICJweCIsDQojIyAgICAgcG9pbnRzaXplID0gMTIpDQojIyBqcGVnKGZpbGVuYW1lLCB3aWR0aCA9IDQ4MCwgaGVpZ2h0ID0gNDgwLCB1bml0cyA9ICJweCIsDQojIyAgICAgIHBvaW50c2l6ZSAgPSAxMiwgcXVhbGl0eSA9IDc1KQ0KDQpibXAoZmlsZSA9ICJvdXRwdXRzL2NvbnRyb2wuYm1wIikNCnBsb3QoY29udHJvbCkNCmRldi5vZmYoKQ0KDQpqcGVnKGZpbGUgPSAiY29udHJvbC5qcGciLCBxdWFsaXR5ID0gMjApDQpwbG90KGNvbnRyb2wpDQpkZXYub2ZmKCkNCg0KcG9zdHNjcmlwdChmaWxlID0gImNvbnRyb2wucHMiKQ0KcGxvdChjb250cm9sKQ0KZGV2Lm9mZigpDQoNCnBkZihmaWxlID0gImNvbnRyb2wucGRmIiwgcGFwZXIgPSAiQTQiKQ0KcGxvdChjb250cm9sKQ0KZGV2Lm9mZigpDQoNCmtuaXRyOjppbmNsdWRlX2dyYXBoaWNzKCJpbGx1c3RyYXRpb25zL2lyaXMtcGxvdC5wbmciKQ0KDQprbml0cjo6aW5jbHVkZV9ncmFwaGljcygiaWxsdXN0cmF0aW9ucy9iYXNlLWxhdHRpY2UuamZpZiIpDQoNCmtuaXRyOjppbmNsdWRlX2dyYXBoaWNzKCJpbGx1c3RyYXRpb25zL2dncGxvdC1tYXAuamZpZiIpDQoNCiMjIGdncGxvdChkYXRhID0gPGRlZmF1bHQgZGF0YSBzZXQ+LA0KIyMgICAgICAgIGFlcyh4ID0gPGRlZmF1bHQgeCBheGlzIHZhcmlhYmxlPiwNCiMjICAgICAgICAgICAgeSA9IDxkZWZhdWx0IHkgYXhpcyB2YXJpYWJsZT4sDQojIyAgICAgICAgICAgIC4uLiA8b3RoZXIgZGVmYXVsdCBhZXN0aGV0aWMgbWFwcGluZ3M+KSwNCiMjICAgICAgICAuLi4gPG90aGVyIHBsb3QgZGVmYXVsdHM+KSArDQojIyANCiMjICAgICAgICBnZW9tX3NjYXR0ZXIoYWVzKHNpemUgPSA8c2l6ZSB2YXJpYWJsZSBmb3IgdGhpcyBnZW9tPiwNCiMjICAgICAgICAgICAgICAgICAgICAgICAuLi4gPG90aGVyIGFlc3RoZXRpYyBtYXBwaW5ncz4pLA0KIyMgICAgICAgICAgICAgICAgICAgZGF0YSA9IDxkYXRhIGZvciB0aGlzIHBvaW50IGdlb20+LA0KIyMgICAgICAgICAgICAgICAgICAgc3RhdCA9IDxzdGF0aXN0aWMgc3RyaW5nIG9yIGZ1bmN0aW9uPiwNCiMjICAgICAgICAgICAgICAgICAgIHBvc2l0aW9uID0gPHBvc2l0aW9uIHN0cmluZyBvciBmdW5jdGlvbj4sDQojIyAgICAgICAgICAgICAgICAgICBjb2xvciA9IDwiZml4ZWQgY29sb3Igc3BlY2lmaWNhdGlvbiI+LA0KIyMgICAgICAgICAgICAgICAgICAgPG90aGVyIGFyZ3VtZW50cywgcG9zc2libHkgcGFzc2VkIHRvIHRoZSBfc3RhdF8gZnVuY3Rpb24pICsNCiMjIA0KIyMgICBzY2FsZV88YWVzdGhldGljPl88dHlwZT4obmFtZSA9IDwic2NhbGUgbGFiZWwiPiwNCiMjICAgICAgICAgICAgICAgICAgICAgIGJyZWFrcyA9IDx3aGVyZSB0byBwdXQgdGljayBtYXJrcz4sDQojIyAgICAgICAgICAgICAgICAgICAgICBsYWJlbHMgPSA8bGFiZWxzIGZvciB0aWNrIG1hcmtzPiwNCiMjICAgICAgICAgICAgICAgICAgICAgIC4uLiA8b3RoZXIgb3B0aW9ucyBmb3IgdGhlIHNjYWxlPikgKw0KIyMgDQojIyAgIGdndGl0bGUoIkdyYXBoaWNzL1Bsb3QiKSsNCiMjICAgeGxhYigiV2VpZ2h0IikrDQojIyAgIHlsYWIoIkhlaWdodCIpKw0KIyMgDQojIyAgIHRoZW1lKHBsb3QudGl0bGUgPSBlbGVtZW50X3RleHQoY29sb3IgPSAiZ3JheSIpLA0KIyMgICAgICAgICAuLi4gPG90aGVyIHRoZW1lIGVsZW1lbnRzPikNCg0Ka25pdHI6OmluY2x1ZGVfZ3JhcGhpY3MoImlsbHVzdHJhdGlvbnMvZ2dwbG90LW1hcC1zaW1wbGUuamZpZiIpDQoNCmdnaXJpcyA8LSBnZ3Bsb3QoZGF0YT1pcmlzKQ0KY2xhc3MoZ2dpcmlzKQ0KZ2dpcmlzJGRhdGFbMTo0LF0NCg0KZ2dpcmlzJG1hcHBpbmcNCg0KZ2dpcmlzJHRoZW1lDQoNCmdnaXJpcyRsYXllcnMNCg0KZ2dpcmlzIDwtIGdncGxvdChkYXRhPWlyaXMpDQpnZ2lyaXMyIDwtIGdnaXJpcythZXMoeD1QZXRhbC5MZW5ndGgseT1QZXRhbC5XaWR0aCkNCmdnaXJpczIkbWFwcGluZw0KDQpnZ2lyaXMyJHRoZW1lDQoNCmdnaXJpczIkbGF5ZXJzDQoNCmdnaXJpcyA8LSBnZ3Bsb3QoZGF0YT1pcmlzKQ0KZ2dpcmlzMiA8LSBnZ2lyaXMrYWVzKHg9UGV0YWwuTGVuZ3RoLHk9UGV0YWwuV2lkdGgpDQpnZ2lyaXMzIDwtIGdnaXJpczIrZ2VvbV9wb2ludCgpDQoNCmdnaXJpczMkbWFwcGluZw0KDQpnZ2lyaXMzJHRoZW1lDQoNCmdnaXJpczMkbGF5ZXJzDQoNCmdnaXJpczMNCg0KZ2dpcmlzMyA8LSBnZ3Bsb3QoZGF0YT1pcmlzLA0KICAgICAgICAgICAgICAgICBtYXBwaW5nPWFlcyh4PVBldGFsLkxlbmd0aCx5PVBldGFsLldpZHRoKSkNCmdnaXJpczMrZ2VvbV9wb2ludCgpDQoNCmdnaXJpc19saW5lPC0gZ2dpcmlzMyArIGdlb21fbGluZSgpDQpnZ2lyaXNfbGluZQ0KDQpnZ2lyaXNfc21vb3RoPC0gZ2dpcmlzMyArIGdlb21fc21vb3RoKCkNCmdnaXJpc19zbW9vdGgNCg0KZ2dpcmlzX2JhcjwtIGdncGxvdChkYXRhPWlyaXMsIG1hcHBpbmc9YWVzKHg9U3BlY2llcykpDQpnZ2lyaXNfYmFyMjwtIGdnaXJpc19iYXIgKyBnZW9tX2JhcigpDQpnZ2lyaXNfYmFyMg0KDQpnZ2lyaXNfaGlzdCA8LSBnZ3Bsb3QoZGF0YT1pcmlzLA0KICAgICAgICBtYXBwaW5nPWFlcyh4PVBldGFsLkxlbmd0aCkpDQpnZ2lyaXNfaGlzdDIgPC0gZ2dpcmlzX2hpc3QgKyBnZW9tX2hpc3RvZ3JhbSgpIA0KZ2dpcmlzX2hpc3QyDQoNCmdnaXJpc19kZW5zIDwtIGdnaXJpc19oaXN0ICsgZ2VvbV9kZW5zaXR5KCkgDQpnZ2lyaXNfZGVucw0KDQpnZ2lyaXNfYm94IDwtIGdncGxvdChkYXRhPWlyaXMsDQogICAgICAgIG1hcHBpbmc9YWVzKHg9U3BlY2llcyx5PVBldGFsLkxlbmd0aCkpDQpnZ2lyaXNfYm94MiA8LSBnZ2lyaXNfYm94K2dlb21fYm94cGxvdCgpIA0KZ2dpcmlzX2JveDINCg0KcGNQbG90X3Zpb2xpbiA8LSBnZ2lyaXNfYm94K2dlb21fdmlvbGluKCkgDQpwY1Bsb3RfdmlvbGluDQoNCmdnaXJpc19zY2F0dGVyIDwtIGdncGxvdChkYXRhPWlyaXMsDQogICAgICAgICAgICAgICAgIG1hcHBpbmc9YWVzKHg9UGV0YWwuTGVuZ3RoLHk9UGV0YWwuV2lkdGgpKQ0KZ2dpcmlzX3NjYXR0ZXIrZ2VvbV9wb2ludChjb2xvdXI9InJlZCIpDQoNCmdnaXJpc19zY2F0dGVyIDwtIGdncGxvdChkYXRhPWlyaXMsDQogICAgICAgICAgICAgICAgIG1hcHBpbmc9YWVzKHg9UGV0YWwuTGVuZ3RoLHk9UGV0YWwuV2lkdGgpKQ0KZ2dpcmlzX3NjYXR0ZXIrZ2VvbV9wb2ludCgpDQoNCmdnaXJpc19zY2F0dGVyMiA8LSBnZ3Bsb3QoZGF0YT1pcmlzLA0KICAgICAgICAgICAgICAgICAgbWFwcGluZz1hZXMoeD1QZXRhbC5MZW5ndGgseT1QZXRhbC5XaWR0aCxjb2xvcj1TcGVjaWVzKSkNCmdnaXJpc19zY2F0dGVyMiArIGdlb21fcG9pbnQoKQ0KDQpnZ2lyaXNfc2NhdHRlcjMgPC0gZ2dwbG90KGRhdGE9aXJpcywNCiAgICAgICAgICAgICAgICAgIG1hcHBpbmc9YWVzKHg9UGV0YWwuTGVuZ3RoLHk9UGV0YWwuV2lkdGgsc2hhcGU9U3BlY2llcykpDQpnZ2lyaXNfc2NhdHRlcjMgKyBnZW9tX3BvaW50KCkNCg0KZ2dpcmlzX3NjYXR0ZXI0IDwtIGdncGxvdChkYXRhPWlyaXMpDQpnZ2lyaXNfc2NhdHRlcjQgKyBnZW9tX3BvaW50KGFlcyh4PVBldGFsLkxlbmd0aCx5PVBldGFsLldpZHRoLGNvbG9yPVNwZWNpZXMsIHNoYXBlPVNwZWNpZXMpKQ0KDQojIyA/Z2VvbV9wb2ludA0KDQpwYXRpZW50c19jbGVhbjwtcmVhZC5kZWxpbSgnZGF0YS9wYXRpZW50c19jbGVhbi50eHQnKQ0KcGNQbG90IDwtIGdncGxvdChkYXRhPXBhdGllbnRzX2NsZWFuLGFlcyh4PUhlaWdodCx5PVdlaWdodCwgDQogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIGNvbG91cj1TZXgpKStnZW9tX3BvaW50KCkNCnBjUGxvdCArIGZhY2V0X2dyaWQoU21va2VzflNleCkNCg0KcGNQbG90IDwtIGdncGxvdChkYXRhPXBhdGllbnRzX2NsZWFuLGFlcyh4PUhlaWdodCx5PVdlaWdodCwNCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgY29sb3VyPVNleCkpK2dlb21fcG9pbnQoKQ0KcGNQbG90ICsgZmFjZXRfZ3JpZCh+U2V4KQ0KDQpwY1Bsb3QgPC0gZ2dwbG90KGRhdGE9cGF0aWVudHNfY2xlYW4sYWVzKHg9SGVpZ2h0LHk9V2VpZ2h0LA0KICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBjb2xvdXI9U2V4KSkrZ2VvbV9wb2ludCgpDQpwY1Bsb3QgKyBmYWNldF9ncmlkKFNleH4uKQ0KDQpwY1Bsb3QgPC0gZ2dwbG90KGRhdGE9cGF0aWVudHNfY2xlYW4sYWVzKHg9SGVpZ2h0LHk9V2VpZ2h0LA0KICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBjb2xvdXI9U2V4KSkrZ2VvbV9wb2ludCgpDQpwY1Bsb3QgKyBmYWNldF93cmFwKH5TbW9rZXMpDQoNCnBjUGxvdCA8LSBnZ3Bsb3QoZGF0YT1wYXRpZW50c19jbGVhbixhZXMoeD1IZWlnaHQseT1XZWlnaHQsDQogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIGNvbG91cj1TZXgpKStnZW9tX3BvaW50KCkNCnBjUGxvdCArIGZhY2V0X3dyYXAoflBldCtTbW9rZXMrU2V4KQ0KDQpwY1Bsb3QgKyBmYWNldF9ncmlkKFNtb2tlc35TZXgrUGV0KQ0KDQpnZ3Bsb3QocGF0aWVudHNfY2xlYW4sIGFlcyh4PVNleCwgeT1XZWlnaHQpKSArIGdlb21fYm94cGxvdCgpDQoNCmxldmVscyhwYXRpZW50c19jbGVhbiRTZXgpDQoNCnBhdGllbnRzX2NsZWFuJFNleCA8LSBmYWN0b3IocGF0aWVudHNfY2xlYW4kU2V4LCANCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgbGV2ZWxzPWMoIk1hbGUiLCJGZW1hbGUiKSkNCmdncGxvdChwYXRpZW50c19jbGVhbixhZXMoeD1TZXgsIHk9V2VpZ2h0KSkgKyBnZW9tX2JveHBsb3QoKQ0KDQpwY1Bsb3QgKyBnZW9tX3BvaW50KCkgKyBmYWNldF9ncmlkKFNtb2tlc35TZXgpKw0KICBzY2FsZV94X2NvbnRpbnVvdXMobmFtZT0iaGVpZ2h0ICgnY20nKSIsDQogICAgICAgICAgICAgICAgICAgICBsaW1pdHMgPSBjKDEwMCwyMDApLA0KICAgICAgICAgICAgICAgICAgICAgYnJlYWtzPWMoMTI1LDE1MCwxNzUpLA0KICAgICAgICAgICAgICAgICAgICAgbGFiZWxzPWMoInNtYWxsIiwianVzdHJpZ2h0IiwidGFsbCIpKQ0KDQpwY1Bsb3QgPC0gZ2dwbG90KGRhdGE9cGF0aWVudHNfY2xlYW4sYWVzKHg9U2V4LHk9SGVpZ2h0KSkNCnBjUGxvdCArDQogIGdlb21fdmlvbGluKGFlcyh4PVNleCx5PUhlaWdodCkpICsNCiAgc2NhbGVfeF9kaXNjcmV0ZShsYWJlbHM9YygiV29tZW4iLCAiTWVuIikpDQoNCnBjUGxvdCA8LSBnZ3Bsb3QoZGF0YT1wYXRpZW50c19jbGVhbixhZXMoeD1TZXgseT1IZWlnaHQsZmlsbD1TbW9rZXMpKQ0KcGNQbG90ICsNCiAgZ2VvbV92aW9saW4oYWVzKHg9U2V4LHk9SGVpZ2h0KSkgKw0KICBzY2FsZV94X2Rpc2NyZXRlKGxhYmVscz1jKCJXb21lbiIsICJNZW4iKSkrDQogIHNjYWxlX3lfY29udGludW91cyhicmVha3M9YygxNjAsMTgwKSxsYWJlbHM9YygiU2hvcnQiLCAiVGFsbCIpKQ0KDQpwY1Bsb3QgPC0gZ2dwbG90KGRhdGE9cGF0aWVudHNfY2xlYW4sDQogICAgICAgICAgICAgICAgIGFlcyh4PUhlaWdodCx5PVdlaWdodCxjb2xvdXI9U2V4KSkNCnBjUGxvdCArIGdlb21fcG9pbnQoc2l6ZT00KQ0KDQpwY1Bsb3QgPC0gZ2dwbG90KGRhdGE9cGF0aWVudHNfY2xlYW4sDQogICAgICAgICAgICAgICAgIGFlcyh4PUhlaWdodCx5PVdlaWdodCxjb2xvdXI9U2V4KSkNCnBjUGxvdCArIGdlb21fcG9pbnQoc2l6ZT00KSArIA0KICBzY2FsZV9jb2xvdXJfbWFudWFsKHZhbHVlcyA9IGMoIkdyZWVuIiwiUHVycGxlIiksDQogICAgICAgICAgICAgICAgICAgICBuYW1lPSJHZW5kZXIiKQ0KDQpwY1Bsb3QgPC0gZ2dwbG90KGRhdGE9cGF0aWVudHNfY2xlYW4sDQogICAgICAgICAgICAgICAgIGFlcyh4PUhlaWdodCx5PVdlaWdodCxjb2xvdXI9UGV0KSkNCnBjUGxvdCArIGdlb21fcG9pbnQoc2l6ZT00KSArIA0KICBzY2FsZV9jb2xvdXJfYnJld2VyKHBhbGV0dGUgPSAiU2V0MiIpDQoNCmdncGxvdChkYXRhPXBhdGllbnRzX2NsZWFuLA0KICAgICAgIGFlcyh5PVdlaWdodCx4PUhlaWdodCxjb2xvdXI9U2V4LA0KICAgICAgICAgICBzaXplPUJNSSxzaGFwZT1QZXQpKSArIA0KICBnZW9tX3BvaW50KCkNCg0KZ2dwbG90KGRhdGE9cGF0aWVudHNfY2xlYW4sDQogICAgICAgYWVzKHk9V2VpZ2h0LHg9SGVpZ2h0LGNvbG91cj1TZXgsDQogICAgICAgICAgIHNpemU9Qk1JLHNoYXBlPVBldCkpICsgDQogIGdlb21fcG9pbnQoKQ0K" download="graphs.R">Download graphs.R</a>
+<a href="data:text/plain;base64,ZW5zZW1ibF9nZW5lX2lkCVVudHJlYXRlZDEJVW50cmVhdGVkMglUcmVhdGVkMQlUcmVhdGVkMgpFTlNEQVJHMDAwMDAwOTM2MzkJMC44NjE2ODMxNTgJMS45MzExNDQyMjIJMC4xMDQxNTA3ODQJMC4xNDA1NTYwNDUKRU5TREFSRzAwMDAwMDk0NTA4CTAuOTg1NzU3NTQxCTIuMDI1NjM1MjM3CTAuMTU0OTkxNzA0CTAuMjAzMDE2MDkxCkVOU0RBUkcwMDAwMDA5NTg5MwkwLjg0OTg4ODk0NgkxLjk4NzU1Nzk5NwkwLjIzMTc5Njg2MwkwLjIwOTI1MTIyOQpFTlNEQVJHMDAwMDAwOTUyNTIJMC45MjQyOTk2NDkJMi4wODU3NjE5NzgJMC4yNTYyMjY0MzQJMC4yNDY2OTA3ODcKRU5TREFSRzAwMDAwMDc4ODc4CTAuMzU3MTczNDMzCTAuNDY1MzkwODEyCTAuMTE2NzIyMTI0CTAuMDk3MTAyMzY4CkVOU0RBUkcwMDAwMDA3OTQwMwkxLjA2MDQwNzExNgkxLjI1ODEzOTc4NgkwLjM4ODQ4MzU4MwkwLjMxNTY3Mjk5MQpFTlNEQVJHMDAwMDAwMDIyMDQJOS4wOTI1MTg2MDQJMzEuMTI3MTYxNjQJNC41MjczMzk1MDgJNC4wNTQwMzY2MDIKRU5TREFSRzAwMDAwMDU1NzIzCTQuNzc5MDMyNjQ2CTEzLjE3Mjg4MDg4CTIyLjcxODYwOTg3CTEzLjY1NDk2MDczCkVOU0RBUkcwMDAwMDAyOTY4OAk0Ljg2Nzk2NzAyOQkxMy40Mzc1ODQ0CTIzLjIzNDkwNDg4CTEzLjkzNDEwNTA2CkVOU0RBUkcwMDAwMDA0MjUyOQkxLjU2MDQ3Mjc4NwkxLjg3MDc0ODEwNQkwLjQ1NDcyNzc2MgkwLjM4NTMzMDgzNApFTlNEQVJHMDAwMDAwOTIzNjIJNS4wMDk1MTA4MTYJMTMuODMwNTU3NzUJMjQuMDc0MzQ5NjQJMTQuNTE5MzI2NDcKRU5TREFSRzAwMDAwMDIxOTI0CTUuMTc1MTA0ODMzCTE0LjI0ODAxNjY5CTIzLjMwMTQ4MjgyCTE0LjA4MjU3MjIKRU5TREFSRzAwMDAwMDMwNzIyCTAuMTIwMzY3MDQ3CTAuNDYwMDA2MTI1CTAuMTA3NDY5NDU0CTAuMDY1MDUyMzQ1CkVOU0RBUkcwMDAwMDA0MTI1NwkwLjQ4MzI4MDc1MQkwLjk2OTIxNjg4NgkwLjI3NDAwNDY0OQkwLjIzMTExMzI5NwpFTlNEQVJHMDAwMDAwMTg4ODEJNDcuMzM2NTg4MTIJNDEuNjU0MDU2OTMJMTAuNjA2NTgzODYJMTEuNDg4MDI4MDUKRU5TREFSRzAwMDAwMDc2NTU0CTIuNjc3NTkzMzI3CTMuMjY4NjA0Mjg0CTAuOTQyNTMwNDIJMC44MTk5NTc5NzIKRU5TREFSRzAwMDAwMDM5OTU3CTAuMzkyODEzOTc5CTAuNDA1MzgyNjA1CTAuMTM1OTIwMzcyCTAuMTI3MzgyMjg4CkVOU0RBUkcwMDAwMDA1ODM2NQkxLjEwMzIwNjY1OAkyLjE5OTQ5MzY5OAkwLjc0MjYxNzA2OQkwLjQ3NzUzNjM3MQpFTlNEQVJHMDAwMDAwNzQ2NTYJMTguODE1OTY5NzUJMjEuOTYxODc0NjIJNC40MzI0Nzc0MTMJNi4xNzc0MzA1MwpFTlNEQVJHMDAwMDAwNzEzMzEJOS42NzQ2NDQxODUJMTEuMjY1NTE4NDcJNC4zODQzMDk5NDUJMy4yODg0MDI1MTYKRU5TREFSRzAwMDAwMDA0MTc3CTAuNzAxNTUzODM2CTEuMzI3MjMwNzg4CTAuNDkzOTkzMzE0CTAuMzU1NzY4NjY5CkVOU0RBUkcwMDAwMDA1Mjk2MAkxLjUyMjg1OTk4MQkyLjMyOTgzMjMxNwkwLjg4MTQwMDQxNgkwLjU4NzE1ODIxCkVOU0RBUkcwMDAwMDA3MTExMwkwLjUyMDIwNTgzCTAuNjE2NjE3NTA4CTAuMjQwNDU5MTUzCTAuMjM1NDg1MjQ4CkVOU0RBUkcwMDAwMDAwMzY4NAkwLjY0ODY1ODQzMQkxLjI5NzE5OTM3MwkwLjQ1OTc1NDIxMgkwLjM1NTQyMDA5NQpFTlNEQVJHMDAwMDAwMTEzNzMJMS44NzI5MjQ5NDQJMS42OTIxOTcwNzcJMC44Njc2OTQ0NzEJMC42NTIwMjk0NjYKRU5TREFSRzAwMDAwMDA0MDgyCTIuNDM3NzYxMTEyCTMuMzE4MjAxNTQ2CTEuNDU3MTg3MjMJMS4wNDI2Njk1NjYKRU5TREFSRzAwMDAwMDc5Njc1CTMuNDkwMTU4MjU1CTQuMTg5MzAwNzEyCTEuOTU1NzQ2NTUzCTEuNDQ4NjAzODc1CkVOU0RBUkcwMDAwMDA3NjI0MQkzMC45NTUxMjQ1NQkyNi4xOTY0MjU0NAkxMi40MTYzNzE4MwkxMC4wNjQ5ODQxMQpFTlNEQVJHMDAwMDAwMTQ1ODcJMTIuMzk3MzI5NTEJMTQuNTIyMTU5NzYJNi4xNDQ4NjQxOTUJNC44NzkxNDc0MTkKRU5TREFSRzAwMDAwMDMzNDQzCTguMTA4MDU4ODk5CTguMjA0MDY1NzkxCTMuODk4ODcyNDU2CTMuMTA5OTU5MDM1CkVOU0RBUkcwMDAwMDA4NzUyNQkwLjI2MzMzMTI1MgkwLjM3Nzk0ODQ4MQkwLjEyNTYyNTAyOQkwLjEwMTQ4ODU4CkVOU0RBUkcwMDAwMDAwOTM0MQkyLjM0MzI2ODEzMgkzLjI4NTkyMjI0OQkxLjU2NjE3NjQyNwkxLjAxODExODUwNApFTlNEQVJHMDAwMDAwMTQ0ODgJNC40MDQ3MTY3NzEJNi41MzU1MTEzOAkyLjg1NTQwNzYwOAkxLjgzNjg5Mzc3NgpFTlNEQVJHMDAwMDAwNzc0MDMJOS4xMjM1MDg4OTQJOS44NzIyMTUzOAk1LjM5NzkwNzc4OAkzLjE2MDc1MDk0MQpFTlNEQVJHMDAwMDAwNTg2MDMJMi4zMDI1Mjc2MjUJMi44OTgzNTI0NTIJMS4zMTI3MzAwMTUJMS4wNDc0MTkxMjQKRU5TREFSRzAwMDAwMDE2NjUxCTQuOTAxMjgxOTkxCTUuMTIzNjY4MTQ2CTIuNTg3NTE3MjM5CTEuOTQxMzUxNjk5CkVOU0RBUkcwMDAwMDAwMzc1MAk5LjQ2NzI3NTE0Ngk5Ljk5MDM4OTQzOQk0Ljc0ODgxMzU1OAkzLjU1ODIyNTc1MgpFTlNEQVJHMDAwMDAwNDU4NTcJMy40Mzk5MDEzOTEJNC4xNzU5MzM2MDEJMi4yNTg4ODMxNQkxLjQyNjA5MTI2MgpFTlNEQVJHMDAwMDAwMDg0ODcJMy4yMDg2NjAyNzQJMy43ODQ3Mjg1NDcJMS43NDM0NTcwNTQJMS40OTUxMTIzNjEKRU5TREFSRzAwMDAwMDU3NjQ4CTQuODkwNzAxODA4CTUuMjY2MDYzNzgJMi42MDQ3MzgyMzgJMS45ODA5ODY4MjMKRU5TREFSRzAwMDAwMDU4MTU4CTMuODkxODYwMTQ4CTMuOTk4ODgzOTkzCTEuODgyNjIyNTQ3CTEuNjE4NzU5NTA2CkVOU0RBUkcwMDAwMDA3OTc4Mwk5LjA5MDQwOTQwOAk5LjIxNTgwMzI2CTQuNjcxMTU1NDc0CTMuOTEzNTYzNTIyCkVOU0RBUkcwMDAwMDAzODEzMQk3LjQxNTc2MDMxOAk3LjM0MTIwMDQ1NgkzLjQzODczNzc3OQkzLjI2NDMxOTE2OQpFTlNEQVJHMDAwMDAwNjkzNzUJMTEuMzk3NTEyNTkJMTQuMTAyNDE2NzgJNS41MTEyMjE5NzYJNC4xMjc2NTE4MQpFTlNEQVJHMDAwMDAwNzU3NTkJMS4zOTY4NTEwMzUJMS43OTgwNDgxNzcJMC45NzcyNTgzCTAuNjU0MDAzNTI1CkVOU0RBUkcwMDAwMDAyOTc2NAk2Ljc3NDUzNzkyOAk3Ljc3Mjk5OTAyNQk0LjI1ODk4NTMxMgkzLjA2NDc2MzI5MwpFTlNEQVJHMDAwMDAwMjk1OTYJOS41Mjg1OTExNjkJOC4yMDEwMzA5NTUJMy42NjMwNDMzNzcJMy44NjIwNjA1MzIKRU5TREFSRzAwMDAwMDQyNTUyCTkuMDU5MjQwODA1CTguODEwNTE1ODMxCTQuMTU5NjgxMzk0CTMuNDk5MDE5Njg2CkVOU0RBUkcwMDAwMDAzMjYzMAk2Ljg1NTI3MDEyNAk3LjM0MjI0ODc5CTMuMzc0MTkwOTc2CTMuNDYxMTA2NTcKRU5TREFSRzAwMDAwMDc2NjY3CTUxMS4yMTM2MTg2CTQ1MC41ODE0OTAxCTIwNC4zODcxNTIyCTIxMy4xOTAzNDgxCkVOU0RBUkcwMDAwMDAwODQzMwkxMS43OTQ0MTM1MwkxNC4xNzg2MDYzMgk3Ljc5NzQzNzc3MQk1LjY0OTE4MDc3OQpFTlNEQVJHMDAwMDAwMDczNTQJNDIuNDc0NTkxNTkJNDEuMjg1Njg1MzMJNzAuNDEwMTgxMjUJNzUuMjU0NDA1MjcKRU5TREFSRzAwMDAwMDU4MTYwCTAuNjkyMzU5OTQJMC45NjYxMjUwMDUJMi4yOTczOTk2MgkxLjQ5ODYzMDU3CkVOU0RBUkcwMDAwMDAyMDc5NAkyLjE1NDA1Njc1MgkyLjIyNTAzODk5Nwk0Ljc1MzkzNTAyOQkzLjc1NzUwMzc5NgpFTlNEQVJHMDAwMDAwOTM3NjgJNC41MTg0OTc4NzUJNC4yNjE1NzI3ODcJOC45NTk1MzQ4NDYJNy42Mjg2MjM5MTcKRU5TREFSRzAwMDAwMDA0NTc3CTIuMDI3Mzg1OTA1CTIuMTAzNzEzMDUyCTMuNDkzMzc5NDg3CTQuMDA1MjY2MjM3CkVOU0RBUkcwMDAwMDAzMzU2NwkzLjc5NzA0MzY0MQkzLjMyMjExOTUyNwk4LjQxODkzODIwMgk2LjY0NTMzNzc5MgpFTlNEQVJHMDAwMDAwMzU5ODcJNi4yNzgxODEyMTQJNi4zNzg5Nzk4MjQJMTAuMTYxMTExOTUJMTMuMzA5NTQ2MDcKRU5TREFSRzAwMDAwMDkyNjkzCTIyMS40ODg0MjMxCTIxNC4yMjQ3MTk3CTM1Mi4zMzE2MzI4CTQ0NC4yMzYwMDY5CkVOU0RBUkcwMDAwMDA1MzQ5OQkyLjk0NjgxNTU2NAkyLjU3MDg4MjM4NAk2LjAyNjU3NjMwNgk1LjYwNjE2MjQ0MwpFTlNEQVJHMDAwMDAwMjc3NDQJMi43MzUzNDYxMjEJMy4xMDYxMTI5MTcJNi4wOTU4MQk1LjQ1MjQ4OTE2MgpFTlNEQVJHMDAwMDAwNzk2ODcJMjYuNDIwOTE2OTQJMjcuMzA4MjgyNjMJNTguOTA0Mzc1Mwk1OC4xMzM2NTA4MwpFTlNEQVJHMDAwMDAwMDYwMDgJMzIuODgxMDkyMzcJMzAuOTM3ODcxNwk1NC41MTYwODkzMQk3MC4yMTE0NjQ2NgpFTlNEQVJHMDAwMDAwOTQwNzIJMC42NDExNjY0ODEJMC44MDc0MjQzMzIJMi40NjEyMzE5NjQJMS41OTUwNTYyNDIKRU5TREFSRzAwMDAwMDg4MzcxCTguMjQ3MTMxODAyCTkuNjA0MjA2MzE4CTE3LjgzMTM0OTY3CTE2LjUyMjIxODE2CkVOU0RBUkcwMDAwMDA3NDAwMQkxNC45OTU4OTk5NgkxNS43NDI3MDE4MgkzNi45MjQxNTQ5NgkyNi4yMDExMTc1NQpFTlNEQVJHMDAwMDAwNTI3MDAJMC40NDM0NzM2MTYJMC41MDc1MDQ2ODYJMS41NTkwNzA2MzgJMC45MDA3NDY2MzEKRU5TREFSRzAwMDAwMDkxMjk4CTcwLjMyNzczNDk4CTY5LjQwNDM4MDc4CTEyMC4wNjIzNjg1CTE2NC43MDkzNDM1CkVOU0RBUkcwMDAwMDAzODA1NgkzLjY3OTkwMjgwNQkzLjg1Nzc2MDc3MQk4LjI2MTQ3NzkyMQk3LjM5OTM5NjU5OQpFTlNEQVJHMDAwMDAwMDU1OTMJMS4zNjA2MzAyMjMJMS42NDYwNjE1MTkJMy45OTc2NDMyMgkzLjQzMDIzNzcxOQpFTlNEQVJHMDAwMDAwNzU2MjkJMS4yMTg0Nzk0MDcJMS4xNzg0Njg4ODYJMi4zOTkxODg3ODYJMi43MzMxNzI1NDYKRU5TREFSRzAwMDAwMDc4MTM0CTEuMzQwMjAxOTY5CTEuNTY1MDYzOTI0CTMuMTQ4MTc5ODM3CTIuODMwOTQxMzY5CkVOU0RBUkcwMDAwMDA1Nzc4OQkyOS43MDg1MDM0OAkyNC41Mjg4Nzk0MQk0OC43ODgwNTAwOAk3MC44MTA1NDY0MgpFTlNEQVJHMDAwMDAwNjg5OTUJMTYyLjIyNDg3NDIJMTc4Ljc5MjA1MjYJMzE0LjUxNTU2MDUJNDAyLjA3MzQzOTkKRU5TREFSRzAwMDAwMDkxMTM3CTAuNzA3MDEwMzI0CTAuOTM2Njg1NjEyCTEuODk3ODgzNjk2CTEuOTQ2MDEzODU1CkVOU0RBUkcwMDAwMDAxMTY0MAkwLjQ0MjU0NTkzNgkwLjU1NzQ2MDY2OAkxLjY2MTE5MTEwNwkxLjAyMDcwMTE5MQpFTlNEQVJHMDAwMDAwNjAzNDUJMi43NjIzODQ0MTgJMy41NDEwNTg0ODQJNi42NDQ5MzM5NzMJNy4zNjEwODA0NDkKRU5TREFSRzAwMDAwMDkwMzUyCTIuNjY5MDc1NzM1CTIuNzk0ODY3OTIzCTkuNjExODMxNjQJNS41MzUxODk0ODEKRU5TREFSRzAwMDAwMDUzNzA5CTAuMjkyOTgzMDQ4CTAuNDIwMTYxOTU5CTAuNzMzNTU0NzE2CTAuODQ5ODE4NjgyCkVOU0RBUkcwMDAwMDAyMjgyMAkxLjQ5MTE1ODk3NgkyLjA5MDY2NjQ1Mgk1LjYxOTYxNzU2NQkzLjc5NjQ4NTAzNQpFTlNEQVJHMDAwMDAwOTU1NTYJMTkuODA0OTMwOTIJMTkuNzExMTEyMTQJMzguNTQ2NDU0NzMJNTAuNTUyNjM1MQpFTlNEQVJHMDAwMDAwNTI0OTcJMS4wODgwNzMyNzMJMS4xNTM4NzM2MDEJMi44NzIyMTMwOTQJMi45MjM4OTg1MDQKRU5TREFSRzAwMDAwMDg4MDQwCTIuMTkxODc3OTYxCTIuODE0MTM4NDM2CTQuMzY4NDk5OTQ1CTUuNjU2Nzk4NTM3CkVOU0RBUkcwMDAwMDAwMjU5Mwk4LjM5MjU3MTQwOQk3Ljk0ODgwMDQJMTUuNTA5MDAzMzcJMjEuODE1OTY5NTIKRU5TREFSRzAwMDAwMDU3NDYwCTU5Ljg1NDU4MzE2CTcyLjkwODA1NzAxCTE3Ny4xNjEwNDIyCTEzOC4xOTE1MzIzCkVOU0RBUkcwMDAwMDA1ODc5OQkwLjIwOTIzMjk0MwkwLjE3MzMzNzk0OAkwLjUyMjc0NjAzOQkwLjUyOTEwMTUwNwpFTlNEQVJHMDAwMDAwMzA1MzAJMC4zNzI1ODQ3OTUJMC4zMTc5MTI0NzMJMC44Mzc5ODQ3MjUJMC45NDYwMzg5MTIKRU5TREFSRzAwMDAwMDU2MjkyCTEuOTIxODg3NDcJMi4zNjkzNTAzODEJOC41ODg5NDEzMjYJNC44Mzk1NTM4NTIKRU5TREFSRzAwMDAwMDYwMzU0CTAuNzUxNjAzODY1CTAuNzE0OTA4NjAyCTIuMzMzMzg2MzA2CTEuNzYxNTQ5Nzk0CkVOU0RBUkcwMDAwMDAzODE1MwkzLjQ1MzMxMjEzNQkzLjcyMTkyNjcJOC45MDg3NzI3NjkJMTAuNjE5MzQxODIKRU5TREFSRzAwMDAwMDc1MTYxCTIuMTM1Mjg4OTc2CTIuODEwODg4ODUzCTYuNjg2NTA5NzI2CTYuOTI4NzI4NjIxCkVOU0RBUkcwMDAwMDA0MzQ4MwkzLjYzOTkxMjE5NwkzLjA4NDEyMTIwNQkxMC42OTY3NTUxNgk4LjE0NTU4NjE4NQpFTlNEQVJHMDAwMDAwNzY2OTMJMjEyLjMyNjQ4MzIJMjYxLjEwOTIxMTIJNjA3LjUyOTAyODgJNTM4LjIxNDEzMzQKRU5TREFSRzAwMDAwMDczODc0CTE1Mi4zNzk1OTgyCTE4Mi45Nzg5MzA5CTQ0Mi4xODUxNjk5CTM4NC4xNzYwOTE4CkVOU0RBUkcwMDAwMDA2OTgwMQk5My43MDQ1ODA4MQkxMjAuMDY1OTA0OAkyOTIuOTg5NTM2MQkyNDcuMDUzOTA2OApFTlNEQVJHMDAwMDAwODczMjQJMTY2LjMxMDAyCTIwNS43MTQ4MTQ1CTQ5OC4xNzA5OTEJNDQwLjMzMjM2NzQKRU5TREFSRzAwMDAwMDg4Njg3CTI3Ny4zNDc2OTU2CTM0NC42Nzg5OTA1CTg0Ni4wMjIwMjcyCTc0Mi40MjYzODc1CkVOU0RBUkcwMDAwMDAxMTA3NgkzLjEzMTAxODU1NwkzLjA4NTk0MjQ3Mgk3LjgwOTc3MTIxNAk5LjI1ODI2OTQwMwpFTlNEQVJHMDAwMDAwODY2NTgJMTg5LjI2ODE1NDcJMjM3LjY3ODY5MzYJNTgyLjM3MjI2ODUJNTEwLjc5ODM0NTgKRU5TREFSRzAwMDAwMDIxMzM5CTAuNjA1NTA0OTYyCTAuNTEwMTIwNjE0CTEuMzg1MTI3NTkzCTIuMDMxNDIyNjgzCkVOU0RBUkcwMDAwMDA4ODgyMwkxNDIuNDQ3NzM4NQkxODMuNTc4MTU3Mgk0NTIuMjgxNjg0Mwk0MDAuMzkyOTA4NQpFTlNEQVJHMDAwMDAwMTE5ODkJMy4yNDc0MzQ5NjkJMi43MTQ4NTQwMTQJOS43MTgyMzY3OTIJOC4yMjAyOTUyMjgKRU5TREFSRzAwMDAwMDY5ODI3CTEwNC41OTE5NDcJMTMzLjA1OTA5NjUJMzMxLjc5MTkzNTQJMjkxLjk4OTQzNDcKRU5TREFSRzAwMDAwMDg3NzY1CTE5MS42MDMyNTY5CTI1MS4wNDk0MjgxCTYyNy4xOTg2NDk2CTU1Mi41OTMwODE1CkVOU0RBUkcwMDAwMDA4NjkxNwkxNTguNjg3OTI1NQkyMDIuMDM3MzUzNQk1MDcuNzM1NDg1NAk0MzkuNDcxNjc1NgpFTlNEQVJHMDAwMDAwODczMDEJOTYuMjIxOTUwODIJMTI0LjA5ODI2OTMJMzE0LjkzNDg4NDYJMjcxLjg3MDM4MzYKRU5TREFSRzAwMDAwMDY5ODI2CTk0LjQwNDg0NjQ4CTExOC40Njg5MjkJMzA2LjM1MjQ4MTYJMjUzLjg5MjYxMDUKRU5TREFSRzAwMDAwMDg2OTEyCTE3NS4wOTM0OTUyCTIyMi45NjIwMzkJNTYxLjg1Nzg3NzgJNDg3LjAwMDI0NzYKRU5TREFSRzAwMDAwMDg3MTY0CTIyMC4wODExMgkyODIuNDI1MjM1Mgk3MTUuNjM3MjQ4NQk2MjkuODM3MTMzNwpFTlNEQVJHMDAwMDAwNzY1NzIJMTQzLjAxMjI0MjUJMTg5LjE4MTk4NTgJNDgxLjQyMzQzODkJNDE5LjQ4MDkzNDUKRU5TREFSRzAwMDAwMDc2NzkwCTExNS4xMzI4ODk3CTE0Ni41NTgwNTk0CTM3MC43NjIyMDY2CTMyMS40MTg3MTg3CkVOU0RBUkcwMDAwMDA3ODkxOAkyLjUwODE5NDQ4CTIuMzkzNTA5MDA5CTcuNDI1MDIzODk3CTguMDAxNzIzMTY3CkVOU0RBUkcwMDAwMDAzNzU4OAkwLjI0NTM4ODg1MwkwLjM0Mjk2NzM0CTEuMzk0MzUxODU5CTAuNzg1MTYyMTg1CkVOU0RBUkcwMDAwMDA5MTE0OAkyMTMuOTYzNjc5NgkyNjguMTU0Nzc5Mgk3MTUuNzQwMjg1MQk2MTguNDU2NTM0NApFTlNEQVJHMDAwMDAwNjk3OTIJMjI4LjIwMjU1NDUJMjg1LjQxNDAzMwk3NjQuMjEzOTc3CTY2NS42NjgwNzY3CkVOU0RBUkcwMDAwMDA1NzUzNgkxLjM4NzYyNzkwOAkxLjMwODMwMjM5Mgk0LjIzNjM0OTgzNQkzLjkyNTUwMDgyMQpFTlNEQVJHMDAwMDAwMjQ4NDcJMC4xMjc0ODk2MDcJMC4xMTY3MTc3ODUJMC41MDQ2NDEwODYJMC4zMTMxMDc1MzcKRU5TREFSRzAwMDAwMDczNzUwCTIxNS41MjI3ODM1CTI3Mi4wNTk5MjYxCTczMy45NzUxODc5CTYzNy45NDY2MDE5CkVOU0RBUkcwMDAwMDA1NTUzOQkzLjEyODM5NDEzMgkzLjI0MTM0MTQ5CTkuNDM4MzkyMDU2CTEwLjA0MjgxMDQ3CkVOU0RBUkcwMDAwMDA3NTA0NQkwLjU5NTI3NTcyMwkwLjgyOTA5NzMyNQk1LjAwOTIxMjMwNwkxLjUxODkyNDQ1MQpFTlNEQVJHMDAwMDAwOTMxOTMJMC40MTQ5MjgzNDUJMC4zMTczNjM4NzUJMS44MzY4Mzc2MzgJMS40ODU2Mzc4MzYKRU5TREFSRzAwMDAwMDE4MjY2CTEuNTMwMDg0MzUyCTEuNDM3NjMzMDgyCTUuMDkzNDMzMTQyCTUuMDMxMDM3MjMxCkVOU0RBUkcwMDAwMDA3NDE1MAkwLjExMDg4NjMwOQkwLjEwMDY3ODM0MwkwLjU4MzA4NTkwNgkwLjMxNTA5MzQyCkVOU0RBUkcwMDAwMDA1MzEzMQkwLjA2MTEyNDUxCTAuMDY4NDAwMjk2CTAuMzQ4OTc3MTIJMC4yMjgzNDQxOTgKRU5TREFSRzAwMDAwMDE5NTMyCTAuMTQwNDk4NzUJMC4yNDA1NTA2MjIJMC44NTQwMDMwODcJMC43MTU2NzQzNzEKRU5TREFSRzAwMDAwMDA1NTE4CTAuMjU2NzUwNTUJMC4zMjU2MjA0MjQJMC45NDA0Mjk5NTgJMS4xMzIzMjg0MDQKRU5TREFSRzAwMDAwMDMyNzY4CTAuMzE3MjAyNzU4CTAuNDA3NTEyNjQyCTIuODk1NzQ3Mzk0CTAuODUwMjYyNjQ5CkVOU0RBUkcwMDAwMDA5MjcxOQkwLjEwMDAzMDMwNwkwLjA4NzIxNzY4NgkwLjU1OTgwNDI4MgkwLjI2ODgyOTcwNApFTlNEQVJHMDAwMDAwOTEyNzMJMC42MTU5NzYxCTAuODI0NjAzNTczCTIuNTI3Mzk5MTI0CTIuMzc3MDIwNTM4CkVOU0RBUkcwMDAwMDA5MjI1MAkwLjA5OTcxMDcyMQkwLjA3OTAzNTQ4NgkwLjUwNTA2NTM2OAkwLjI5MjcwNjU5MQpFTlNEQVJHMDAwMDAwNTQ3OTcJMC4xMTY5NTE5MjIJMC4xMjE4MzY1MDIJMC41NDA1Mjg0NDQJMC40ODA3ODQ5NDMKRU5TREFSRzAwMDAwMDU5MzgxCTAuMTE3MTUyNjEyCTAuMTU2MDA2MDgxCTAuNzQyNzI0NDgxCTAuNDY1MDAyNzMxCkVOU0RBUkcwMDAwMDAwMjE2NQkwLjA4MjA1ODE2NgkwLjA3MTU0NzU0OQkwLjQ5NjA5ODEwNQkwLjM1Mjg0NzgyMQpFTlNEQVJHMDAwMDAwNTI2MjYJMC4wODgxNjIzMDQJMC4wNTc2NTIzNjgJMC40MjEzNTk1NTEJMC4yNzMzODYxMzkKRU5TREFSRzAwMDAwMDc2MTk2CTAuMDgzMzU4NTg5CTAuMDU5NDY2NjA0CTAuNDQ5NDc3ODkJMC4yMzE2MDcxMjkKRU5TREFSRzAwMDAwMDc0NjQyCTAuMTA0MTk4MjM2CTAuMDc1MzI0MzY1CTAuNjA4ODM4MjMzCTAuMjY0NjkzODYyCkVOU0RBUkcwMDAwMDAzODM3OAkwLjM0NDIyMTkzOAkwLjM4ODgwNjY0OAkxLjUzOTcwMjEzNwkxLjc2NDc4NzkzNwpFTlNEQVJHMDAwMDAwOTI3NzgJMC4xMDY1NDk5NzMJMC4wOTY3NDEyMDEJMC43MzEyMTc2NjMJMC4zMjY4MDA4MDIKRU5TREFSRzAwMDAwMDk1NDA5CTAuMTA0MzY1NDg5CTAuMDgzMzg2ODc4CTAuNjk1NzYyNjUzCTAuMzEwNjg2MDE0CkVOU0RBUkcwMDAwMDAxMjEyNgkwLjMyOTc4NjY0MQkwLjMxMzY4NTU5NgkxLjY1NDYyMTU2MgkxLjM4NTk5MDIzOApFTlNEQVJHMDAwMDAwOTA1NjIJMC4xMDQzMDk2NzgJMC4wOTkyMTcwMDcJMC40ODI2ODI4NzgJMC4zODUwNDQ2NDEKRU5TREFSRzAwMDAwMDc4NjE3CTAuMDgwODMxNDY5CTAuMDg0OTc4MjMxCTAuNjU4OTkwNjQ0CTAuMjk5NzI4OTk2CkVOU0RBUkcwMDAwMDA5MjcwNAkwLjEwMzM3MzY4NwkwLjA2MjU3MTU0NQkwLjY0MjYyMzgyMgkwLjM2MTM1Mzc0OApFTlNEQVJHMDAwMDAwNTQ3NTMJMS4wMjAwMTM0NzQJMS41Mjk4NDQyOTQJNi40NDYzOTQ1OTQJNS4xMzcwODE5ODYKRU5TREFSRzAwMDAwMDc2OTU5CTAuMDYyNTg1ODA3CTAuMDc5MzczNjA2CTAuMjg2MzM3MzAxCTAuMzUxOTIyNTIxCkVOU0RBUkcwMDAwMDA5MzM2NQkwLjA4NzAwNjQ2OQkwLjA2NzEwMTU1NwkwLjU4MDk1OTIyNQkwLjMyNDM0NTcxMQpFTlNEQVJHMDAwMDAwODcwNjYJMC4xOTQ5MzcyNjMJMC4yMzY0MTAzOTMJMS41MjQxMjU5MDQJMS4xNzk5NjI1ODIKRU5TREFSRzAwMDAwMDc0NjgzCTAuMDU1MTg5MTM1CTAuMDY5OTkyODc2CTAuNDIzODMzNjk3CTAuMjM3MzExNzM4CkVOU0RBUkcwMDAwMDAzODg5NAkwLjEwOTEyMzk3MQkwLjE0NjI1ODM1OAkwLjg4NTA0MjU2NgkwLjcxODYxMTAyMgpFTlNEQVJHMDAwMDAwMjcyMzYJMC4wODgzMjg2NDgJMC4xMzQ0MjU5NDEJMC44MjU1NDY3MTMJMC41NTUxMDc5NzcKRU5TREFSRzAwMDAwMDMzODMyCTUuMjI0NDYyODkyCTUuMTY4Mjg1MzUzCTIxLjYxMzg1MjA5CTI0LjUxODMwMTI4CkVOU0RBUkcwMDAwMDA5NDU3MAkwLjEwMDAzMDMwNwkwLjA4MzI1MzI0NQkwLjc3NjM3MDkwMgkwLjM5NzA0MDc5MwpFTlNEQVJHMDAwMDAwOTMxMDEJMC4wODcxMDc3MzEJMC4wNjcwNzMwMTgJMC43MDM1MjM4MTEJMC4zNDE2MzIzODkKRU5TREFSRzAwMDAwMDEyMzk1CTEuNjY1ODg0NzAxCTEuOTExMzA5NzI5CTE0LjkzNDEyMTAyCTEwLjEyODQ5MTQ3CkVOU0RBUkcwMDAwMDA3MTM5NAkwLjA1Njk1MTU2MgkwLjAzODY5MzU5OAkwLjQyMjc0NTI2OQkwLjI2NjQxODkyNgpFTlNEQVJHMDAwMDAwOTI3MzAJMC4wNDU4MTkyNTEJMC4xMDU4NDI1NzMJMC41Nzc1NDc1NTIJMC41NDU1OTgwMDMKRU5TREFSRzAwMDAwMDY5NjE1CTAuMDg0OTMxMzkzCTAuMTU2MTgzOTg2CTAuOTI3MDE5MjM4CTAuODc2NDg2Mjc5CkVOU0RBUkcwMDAwMDA4NjM3NAkwLjI0NjkxMDI1MQkwLjI1MDUxMjQ3OAkyLjAwMTA4MTc3NQkxLjUwMjcyNDAxNApFTlNEQVJHMDAwMDAwMzAyMTUJMC4wMzAyMTI0NDUJMC4wMjUxNDUyMgkwLjQ4ODcyNTYyMQkwLjIwNjExMTQ0OApFTlNEQVJHMDAwMDAwNDI4MTYJMS45NTI2OTIxNTkJMi4xMzcxNTkyNzgJMjkuMDcyODE5NzcJMzMuNjQ2MzIwMjkKRU5TREFSRzAwMDAwMDk0Nzk4CTAuMDA5NzQwNzc5CTAuMDA5MjY1MjA5CTEuMDAwNjM0NzEyCTAuMDE5MzMxNTc0CkVOU0RBUkcwMDAwMDAwNTQxOQkwLjAyNzQwODc3MwkwLjA2OTUyMTYxMwkzLjgyMDE2OTcyMQkwLjY5MzU0Mjg2MQpFTlNEQVJHMDAwMDAwNDE0MzMJMC4wMDUwMTExNTIJMC4wMTkwNjU5NzkJMC4wMDk4MjU2ODYJMi4zMzA2MjAwNjkK" download="gene_data.txt" sep="    " h="TRUE" row.names="1">Download gene_data.txt</a>
+<hr />
+<p>Simple plots can easily be produced with the plotting functions in
+<code>base</code> R. These are installed by default with R and do not
+require any additional packages to be installed. They’re quick to type,
+straightforward to use in simple cases, and run very quickly.</p>
+<p>If you want to do anything beyond very simple plots, though, it’s
+generally better to switch to ggplot2. This is in part because ggplot2
+provides a unified interface and set of options, instead of the grab bag
+of modifiers and special cases required in base graphics. Once you learn
+how ggplot2 works, you can use that knowledge for everything from
+scatter plots and histograms to violin plots and maps.</p>
+<p>In this section, we will illustrate how to make a graph with base
+graphics and how to make a similar graph with the ggplot() function in
+ggplot2. Having both of these examples will help you transition to using
+ggplot2 for when you want to make more sophisticated graphics.</p>
+<p>Get inspired by <a href="https://r-graph-gallery.com/"><strong>THE R
+GRAPH GALLERY</strong></a></p>
+<div id="base-package" class="section level1">
+<h1><code>base</code> package</h1>
+<div id="basic-scatter-and-line-charts" class="section level2">
+<h2>Basic scatter and line charts</h2>
+<p>First we’ll produce a very simple graph using the values in a numeric
+vector:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a>treatment <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">0.02</span>,<span class="fl">1.8</span>, <span class="fl">17.5</span>, <span class="dv">55</span>,<span class="fl">75.7</span>, <span class="dv">80</span>)</span></code></pre></div>
+<p>Now we plot the treatment vector with default parameters.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a><span class="fu">plot</span>(treatment)</span></code></pre></div>
+<p><img src="graphs_files/figure-html/unnamed-chunk-7-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>We produced a simple <strong>scatter</strong> plot. Let make it a
+<strong>line</strong> plot:</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a><span class="fu">plot</span>(treatment, <span class="at">type =</span> <span class="st">&#39;o&#39;</span>)</span></code></pre></div>
+<p><img src="graphs_files/figure-html/unnamed-chunk-8-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>We changed the type of plot to <code>o</code> which plot both
+<strong>points</strong> and <strong>lines</strong>. Check
+<code>?plot</code> to see a complete list and make a
+<strong>line</strong> plot. By changing the argument <code>type</code>,
+we are <strong>customizing</strong> the plot.</p>
+</div>
+<div id="plot-customization" class="section level2">
+<h2>Plot customization</h2>
+<div id="type" class="section level3">
+<h3>Type</h3>
+<p>See the complete list of plot <code>type</code> using
+<code>?plot</code>.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a><span class="fu">plot</span>(treatment, <span class="at">type=</span><span class="st">&quot;l&quot;</span>)</span></code></pre></div>
+<p><img src="graphs_files/figure-html/unnamed-chunk-9-1.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="title" class="section level3">
+<h3>Title</h3>
+<p>We add a title with <code>main</code> argument and or a sub-title
+with the <code>sub</code> argument.</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a><span class="fu">plot</span>(treatment, <span class="at">main=</span><span class="st">&quot;My Plot&quot;</span>, <span class="at">sub=</span><span class="st">&quot;a plot&quot;</span>)</span></code></pre></div>
+<p><img src="graphs_files/figure-html/unnamed-chunk-10-1.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="axis-labels" class="section level3">
+<h3>Axis labels</h3>
+<p>We can customize our x and y axis label with the <code>xlab</code>
+and <code>ylab</code> arguments respectively.</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" tabindex="-1"></a><span class="fu">plot</span>(treatment, <span class="at">xlab=</span><span class="st">&quot;Position&quot;</span>, <span class="at">ylab=</span><span class="st">&quot;score&quot;</span>)</span></code></pre></div>
+<p><img src="graphs_files/figure-html/unnamed-chunk-11-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>We can control the orientation of labels on axis using
+<code>las</code> argument.</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" tabindex="-1"></a><span class="fu">plot</span>(treatment, <span class="at">las=</span><span class="dv">1</span>)</span></code></pre></div>
+<p><img src="graphs_files/figure-html/unnamed-chunk-12-1.png" width="672" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" tabindex="-1"></a><span class="fu">plot</span>(treatment, <span class="at">las=</span><span class="dv">2</span>)</span></code></pre></div>
+<p><img src="graphs_files/figure-html/unnamed-chunk-12-2.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="point-size" class="section level3">
+<h3>Point size</h3>
+<p>We can control the size of points in our plot using the
+<code>cex</code> parameter.</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" tabindex="-1"></a><span class="fu">plot</span>(treatment, <span class="at">cex=</span><span class="dv">2</span>)</span></code></pre></div>
+<p><img src="graphs_files/figure-html/unnamed-chunk-13-1.png" width="672" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" tabindex="-1"></a><span class="fu">plot</span>(treatment, <span class="at">cex=</span><span class="fl">0.5</span>)</span></code></pre></div>
+<p><img src="graphs_files/figure-html/unnamed-chunk-13-2.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="point-shape" class="section level3">
+<h3>Point shape</h3>
+<p>We can control the type of points in our plot using the
+<code>pch</code> parameter.</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" tabindex="-1"></a><span class="fu">plot</span>(treatment, <span class="at">pch=</span><span class="dv">1</span>)</span></code></pre></div>
+<p><img src="graphs_files/figure-html/unnamed-chunk-14-1.png" width="672" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" tabindex="-1"></a><span class="fu">plot</span>(treatment, <span class="at">pch=</span><span class="dv">20</span>)</span></code></pre></div>
+<p><img src="graphs_files/figure-html/unnamed-chunk-14-2.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="line-weight" class="section level3">
+<h3>Line weight</h3>
+<p>Similarly when plotting a line we control size with <code>lwd</code>
+parameter.</p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" tabindex="-1"></a><span class="fu">plot</span>(treatment, <span class="at">type=</span><span class="st">&quot;l&quot;</span>,<span class="at">lwd=</span><span class="dv">10</span>)</span></code></pre></div>
+<p><img src="graphs_files/figure-html/unnamed-chunk-15-1.png" width="672" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" tabindex="-1"></a><span class="fu">plot</span>(treatment, <span class="at">type=</span><span class="st">&quot;l&quot;</span>,<span class="at">lwd=</span><span class="fl">0.5</span>)</span></code></pre></div>
+<p><img src="graphs_files/figure-html/unnamed-chunk-15-2.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="line-type" class="section level3">
+<h3>Line type</h3>
+<p>We can also control the type of line with <code>lty</code>
+parameter.</p>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" tabindex="-1"></a><span class="fu">plot</span>(treatment, <span class="at">type=</span><span class="st">&quot;l&quot;</span>,<span class="at">lty=</span><span class="dv">1</span>)</span></code></pre></div>
+<p><img src="graphs_files/figure-html/unnamed-chunk-16-1.png" width="672" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" tabindex="-1"></a><span class="fu">plot</span>(treatment, <span class="at">type=</span><span class="st">&quot;l&quot;</span>,<span class="at">lty=</span><span class="dv">2</span>)</span></code></pre></div>
+<p><img src="graphs_files/figure-html/unnamed-chunk-16-2.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="color" class="section level3">
+<h3>Color</h3>
+<p>An important parameter we can control is color. We can control color
+or lines or points using the <code>col</code> argument.</p>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" tabindex="-1"></a><span class="fu">plot</span>(treatment, <span class="at">type=</span><span class="st">&quot;l&quot;</span>, <span class="at">col=</span><span class="st">&quot;red&quot;</span>)</span></code></pre></div>
+<p><img src="graphs_files/figure-html/unnamed-chunk-17-1.png" width="672" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" tabindex="-1"></a><span class="fu">plot</span>(treatment, <span class="at">type=</span><span class="st">&quot;l&quot;</span>, <span class="at">col=</span><span class="st">&quot;dodgerblue&quot;</span>)</span></code></pre></div>
+<p><img src="graphs_files/figure-html/unnamed-chunk-17-2.png" width="672" style="display: block; margin: auto;" /></p>
+<p>You can find an extensive list of R colors <a
+href="http://www.stat.columbia.edu/~tzheng/files/Rcolor.pdf#page=8.00">here</a>.
+But you can also use hexadecimal code color <a
+href="https://htmlcolorcodes.com/">here</a>. You can also specify
+<code>rgb</code> color and use define <code>alpha</code> to set
+transparency.</p>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" tabindex="-1"></a>myRed <span class="ot">&lt;-</span> <span class="fu">rgb</span>(<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">0</span>, <span class="at">alpha=</span><span class="fl">0.5</span>)</span>
+<span id="cb19-2"><a href="#cb19-2" tabindex="-1"></a><span class="fu">plot</span>(treatment, <span class="at">type=</span><span class="st">&quot;p&quot;</span>, <span class="at">cex=</span><span class="dv">4</span>, <span class="at">pch=</span><span class="dv">20</span>, <span class="at">col=</span>myRed)</span></code></pre></div>
+<p><img src="graphs_files/figure-html/unnamed-chunk-18-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><code>par</code> set or query graphical parameters. Among other uses
+(size of plot margins <code>mar</code>, spacing between margin elements
+<code>mgp</code>, dimensions of whole plot <code>fig</code>, etc.), you
+modify <code>par</code> to plot two graphs next to each others</p>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>))</span>
+<span id="cb20-2"><a href="#cb20-2" tabindex="-1"></a><span class="fu">plot</span>(treatment, <span class="at">type=</span><span class="st">&quot;p&quot;</span>, <span class="at">cex=</span><span class="dv">4</span>, <span class="at">pch=</span><span class="dv">20</span>, <span class="at">col=</span>myRed)</span>
+<span id="cb20-3"><a href="#cb20-3" tabindex="-1"></a><span class="fu">plot</span>(treatment, <span class="at">type=</span><span class="st">&quot;p&quot;</span>, <span class="at">cex=</span><span class="dv">4</span>, <span class="at">pch=</span><span class="dv">20</span>, <span class="at">col=</span><span class="st">&#39;#87736f&#39;</span>)</span></code></pre></div>
+<p><img src="graphs_files/figure-html/unnamed-chunk-19-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>Using <code>par(mfrow = c(1, 2))</code>, you split your graphical
+window into a grid by specifying the number of row first and the number
+of column them. Any modification using <code>par</code> will be applied
+to next plots. You can terminated using <code>dev.off()</code>.</p>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" tabindex="-1"></a><span class="fu">dev.off</span>()</span></code></pre></div>
+<pre><code>## null device 
+##           1</code></pre>
+<p>A lot of graphical parameters can be modified using <code>par</code>.
+See the full list of set parameters using <code>par()</code> or
+<code>?par</code>. Change will apply to all subsequent plots until your
+reset your graphical parameters using <code>dev.off()</code>.</p>
+</div>
+</div>
+<div id="multiplot-vectors-plot" class="section level2">
+<h2>Multiplot vectors plot</h2>
+<p>Index plot are generally use explore your data nut of course the
+<code>plot</code> function will accept two vectors to be plotted against
+each other.</p>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" tabindex="-1"></a>control <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">20</span>, <span class="dv">40</span>, <span class="dv">60</span>, <span class="dv">80</span>,<span class="dv">100</span>)</span>
+<span id="cb23-2"><a href="#cb23-2" tabindex="-1"></a><span class="fu">plot</span>(control,treatment)</span></code></pre></div>
+<p><img src="graphs_files/figure-html/unnamed-chunk-21-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>We often want multiple lines in same plot. So if we want to plot
+scores for control and treatment against position we will need a new
+method.</p>
+<p>We can add an additional line to our existing plot using the
+<code>lines()</code> function.</p>
+<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" tabindex="-1"></a><span class="fu">plot</span>(treatment, <span class="at">type=</span><span class="st">&quot;o&quot;</span>, <span class="at">col=</span><span class="st">&quot;blue&quot;</span>)</span>
+<span id="cb24-2"><a href="#cb24-2" tabindex="-1"></a><span class="fu">lines</span>(control, <span class="at">type=</span><span class="st">&quot;o&quot;</span>, <span class="at">pch=</span><span class="dv">22</span>, <span class="at">lty=</span><span class="dv">2</span>, <span class="at">col=</span><span class="st">&quot;red&quot;</span>)</span></code></pre></div>
+<p><img src="graphs_files/figure-html/unnamed-chunk-22-1.png" width="672" style="display: block; margin: auto;" /></p>
+<div id="defining-your-limits" class="section level3">
+<h3>Defining your limits</h3>
+<p>The new line doesn’t quite fit into our original plot. We can extend
+our x or y axis by specifying values to <code>xlim</code> and
+<code>ylim</code> arguments directly.</p>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" tabindex="-1"></a><span class="fu">plot</span>(treatment, <span class="at">type=</span><span class="st">&quot;o&quot;</span>, <span class="at">col=</span><span class="st">&quot;blue&quot;</span>,<span class="at">ylim=</span><span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">100</span>))</span>
+<span id="cb25-2"><a href="#cb25-2" tabindex="-1"></a><span class="fu">lines</span>(control, <span class="at">type=</span><span class="st">&quot;o&quot;</span>, <span class="at">pch=</span><span class="dv">22</span>, <span class="at">lty=</span><span class="dv">2</span>, <span class="at">col=</span><span class="st">&quot;red&quot;</span>)</span></code></pre></div>
+<p><img src="graphs_files/figure-html/unnamed-chunk-23-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>Instead of defining the axis limits explicitly we can compute the
+y-axis values using the range function. This means any updates to our
+data will be automatically reflected in our graph. <code>range()</code>
+returns a vector containing the minimum and maximum of all the given
+arguments.</p>
+<p>Calculate range from 0 to max value of data.</p>
+<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" tabindex="-1"></a>g_range <span class="ot">&lt;-</span> <span class="fu">range</span>(<span class="dv">0</span>, treatment, control)</span>
+<span id="cb26-2"><a href="#cb26-2" tabindex="-1"></a>g_range</span></code></pre></div>
+<pre><code>## [1]   0 100</code></pre>
+<p>Then plot using this range values as your limits</p>
+<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" tabindex="-1"></a><span class="fu">plot</span>(treatment, <span class="at">type=</span><span class="st">&quot;o&quot;</span>, <span class="at">col=</span><span class="st">&quot;blue&quot;</span>, <span class="at">ylim=</span>g_range)</span></code></pre></div>
+<p><img src="graphs_files/figure-html/unnamed-chunk-25-1.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="customize-axes" class="section level3">
+<h3>Customize axes</h3>
+<p>To be able to customize axes we need to turn off axes and annotations
+(axis labels). We will then be able to specify them ourselves. We turn
+of axis and annotation plotting using <code>axes=FALSE</code> and
+<code>ann=FALSE</code></p>
+<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" tabindex="-1"></a><span class="fu">plot</span>(treatment, <span class="at">type=</span><span class="st">&quot;o&quot;</span>, <span class="at">col=</span><span class="st">&quot;blue&quot;</span>, <span class="at">ylim=</span>g_range, <span class="at">axes=</span><span class="cn">FALSE</span>, <span class="at">ann=</span><span class="cn">FALSE</span>)</span></code></pre></div>
+<p><img src="graphs_files/figure-html/unnamed-chunk-26-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>We can create our own X axis by using the <code>axis()</code>
+function. We specify the <code>side</code> argument for where to place
+axis, the <code>at</code> argument to specify where to put axis ticks
+and <code>lab</code> argument to specify labels for axis ticks.</p>
+<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" tabindex="-1"></a><span class="fu">plot</span>(treatment, <span class="at">type=</span><span class="st">&quot;o&quot;</span>, <span class="at">col=</span><span class="st">&quot;blue&quot;</span>, <span class="at">ylim=</span>g_range, <span class="at">axes=</span><span class="cn">FALSE</span>, <span class="at">ann=</span><span class="cn">FALSE</span>)</span>
+<span id="cb30-2"><a href="#cb30-2" tabindex="-1"></a><span class="fu">axis</span>(<span class="at">side=</span><span class="dv">1</span>, <span class="at">at=</span><span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>, <span class="at">lab=</span><span class="fu">c</span>(<span class="st">&quot;Mon&quot;</span>,<span class="st">&quot;Tue&quot;</span>,<span class="st">&quot;Wed&quot;</span>,<span class="st">&quot;Thu&quot;</span>,<span class="st">&quot;Fri&quot;</span>,<span class="st">&quot;Sat&quot;</span>))</span></code></pre></div>
+<p><img src="graphs_files/figure-html/unnamed-chunk-27-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>We can make our y axis with horizontal labels that display ticks at
+every 20 marks in a similar way. We specify our <code>side</code> and
+use <code>seq()</code> function to make axis tick postions for
+<code>at</code> argument. We can use our y-axis range again to help
+define how many ticks we need.</p>
+<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" tabindex="-1"></a><span class="fu">plot</span>(treatment, <span class="at">type=</span><span class="st">&quot;o&quot;</span>, <span class="at">col=</span><span class="st">&quot;blue&quot;</span>, <span class="at">ylim=</span>g_range, <span class="at">axes=</span><span class="cn">FALSE</span>, <span class="at">ann=</span><span class="cn">FALSE</span>)</span>
+<span id="cb31-2"><a href="#cb31-2" tabindex="-1"></a><span class="fu">axis</span>(<span class="at">side=</span><span class="dv">1</span>, <span class="at">at=</span><span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>, <span class="at">lab=</span><span class="fu">c</span>(<span class="st">&quot;Mon&quot;</span>,<span class="st">&quot;Tue&quot;</span>,<span class="st">&quot;Wed&quot;</span>,<span class="st">&quot;Thu&quot;</span>,<span class="st">&quot;Fri&quot;</span>,<span class="st">&quot;Sat&quot;</span>))</span>
+<span id="cb31-3"><a href="#cb31-3" tabindex="-1"></a><span class="fu">axis</span>(<span class="dv">2</span>, <span class="at">las=</span><span class="dv">1</span>, <span class="at">at=</span><span class="fu">seq</span>(<span class="dv">0</span>,g_range[<span class="dv">2</span>],<span class="at">by=</span><span class="dv">20</span>))</span></code></pre></div>
+<p><img src="graphs_files/figure-html/unnamed-chunk-28-1.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="framing-plot" class="section level3">
+<h3>Framing plot</h3>
+<p>We can now add a box around our plot using the <code>box()</code>
+function.</p>
+<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" tabindex="-1"></a><span class="fu">plot</span>(treatment, <span class="at">type=</span><span class="st">&quot;o&quot;</span>, <span class="at">col=</span><span class="st">&quot;blue&quot;</span>, <span class="at">ylim=</span>g_range, <span class="at">axes=</span><span class="cn">FALSE</span>, <span class="at">ann=</span><span class="cn">FALSE</span>)</span>
+<span id="cb32-2"><a href="#cb32-2" tabindex="-1"></a><span class="fu">axis</span>(<span class="at">side=</span><span class="dv">1</span>, <span class="at">at=</span><span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>, <span class="at">lab=</span><span class="fu">c</span>(<span class="st">&quot;Mon&quot;</span>,<span class="st">&quot;Tue&quot;</span>,<span class="st">&quot;Wed&quot;</span>,<span class="st">&quot;Thu&quot;</span>,<span class="st">&quot;Fri&quot;</span>,<span class="st">&quot;Sat&quot;</span>))</span>
+<span id="cb32-3"><a href="#cb32-3" tabindex="-1"></a><span class="fu">axis</span>(<span class="dv">2</span>, <span class="at">las=</span><span class="dv">1</span>, <span class="at">at=</span><span class="fu">seq</span>(<span class="dv">0</span>,g_range[<span class="dv">2</span>],<span class="at">by=</span><span class="dv">20</span>))</span>
+<span id="cb32-4"><a href="#cb32-4" tabindex="-1"></a><span class="fu">box</span>()</span></code></pre></div>
+<p><img src="graphs_files/figure-html/unnamed-chunk-29-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>And add back our control using the <code>line</code> argument.</p>
+<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" tabindex="-1"></a><span class="fu">plot</span>(treatment, <span class="at">type=</span><span class="st">&quot;o&quot;</span>, <span class="at">col=</span><span class="st">&quot;blue&quot;</span>, <span class="at">ylim=</span>g_range, <span class="at">axes=</span><span class="cn">FALSE</span>, <span class="at">ann=</span><span class="cn">FALSE</span>)</span>
+<span id="cb33-2"><a href="#cb33-2" tabindex="-1"></a><span class="fu">axis</span>(<span class="at">side=</span><span class="dv">1</span>, <span class="at">at=</span><span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>, <span class="at">lab=</span><span class="fu">c</span>(<span class="st">&quot;Mon&quot;</span>,<span class="st">&quot;Tue&quot;</span>,<span class="st">&quot;Wed&quot;</span>,<span class="st">&quot;Thu&quot;</span>,<span class="st">&quot;Fri&quot;</span>,<span class="st">&quot;Sat&quot;</span>))</span>
+<span id="cb33-3"><a href="#cb33-3" tabindex="-1"></a><span class="fu">axis</span>(<span class="dv">2</span>, <span class="at">las=</span><span class="dv">1</span>, <span class="at">at=</span><span class="fu">seq</span>(<span class="dv">0</span>,g_range[<span class="dv">2</span>],<span class="at">by=</span><span class="dv">20</span>))</span>
+<span id="cb33-4"><a href="#cb33-4" tabindex="-1"></a><span class="fu">lines</span>(control, <span class="at">type=</span><span class="st">&quot;o&quot;</span>, <span class="at">pch=</span><span class="dv">22</span>, <span class="at">lty=</span><span class="dv">2</span>, <span class="at">col=</span><span class="st">&quot;red&quot;</span>)</span>
+<span id="cb33-5"><a href="#cb33-5" tabindex="-1"></a><span class="fu">box</span>()</span></code></pre></div>
+<p><img src="graphs_files/figure-html/unnamed-chunk-30-1.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="legends" class="section level3">
+<h3>Legends</h3>
+<p>Finally we may wish to add a legend to out plot. We can add a legend
+to current plot using the <code>legend()</code> function. We need to
+specify where to place legend in plot, the names in legend to
+<code>legend</code> argument and any additional point/line type
+configuration we used e.g the color and shape.</p>
+<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" tabindex="-1"></a><span class="fu">plot</span>(treatment, <span class="at">type=</span><span class="st">&quot;o&quot;</span>, <span class="at">col=</span><span class="st">&quot;blue&quot;</span>, <span class="at">ylim=</span>g_range, <span class="at">axes=</span><span class="cn">FALSE</span>, <span class="at">ann=</span><span class="cn">FALSE</span>)</span>
+<span id="cb34-2"><a href="#cb34-2" tabindex="-1"></a><span class="fu">axis</span>(<span class="at">side=</span><span class="dv">1</span>, <span class="at">at=</span><span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>, <span class="at">lab=</span><span class="fu">c</span>(<span class="st">&quot;Mon&quot;</span>,<span class="st">&quot;Tue&quot;</span>,<span class="st">&quot;Wed&quot;</span>,<span class="st">&quot;Thu&quot;</span>,<span class="st">&quot;Fri&quot;</span>,<span class="st">&quot;Sat&quot;</span>))</span>
+<span id="cb34-3"><a href="#cb34-3" tabindex="-1"></a><span class="fu">axis</span>(<span class="dv">2</span>, <span class="at">las=</span><span class="dv">1</span>, <span class="at">at=</span><span class="fu">seq</span>(<span class="dv">0</span>,g_range[<span class="dv">2</span>],<span class="at">by=</span><span class="dv">20</span>))</span>
+<span id="cb34-4"><a href="#cb34-4" tabindex="-1"></a><span class="fu">box</span>()</span>
+<span id="cb34-5"><a href="#cb34-5" tabindex="-1"></a></span>
+<span id="cb34-6"><a href="#cb34-6" tabindex="-1"></a><span class="fu">legend</span>(<span class="st">&quot;topleft&quot;</span>,<span class="at">legend=</span><span class="fu">c</span>(<span class="st">&quot;treatment&quot;</span>,<span class="st">&quot;control&quot;</span>), <span class="at">col=</span><span class="fu">c</span>(<span class="st">&quot;blue&quot;</span>,<span class="st">&quot;red&quot;</span>), <span class="at">pch=</span><span class="dv">21</span><span class="sc">:</span><span class="dv">22</span>, <span class="at">lty=</span><span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>) </span></code></pre></div>
+<p><img src="graphs_files/figure-html/unnamed-chunk-31-1.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="final" class="section level3">
+<h3>Final</h3>
+<p>In our line plot we have already done a good job of making it easier
+to differentiate the lines as we have different line styles and
+different shape points. Other things we can do is also differentiate
+thickness. To make that final plot you can see that there are many lines
+of code we put together.</p>
+<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" tabindex="-1"></a><span class="fu">plot</span>(treatment, <span class="at">type=</span><span class="st">&quot;o&quot;</span>, <span class="at">col=</span><span class="st">&quot;blue&quot;</span>, <span class="at">lwd=</span><span class="dv">1</span>, <span class="at">ylim=</span>g_range,<span class="at">axes=</span><span class="cn">FALSE</span>, <span class="at">ann=</span><span class="cn">FALSE</span>)</span>
+<span id="cb35-2"><a href="#cb35-2" tabindex="-1"></a><span class="fu">axis</span>(<span class="dv">1</span>, <span class="at">at=</span><span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>, <span class="at">lab=</span><span class="fu">c</span>(<span class="st">&quot;Mon&quot;</span>,<span class="st">&quot;Tue&quot;</span>,<span class="st">&quot;Wed&quot;</span>,<span class="st">&quot;Thu&quot;</span>,<span class="st">&quot;Fri&quot;</span>,<span class="st">&quot;Sat&quot;</span>))</span>
+<span id="cb35-3"><a href="#cb35-3" tabindex="-1"></a><span class="fu">axis</span>(<span class="dv">2</span>, <span class="at">las=</span><span class="dv">1</span>, <span class="at">at=</span><span class="dv">20</span><span class="sc">*</span><span class="dv">0</span><span class="sc">:</span>g_range[<span class="dv">2</span>])</span>
+<span id="cb35-4"><a href="#cb35-4" tabindex="-1"></a><span class="fu">box</span>()</span>
+<span id="cb35-5"><a href="#cb35-5" tabindex="-1"></a></span>
+<span id="cb35-6"><a href="#cb35-6" tabindex="-1"></a><span class="fu">lines</span>(control, <span class="at">type=</span><span class="st">&quot;o&quot;</span>, <span class="at">pch=</span><span class="dv">22</span>, <span class="at">lty=</span><span class="dv">2</span>, <span class="at">col=</span><span class="st">&quot;red&quot;</span>, <span class="at">lwd=</span><span class="fl">2.5</span>)</span>
+<span id="cb35-7"><a href="#cb35-7" tabindex="-1"></a><span class="fu">legend</span>(<span class="st">&quot;topleft&quot;</span>,<span class="at">legend=</span><span class="fu">c</span>(<span class="st">&quot;treatment&quot;</span>,<span class="st">&quot;control&quot;</span>),<span class="at">col=</span><span class="fu">c</span>(<span class="st">&quot;blue&quot;</span>,<span class="st">&quot;red&quot;</span>), <span class="at">pch=</span><span class="dv">21</span><span class="sc">:</span><span class="dv">22</span>, <span class="at">lty=</span><span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>, <span class="at">lwd=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="fl">2.5</span>))</span></code></pre></div>
+<p><img src="graphs_files/figure-html/unnamed-chunk-32-1.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="palettes" class="section level3">
+<h3>Palettes</h3>
+<p>~4% of people are color blind. In white males this number raises to
+~10%. Considering the demographics in science, there will likely be
+someone with color blindness in your meeting. Palette packages exist
+that contain a curated collection colors. These can be themed for
+anything, from La Croix flavors to Pokemon. A list of palettes can be
+found <a href="https://github.com/EmilHvitfeldt/paletteer">here</a>.
+Some of the more useful palettes are designed to be color blind
+friendly, like <code>viridis</code>. To get colors from the package you
+just have to call the function with the number of colors you want.</p>
+<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" tabindex="-1"></a><span class="co"># install.packages(&#39;viridis&#39;)</span></span>
+<span id="cb36-2"><a href="#cb36-2" tabindex="-1"></a><span class="fu">library</span>(viridis)</span>
+<span id="cb36-3"><a href="#cb36-3" tabindex="-1"></a><span class="fu">viridis</span>(<span class="dv">5</span>)</span></code></pre></div>
+<pre><code>## [1] &quot;#440154FF&quot; &quot;#3B528BFF&quot; &quot;#21908CFF&quot; &quot;#5DC863FF&quot; &quot;#FDE725FF&quot;</code></pre>
+</div>
+<div id="good-data-visualization" class="section level3">
+<h3>Good data visualization</h3>
+<p>There are often a trade offs in creating good plots.</p>
+<ul>
+<li>Is it easy to digest and accesible to everyone?</li>
+<li>Is it engaging and appealing?</li>
+<li>Does it contain all the information with nothing superfluous?</li>
+<li>Is it the best way to tell the story I want to tell?</li>
+</ul>
+<p><a href="https://clauswilke.com/dataviz/">Fundamentals of Data
+Visualization</a> by Claus O. Wilke is a good resource on the theory of
+making data visualizations the right way.</p>
+</div>
+</div>
+<div id="histograms" class="section level2">
+<h2>Histograms</h2>
+<p>Base graphics has a useful built-in function for histograms too. This
+is the <code>hist()</code> function, which just needs a numeric
+vector.</p>
+<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" tabindex="-1"></a><span class="fu">hist</span>(treatment)</span></code></pre></div>
+<p><img src="graphs_files/figure-html/unnamed-chunk-34-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>Similar customization exists as for other plots.</p>
+<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" tabindex="-1"></a><span class="fu">hist</span>(treatment, <span class="at">col=</span><span class="st">&quot;lightblue&quot;</span>, <span class="at">ylim=</span><span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">5</span>),<span class="at">cex.main=</span><span class="fl">0.8</span>)</span></code></pre></div>
+<p><img src="graphs_files/figure-html/unnamed-chunk-35-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>We can create more fine grained histogram by specify the number of
+required bins to the <code>breaks</code> argument.</p>
+<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>))</span>
+<span id="cb40-2"><a href="#cb40-2" tabindex="-1"></a><span class="fu">hist</span>(treatment, <span class="at">col=</span><span class="st">&quot;lightblue&quot;</span>, <span class="at">ylim=</span><span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">5</span>), <span class="at">cex.main=</span><span class="fl">0.8</span>, <span class="at">breaks =</span> <span class="dv">2</span>)</span>
+<span id="cb40-3"><a href="#cb40-3" tabindex="-1"></a><span class="fu">hist</span>(treatment, <span class="at">col=</span><span class="st">&quot;lightblue&quot;</span>, <span class="at">ylim=</span><span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">5</span>), <span class="at">cex.main=</span><span class="fl">0.8</span>, <span class="at">breaks =</span> <span class="dv">10</span>)</span></code></pre></div>
+<p><img src="graphs_files/figure-html/unnamed-chunk-36-1.png" width="672" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" tabindex="-1"></a><span class="fu">dev.off</span>()</span></code></pre></div>
+<pre><code>## null device 
+##           1</code></pre>
+</div>
+<div id="dot-charts" class="section level2">
+<h2>Dot charts</h2>
+<p>Base graphics also has a <code>dotchart()</code> function. Dot charts
+help compare <strong>paired</strong> data. First though we need to
+modify data to a matrix. As we are comparing in pairs as opposed to all
+control versus treatment, we use the function <code>t</code> to return
+the transpose of a matrix. This means rows are now columns and the
+columns are now rows.</p>
+<div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" tabindex="-1"></a>data<span class="ot">&lt;-</span><span class="fu">data.frame</span>(treatment, control)</span>
+<span id="cb43-2"><a href="#cb43-2" tabindex="-1"></a><span class="fu">row.names</span>(data)<span class="ot">&lt;-</span><span class="fu">c</span>(<span class="st">&quot;Mon&quot;</span>,<span class="st">&quot;Tue&quot;</span>,<span class="st">&quot;Wed&quot;</span>,<span class="st">&quot;Thu&quot;</span>,<span class="st">&quot;Fri&quot;</span>,<span class="st">&quot;Sat&quot;</span>)</span></code></pre></div>
+<p>The Cleveland plot on the transposed matrix:</p>
+<div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" tabindex="-1"></a><span class="fu">dotchart</span>(<span class="fu">as.matrix</span>(<span class="fu">t</span>(data)))</span></code></pre></div>
+<p><img src="graphs_files/figure-html/unnamed-chunk-38-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>Some customization:</p>
+<div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" tabindex="-1"></a><span class="fu">dotchart</span>(<span class="fu">as.matrix</span>(<span class="fu">t</span>(data)), <span class="at">color=</span><span class="fu">c</span>(<span class="st">&quot;red&quot;</span>,<span class="st">&quot;blue&quot;</span>),<span class="at">main=</span><span class="st">&quot;Dotchart&quot;</span>, <span class="at">cex=</span><span class="fl">0.5</span>)</span></code></pre></div>
+<p><img src="graphs_files/figure-html/unnamed-chunk-39-1.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="box-plots" class="section level2">
+<h2>Box plots</h2>
+<p>The final plot we will look at here is a box and whisker plot.
+Boxplots allow you to quickly review data distributions, showing the
+median and 1st/3rd quartile.</p>
+<div class="figure" style="text-align: center">
+<img src="illustrations/boxplot.png" alt="Introduction to boxplot" width="100%" />
+<p class="caption">
+Introduction to boxplot
+</p>
+</div>
+<p>First lets read some gene expression data</p>
+<div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" tabindex="-1"></a>exprs <span class="ot">&lt;-</span> <span class="fu">read.delim</span>(<span class="st">&quot;data/gene_data.txt&quot;</span>,<span class="at">sep=</span><span class="st">&quot;</span><span class="sc">\t</span><span class="st">&quot;</span>,<span class="at">h=</span>T,<span class="at">row.names =</span> <span class="dv">1</span>)</span>
+<span id="cb46-2"><a href="#cb46-2" tabindex="-1"></a><span class="fu">head</span>(exprs)</span></code></pre></div>
+<pre><code>##                    Untreated1 Untreated2  Treated1   Treated2
+## ENSDARG00000093639  0.8616832  1.9311442 0.1041508 0.14055604
+## ENSDARG00000094508  0.9857575  2.0256352 0.1549917 0.20301609
+## ENSDARG00000095893  0.8498889  1.9875580 0.2317969 0.20925123
+## ENSDARG00000095252  0.9242996  2.0857620 0.2562264 0.24669079
+## ENSDARG00000078878  0.3571734  0.4653908 0.1167221 0.09710237
+## ENSDARG00000079403  1.0604071  1.2581398 0.3884836 0.31567299</code></pre>
+<p>Now we can use the <code>boxplot()</code> function on our data.frame
+to get our boxplot</p>
+<div class="sourceCode" id="cb48"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" tabindex="-1"></a><span class="fu">boxplot</span>(exprs)</span></code></pre></div>
+<p><img src="graphs_files/figure-html/unnamed-chunk-42-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>This plot would look better on a log scale. We can add addition
+colors and labels as with other plots.</p>
+<div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" tabindex="-1"></a><span class="fu">boxplot</span>(<span class="fu">log2</span>(exprs),<span class="at">ylab=</span><span class="st">&quot;log2 Expression&quot;</span>, <span class="at">col=</span><span class="fu">c</span>(<span class="st">&quot;red&quot;</span>,<span class="st">&quot;red&quot;</span>,<span class="st">&quot;blue&quot;</span>,<span class="st">&quot;blue&quot;</span>))</span></code></pre></div>
+<p><img src="graphs_files/figure-html/unnamed-chunk-43-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>Check at <code>?boxplot</code>. <code>x</code> can be a formula of
+the type <code>y ~ grp</code> where <code>y</code> is a numeric vector
+of data values to be split into groups according to the grouping
+variable <code>grp</code> (usually a factor).</p>
+<div class="sourceCode" id="cb50"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1" tabindex="-1"></a><span class="fu">boxplot</span>(len <span class="sc">~</span> dose, <span class="at">data =</span> ToothGrowth,</span>
+<span id="cb50-2"><a href="#cb50-2" tabindex="-1"></a>        <span class="at">boxwex =</span> <span class="fl">0.25</span>, <span class="at">at =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">3</span> <span class="sc">-</span> <span class="fl">0.2</span>,</span>
+<span id="cb50-3"><a href="#cb50-3" tabindex="-1"></a>        <span class="at">horizontal=</span>T, <span class="at">las=</span> <span class="dv">1</span>,</span>
+<span id="cb50-4"><a href="#cb50-4" tabindex="-1"></a>        <span class="at">subset =</span> supp <span class="sc">==</span> <span class="st">&quot;VC&quot;</span>, <span class="at">col =</span> <span class="st">&quot;yellow&quot;</span>,</span>
+<span id="cb50-5"><a href="#cb50-5" tabindex="-1"></a>        <span class="at">main =</span> <span class="st">&quot;Guinea Pigs&#39; Tooth Growth&quot;</span>,</span>
+<span id="cb50-6"><a href="#cb50-6" tabindex="-1"></a>        <span class="at">xlab =</span> <span class="st">&quot;tooth length&quot;</span>,</span>
+<span id="cb50-7"><a href="#cb50-7" tabindex="-1"></a>        <span class="at">ylab =</span> <span class="st">&quot;Vitamin C dose mg&quot;</span>,</span>
+<span id="cb50-8"><a href="#cb50-8" tabindex="-1"></a>        <span class="at">xlim =</span> <span class="fu">c</span>(<span class="fl">0.5</span>, <span class="fl">3.5</span>), <span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">35</span>), <span class="at">yaxs=</span><span class="st">&#39;i&#39;</span>)</span></code></pre></div>
+<p><img src="graphs_files/figure-html/unnamed-chunk-44-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>Note that by default the specified ranges of a plot are enlarged by
+6%, so that the specified values do not lie at the very edges of the
+plot region. This is appropriate for most types of plot, but sometimes
+we want the specified limits to lie at the edges of the plot window.
+This can be specified separately for each axis using the arguments
+<code>xaxs='i'</code> and <code>yaxs='i'</code>.</p>
+</div>
+<div id="extra-elements" class="section level2">
+<h2>Extra elements</h2>
+<div id="text" class="section level3">
+<h3>Text</h3>
+<p>Custom text can be added to you plot using the <code>text</code>
+function. Simply provide the position and the label. You can use the
+data itself to label data points. The <code>adj</code> argument allows
+you to nudge the annotation a constant amount away from the defined
+position. Any labels to be added to the margin need to use
+<code>mtext</code> instead.</p>
+<div class="sourceCode" id="cb51"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1" tabindex="-1"></a><span class="fu">plot</span>(control, treatment)</span>
+<span id="cb51-2"><a href="#cb51-2" tabindex="-1"></a><span class="fu">text</span>(<span class="dv">20</span>,<span class="dv">60</span>, <span class="st">&#39;THIS AREA OF </span><span class="sc">\n</span><span class="st"> THE PLOT HAS </span><span class="sc">\n</span><span class="st"> NO SAMPLE&#39;</span>, <span class="at">col=</span><span class="st">&#39;red&#39;</span>)</span>
+<span id="cb51-3"><a href="#cb51-3" tabindex="-1"></a><span class="fu">text</span>(control, treatment, letters[<span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>], <span class="at">adj=</span><span class="fu">c</span>(<span class="dv">0</span>,<span class="sc">-</span><span class="dv">1</span>), <span class="at">col=</span><span class="st">&#39;blue&#39;</span>)</span></code></pre></div>
+<p><img src="graphs_files/figure-html/unnamed-chunk-45-1.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="lines" class="section level3">
+<h3>Lines</h3>
+<p><code>abline</code> allows you to add specific straight lines. This
+is often useful to help demonstrate known linear relationships or
+thresholds as reference points for your data. <code>h</code> =
+horizontal line with y-intercept <code>v</code> = vertical line with
+x-intercept <code>a</code>,<code>b</code> = intercept and slope.</p>
+<div class="sourceCode" id="cb52"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1" tabindex="-1"></a><span class="fu">plot</span>(control, treatment)</span>
+<span id="cb52-2"><a href="#cb52-2" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">h=</span><span class="dv">10</span>, <span class="at">col=</span><span class="st">&#39;blue&#39;</span>)</span>
+<span id="cb52-3"><a href="#cb52-3" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">v=</span><span class="dv">50</span>, <span class="at">col=</span><span class="st">&#39;red&#39;</span>, <span class="at">lwd=</span><span class="dv">2</span>)</span>
+<span id="cb52-4"><a href="#cb52-4" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">a=</span><span class="dv">0</span>, <span class="at">b=</span><span class="dv">1</span>, <span class="at">lty=</span><span class="dv">2</span>)</span></code></pre></div>
+<p><img src="graphs_files/figure-html/unnamed-chunk-46-1.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="shapes" class="section level3">
+<h3>Shapes</h3>
+<p><code>polygon</code> allows you to draw specific polygons. You just
+need to give it the coordinates of each vertex. Again this is often to
+highlight specific parts of the plot. This can be filled, or if you give
+the denisty argument there will be a hash fill.</p>
+<div class="sourceCode" id="cb53"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1" tabindex="-1"></a><span class="fu">plot</span>(control, treatment)</span>
+<span id="cb53-2"><a href="#cb53-2" tabindex="-1"></a><span class="fu">polygon</span>(<span class="fu">c</span>(<span class="dv">50</span>,<span class="dv">50</span>,<span class="dv">100</span>,<span class="dv">100</span>),<span class="fu">c</span>(<span class="dv">50</span>,<span class="dv">80</span>,<span class="dv">80</span>,<span class="dv">50</span>), <span class="at">col=</span><span class="st">&#39;gray&#39;</span>, <span class="at">density=</span><span class="dv">5</span>)</span></code></pre></div>
+<p><img src="graphs_files/figure-html/unnamed-chunk-47-1.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+</div>
+<div id="saving" class="section level2">
+<h2>Saving</h2>
+<p>There are many different ways of saving your plots in R. The easiest
+way is to use the export button in the plot pane in RStudio. This is not
+good reproducible practice though as the code is not tied to the
+plot.</p>
+<p>To save plots through the console, the argument you would need is
+name of file in which you want to save the plot. Plotting commands then
+can be entered as usual. The output would be redirected to the file.</p>
+<div class="sourceCode" id="cb54"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1" tabindex="-1"></a><span class="fu">bmp</span>(filename, <span class="at">width =</span> <span class="dv">480</span>, <span class="at">height =</span> <span class="dv">480</span>, <span class="at">units =</span> <span class="st">&quot;px&quot;</span>, </span>
+<span id="cb54-2"><a href="#cb54-2" tabindex="-1"></a>    <span class="at">pointsize =</span> <span class="dv">12</span>)</span>
+<span id="cb54-3"><a href="#cb54-3" tabindex="-1"></a><span class="fu">jpeg</span>(filename, <span class="at">width =</span> <span class="dv">480</span>, <span class="at">height =</span> <span class="dv">480</span>, <span class="at">units =</span> <span class="st">&quot;px&quot;</span>, </span>
+<span id="cb54-4"><a href="#cb54-4" tabindex="-1"></a>     <span class="at">pointsize  =</span> <span class="dv">12</span>, <span class="at">quality =</span> <span class="dv">75</span>)</span></code></pre></div>
+<p>When you’re done with your plotting commands, enter the
+<code>dev.off()</code> command.</p>
+<div id="saving-in-bitmap-format" class="section level3">
+<h3>Saving in bitmap format</h3>
+<div class="sourceCode" id="cb55"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb55-1"><a href="#cb55-1" tabindex="-1"></a><span class="fu">bmp</span>(<span class="at">file =</span> <span class="st">&quot;outputs/control.bmp&quot;</span>)</span>
+<span id="cb55-2"><a href="#cb55-2" tabindex="-1"></a><span class="fu">plot</span>(control)</span>
+<span id="cb55-3"><a href="#cb55-3" tabindex="-1"></a><span class="fu">dev.off</span>()</span></code></pre></div>
+<pre><code>## png 
+##   2</code></pre>
+</div>
+<div id="saving-in-jpeg-format" class="section level3">
+<h3>Saving in jpeg format</h3>
+<div class="sourceCode" id="cb57"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb57-1"><a href="#cb57-1" tabindex="-1"></a><span class="fu">jpeg</span>(<span class="at">file =</span> <span class="st">&quot;control.jpg&quot;</span>, <span class="at">quality =</span> <span class="dv">20</span>)</span>
+<span id="cb57-2"><a href="#cb57-2" tabindex="-1"></a><span class="fu">plot</span>(control)</span>
+<span id="cb57-3"><a href="#cb57-3" tabindex="-1"></a><span class="fu">dev.off</span>()</span></code></pre></div>
+<pre><code>## png 
+##   2</code></pre>
+</div>
+<div id="saving-in-postscript-format" class="section level3">
+<h3>Saving in postscript format</h3>
+<div class="sourceCode" id="cb59"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb59-1"><a href="#cb59-1" tabindex="-1"></a><span class="fu">postscript</span>(<span class="at">file =</span> <span class="st">&quot;control.ps&quot;</span>)</span>
+<span id="cb59-2"><a href="#cb59-2" tabindex="-1"></a><span class="fu">plot</span>(control)</span>
+<span id="cb59-3"><a href="#cb59-3" tabindex="-1"></a><span class="fu">dev.off</span>()</span></code></pre></div>
+<pre><code>## png 
+##   2</code></pre>
+</div>
+<div id="saving-in-pdf-format" class="section level3">
+<h3>Saving in pdf format</h3>
+<p>PDFs are maybe the most useful format to export into. PDFs are
+vector-based so each part of the plot is saved as scalable coordinates
+as opposed to specific pixels.</p>
+<p>PDFs can then be opened in imaging software like illustrator or <a
+href="https://inkscape.org/">inkscape</a> (this is a open source and
+free software). When you open a PDF in these programs you can fully
+customize the plots to your aesthetic with a graphic user interface.
+Furthermore as they are vector-based, they can be easily assembled into
+publication quality figures without resolution issues and
+pixelation.</p>
+<div class="sourceCode" id="cb61"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb61-1"><a href="#cb61-1" tabindex="-1"></a><span class="fu">pdf</span>(<span class="at">file =</span> <span class="st">&quot;control.pdf&quot;</span>, <span class="at">paper =</span> <span class="st">&quot;A4&quot;</span>)</span>
+<span id="cb61-2"><a href="#cb61-2" tabindex="-1"></a><span class="fu">plot</span>(control)</span>
+<span id="cb61-3"><a href="#cb61-3" tabindex="-1"></a><span class="fu">dev.off</span>()</span></code></pre></div>
+<pre><code>## png 
+##   2</code></pre>
+<p class="comment">
+<strong>Practice 5.1</strong> Using the <code>iris</code> dataset,
+reproduce the plot below. Explore the function <code>pairs</code>
+allowing to generate a matrix of scatter plots.
+</p>
+<div class="figure" style="text-align: center">
+<img src="illustrations/iris-plot.png" alt="A refined scatter plot using base R graphics" width="50%" />
+<p class="caption">
+A refined scatter plot using base R graphics
+</p>
+</div>
+</div>
+</div>
+</div>
+<div id="ggplot2" class="section level1">
+<h1><code>ggplot2</code></h1>
+<p>The R language has extensive graphical capabilities. Graphics in R
+may be created by many different methods including <code>base</code>
+graphics and more advanced plotting packages such as
+<code>lattice</code>.</p>
+<div class="figure" style="text-align: center">
+<img src="illustrations/base-lattice.jfif" alt="A refined scatter plot using base R graphics" width="50%" />
+<p class="caption">
+A refined scatter plot using base R graphics
+</p>
+</div>
+<p>The <code>ggplot2</code> package was created by Hadley Wickham to
+provide an intuitive plotting system to rapidly generate publication
+quality graphics. <code>ggplot2</code> builds on the concept of the
+<strong>“Grammar of Graphics”</strong> (Wilkinson 2005, Bertin 1983)
+which describes a consistent syntax for the construction of a wide range
+of complex graphics by a concise description of their components.
+<code>ggplot2</code> is a core part of the <strong>Tidyverse</strong>,
+the group of packages designed to make data science easy and functional
+in R. To get an introduction to the core concepts of Tidyverse check out
+previous materials on <code>tidyr</code> and <code>dplyr</code>.</p>
+<p>For an extensive gide on <code>ggplot2</code> please refer to
+<strong>R graphics Cookbook</strong> by Winston Chang available <a
+href="https://r-graphics.org/">HERE</a>.</p>
+<div id="why-use-ggplot2" class="section level2">
+<h2>Why use <code>ggplot2</code>?</h2>
+<p>The structured syntax and high level of abstraction used by ggplot2
+should allow for the user to concentrate on the visualizations instead
+of creating the underlying code. On top of this central philosophy
+<code>ggplot2</code> has:</p>
+<ul>
+<li>Increased flexible over many plotting systems.</li>
+<li>An advanced theme system for professional/publication level
+graphics.</li>
+<li>Large developer base – Many libraries extending its
+flexibility.</li>
+<li>Large user base – Great documentation and active mailing list.</li>
+</ul>
+</div>
+<div id="grammar-of-graphics" class="section level2">
+<h2>Grammar of graphics</h2>
+<div id="how-ggplot-builds-a-plot." class="section level3">
+<h3>How <code>ggplot</code> builds a plot.</h3>
+<p>A plot in <code>ggplot2</code> consists of different <strong>primary
+layering components</strong>, with the three primary components
+being:</p>
+<ul>
+<li>The <strong>dataset</strong> that houses the data to be plotted. The
+<em>data</em> is what we want to visualize. It consists of variables,
+which are stored as columns in a data frame.</li>
+<li>The <strong>aesthetics</strong> which describe how data are to be
+mapped to the geometric elements (color, shape, size, etc..). Aesthetic
+attributes, or <em>aesthetics</em>, are visual properties of
+<strong>geoms</strong>, such as x and y position, line color, point
+shapes, etc. There are <em>mappings</em> from data values to
+aesthetics.</li>
+<li>The <strong>geometric elements</strong> to use in the plot
+(i.e. points, lines, rectangles, etc…). <em>Geoms</em> are the geometric
+objects that are drawn to represent the data, such as bars, lines, and
+points.</li>
+</ul>
+<p><strong>Additional (optional) layering components</strong>
+include:</p>
+<ul>
+<li><strong>Statistical</strong> elements such as smoothing, binning or
+transforming the variable</li>
+<li><strong>Scales</strong> control the mapping from the values in the
+data space to values in the aesthetic space.</li>
+<li><strong>Guides</strong> show the viewer how to map the visual
+properties back to the data space. The most commonly used guides are the
+tick marks and labels on an axis.</li>
+<li><strong>Facets</strong> for conditional or trellis plots</li>
+<li><strong>Coordinate systems</strong> for defining the plots shape
+(i.e. Cartesian, polar, spatial map projections, etc…)</li>
+</ul>
+<div class="figure" style="text-align: center">
+<img src="illustrations/ggplot-map.jfif" alt="A refined scatter plot using base R graphics" width="50%" />
+<p class="caption">
+A refined scatter plot using base R graphics
+</p>
+</div>
+</div>
+<div id="overview-of-a-scatter-plot" class="section level3">
+<h3>Overview of a scatter plot</h3>
+<p>Overview of example code for a <code>ggplot2</code> scatter plot.</p>
+<div class="sourceCode" id="cb63"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb63-1"><a href="#cb63-1" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> <span class="sc">&lt;</span>default data set<span class="sc">&gt;</span>, </span>
+<span id="cb63-2"><a href="#cb63-2" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">x =</span> <span class="sc">&lt;</span>default x axis variable<span class="sc">&gt;</span>,</span>
+<span id="cb63-3"><a href="#cb63-3" tabindex="-1"></a>           <span class="at">y =</span> <span class="sc">&lt;</span>default y axis variable<span class="sc">&gt;</span>,</span>
+<span id="cb63-4"><a href="#cb63-4" tabindex="-1"></a>           ... <span class="sc">&lt;</span>other default aesthetic mappings<span class="sc">&gt;</span>),</span>
+<span id="cb63-5"><a href="#cb63-5" tabindex="-1"></a>       ... <span class="sc">&lt;</span>other plot defaults<span class="sc">&gt;</span>) <span class="sc">+</span></span>
+<span id="cb63-6"><a href="#cb63-6" tabindex="-1"></a></span>
+<span id="cb63-7"><a href="#cb63-7" tabindex="-1"></a>       <span class="fu">geom_scatter</span>(<span class="fu">aes</span>(<span class="at">size =</span> <span class="sc">&lt;</span>size variable <span class="cf">for</span> this geom<span class="sc">&gt;</span>, </span>
+<span id="cb63-8"><a href="#cb63-8" tabindex="-1"></a>                      ... <span class="sc">&lt;</span>other aesthetic mappings<span class="sc">&gt;</span>),</span>
+<span id="cb63-9"><a href="#cb63-9" tabindex="-1"></a>                  <span class="at">data =</span> <span class="sc">&lt;</span>data <span class="cf">for</span> this point geom<span class="sc">&gt;</span>,</span>
+<span id="cb63-10"><a href="#cb63-10" tabindex="-1"></a>                  <span class="at">stat =</span> <span class="sc">&lt;</span>statistic string or <span class="cf">function</span><span class="sc">&gt;</span>,</span>
+<span id="cb63-11"><a href="#cb63-11" tabindex="-1"></a>                  <span class="at">position =</span> <span class="sc">&lt;</span>position string or <span class="cf">function</span><span class="sc">&gt;</span>,</span>
+<span id="cb63-12"><a href="#cb63-12" tabindex="-1"></a>                  <span class="at">color =</span> <span class="sc">&lt;</span><span class="st">&quot;fixed color specification&quot;</span><span class="sc">&gt;</span>,</span>
+<span id="cb63-13"><a href="#cb63-13" tabindex="-1"></a>                  <span class="sc">&lt;</span>other arguments, possibly passed to the _stat_ <span class="cf">function</span>) <span class="sc">+</span></span>
+<span id="cb63-14"><a href="#cb63-14" tabindex="-1"></a></span>
+<span id="cb63-15"><a href="#cb63-15" tabindex="-1"></a>  scale_<span class="sc">&lt;</span>aesthetic<span class="sc">&gt;</span>_<span class="sc">&lt;</span>type<span class="sc">&gt;</span>(<span class="at">name =</span> <span class="sc">&lt;</span><span class="st">&quot;scale label&quot;</span><span class="sc">&gt;</span>,</span>
+<span id="cb63-16"><a href="#cb63-16" tabindex="-1"></a>                     <span class="at">breaks =</span> <span class="sc">&lt;</span>where to put tick marks<span class="sc">&gt;</span>,</span>
+<span id="cb63-17"><a href="#cb63-17" tabindex="-1"></a>                     <span class="at">labels =</span> <span class="sc">&lt;</span>labels <span class="cf">for</span> tick marks<span class="sc">&gt;</span>,</span>
+<span id="cb63-18"><a href="#cb63-18" tabindex="-1"></a>                     ... <span class="sc">&lt;</span>other options <span class="cf">for</span> the scale<span class="sc">&gt;</span>) <span class="sc">+</span></span>
+<span id="cb63-19"><a href="#cb63-19" tabindex="-1"></a>  </span>
+<span id="cb63-20"><a href="#cb63-20" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">&quot;Graphics/Plot&quot;</span>)<span class="sc">+</span></span>
+<span id="cb63-21"><a href="#cb63-21" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">&quot;Weight&quot;</span>)<span class="sc">+</span></span>
+<span id="cb63-22"><a href="#cb63-22" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">&quot;Height&quot;</span>)<span class="sc">+</span></span>
+<span id="cb63-23"><a href="#cb63-23" tabindex="-1"></a></span>
+<span id="cb63-24"><a href="#cb63-24" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">color =</span> <span class="st">&quot;gray&quot;</span>),</span>
+<span id="cb63-25"><a href="#cb63-25" tabindex="-1"></a>        ... <span class="sc">&lt;</span>other theme elements<span class="sc">&gt;</span>)</span></code></pre></div>
+<p>Don’t panic, you usually specify only a subset of arguments.</p>
+<div class="figure" style="text-align: center">
+<img src="illustrations/ggplot-map-simple.jfif" alt="A refined scatter plot using base R graphics" width="50%" />
+<p class="caption">
+A refined scatter plot using base R graphics
+</p>
+</div>
+</div>
+<div id="example" class="section level3">
+<h3>Example</h3>
+<p>As seen above, in order to produce a ggplot2 graph we need a minimum
+of:</p>
+<ul>
+<li>Data to be used in graph</li>
+<li>Mappings of data to the graph (aesthetic mapping)</li>
+<li>What type of graph we want to use (The geom to use).</li>
+</ul>
+<p>In the code below we define the data as our <code>iris</code> data
+frame.</p>
+<div class="sourceCode" id="cb64"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb64-1"><a href="#cb64-1" tabindex="-1"></a>ggiris <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data=</span>iris)</span>
+<span id="cb64-2"><a href="#cb64-2" tabindex="-1"></a><span class="fu">class</span>(ggiris)</span></code></pre></div>
+<pre><code>## [1] &quot;gg&quot;     &quot;ggplot&quot;</code></pre>
+<div class="sourceCode" id="cb66"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb66-1"><a href="#cb66-1" tabindex="-1"></a>ggiris<span class="sc">$</span>data[<span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>,]</span></code></pre></div>
+<pre><code>##   Sepal.Length Sepal.Width Petal.Length Petal.Width Species
+## 1          5.1         3.5          1.4         0.2  setosa
+## 2          4.9         3.0          1.4         0.2  setosa
+## 3          4.7         3.2          1.3         0.2  setosa
+## 4          4.6         3.1          1.5         0.2  setosa</code></pre>
+<p>Now we can see that we have gg/ggplot object (<code>ggiris</code>).
+Within this gg/ggplot object the data has been defined, however
+important information on how to map the data to the visual properties
+(aesthetics) of the plot as well as what type of plot to use (geom) have
+however yet to specified.</p>
+<div class="sourceCode" id="cb68"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb68-1"><a href="#cb68-1" tabindex="-1"></a>ggiris<span class="sc">$</span>mapping</span></code></pre></div>
+<pre><code>## Aesthetic mapping: 
+## &lt;empty&gt;</code></pre>
+<div class="sourceCode" id="cb70"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb70-1"><a href="#cb70-1" tabindex="-1"></a>ggiris<span class="sc">$</span>theme</span></code></pre></div>
+<pre><code>## list()</code></pre>
+<div class="sourceCode" id="cb72"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb72-1"><a href="#cb72-1" tabindex="-1"></a>ggiris<span class="sc">$</span>layers</span></code></pre></div>
+<pre><code>## list()</code></pre>
+<p>The information to map the data to the plot can be added now using
+the <code>aes()</code> function.</p>
+<div class="sourceCode" id="cb74"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb74-1"><a href="#cb74-1" tabindex="-1"></a>ggiris <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data=</span>iris)</span>
+<span id="cb74-2"><a href="#cb74-2" tabindex="-1"></a>ggiris2 <span class="ot">&lt;-</span> ggiris<span class="sc">+</span><span class="fu">aes</span>(<span class="at">x=</span>Petal.Length,<span class="at">y=</span>Petal.Width)</span>
+<span id="cb74-3"><a href="#cb74-3" tabindex="-1"></a>ggiris2<span class="sc">$</span>mapping</span></code></pre></div>
+<pre><code>## Aesthetic mapping: 
+## * `x` -&gt; `Petal.Length`
+## * `y` -&gt; `Petal.Width`</code></pre>
+<div class="sourceCode" id="cb76"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb76-1"><a href="#cb76-1" tabindex="-1"></a>ggiris2<span class="sc">$</span>theme</span></code></pre></div>
+<pre><code>## list()</code></pre>
+<div class="sourceCode" id="cb78"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb78-1"><a href="#cb78-1" tabindex="-1"></a>ggiris2<span class="sc">$</span>layers</span></code></pre></div>
+<pre><code>## list()</code></pre>
+<p>But we are still missing the final component of our plot, the type of
+plot to use (geom). Below the <code>geom_point</code> function is used
+to specify a point plot, a scatter plot of <em>Lenght</em> values on the
+x-axis versus <em>Width</em> values on the y values.</p>
+<div class="sourceCode" id="cb80"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb80-1"><a href="#cb80-1" tabindex="-1"></a>ggiris <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data=</span>iris)</span>
+<span id="cb80-2"><a href="#cb80-2" tabindex="-1"></a>ggiris2 <span class="ot">&lt;-</span> ggiris<span class="sc">+</span><span class="fu">aes</span>(<span class="at">x=</span>Petal.Length,<span class="at">y=</span>Petal.Width)</span>
+<span id="cb80-3"><a href="#cb80-3" tabindex="-1"></a>ggiris3 <span class="ot">&lt;-</span> ggiris2<span class="sc">+</span><span class="fu">geom_point</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb81"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb81-1"><a href="#cb81-1" tabindex="-1"></a>ggiris3<span class="sc">$</span>mapping</span></code></pre></div>
+<pre><code>## Aesthetic mapping: 
+## * `x` -&gt; `Petal.Length`
+## * `y` -&gt; `Petal.Width`</code></pre>
+<div class="sourceCode" id="cb83"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb83-1"><a href="#cb83-1" tabindex="-1"></a>ggiris3<span class="sc">$</span>theme</span></code></pre></div>
+<pre><code>## list()</code></pre>
+<div class="sourceCode" id="cb85"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb85-1"><a href="#cb85-1" tabindex="-1"></a>ggiris3<span class="sc">$</span>layers</span></code></pre></div>
+<pre><code>## [[1]]
+## geom_point: na.rm = FALSE
+## stat_identity: na.rm = FALSE
+## position_identity</code></pre>
+<p>Now we have all the components of our plot, we need we can display
+the results.</p>
+<div class="sourceCode" id="cb87"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb87-1"><a href="#cb87-1" tabindex="-1"></a>ggiris3</span></code></pre></div>
+<p><img src="graphs_files/figure-html/unnamed-chunk-69-1.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="geoms" class="section level3">
+<h3>Geoms</h3>
+<p>More typically, the data and aesthetics are defined within ggplot
+function and geoms applied afterwards. This makes it easier to switch
+between plot types to find the best way to visualize your data.</p>
+<div class="sourceCode" id="cb88"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb88-1"><a href="#cb88-1" tabindex="-1"></a>ggiris3 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data=</span>iris,</span>
+<span id="cb88-2"><a href="#cb88-2" tabindex="-1"></a>                 <span class="at">mapping=</span><span class="fu">aes</span>(<span class="at">x=</span>Petal.Length,<span class="at">y=</span>Petal.Width))</span>
+<span id="cb88-3"><a href="#cb88-3" tabindex="-1"></a>ggiris3<span class="sc">+</span><span class="fu">geom_point</span>()</span></code></pre></div>
+<p><img src="graphs_files/figure-html/unnamed-chunk-70-1.png" width="672" /></p>
+<p>There are many geoms available in ggplot2:</p>
+<ul>
+<li><code>geom_point()</code> - Scatter plots</li>
+<li><code>geom_line()</code> - Line plots</li>
+<li><code>geom_smooth()</code> - Fitted line plots</li>
+<li><code>geom_bar()</code> - Bar plots</li>
+<li><code>geom_boxplot()</code> - Boxplots</li>
+<li><code>geom_jitter()</code> - Jitter to plots</li>
+<li><code>geom_histogram()</code> - Histogram plots</li>
+<li><code>geom_density()</code> - Density plots</li>
+<li><code>geom_text()</code> - Text to plots</li>
+<li><code>geom_errorbar()</code> - Errorbars to plots</li>
+<li><code>geom_violin()</code> - Violin plots</li>
+</ul>
+<div id="line-plots" class="section level4">
+<h4>Line plots</h4>
+<div class="sourceCode" id="cb89"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb89-1"><a href="#cb89-1" tabindex="-1"></a>ggiris_line<span class="ot">&lt;-</span> ggiris3 <span class="sc">+</span> <span class="fu">geom_line</span>()</span>
+<span id="cb89-2"><a href="#cb89-2" tabindex="-1"></a>ggiris_line</span></code></pre></div>
+<p><img src="graphs_files/figure-html/unnamed-chunk-71-1.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="smoothed-line-plots" class="section level4">
+<h4>Smoothed line plots</h4>
+<div class="sourceCode" id="cb90"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb90-1"><a href="#cb90-1" tabindex="-1"></a>ggiris_smooth<span class="ot">&lt;-</span> ggiris3 <span class="sc">+</span> <span class="fu">geom_smooth</span>()</span>
+<span id="cb90-2"><a href="#cb90-2" tabindex="-1"></a>ggiris_smooth</span></code></pre></div>
+<pre><code>## `geom_smooth()` using method = &#39;loess&#39; and formula = &#39;y ~ x&#39;</code></pre>
+<p><img src="graphs_files/figure-html/unnamed-chunk-72-1.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="bar-plots" class="section level4">
+<h4>Bar plots</h4>
+<div class="sourceCode" id="cb92"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb92-1"><a href="#cb92-1" tabindex="-1"></a>ggiris_bar<span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data=</span>iris, <span class="at">mapping=</span><span class="fu">aes</span>(<span class="at">x=</span>Species))</span>
+<span id="cb92-2"><a href="#cb92-2" tabindex="-1"></a>ggiris_bar2<span class="ot">&lt;-</span> ggiris_bar <span class="sc">+</span> <span class="fu">geom_bar</span>()</span>
+<span id="cb92-3"><a href="#cb92-3" tabindex="-1"></a>ggiris_bar2</span></code></pre></div>
+<p><img src="graphs_files/figure-html/unnamed-chunk-73-1.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="histograms-1" class="section level4">
+<h4>Histograms</h4>
+<div class="sourceCode" id="cb93"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb93-1"><a href="#cb93-1" tabindex="-1"></a>ggiris_hist <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data=</span>iris,</span>
+<span id="cb93-2"><a href="#cb93-2" tabindex="-1"></a>        <span class="at">mapping=</span><span class="fu">aes</span>(<span class="at">x=</span>Petal.Length))</span>
+<span id="cb93-3"><a href="#cb93-3" tabindex="-1"></a>ggiris_hist2 <span class="ot">&lt;-</span> ggiris_hist <span class="sc">+</span> <span class="fu">geom_histogram</span>() </span>
+<span id="cb93-4"><a href="#cb93-4" tabindex="-1"></a>ggiris_hist2</span></code></pre></div>
+<pre><code>## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</code></pre>
+<p><img src="graphs_files/figure-html/unnamed-chunk-74-1.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="density-plots" class="section level4">
+<h4>Density plots</h4>
+<div class="sourceCode" id="cb95"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb95-1"><a href="#cb95-1" tabindex="-1"></a>ggiris_dens <span class="ot">&lt;-</span> ggiris_hist <span class="sc">+</span> <span class="fu">geom_density</span>() </span>
+<span id="cb95-2"><a href="#cb95-2" tabindex="-1"></a>ggiris_dens</span></code></pre></div>
+<p><img src="graphs_files/figure-html/unnamed-chunk-75-1.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="box-plots-1" class="section level4">
+<h4>Box plots</h4>
+<div class="sourceCode" id="cb96"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb96-1"><a href="#cb96-1" tabindex="-1"></a>ggiris_box <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data=</span>iris,</span>
+<span id="cb96-2"><a href="#cb96-2" tabindex="-1"></a>        <span class="at">mapping=</span><span class="fu">aes</span>(<span class="at">x=</span>Species,<span class="at">y=</span>Petal.Length))</span>
+<span id="cb96-3"><a href="#cb96-3" tabindex="-1"></a>ggiris_box2 <span class="ot">&lt;-</span> ggiris_box<span class="sc">+</span><span class="fu">geom_boxplot</span>() </span>
+<span id="cb96-4"><a href="#cb96-4" tabindex="-1"></a>ggiris_box2</span></code></pre></div>
+<p><img src="graphs_files/figure-html/unnamed-chunk-76-1.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="violin-plots" class="section level4">
+<h4>Violin plots</h4>
+<div class="sourceCode" id="cb97"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb97-1"><a href="#cb97-1" tabindex="-1"></a>pcPlot_violin <span class="ot">&lt;-</span> ggiris_box<span class="sc">+</span><span class="fu">geom_violin</span>() </span>
+<span id="cb97-2"><a href="#cb97-2" tabindex="-1"></a>pcPlot_violin</span></code></pre></div>
+<p><img src="graphs_files/figure-html/unnamed-chunk-77-1.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="other-geoms" class="section level4">
+<h4>Other geoms</h4>
+<p>An overview of geoms and their arguments can be found in the
+<code>ggplot2</code> documentation or within the <code>ggplot2</code>
+quick reference guides.</p>
+<ul>
+<li><a href="https://ggplot2.tidyverse.org/">ggplot2
+documentation</a></li>
+<li><a
+href="https://sape.inf.usi.ch/quick-reference/ggplot2/geom">ggplot2
+guide</a></li>
+</ul>
+</div>
+</div>
+<div id="aesthetics" class="section level3">
+<h3>Aesthetics</h3>
+<p>In order to change the property on an aesthetic of a plot into a
+<strong>constant</strong> value (e.g. set color of all points to red) we
+can supply the color argument to the <code>geom_point()</code>
+function.</p>
+<div class="sourceCode" id="cb98"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb98-1"><a href="#cb98-1" tabindex="-1"></a>ggiris_scatter <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data=</span>iris,</span>
+<span id="cb98-2"><a href="#cb98-2" tabindex="-1"></a>                 <span class="at">mapping=</span><span class="fu">aes</span>(<span class="at">x=</span>Petal.Length,<span class="at">y=</span>Petal.Width))</span>
+<span id="cb98-3"><a href="#cb98-3" tabindex="-1"></a>ggiris_scatter<span class="sc">+</span><span class="fu">geom_point</span>(<span class="at">colour=</span><span class="st">&quot;red&quot;</span>)</span></code></pre></div>
+<p><img src="graphs_files/figure-html/unnamed-chunk-78-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>As we discussed earlier however, <code>ggplot2</code> makes use of
+aesthetic mappings to assign variables in the data to the
+properties/aesthetics of the plot. This allows the properties of the
+plot to reflect variables in the data dynamically. In these examples we
+supply additional information to the <code>aes()</code> function to
+define what information to display and how it is represented in the
+plot.</p>
+<p>First we can recreate the plot we saw earlier.</p>
+<div class="sourceCode" id="cb99"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb99-1"><a href="#cb99-1" tabindex="-1"></a>ggiris_scatter <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data=</span>iris,</span>
+<span id="cb99-2"><a href="#cb99-2" tabindex="-1"></a>                 <span class="at">mapping=</span><span class="fu">aes</span>(<span class="at">x=</span>Petal.Length,<span class="at">y=</span>Petal.Width))</span>
+<span id="cb99-3"><a href="#cb99-3" tabindex="-1"></a>ggiris_scatter<span class="sc">+</span><span class="fu">geom_point</span>()</span></code></pre></div>
+<p><img src="graphs_files/figure-html/unnamed-chunk-79-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>Now we can adjust the <code>aes</code> mapping by supplying an
+argument to the color parameter in the <code>aes</code> function. (Note
+that <code>ggplot2</code> accepts “color” or “colour” as parameter
+name)</p>
+<p>This simple adjustment allows for identification of the separation
+between species for <code>Petal.Length</code> and
+<code>Petal.Width</code>.</p>
+<div class="sourceCode" id="cb100"><pre
+class="sourceCode r"><code class="sourceCode r"><span id="cb100-1"><a href="#cb100-1" tabindex="-1"></a>ggiris_scatter2 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data=</span>iris,</span>
+<span id="cb100-2"><a href="#cb100-2" tabindex="-1"></a>                  <span class="at">mapping=</span><span class="fu">aes</span>(<span class="at">x=</span>Petal.Length,<span class="at">y=</span>Petal.Width,<span class="at">color=</span>Species))</span>
+<span id="cb100-3"><a href="#cb100-3" tabindex="-1"></a>ggiris_scatter2 <span class="sc">+</span> <span class="fu">geom_point</span>()</span></code></pre></div>
+<p><img src="graphs_files/figure-html/unnamed-chunk-80-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>Similarly the shape of points may be adjusted.</p>
+<div class="sourceCode" id="cb101"><pre
+class="sourceCode r"><code class="sourceCode r"><span id="cb101-1"><a href="#cb101-1" tabindex="-1"></a>ggiris_scatter3 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data=</span>iris,</span>
+<span id="cb101-2"><a href="#cb101-2" tabindex="-1"></a>                  <span class="at">mapping=</span><span class="fu">aes</span>(<span class="at">x=</span>Petal.Length,<span class="at">y=</span>Petal.Width,<span class="at">shape=</span>Species))</span>
+<span id="cb101-3"><a href="#cb101-3" tabindex="-1"></a>ggiris_scatter3 <span class="sc">+</span> <span class="fu">geom_point</span>()</span></code></pre></div>
+<p><img src="graphs_files/figure-html/unnamed-chunk-81-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>The aesthetic mappings may be set directly in the
+<code>geom_points()</code> function as previously when specifying red.
+This can allow the same ggplot object to be used by different aesthetic
+mappings and varying geoms</p>
+<div class="sourceCode" id="cb102"><pre
+class="sourceCode r"><code class="sourceCode r"><span id="cb102-1"><a href="#cb102-1" tabindex="-1"></a>ggiris_scatter4 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data=</span>iris)</span>
+<span id="cb102-2"><a href="#cb102-2" tabindex="-1"></a>ggiris_scatter4 <span class="sc">+</span> <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">x=</span>Petal.Length,<span class="at">y=</span>Petal.Width,<span class="at">color=</span>Species, <span class="at">shape=</span>Species))</span></code></pre></div>
+<p><img src="graphs_files/figure-html/unnamed-chunk-82-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>Again, for a comprehensive list of parameters and aesthetic mappings
+used in <code>geom_type</code> functions see the <code>ggplot2</code>
+documentation for individual geoms by using <code>?geom_type</code></p>
+<div class="sourceCode" id="cb103"><pre
+class="sourceCode r"><code class="sourceCode r"><span id="cb103-1"><a href="#cb103-1" tabindex="-1"></a>?geom_point</span></code></pre></div>
+<p>or visit the ggplot2 documentations pages and quick reference:</p>
+<ul>
+<li><a href="https://ggplot2.tidyverse.org/">ggplot2
+documentation</a></li>
+<li><a
+href="https://sape.inf.usi.ch/quick-reference/ggplot2/geom">ggplot2
+guide</a></li>
+</ul>
+</div>
+</div>
+<div id="faceting" class="section level2">
+<h2>Faceting</h2>
+<p>One very useful feature of ggplot is faceting. This allows you to
+produce several plots that subset by variables in your data. To facet
+our data into multiple plots we can use the <code>facet_wrap</code> or
+<code>facet_grid</code> function specifying the variable we split by.
+The <code>facet_grid</code> function is well suited to splitting the
+data by two factors.</p>
+<p>Let’s get another dataset for the demo. Here we can plot the data
+with the <code>Smokes</code> variable as rows and <code>Sex</code>
+variable as columns.</p>
+<div class="sourceCode" id="cb104"><pre
+class="sourceCode r"><code class="sourceCode r"><span id="cb104-1"><a href="#cb104-1" tabindex="-1"></a>patients_clean<span class="ot">&lt;-</span><span class="fu">read.delim</span>(<span class="st">&#39;data/patients_clean.txt&#39;</span>)</span>
+<span id="cb104-2"><a href="#cb104-2" tabindex="-1"></a>pcPlot <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data=</span>patients_clean,<span class="fu">aes</span>(<span class="at">x=</span>Height,<span class="at">y=</span>Weight, </span>
+<span id="cb104-3"><a href="#cb104-3" tabindex="-1"></a>                                         <span class="at">colour=</span>Sex))<span class="sc">+</span><span class="fu">geom_point</span>()</span>
+<span id="cb104-4"><a href="#cb104-4" tabindex="-1"></a>pcPlot <span class="sc">+</span> <span class="fu">facet_grid</span>(Smokes<span class="sc">~</span>Sex)</span></code></pre></div>
+<p><img src="graphs_files/figure-html/unnamed-chunk-84-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>To split by one factor we use the the <code>facet_grid()</code>
+function again, but omit the variable before the “~”. This will facet
+along columns in plot.</p>
+<div class="sourceCode" id="cb105"><pre
+class="sourceCode r"><code class="sourceCode r"><span id="cb105-1"><a href="#cb105-1" tabindex="-1"></a>pcPlot <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data=</span>patients_clean,<span class="fu">aes</span>(<span class="at">x=</span>Height,<span class="at">y=</span>Weight,</span>
+<span id="cb105-2"><a href="#cb105-2" tabindex="-1"></a>                                         <span class="at">colour=</span>Sex))<span class="sc">+</span><span class="fu">geom_point</span>()</span>
+<span id="cb105-3"><a href="#cb105-3" tabindex="-1"></a>pcPlot <span class="sc">+</span> <span class="fu">facet_grid</span>(<span class="sc">~</span>Sex)</span></code></pre></div>
+<p><img src="graphs_files/figure-html/unnamed-chunk-85-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>Similarly, to split along rows in plot, the variable is placed before
+the “~.”.</p>
+<div class="sourceCode" id="cb106"><pre
+class="sourceCode r"><code class="sourceCode r"><span id="cb106-1"><a href="#cb106-1" tabindex="-1"></a>pcPlot <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data=</span>patients_clean,<span class="fu">aes</span>(<span class="at">x=</span>Height,<span class="at">y=</span>Weight,</span>
+<span id="cb106-2"><a href="#cb106-2" tabindex="-1"></a>                                         <span class="at">colour=</span>Sex))<span class="sc">+</span><span class="fu">geom_point</span>()</span>
+<span id="cb106-3"><a href="#cb106-3" tabindex="-1"></a>pcPlot <span class="sc">+</span> <span class="fu">facet_grid</span>(Sex<span class="sc">~</span>.)</span></code></pre></div>
+<p><img src="graphs_files/figure-html/unnamed-chunk-86-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>The <code>facet_wrap()</code> function offers a less grid-based
+structure but is well suited to faceting data by one variable. For
+<code>facet_wrap()</code> we follow as similar syntax to
+facet_grid().</p>
+<div class="sourceCode" id="cb107"><pre
+class="sourceCode r"><code class="sourceCode r"><span id="cb107-1"><a href="#cb107-1" tabindex="-1"></a>pcPlot <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data=</span>patients_clean,<span class="fu">aes</span>(<span class="at">x=</span>Height,<span class="at">y=</span>Weight,</span>
+<span id="cb107-2"><a href="#cb107-2" tabindex="-1"></a>                                         <span class="at">colour=</span>Sex))<span class="sc">+</span><span class="fu">geom_point</span>()</span>
+<span id="cb107-3"><a href="#cb107-3" tabindex="-1"></a>pcPlot <span class="sc">+</span> <span class="fu">facet_wrap</span>(<span class="sc">~</span>Smokes)</span></code></pre></div>
+<p><img src="graphs_files/figure-html/unnamed-chunk-87-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>For more complex faceting both <code>facet_grid</code> and
+<code>facet_wrap</code> can accept combinations of variables. Here we
+use <code>facet_wrap</code>.</p>
+<div class="sourceCode" id="cb108"><pre
+class="sourceCode r"><code class="sourceCode r"><span id="cb108-1"><a href="#cb108-1" tabindex="-1"></a>pcPlot <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data=</span>patients_clean,<span class="fu">aes</span>(<span class="at">x=</span>Height,<span class="at">y=</span>Weight,</span>
+<span id="cb108-2"><a href="#cb108-2" tabindex="-1"></a>                                         <span class="at">colour=</span>Sex))<span class="sc">+</span><span class="fu">geom_point</span>()</span>
+<span id="cb108-3"><a href="#cb108-3" tabindex="-1"></a>pcPlot <span class="sc">+</span> <span class="fu">facet_wrap</span>(<span class="sc">~</span>Pet<span class="sc">+</span>Smokes<span class="sc">+</span>Sex)</span></code></pre></div>
+<p><img src="graphs_files/figure-html/unnamed-chunk-88-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>Or in a nice grid format using facet_grid() and the Smokes variable
+against a combination of Gender and Pet.</p>
+<div class="sourceCode" id="cb109"><pre
+class="sourceCode r"><code class="sourceCode r"><span id="cb109-1"><a href="#cb109-1" tabindex="-1"></a>pcPlot <span class="sc">+</span> <span class="fu">facet_grid</span>(Smokes<span class="sc">~</span>Sex<span class="sc">+</span>Pet)</span></code></pre></div>
+<p><img src="graphs_files/figure-html/unnamed-chunk-89-1.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="plotting-order" class="section level2">
+<h2>Plotting order</h2>
+<p>We will shortly discuss how to change various aspects of the plot
+layout and appearance. However, a common-asked question is how to change
+the order in which R plots a categorical variable. Consider the boxplot
+to compare weights of males and females:</p>
+<div class="sourceCode" id="cb110"><pre
+class="sourceCode r"><code class="sourceCode r"><span id="cb110-1"><a href="#cb110-1" tabindex="-1"></a><span class="fu">ggplot</span>(patients_clean, <span class="fu">aes</span>(<span class="at">x=</span>Sex, <span class="at">y=</span>Weight)) <span class="sc">+</span> <span class="fu">geom_boxplot</span>()</span></code></pre></div>
+<p><img src="graphs_files/figure-html/unnamed-chunk-90-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>This is related the question raised before about the order of the
+factor levels. Here, R decides the order to arrange the boxes according
+to the levels of the categorical variable. If there are no levels or the
+levels are not ordered it defaults to the alphabetical order.
+i.e. Female before Male.</p>
+<div class="sourceCode" id="cb111"><pre
+class="sourceCode r"><code class="sourceCode r"><span id="cb111-1"><a href="#cb111-1" tabindex="-1"></a><span class="fu">levels</span>(patients_clean<span class="sc">$</span>Sex)</span></code></pre></div>
+<pre><code>## NULL</code></pre>
+<p>Depending on the message we want the plot to convey, we might want
+control over the order of boxes. The factor functions allows us to
+explicitly change the order of the levels.</p>
+<div class="sourceCode" id="cb113"><pre
+class="sourceCode r"><code class="sourceCode r"><span id="cb113-1"><a href="#cb113-1" tabindex="-1"></a>patients_clean<span class="sc">$</span>Sex <span class="ot">&lt;-</span> <span class="fu">factor</span>(patients_clean<span class="sc">$</span>Sex, </span>
+<span id="cb113-2"><a href="#cb113-2" tabindex="-1"></a>                             <span class="at">levels=</span><span class="fu">c</span>(<span class="st">&quot;Male&quot;</span>,<span class="st">&quot;Female&quot;</span>))</span>
+<span id="cb113-3"><a href="#cb113-3" tabindex="-1"></a><span class="fu">ggplot</span>(patients_clean,<span class="fu">aes</span>(<span class="at">x=</span>Sex, <span class="at">y=</span>Weight)) <span class="sc">+</span> <span class="fu">geom_boxplot</span>()</span></code></pre></div>
+<p><img src="graphs_files/figure-html/unnamed-chunk-92-1.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="scales" class="section level2">
+<h2>Scales</h2>
+<p>Scales and their legends have so far been handled using ggplot2
+defaults. <code>ggplot2</code> offers functionality to have finer
+control over scales and legends using the <em>scale</em> methods.</p>
+<p>Scale methods are divided into functions by combinations of:</p>
+<ul>
+<li><p>the aesthetics they control.</p></li>
+<li><p>the type of data mapped to scale.</p></li>
+</ul>
+<p>Try typing in <code>scale_</code> then tab to autocomplete. This will
+provide some examples of the scale functions available in
+<code>ggplot2</code>. Although different scale functions accept some
+variety in their arguments, common arguments to scale functions
+include:</p>
+<ul>
+<li><p>name - The axis or legend title</p></li>
+<li><p>limits - Minimum and maximum of the scale</p></li>
+<li><p>breaks - Label/tick positions along an axis</p></li>
+<li><p>labels - Label names at each break</p></li>
+</ul>
+<p>Very common <em>scale</em> functions are
+**scale_(x/y)_(continuous/discrete)**. In the follwoing example we
+control the continuous scale on the x-axis by providing a name, X-axis
+limits, the positions of breaks (ticks/labels) and the labels to place
+at breaks.</p>
+<div class="sourceCode" id="cb114"><pre
+class="sourceCode r"><code class="sourceCode r"><span id="cb114-1"><a href="#cb114-1" tabindex="-1"></a>pcPlot <span class="sc">+</span> <span class="fu">geom_point</span>() <span class="sc">+</span> <span class="fu">facet_grid</span>(Smokes<span class="sc">~</span>Sex)<span class="sc">+</span></span>
+<span id="cb114-2"><a href="#cb114-2" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">name=</span><span class="st">&quot;height (&#39;cm&#39;)&quot;</span>,</span>
+<span id="cb114-3"><a href="#cb114-3" tabindex="-1"></a>                     <span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">100</span>,<span class="dv">200</span>),</span>
+<span id="cb114-4"><a href="#cb114-4" tabindex="-1"></a>                     <span class="at">breaks=</span><span class="fu">c</span>(<span class="dv">125</span>,<span class="dv">150</span>,<span class="dv">175</span>),</span>
+<span id="cb114-5"><a href="#cb114-5" tabindex="-1"></a>                     <span class="at">labels=</span><span class="fu">c</span>(<span class="st">&quot;small&quot;</span>,<span class="st">&quot;justright&quot;</span>,<span class="st">&quot;tall&quot;</span>))</span></code></pre></div>
+<p><img src="graphs_files/figure-html/unnamed-chunk-93-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>Similary control over discrete scales is shown below.</p>
+<div class="sourceCode" id="cb115"><pre
+class="sourceCode r"><code class="sourceCode r"><span id="cb115-1"><a href="#cb115-1" tabindex="-1"></a>pcPlot <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data=</span>patients_clean,<span class="fu">aes</span>(<span class="at">x=</span>Sex,<span class="at">y=</span>Height))</span>
+<span id="cb115-2"><a href="#cb115-2" tabindex="-1"></a>pcPlot <span class="sc">+</span></span>
+<span id="cb115-3"><a href="#cb115-3" tabindex="-1"></a>  <span class="fu">geom_violin</span>(<span class="fu">aes</span>(<span class="at">x=</span>Sex,<span class="at">y=</span>Height)) <span class="sc">+</span></span>
+<span id="cb115-4"><a href="#cb115-4" tabindex="-1"></a>  <span class="fu">scale_x_discrete</span>(<span class="at">labels=</span><span class="fu">c</span>(<span class="st">&quot;Women&quot;</span>, <span class="st">&quot;Men&quot;</span>))</span></code></pre></div>
+<p><img src="graphs_files/figure-html/unnamed-chunk-94-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>Multiple X/Y scales can be combined to give full control of axis
+marks.</p>
+<div class="sourceCode" id="cb116"><pre
+class="sourceCode r"><code class="sourceCode r"><span id="cb116-1"><a href="#cb116-1" tabindex="-1"></a>pcPlot <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data=</span>patients_clean,<span class="fu">aes</span>(<span class="at">x=</span>Sex,<span class="at">y=</span>Height,<span class="at">fill=</span>Smokes))</span>
+<span id="cb116-2"><a href="#cb116-2" tabindex="-1"></a>pcPlot <span class="sc">+</span></span>
+<span id="cb116-3"><a href="#cb116-3" tabindex="-1"></a>  <span class="fu">geom_violin</span>(<span class="fu">aes</span>(<span class="at">x=</span>Sex,<span class="at">y=</span>Height)) <span class="sc">+</span></span>
+<span id="cb116-4"><a href="#cb116-4" tabindex="-1"></a>  <span class="fu">scale_x_discrete</span>(<span class="at">labels=</span><span class="fu">c</span>(<span class="st">&quot;Women&quot;</span>, <span class="st">&quot;Men&quot;</span>))<span class="sc">+</span></span>
+<span id="cb116-5"><a href="#cb116-5" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">breaks=</span><span class="fu">c</span>(<span class="dv">160</span>,<span class="dv">180</span>),<span class="at">labels=</span><span class="fu">c</span>(<span class="st">&quot;Short&quot;</span>, <span class="st">&quot;Tall&quot;</span>))</span></code></pre></div>
+<p><img src="graphs_files/figure-html/unnamed-chunk-95-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>When using fill, color, linetype, shape, size or alpha aesthetic
+mappings the scales are automatically selected for you and the
+appropriate legends created.</p>
+<div class="sourceCode" id="cb117"><pre
+class="sourceCode r"><code class="sourceCode r"><span id="cb117-1"><a href="#cb117-1" tabindex="-1"></a>pcPlot <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data=</span>patients_clean,</span>
+<span id="cb117-2"><a href="#cb117-2" tabindex="-1"></a>                 <span class="fu">aes</span>(<span class="at">x=</span>Height,<span class="at">y=</span>Weight,<span class="at">colour=</span>Sex))</span>
+<span id="cb117-3"><a href="#cb117-3" tabindex="-1"></a>pcPlot <span class="sc">+</span> <span class="fu">geom_point</span>(<span class="at">size=</span><span class="dv">4</span>)</span></code></pre></div>
+<p><img src="graphs_files/figure-html/unnamed-chunk-96-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>In the above example the discrete colours for the Sex variable was
+selected by default. Manual control of discrete variables can be
+performed using <code>scale_colour_manual</code> with the values
+parameter. Additionally in this example an updated name for the legend
+is provided.</p>
+<div class="sourceCode" id="cb118"><pre
+class="sourceCode r"><code class="sourceCode r"><span id="cb118-1"><a href="#cb118-1" tabindex="-1"></a>pcPlot <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data=</span>patients_clean,</span>
+<span id="cb118-2"><a href="#cb118-2" tabindex="-1"></a>                 <span class="fu">aes</span>(<span class="at">x=</span>Height,<span class="at">y=</span>Weight,<span class="at">colour=</span>Sex))</span>
+<span id="cb118-3"><a href="#cb118-3" tabindex="-1"></a>pcPlot <span class="sc">+</span> <span class="fu">geom_point</span>(<span class="at">size=</span><span class="dv">4</span>) <span class="sc">+</span> </span>
+<span id="cb118-4"><a href="#cb118-4" tabindex="-1"></a>  <span class="fu">scale_colour_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">&quot;Green&quot;</span>,<span class="st">&quot;Purple&quot;</span>),</span>
+<span id="cb118-5"><a href="#cb118-5" tabindex="-1"></a>                     <span class="at">name=</span><span class="st">&quot;Gender&quot;</span>)</span></code></pre></div>
+<p><img src="graphs_files/figure-html/unnamed-chunk-97-1.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="colorbrewer" class="section level2">
+<h2>Colorbrewer</h2>
+<p>Here we have specified the colours to be used (hence the manual) but
+when the number of levels to a variable are high this may be impractical
+and often we would like ggplot2 to choose colours from a scale of our
+choice.</p>
+<p>The brewer set of scale functions allow the user to make use of a
+range of palettes available from colorbrewer.</p>
+<ul>
+<li>Diverging</li>
+</ul>
+<p><strong>BrBG, PiYG, PRGn, PuOr, RdBu, RdGy, RdYlBu, RdYlGn,
+Spectral</strong></p>
+<ul>
+<li>Qualitative</li>
+</ul>
+<p><strong>Accent, Dark2, Paired, Pastel1, Pastel2, Set1, Set2,
+Set3</strong></p>
+<ul>
+<li>Sequential</li>
+</ul>
+<p><strong>Blues, BuGn, BuPu, GnBu, Greens, Greys, Oranges, OrRd, PuBu,
+PuBuGn, PuRd, Purples, RdPu, Reds, YlGn, YlGnBu, YlOrBr,
+YlOrRd</strong></p>
+<div id="scale_color_brewer" class="section level3">
+<h3><code>scale_color_brewer</code></h3>
+<div class="sourceCode" id="cb119"><pre
+class="sourceCode r"><code class="sourceCode r"><span id="cb119-1"><a href="#cb119-1" tabindex="-1"></a>pcPlot <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data=</span>patients_clean,</span>
+<span id="cb119-2"><a href="#cb119-2" tabindex="-1"></a>                 <span class="fu">aes</span>(<span class="at">x=</span>Height,<span class="at">y=</span>Weight,<span class="at">colour=</span>Pet))</span>
+<span id="cb119-3"><a href="#cb119-3" tabindex="-1"></a>pcPlot <span class="sc">+</span> <span class="fu">geom_point</span>(<span class="at">size=</span><span class="dv">4</span>) <span class="sc">+</span> </span>
+<span id="cb119-4"><a href="#cb119-4" tabindex="-1"></a>  <span class="fu">scale_colour_brewer</span>(<span class="at">palette =</span> <span class="st">&quot;Set2&quot;</span>)</span></code></pre></div>
+<pre><code>## Warning: Removed 5 rows containing missing values (`geom_point()`).</code></pre>
+<p><img src="graphs_files/figure-html/unnamed-chunk-98-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>pcPlot &lt;- ggplot(data=patients_clean,
+mapping=aes(x=Height,y=Weight))</p>
+<p>pcPlot_smooth &lt;- pcPlot+geom_smooth()</p>
+<p>pcPlot_smooth</p>
+<div class="sourceCode" id="cb121"><pre
+class="sourceCode r"><code class="sourceCode r"><span id="cb121-1"><a href="#cb121-1" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data=</span>patients_clean,</span>
+<span id="cb121-2"><a href="#cb121-2" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">y=</span>Weight,<span class="at">x=</span>Height,<span class="at">colour=</span>Sex,</span>
+<span id="cb121-3"><a href="#cb121-3" tabindex="-1"></a>           <span class="at">size=</span>BMI,<span class="at">shape=</span>Pet)) <span class="sc">+</span> </span>
+<span id="cb121-4"><a href="#cb121-4" tabindex="-1"></a>  <span class="fu">geom_point</span>()</span></code></pre></div>
+<pre><code>## Warning: Removed 5 rows containing missing values (`geom_point()`).</code></pre>
+<p><img src="graphs_files/figure-html/unnamed-chunk-99-1.png" width="672" /></p>
+<p>The aesthetic mappings may be set directly in the
+<code>geom_points()</code> function as previously when specifying red.
+This can allow the same ggplot object to be used by different aesethetic
+mappings and varying geoms</p>
+<div class="sourceCode" id="cb123"><pre
+class="sourceCode r"><code class="sourceCode r"><span id="cb123-1"><a href="#cb123-1" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data=</span>patients_clean,</span>
+<span id="cb123-2"><a href="#cb123-2" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">y=</span>Weight,<span class="at">x=</span>Height,<span class="at">colour=</span>Sex,</span>
+<span id="cb123-3"><a href="#cb123-3" tabindex="-1"></a>           <span class="at">size=</span>BMI,<span class="at">shape=</span>Pet)) <span class="sc">+</span> </span>
+<span id="cb123-4"><a href="#cb123-4" tabindex="-1"></a>  <span class="fu">geom_point</span>()</span></code></pre></div>
+<pre><code>## Warning: Removed 5 rows containing missing values (`geom_point()`).</code></pre>
+<p><img src="graphs_files/figure-html/unnamed-chunk-100-1.png" width="672" /></p>
+</div>
+</div>
+</div>
+
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+<script>
+$(document).ready(function () {
+  window.initializeCodeFolding("show" === "show");
+});
+</script>
+
+<script>
+$(document).ready(function ()  {
+
+    // temporarily add toc-ignore selector to headers for the consistency with Pandoc
+    $('.unlisted.unnumbered').addClass('toc-ignore')
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

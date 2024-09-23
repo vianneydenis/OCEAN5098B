@@ -789,6 +789,7 @@ One very useful feature of ggplot is faceting. This allows you to produce severa
 Let's get another dataset for the demo. Here we can plot the data with the `Smokes` variable as rows and `Sex` variable as columns.
 
 ```{r,  eval=T, fig.align='center'}
+patients_clean<-read.delim('data/patients_clean.txt')
 pcPlot <- ggplot(data=patients_clean,aes(x=Height,y=Weight, 
                                          colour=Sex))+geom_point()
 pcPlot + facet_grid(Smokes~Sex)
