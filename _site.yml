@@ -10,11 +10,11 @@ navbar:
     - text: "Manipulation"
       menu:
         - text: "Basics"
-          href: TEMP_basics.html    
+          href: basics.html    
         - text: "dplyr"
-          href: TEMP_dplyr.html
+          href: dplyr.html
         - text: "tidyr"
-          href: TEMP_tidyr.html
+          href: tidyr.html
     - text: "Types & structures"
       href: TEMP_types.html
     - text: "Graphics"
