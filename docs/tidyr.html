@@ -13,7 +13,7 @@
 
 <title>tidyr</title>
 
-<script src="site_libs/header-attrs-2.21/header-attrs.js"></script>
+<script src="site_libs/header-attrs-2.25/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/flatly.min.css" rel="stylesheet" />
@@ -29,7 +29,7 @@
        h6 {font-size: 12px;}
        code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
        pre:not([class]) { background-color: white }</style>
-<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<script src="site_libs/jqueryui-1.13.2/jquery-ui.min.js"></script>
 <link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
 <script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
@@ -437,18 +437,18 @@ div.tocify {
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="TEMP_basics.html">Basics</a>
+      <a href="basics.html">Basics</a>
     </li>
     <li>
-      <a href="TEMP_dplyr.html">dplyr</a>
+      <a href="dplyr.html">dplyr</a>
     </li>
     <li>
-      <a href="TEMP_tidyr.html">tidyr</a>
+      <a href="tidyr.html">tidyr</a>
     </li>
   </ul>
 </li>
 <li>
-  <a href="TEMP_types.html">Types &amp; structures</a>
+  <a href="types.html">Types &amp; structures</a>
 </li>
 <li>
   <a href="TEMP_graphs.html">Graphics</a>
@@ -543,8 +543,12 @@ class="sourceCode r fold-show"><code class="sourceCode r"><span id="cb1-1"><a hr
 reef region:</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a>TW_corals<span class="ot">&lt;-</span><span class="fu">read.table</span>(<span class="st">&#39;Data/tw_corals.txt&#39;</span>, <span class="at">header=</span>T, <span class="at">sep=</span><span class="st">&#39;</span><span class="sc">\t</span><span class="st">&#39;</span>, <span class="at">dec=</span><span class="st">&#39;.&#39;</span>) </span>
 <span id="cb2-2"><a href="#cb2-2" tabindex="-1"></a>TW_corals</span></code></pre></div>
-<pre><code>##   Southern_TW Northern_TW Eastern_TW Ludao Lanyu Xiaoliuqiu Penghu_North Penghu_East Penghu_Inner Penghu.South Dongsha Taiping Northern_Is
-## 1         280         136        210   250   248        239          107          84           75           99     229     163         112</code></pre>
+<pre><code>##   Southern_TW Northern_TW Eastern_TW Ludao Lanyu
+## 1         280         136        210   250   248
+##   Xiaoliuqiu Penghu_North Penghu_East Penghu_Inner
+## 1        239          107          84           75
+##   Penghu.South Dongsha Taiping Northern_Is
+## 1           99     229     163         112</code></pre>
 <p>This table is a <strong>wide table</strong>. It can easily be
 reformatted into a long table by combining the pipe operator
 <code>%&gt;%</code> with <code>pivot_longer</code> as follows:</p>
@@ -574,9 +578,13 @@ order to recreate the wide version of our table:</p>
 <span id="cb6-2"><a href="#cb6-2" tabindex="-1"></a>  <span class="fu">pivot_wider</span>( <span class="at">names_from =</span> Region, <span class="at">values_from =</span> Richness) </span>
 <span id="cb6-3"><a href="#cb6-3" tabindex="-1"></a>TW_corals_wide</span></code></pre></div>
 <pre><code>## # A tibble: 1 × 13
-##   Southern_TW Northern_TW Eastern_TW Ludao Lanyu Xiaoliuqiu Penghu_North Penghu_East Penghu_Inner Penghu.South Dongsha Taiping Northern_Is
-##         &lt;int&gt;       &lt;int&gt;      &lt;int&gt; &lt;int&gt; &lt;int&gt;      &lt;int&gt;        &lt;int&gt;       &lt;int&gt;        &lt;int&gt;        &lt;int&gt;   &lt;int&gt;   &lt;int&gt;       &lt;int&gt;
-## 1         280         136        210   250   248        239          107          84           75           99     229     163         112</code></pre>
+##   Southern_TW Northern_TW Eastern_TW Ludao Lanyu Xiaoliuqiu
+##         &lt;int&gt;       &lt;int&gt;      &lt;int&gt; &lt;int&gt; &lt;int&gt;      &lt;int&gt;
+## 1         280         136        210   250   248        239
+## # ℹ 7 more variables: Penghu_North &lt;int&gt;,
+## #   Penghu_East &lt;int&gt;, Penghu_Inner &lt;int&gt;,
+## #   Penghu.South &lt;int&gt;, Dongsha &lt;int&gt;, Taiping &lt;int&gt;,
+## #   Northern_Is &lt;int&gt;</code></pre>
 <p><span style="color: red"><strong>Note</strong>: The pipe operator
 <code>%&gt;%</code> is optional, but it is generally more elegant and
 you will discover its importance as your programming skills mature and
@@ -585,12 +593,18 @@ the data sets become more complex, as described below.</span></p>
 2017 in four US states compared to Taiwan (real data).</p>
 <div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" tabindex="-1"></a>income<span class="ot">&lt;-</span><span class="fu">read.table</span>(<span class="st">&#39;Data/metoo.txt&#39;</span>,<span class="at">header=</span>T, <span class="at">sep=</span><span class="st">&quot;</span><span class="sc">\t</span><span class="st">&quot;</span>, <span class="at">dec=</span><span class="st">&quot;.&quot;</span>, <span class="at">na.strings =</span> <span class="st">&quot;n/a&quot;</span>)</span>
 <span id="cb8-2"><a href="#cb8-2" tabindex="-1"></a>income</span></code></pre></div>
-<pre><code>##           state male_fulltime male_other female_fulltime female_other
-## 1         Maine          4194       1508            3337         1148
-## 2 Massachusetts          5505       1547            4486         1248
-## 3  NewHampshire          4996       1689            3848         1260
-## 4       Vermont          4210       1475            3516         1201
-## 5        Taiwan          1806         NA            1510           NA</code></pre>
+<pre><code>##           state male_fulltime male_other female_fulltime
+## 1         Maine          4194       1508            3337
+## 2 Massachusetts          5505       1547            4486
+## 3  NewHampshire          4996       1689            3848
+## 4       Vermont          4210       1475            3516
+## 5        Taiwan          1806         NA            1510
+##   female_other
+## 1         1148
+## 2         1248
+## 3         1260
+## 4         1201
+## 5           NA</code></pre>
 <p>At first glance, it looks like we have three variables as in the
 previous example, but on closer inspection we see that we can read two
 variables from the column names: Gender (<code>male</code> and
@@ -637,13 +651,14 @@ we must also pass two column names to the argument
 <span id="cb12-2"><a href="#cb12-2" tabindex="-1"></a>            <span class="at">values_from =</span> income,</span>
 <span id="cb12-3"><a href="#cb12-3" tabindex="-1"></a>            <span class="at">names_sep =</span> <span class="st">&quot;.&quot;</span>)</span></code></pre></div>
 <pre><code>## # A tibble: 5 × 5
-##   state         male.fulltime male.other female.fulltime female.other
-##   &lt;chr&gt;                 &lt;int&gt;      &lt;int&gt;           &lt;int&gt;        &lt;int&gt;
-## 1 Maine                  4194       1508            3337         1148
-## 2 Massachusetts          5505       1547            4486         1248
-## 3 NewHampshire           4996       1689            3848         1260
-## 4 Vermont                4210       1475            3516         1201
-## 5 Taiwan                 1806         NA            1510           NA</code></pre>
+##   state         male.fulltime male.other female.fulltime
+##   &lt;chr&gt;                 &lt;int&gt;      &lt;int&gt;           &lt;int&gt;
+## 1 Maine                  4194       1508            3337
+## 2 Massachusetts          5505       1547            4486
+## 3 NewHampshire           4996       1689            3848
+## 4 Vermont                4210       1475            3516
+## 5 Taiwan                 1806         NA            1510
+## # ℹ 1 more variable: female.other &lt;int&gt;</code></pre>
 <p>*As a package evolves, some functions may be
 <strong>depreciated</strong>. The function may still work, but it is
 recommended to switch to the new function that takes over the task. The

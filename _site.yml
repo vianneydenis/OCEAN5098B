@@ -16,7 +16,7 @@ navbar:
         - text: "tidyr"
           href: tidyr.html
     - text: "Types & structures"
-      href: TEMP_types.html
+      href: types.html
     - text: "Graphics"
       href: TEMP_graphs.html   
     - text: "Mapping"
