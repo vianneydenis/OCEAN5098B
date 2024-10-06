@@ -451,7 +451,7 @@ div.tocify {
   <a href="types.html">Types &amp; structures</a>
 </li>
 <li>
-  <a href="TEMP_graphs.html">Graphics</a>
+  <a href="graphs.html">Graphics</a>
 </li>
 <li>
   <a href="TEMP_maps.html">Mapping</a>
@@ -652,13 +652,10 @@ for help directly in the R console. You can get:</p>
 </ul>
 <div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" tabindex="-1"></a><span class="co"># simple help on the use of a function</span></span>
 <span id="cb6-2"><a href="#cb6-2" tabindex="-1"></a>median</span></code></pre></div>
-<pre><code>## standardGeneric for &quot;median&quot; defined from package &quot;stats&quot;
-## 
-## function (x, na.rm = FALSE, ...) 
-## standardGeneric(&quot;median&quot;)
-## &lt;environment: 0x000002246c5d3bd0&gt;
-## Methods may be defined for arguments: x, na.rm
-## Use  showMethods(median)  for currently available ones.</code></pre>
+<pre><code>## function (x, na.rm = FALSE, ...) 
+## UseMethod(&quot;median&quot;)
+## &lt;bytecode: 0x000002791139b1a8&gt;
+## &lt;environment: namespace:stats&gt;</code></pre>
 <ul>
 <li>a detailed summary on the use of the function <code>median</code>
 which will send you to an .html webpage.</li>
@@ -791,14 +788,12 @@ within this function</p>
 directory, you can also target directly your file (check your file
 properties) or an url.</p>
 <div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" tabindex="-1"></a><span class="co"># import file by path name</span></span>
-<span id="cb23-2"><a href="#cb23-2" tabindex="-1"></a>fish <span class="ot">&lt;-</span> <span class="fu">read.table</span>(<span class="st">&quot;D:/.../data/reef_fish.txt&quot;</span>, <span class="at">header =</span> <span class="cn">TRUE</span>,</span>
-<span id="cb23-3"><a href="#cb23-3" tabindex="-1"></a>    <span class="at">sep =</span> <span class="st">&quot;</span><span class="sc">\t</span><span class="st">&quot;</span>, <span class="at">dec =</span> <span class="st">&quot;.&quot;</span>)  <span class="co"># long version</span></span>
-<span id="cb23-4"><a href="#cb23-4" tabindex="-1"></a>fish <span class="ot">&lt;-</span> <span class="fu">read.table</span>(<span class="st">&quot;D:/.../data/reef_fish.txt&quot;</span>, <span class="cn">TRUE</span>, <span class="st">&quot;</span><span class="sc">\t</span><span class="st">&quot;</span>,</span>
-<span id="cb23-5"><a href="#cb23-5" tabindex="-1"></a>    <span class="st">&quot;.&quot;</span>)  <span class="co"># short version</span></span></code></pre></div>
+<span id="cb23-2"><a href="#cb23-2" tabindex="-1"></a>fish <span class="ot">&lt;-</span> <span class="fu">read.table</span>(<span class="st">&quot;D:/.../data/reef_fish.txt&quot;</span>, <span class="at">header =</span> <span class="cn">TRUE</span>, <span class="at">sep =</span> <span class="st">&quot;</span><span class="sc">\t</span><span class="st">&quot;</span>,</span>
+<span id="cb23-3"><a href="#cb23-3" tabindex="-1"></a>    <span class="at">dec =</span> <span class="st">&quot;.&quot;</span>)  <span class="co"># long version</span></span>
+<span id="cb23-4"><a href="#cb23-4" tabindex="-1"></a>fish <span class="ot">&lt;-</span> <span class="fu">read.table</span>(<span class="st">&quot;D:/.../data/reef_fish.txt&quot;</span>, <span class="cn">TRUE</span>, <span class="st">&quot;</span><span class="sc">\t</span><span class="st">&quot;</span>, <span class="st">&quot;.&quot;</span>)  <span class="co"># short version</span></span></code></pre></div>
 <p>You can also use `file.choose()’ to locate directly the file on
 computer</p>
-<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" tabindex="-1"></a>fish <span class="ot">&lt;-</span> <span class="fu">read.table</span>(<span class="fu">file.choose</span>(), <span class="at">header =</span> <span class="cn">TRUE</span>, <span class="at">sep =</span> <span class="st">&quot;</span><span class="sc">\t</span><span class="st">&quot;</span>,</span>
-<span id="cb24-2"><a href="#cb24-2" tabindex="-1"></a>    <span class="at">dec =</span> <span class="st">&quot;.&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" tabindex="-1"></a>fish <span class="ot">&lt;-</span> <span class="fu">read.table</span>(<span class="fu">file.choose</span>(), <span class="at">header =</span> <span class="cn">TRUE</span>, <span class="at">sep =</span> <span class="st">&quot;</span><span class="sc">\t</span><span class="st">&quot;</span>, <span class="at">dec =</span> <span class="st">&quot;.&quot;</span>)</span></code></pre></div>
 <p><strong>Note</strong>: every time we created the object
 <code>fish</code> it replaced the one previously created.</p>
 <p class="comment">

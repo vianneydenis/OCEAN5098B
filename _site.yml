@@ -18,7 +18,7 @@ navbar:
     - text: "Types & structures"
       href: types.html
     - text: "Graphics"
-      href: TEMP_graphs.html   
+      href: graphs.html   
     - text: "Mapping"
       href: TEMP_maps.html  
           

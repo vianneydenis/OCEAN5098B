@@ -163,6 +163,8 @@ knitr::include_graphics("illustrations/iris-plot.png")
 
 knitr::include_graphics("illustrations/base-lattice.jfif")
 
+library(ggplot2)
+
 knitr::include_graphics("illustrations/ggplot-map.jfif")
 
 ## ggplot(data = <default data set>,
@@ -337,12 +339,154 @@ pcPlot <- ggplot(data=patients_clean,
 pcPlot + geom_point(size=4) + 
   scale_colour_brewer(palette = "Set2")
 
-ggplot(data=patients_clean,
-       aes(y=Weight,x=Height,colour=Sex,
-           size=BMI,shape=Pet)) + 
-  geom_point()
+pcPlot <- ggplot(data=patients_clean,
+                 aes(x=Height,y=Weight,alpha=BMI))
+pcPlot + geom_point(size=4) + 
+  scale_alpha_continuous(range = c(0.5,1))
 
-ggplot(data=patients_clean,
-       aes(y=Weight,x=Height,colour=Sex,
-           size=BMI,shape=Pet)) + 
+pcPlot <- ggplot(data=patients_clean,
+                 aes(x=Height,y=Weight,size=BMI))
+pcPlot + geom_point(alpha=0.8) + 
+  scale_size_continuous(range = c(3,6))
+
+pcPlot <- ggplot(data=patients_clean,
+                 aes(x=Height,y=Weight,size=BMI))
+pcPlot + geom_point() + scale_size_continuous(range = c(3,6),
+                                              limits = c(25,40))
+
+pcPlot <- ggplot(data=patients_clean,
+                 aes(x=Height,y=Weight,size=BMI))
+pcPlot + geom_point() + 
+  scale_size_continuous(range = c(3,6), 
+                        breaks=c(25,30), 
+                        labels=c("Good","Good but not 25")) 
+
+pcPlot <- ggplot(data=patients_clean,
+                 aes(x=Height,y=Weight,colour=BMI))
+pcPlot + geom_point(size=4,alpha=0.8) + 
+  scale_colour_gradient(low = "White",high="Red")
+
+pcPlot <- ggplot(data=patients_clean,
+                 aes(x=Height,y=Weight,colour=BMI))
+pcPlot + geom_point(size=4,alpha=0.8) + 
+  scale_colour_gradient2(low = "Blue",mid="Black", high="Red",
+                         midpoint = median(patients_clean$BMI))
+
+pcPlot <- ggplot(data=patients_clean,
+                 aes(x=Height,y=Weight,colour=BMI))
+pcPlot + geom_point(size=4,alpha=0.8) + 
+  scale_colour_gradient2(low = "Blue",
+                         mid="Black",
+                         high="Red",
+                         midpoint = median(patients_clean$BMI),
+                         breaks=c(25,30),labels=c("Low","High"),
+                         name="Body Mass Index")
+
+pcPlot <- ggplot(data=patients_clean,
+                 aes(x=Height,y=Weight,colour=BMI,shape=Sex))
+pcPlot + geom_point(size=4,alpha=0.8)+ 
+  scale_shape_discrete(name="Gender") +
+  scale_colour_gradient2(low = "Blue",mid="Black",high="Red",
+                         midpoint = median(patients_clean$BMI),
+                         breaks=c(25,30),labels=c("Low","High"),
+                         name="Body Mass Index")
+
+pcPlot <- ggplot(data=patients_clean,
+        mapping=aes(x=Weight,y=Height))
+pcPlot+geom_point()+stat_smooth()
+
+pcPlot <- ggplot(data=patients_clean,
+        mapping=aes(x=Weight,y=Height))
+pcPlot+geom_point()+stat_smooth(method="lm")
+
+pcPlot <- ggplot(data=patients_clean,
+        mapping=aes(x=Weight,y=Height,colour=Sex))
+pcPlot+geom_point()+stat_smooth(method="lm")
+
+pcPlot <- ggplot(data=patients_clean,
+        mapping=aes(x=Weight,y=Height,colour=Sex))
+pcPlot+geom_point()+stat_smooth(aes(x=Weight,y=Height),method="lm",
+                                inherit.aes = F)
+
+pcPlot <- ggplot(data=patients_clean,
+        mapping=aes(x=Sex,y=Height)) + geom_jitter()
+pcPlot + stat_summary(fun=quantile, geom="point",shape=8,
+                    colour="purple", size=4)
+
+pcPlot <- ggplot(data=patients_clean,
+        mapping=aes(x=Weight,y=Height))+geom_point()
+pcPlot
+
+pcPlot+theme_minimal()
+
+pcPlot <- ggplot(data=patients_clean,
+        mapping=aes(x=Weight,y=Height))+
   geom_point()
+pcPlot+
+  theme(
+    text = element_text(colour="red")
+      )
+
+pcPlot <- ggplot(data=patients_clean,
+        mapping=aes(x=Weight,y=Height))+geom_point()
+pcPlot + theme(text = element_text(colour="red"),
+        axis.title.y = element_text(angle=0))
+
+pcPlot <- ggplot(data=patients_clean,
+        mapping=aes(x=Weight,y=Height))+
+  geom_point()+
+  facet_grid(Sex~Smokes)
+pcPlot+
+  theme(
+    text = element_text(colour="red"),
+    axis.title.y = element_text(angle=0),
+    axis.line = element_line(linetype = 0),
+    panel.background=element_rect(fill="white"),
+    strip.background=element_rect(fill="cyan")
+    )
+
+pcPlot <- ggplot(data=patients_clean,aes(x=Height,y=Weight,
+                                         colour=Sex))+geom_point()
+pcPlot
+
+pcPlot <- ggplot(data=patients_clean,aes(x=Height,y=Weight,
+                                         colour=Sex))+geom_point()
+pcPlot+theme(legend.position="left")
+
+pcPlot <- ggplot(data=patients_clean,aes(x=Height,y=Weight,
+                                         colour=Sex))+geom_point()
+pcPlot+theme(legend.text = element_text(colour="darkred"),
+             legend.title = element_text(size=20),
+             legend.position = "bottom"
+             )
+
+pcPlot <- ggplot(data=patients_clean,
+        mapping=aes(x=Weight,y=Height))+geom_point()+theme_bw()
+pcPlot+
+  theme(text = element_text(colour="red"))
+
+oldTheme <- theme_bw()
+newTheme_Plus <- theme_bw() +
+  theme(text = element_text(colour="red"))
+  
+newTheme_Replace <- theme_bw() %+replace%
+  theme(text = element_text(colour="red"))
+  
+oldTheme$text
+newTheme_Plus$text
+
+newTheme_Replace$text
+
+pcPlot <- ggplot(data=patients_clean,
+        mapping=aes(x=Weight,y=Height))+geom_point()
+pcPlot+labs(title="Weight vs Height",y="Height (cm)")
+
+pcPlot <- ggplot(data=patients_clean,
+        mapping=aes(x=Height,y=Weight))+geom_point()
+pcPlot+ggtitle("Weight vs Height")+ylab("Height (cm)")
+
+pcPlot <- ggplot(data=patients_clean,
+        mapping=aes(x=Weight,y=Height))+geom_point()
+        
+ggsave(pcPlot,filename = "outputs/anExampleplot.png",width = 15,
+       height = 15,units = "cm")

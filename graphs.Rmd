@@ -491,6 +491,12 @@ The `ggplot2` package was created by Hadley Wickham to provide an intuitive plot
 
 For an extensive gide on `ggplot2` please refer to **R graphics Cookbook** by Winston Chang available [HERE](https://r-graphics.org/). 
 
+
+```{r, echo=F}
+library(ggplot2)
+```
+
+
 ## Why use `ggplot2`?
 
 The structured syntax and high level of abstraction used by ggplot2 should allow for the user to concentrate on the visualizations instead of creating the underlying code. On top of this central philosophy `ggplot2` has:
@@ -926,27 +932,22 @@ pcPlot + geom_point(size=4) +
                      name="Gender")
 ```
 
-
-## Colorbrewer
-
 Here we have specified the colours to be used (hence the manual) but when the number of levels to a variable are high this may be impractical and often we would like ggplot2 to choose colours from a scale of our choice.
 
-The brewer set of scale functions allow the user to make use of a range of palettes available from colorbrewer.
+The brewer set of scale functions allow the user to make use of a range of palettes available from **colorbrewer**.
 
-- Diverging
+- **Diverging**
 
-**BrBG, PiYG, PRGn, PuOr, RdBu, RdGy, RdYlBu, RdYlGn, Spectral**
+*BrBG, PiYG, PRGn, PuOr, RdBu, RdGy, RdYlBu, RdYlGn, Spectral*
 
-- Qualitative
+- **Qualitative**
 
-**Accent, Dark2, Paired, Pastel1, Pastel2, Set1, Set2, Set3**
+*Accent, Dark2, Paired, Pastel1, Pastel2, Set1, Set2, Set3*
 
-- Sequential
+- **Sequential**
 
-**Blues, BuGn, BuPu, GnBu, Greens, Greys, Oranges, OrRd, PuBu, PuBuGn, PuRd, Purples, RdPu, Reds, YlGn, YlGnBu, YlOrBr, YlOrRd**
+*Blues, BuGn, BuPu, GnBu, Greens, Greys, Oranges, OrRd, PuBu, PuBuGn, PuRd, Purples, RdPu, Reds, YlGn, YlGnBu, YlOrBr, YlOrRd*
 
-
-### `scale_color_brewer`
 
 ```{r,  eval=T, fig.align='center'}
 pcPlot <- ggplot(data=patients_clean,
@@ -955,39 +956,403 @@ pcPlot + geom_point(size=4) +
   scale_colour_brewer(palette = "Set2")
 ```
 
+For more details on palette sizes and styles visit the [colorbrewer](https://colorbrewer2.org/#type=sequential&scheme=BuGn&n=3) website and [ggplot2 color scales](https://ggplot2.tidyverse.org/reference/scale_brewer.html) reference page.
 
+So far we have looked a qualitative scales but `ggplot2` offers much functionality for continuous scales such as for size, alpha (transparency), color and fill.
 
+- For transparency: `scale_alpha_continuous()` 
 
+- For control of size: `scale_size_continuous()` 
 
+Both these functions accept the range of alpha/size to be used in plotting. Below the range of alpha to be used in plot is limited to between 0.5 and 1.
 
-
+```{r,  eval=T, fig.align='center'}
 pcPlot <- ggplot(data=patients_clean,
-        mapping=aes(x=Height,y=Weight))
-
-pcPlot_smooth <- pcPlot+geom_smooth() 
-
-pcPlot_smooth
-
-
-
-
-```{r,  eval=T}
-ggplot(data=patients_clean,
-       aes(y=Weight,x=Height,colour=Sex,
-           size=BMI,shape=Pet)) + 
-  geom_point()
+                 aes(x=Height,y=Weight,alpha=BMI))
+pcPlot + geom_point(size=4) + 
+  scale_alpha_continuous(range = c(0.5,1))
 ```
+  
+Below the range of sizes to be used in plot is limited to between 3 and 6.
 
-The aesthetic mappings may be set directly in the `geom_points()` function as previously when specifying red. This can allow the same ggplot object to be used by different aesethetic mappings and varying geoms
-
-```{r,  eval=T}
-ggplot(data=patients_clean,
-       aes(y=Weight,x=Height,colour=Sex,
-           size=BMI,shape=Pet)) + 
-  geom_point()
+```{r,  eval=T, fig.align='center'}
+pcPlot <- ggplot(data=patients_clean,
+                 aes(x=Height,y=Weight,size=BMI))
+pcPlot + geom_point(alpha=0.8) + 
+  scale_size_continuous(range = c(3,6))
 ```
 
 
+The limits of the scale can also be controlled but it is important to note data outside of scale is removed from plot.
 
 
+```{r,  eval=T, fig.align='center'}
+pcPlot <- ggplot(data=patients_clean,
+                 aes(x=Height,y=Weight,size=BMI))
+pcPlot + geom_point() + scale_size_continuous(range = c(3,6),
+                                              limits = c(25,40))
+```
+  
+
+What points of scale to be labeled and labels text can also be controlled.
+
+
+```{r,  eval=T, fig.align='center'}
+pcPlot <- ggplot(data=patients_clean,
+                 aes(x=Height,y=Weight,size=BMI))
+pcPlot + geom_point() + 
+  scale_size_continuous(range = c(3,6), 
+                        breaks=c(25,30), 
+                        labels=c("Good","Good but not 25")) 
+```
+  
+Control of color/fill scales can be best achieved through the gradient subfunctions of scale.
+
+- 2 colour gradient (eg. low to high BMI): scale_(colour/fill)_gradient
+
+- Diverging colour scale with a midpoint colour (e.g. Down, No Change, Up): scale_(colour/fill)_gradient2
+
+Both functions take a common set of arguments:
+
+- low - colour for low end of gradient scale
+- high - colour for high end of gradient scale.
+- na.value - colour for any NA values.
+
+An example using `scale_color_gradient` below sets the low and high end colors to `White` and `Red` respectively
+
+```{r,  eval=T, fig.align='center'}
+pcPlot <- ggplot(data=patients_clean,
+                 aes(x=Height,y=Weight,colour=BMI))
+pcPlot + geom_point(size=4,alpha=0.8) + 
+  scale_colour_gradient(low = "White",high="Red")
+```
+
+Similarly we can use the `scale_color_gradient2` function which allows for the specification of a midpoint value and its associated color.
+
+```{r,  eval=T, fig.align='center'}
+pcPlot <- ggplot(data=patients_clean,
+                 aes(x=Height,y=Weight,colour=BMI))
+pcPlot + geom_point(size=4,alpha=0.8) + 
+  scale_colour_gradient2(low = "Blue",mid="Black", high="Red",
+                         midpoint = median(patients_clean$BMI))
+```
+
+As with previous continuous scales, limits and custom labels in scale legend can be added.
+
+```{r,  eval=T, fig.align='center'}
+pcPlot <- ggplot(data=patients_clean,
+                 aes(x=Height,y=Weight,colour=BMI))
+pcPlot + geom_point(size=4,alpha=0.8) + 
+  scale_colour_gradient2(low = "Blue",
+                         mid="Black",
+                         high="Red",
+                         midpoint = median(patients_clean$BMI),
+                         breaks=c(25,30),labels=c("Low","High"),
+                         name="Body Mass Index")
+```
+
+Multiple scales may be combined to create high customizable plots and scales
+
+```{r,  eval=T, fig.align='center'}
+pcPlot <- ggplot(data=patients_clean,
+                 aes(x=Height,y=Weight,colour=BMI,shape=Sex))
+pcPlot + geom_point(size=4,alpha=0.8)+ 
+  scale_shape_discrete(name="Gender") +
+  scale_colour_gradient2(low = "Blue",mid="Black",high="Red",
+                         midpoint = median(patients_clean$BMI),
+                         breaks=c(25,30),labels=c("Low","High"),
+                         name="Body Mass Index")
+```
+
+## Transformations
+
+In `ggplot2` many of the statistical transformations are performed without any direct specification e.g. `geom_histogram()` seen before will use `stat_bin()` function to generate bin counts to be used in plot.
+
+An example of statistical methods in `ggplot2` which are very useful include the `stat_smooth()` and `stat_summary()` functions.
+
+### Fitting lines
+
+The `stat_smooth()` function can be used to fit a line to the data being displayed.
+
+```{r,  eval=T, fig.align='center'}
+pcPlot <- ggplot(data=patients_clean,
+        mapping=aes(x=Weight,y=Height))
+pcPlot+geom_point()+stat_smooth()
+```
+
+By default a “loess” smooth line is plotted by stat_smooth. Other methods available include lm, glm, gam, rlm.
+
+```{r,  eval=T, fig.align='center'}
+pcPlot <- ggplot(data=patients_clean,
+        mapping=aes(x=Weight,y=Height))
+pcPlot+geom_point()+stat_smooth(method="lm")
+```
+A useful feature of `ggplot2` is that it uses previously defined grouping when performing smoothing. If color by `Sex` is an aesthetic mapping then two smooth lines are drawn, one for each sex.
+
+```{r,  eval=T, fig.align='center'}
+pcPlot <- ggplot(data=patients_clean,
+        mapping=aes(x=Weight,y=Height,colour=Sex))
+pcPlot+geom_point()+stat_smooth(method="lm")
+```
+
+This behavior can be overridden by specifying an `aes` within the `stat_smooth()` function and setting `inherit.aes` to `FALSE`.
+
+```{r,  eval=T, fig.align='center'}
+pcPlot <- ggplot(data=patients_clean,
+        mapping=aes(x=Weight,y=Height,colour=Sex))
+pcPlot+geom_point()+stat_smooth(aes(x=Weight,y=Height),method="lm",
+                                inherit.aes = F)
+```
+
+### Summary statistics
+
+`stat_summary()` allows for a custom statistical function to be performed and then visualized.
+
+The `fun` parameter specifies a function to apply to the y variables for every value of x. In this example we use it to plot the quantiles of the `Female` and `Male` Height data
+
+```{r,  eval=T, fig.align='center'}
+pcPlot <- ggplot(data=patients_clean,
+        mapping=aes(x=Sex,y=Height)) + geom_jitter()
+pcPlot + stat_summary(fun=quantile, geom="point",shape=8,
+                    colour="purple", size=4)
+```
+## Themes
+
+Themes specify the details of data independent elements of the plot. This includes titles, background colour, text fonts etc.
+
+The graphs created so far have all used the default themes, `theme_grey()`, but `ggplot2` allows for the specification of theme used. Predefined themes can be applied to a `ggplot2` object using a family of functions `theme_style()`
+
+Here is a scatter with the default theme...
+
+```{r,  eval=T, fig.align='center'}
+pcPlot <- ggplot(data=patients_clean,
+        mapping=aes(x=Weight,y=Height))+geom_point()
+pcPlot
+```
+
+
+… and the same scatter plot with the minimal theme.
+
+```{r,  eval=T, fig.align='center'}
+pcPlot+theme_minimal()
+```
+
+### Predefined themes
+
+Several predifined themes are available within `ggplot2` including:
+
+- `theme_bw`
+- `theme_classic`
+- `theme_dark`
+- `theme_gray`
+- `theme_light`
+- `theme_linedraw`
+- `theme_minimal`
+
+Packages such as [`ggthemes`](https://github.com/jrnold/ggthemes) also contain many useful collections of predined theme_style functions.
+
+
+### Custom themes
+
+As well as making use of predefined theme styles, `ggplot2` allows for control over the attributes and elements within a plot through a collection of related functions and attributes.
+
+`theme()` is the global function used to set attributes for the collections of elements/components making up the current plot.
+
+Within the theme functions there are 4 general graphic elements which may be controlled…
+
+- rect
+- line
+- text
+- title
+
+…and 5 groups of related elements:
+
+- axis
+- legend
+- strip
+- panel (plot panel)
+- plot (Global plot parameters) ]
+
+These elements may be specified by the use of their appropriate element functions including:
+
+- `element_line()`
+- `element_text()`
+- `element_rect()`
+
+and additionally `element_blank()` to set an element to “blank”.
+
+A detailed description of controlling elements within a theme can be seen at the `ggplot2` vignette and by typing `?theme` into the console (see ggplot2's [themes](ggplot2 themes)).
+
+-------------
+
+To demonstrate customizing a theme, in the example below we alter one element of theme. Here we will change the text colour for the plot (Note because we are changing a text element we use the `element_text()` function).
+
+```{r,  eval=T, fig.align='center'}
+pcPlot <- ggplot(data=patients_clean,
+        mapping=aes(x=Weight,y=Height))+
+  geom_point()
+pcPlot+
+  theme(
+    text = element_text(colour="red")
+      )
+```
+
+If we wished to set the y-axis label to be at an angle we can adjust that as well.
+
+```{r,  eval=T, fig.align='center'}
+pcPlot <- ggplot(data=patients_clean,
+        mapping=aes(x=Weight,y=Height))+geom_point()
+pcPlot + theme(text = element_text(colour="red"),
+        axis.title.y = element_text(angle=0))
+```
+
+Finally we may wish to remove axis line, set the background of plot panels to be white and give the strips (title above facet) a cyan background colour.
+
+
+```{r,  eval=T, fig.align='center'}
+pcPlot <- ggplot(data=patients_clean,
+        mapping=aes(x=Weight,y=Height))+
+  geom_point()+
+  facet_grid(Sex~Smokes)
+pcPlot+
+  theme(
+    text = element_text(colour="red"),
+    axis.title.y = element_text(angle=0),
+    axis.line = element_line(linetype = 0),
+    panel.background=element_rect(fill="white"),
+    strip.background=element_rect(fill="cyan")
+    )
+```
+
+A useful example of using the theme can be seen in controlling the legend. By default the legend is in right of plot.
+
+
+```{r,  eval=T, fig.align='center'}
+pcPlot <- ggplot(data=patients_clean,aes(x=Height,y=Weight,
+                                         colour=Sex))+geom_point()
+pcPlot
+```
+
+By modifying the theme we can control the legend positioning.
+
+```{r,  eval=T, fig.align='center'}
+pcPlot <- ggplot(data=patients_clean,aes(x=Height,y=Weight,
+                                         colour=Sex))+geom_point()
+pcPlot+theme(legend.position="left")
+```
+
+We can control all aspects of a legend as we can for other theme elements.
+
+```{r,  eval=T, fig.align='center'}
+pcPlot <- ggplot(data=patients_clean,aes(x=Height,y=Weight,
+                                         colour=Sex))+geom_point()
+pcPlot+theme(legend.text = element_text(colour="darkred"),
+             legend.title = element_text(size=20),
+             legend.position = "bottom"
+             )
+```
+
+When altering themes we have been using the `+` operator to add themes as we would adding geoms,scales and stats.
+
+When using the `+` operator:
+
+- Themes elements specified in new scheme replace elements in old theme
+
+- Theme elements in the old theme which have not been specified in new theme are maintained.
+
+This makes the `+` operator useful for building up from old themes.
+
+In the example below, we maintain all elements set by theme_bw() but overwrite the theme element attribute of the colour of text.
+
+
+```{r,  eval=T, fig.align='center'}
+pcPlot <- ggplot(data=patients_clean,
+        mapping=aes(x=Weight,y=Height))+geom_point()+theme_bw()
+pcPlot+
+  theme(text = element_text(colour="red"))
+```
+
+
+In contrast `%+replace%` replaces all elements within a theme regardless of whether they have been previously specfied in old theme.
+
+When using the `%+replace%` operator:
+
+- Theme elements specified in new scheme replace elements in old theme
+
+- Theme elements in the old theme which have not been specified in new theme are also replaced by blank theme elements.
+
+```{r,  eval=T, fig.align='center'}
+oldTheme <- theme_bw()
+newTheme_Plus <- theme_bw() +
+  theme(text = element_text(colour="red"))
+  
+newTheme_Replace <- theme_bw() %+replace%
+  theme(text = element_text(colour="red"))
+  
+oldTheme$text
+```
+```{r,  eval=T}
+newTheme_Plus$text
+```
+
+```{r,  eval=T}
+newTheme_Replace$text
+```
+
+This means that `%+replace%` is most useful when creating new themes.
+
+In the examples we have shown you we have been modifying the theme for a specific plot. But once you have a theme that you really like you may want it to apply to every plot you draw.
+
+The active theme is automatically applied to every plot you draw. Use `theme_get` to get the current theme, and `theme_set` to completely override it.
+
+
+## Titles and Labels
+
+So far no plot titles have been specified. Plot titles can be specified using the `labs` functions.
+
+```{r,  eval=T, fig.align='center'}
+pcPlot <- ggplot(data=patients_clean,
+        mapping=aes(x=Weight,y=Height))+geom_point()
+pcPlot+labs(title="Weight vs Height",y="Height (cm)")
+```
+
+You can also specify titles using the `ggtitle` and `xlab`/`ylab` functions.
+
+```{r,  eval=T, fig.align='center'}
+pcPlot <- ggplot(data=patients_clean,
+        mapping=aes(x=Height,y=Weight))+geom_point()
+pcPlot+ggtitle("Weight vs Height")+ylab("Height (cm)")
+```
+
+## Saving plot
+
+Plots produced by ggplot can be saved in the same way as `base` plots. The `ggsave()` function allows for additional arguments to be specified including the type, resolution and size of plot.
+
+By default `ggsave()` will use the size of your current graphics window when saving plots so it may be important to specify width and height arguments desired.
+
+```{r,  eval=T}
+pcPlot <- ggplot(data=patients_clean,
+        mapping=aes(x=Weight,y=Height))+geom_point()
+        
+ggsave(pcPlot,filename = "outputs/anExampleplot.png",width = 15,
+       height = 15,units = "cm")
+```
+
+# References
+
+- [Layered grammar of graphics](https://vita.had.co.nz/papers/layered-grammar.pdf)
+
+- [ggplot2 documentation](https://rdrr.io/cran/ggplot2/man/)
+
+- [ggplot2 wiki](https://github.com/tidyverse/ggplot2/wiki)
+
+- [ggplot2 mailing list](https://groups.google.com/g/ggplot2)
+
+- [Cheatsheet](https://sape.inf.usi.ch/quick-reference/ggplot2/geom)
+
+- [Even more material](https://ggplot2-book.org/)
+
+# Credits
+
+Course content extracted and adapted from [Plotting in R](https://rockefelleruniversity.github.io/Plotting_In_R/index.html) of the Bioinformatics Resource Center, Rockefeller University (GPL v2 license). 
 
