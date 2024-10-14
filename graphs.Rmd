@@ -475,6 +475,12 @@ dev.off()
 </p>
 
 
+
+<p class="alert">
+**`r knitr::asis_output("\U26A0")` Practice 4.1** Using the `iris` dataset, reproduce the plot below. **Explore** the function `pairs` allowing to generate a matrix of scatter plots between variables `pairs (iris[1:4])`. You will send me a **pdf** file of the plot your made. You can also add your code into a *.Rmd* in which you will import your image and knit it in a *.html* file. You will email me [vianneydenis@g.ntu.edu.tw] your files (and/or link) **before next Monday** so that I can review your work. The **title of your email** should be: `Practice 4.1 (your name: your student no.). ENJOY ;)
+</p>
+
+
 ```{r, echo=FALSE, fig.align='center', fig.cap="A refined scatter plot using base R graphics", out.width = '50%'}
 knitr::include_graphics("illustrations/iris-plot.png")
 ```
