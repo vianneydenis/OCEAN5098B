@@ -470,12 +470,6 @@ dev.off()
 
 
 
-<p class="comment">
-**Practice 5.1** Using the `iris` dataset, reproduce the plot below. Explore the function `pairs` allowing to generate a matrix of scatter plots.
-</p>
-
-
-
 <p class="alert">
 **`r knitr::asis_output("\U26A0")` Practice 4.1** Using the `iris` dataset, reproduce the plot below. **Explore** the function `pairs` allowing to generate a matrix of scatter plots between variables `pairs (iris[1:4])`. You will send me a **pdf** file of the plot your made. You can also add your code into a *.Rmd* in which you will import your image and knit it in a *.html* file. You will email me [vianneydenis@g.ntu.edu.tw] your files (and/or link) **before next Monday** so that I can review your work. The **title of your email** should be: `Practice 4.1 (your name: your student no.). ENJOY ;)
 </p>
@@ -1361,4 +1355,10 @@ ggsave(pcPlot,filename = "outputs/anExampleplot.png",width = 15,
 # Credits
 
 Course content extracted and adapted from [Plotting in R](https://rockefelleruniversity.github.io/Plotting_In_R/index.html) of the Bioinformatics Resource Center, Rockefeller University (GPL v2 license). 
+
+
+<p class="alert">
+**`r knitr::asis_output("\U26A0")` Practice 4.2** Using the `rairuoho` dataset you will use a `ggplot2` visualization to show that **_over the course of the experiment_** the growth of the grass is becoming higher in the **nutrient** treatment than in the **water** treatment. You are free to use the visualization that you think makes the most sense Do not forget to embellish your visualization and the use of a legend. You will send me a **pdf** file of the plot your made. You can also add your code into a *.Rmd* in which you will import your image and knit it in a *.html* file. You will email me [vianneydenis@g.ntu.edu.tw] your files (and/or link) **before next Monday** so that I can review your work. The **title of your email** should be: `Practice 4.1 (your name: your student no.). ENJOY ;)
+</p>
+
 
