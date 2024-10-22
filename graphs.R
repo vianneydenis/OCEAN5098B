@@ -193,8 +193,6 @@ knitr::include_graphics("illustrations/ggplot-map.jfif")
 ##   theme(plot.title = element_text(color = "gray"),
 ##         ... <other theme elements>)
 
-knitr::include_graphics("illustrations/ggplot-map-simple.jfif")
-
 ggiris <- ggplot(data=iris)
 class(ggiris)
 ggiris$data[1:4,]
@@ -476,6 +474,13 @@ oldTheme$text
 newTheme_Plus$text
 
 newTheme_Replace$text
+
+library(ggthemes)
+p <- ggplot(iris, aes(Sepal.Length, Sepal.Width, colour = Species))+
+  geom_point()
+p + theme_wsj()+ scale_colour_wsj("colors6")+
+  ggtitle("Iris data")
+
 
 pcPlot <- ggplot(data=patients_clean,
         mapping=aes(x=Weight,y=Height))+geom_point()

@@ -18,6 +18,10 @@ xfun::embed_file('graphs.R')
 xfun::embed_file('data/gene_data.txt', sep="\t", h=T, row.names = 1)
 ```
 
+```{r echo=FALSE, purl=F}
+xfun::embed_file('data/patients_clean.txt', sep="\t", h=T, row.names = 1)
+```
+
 ```{r echo=FALSE}
 xaringanExtra::use_clipboard()
 ```
@@ -483,7 +487,7 @@ knitr::include_graphics("illustrations/iris-plot.png")
 
 The R language has extensive graphical capabilities. Graphics in R may be created by many different methods including `base` graphics and more advanced plotting packages such as `lattice`.
 
-```{r, echo=FALSE, fig.align='center', fig.cap="A refined scatter plot using base R graphics", out.width = '50%'}
+```{r, echo=FALSE, fig.align='center', fig.cap="Left, `base` plot; right, `lattice` plot", out.width = '50%'}
 knitr::include_graphics("illustrations/base-lattice.jfif")
 ```
 
@@ -525,7 +529,7 @@ A plot in `ggplot2` consists of different **primary layering components**, with 
 + **Coordinate systems** for defining the plots shape (i.e. Cartesian, polar, spatial map projections, etc…)
 
 
-```{r, echo=FALSE, fig.align='center', fig.cap="A refined scatter plot using base R graphics", out.width = '50%'}
+```{r, echo=FALSE, fig.align='center', fig.cap="Elements used in ggplot", out.width = '50%'}
 knitr::include_graphics("illustrations/ggplot-map.jfif")
 ```
 
@@ -563,11 +567,6 @@ ggplot(data = <default data set>,
 ```
 
 Don't panic, you usually specify only a subset of arguments. 
-
-```{r, echo=FALSE, fig.align='center', fig.cap="A refined scatter plot using base R graphics", out.width = '50%'}
-knitr::include_graphics("illustrations/ggplot-map-simple.jfif")
-```
-
 
 ### Example
 
@@ -1116,6 +1115,7 @@ pcPlot <- ggplot(data=patients_clean,
 pcPlot + stat_summary(fun=quantile, geom="point",shape=8,
                     colour="purple", size=4)
 ```
+
 ## Themes
 
 Themes specify the details of data independent elements of the plot. This includes titles, background colour, text fonts etc.
@@ -1306,6 +1306,20 @@ In the examples we have shown you we have been modifying the theme for a specifi
 The active theme is automatically applied to every plot you draw. Use `theme_get` to get the current theme, and `theme_set` to completely override it.
 
 
+Some themes readily available reproduce styles of famous publication, see theme based on plots in the Wall Street Journal. In `ggthemes`:
+
+```{r,  eval=T}
+library(ggthemes)
+p <- ggplot(iris, aes(Sepal.Length, Sepal.Width, colour = Species))+
+  geom_point()
+p + theme_wsj()+ scale_colour_wsj("colors6")+
+  ggtitle("Iris data")
+
+```
+
+Creat your own style :)
+
+
 ## Titles and Labels
 
 So far no plot titles have been specified. Plot titles can be specified using the `labs` functions.
@@ -1326,7 +1340,7 @@ pcPlot+ggtitle("Weight vs Height")+ylab("Height (cm)")
 
 ## Saving plot
 
-Plots produced by ggplot can be saved in the same way as `base` plots. The `ggsave()` function allows for additional arguments to be specified including the type, resolution and size of plot.
+As `base` plots, plots produced by ggplot can be saved in a similar way . The `ggsave()` function allows for additional arguments to be specified including the type, resolution and size of plot.
 
 By default `ggsave()` will use the size of your current graphics window when saving plots so it may be important to specify width and height arguments desired.
 
@@ -1352,13 +1366,13 @@ ggsave(pcPlot,filename = "outputs/anExampleplot.png",width = 15,
 
 - [Even more material](https://ggplot2-book.org/)
 
-# Credits
-
-Course content extracted and adapted from [Plotting in R](https://rockefelleruniversity.github.io/Plotting_In_R/index.html) of the Bioinformatics Resource Center, Rockefeller University (GPL v2 license). 
 
 
 <p class="alert">
-**`r knitr::asis_output("\U26A0")` Practice 4.2** Using the `rairuoho` dataset you will use a `ggplot2` visualization to show that **_over the course of the experiment_** the growth of the grass is becoming higher in the **nutrient** treatment than in the **water** treatment. You are free to use the visualization that you think makes the most sense Do not forget to embellish your visualization and the use of a legend. You will send me a **pdf** file of the plot your made. You can also add your code into a *.Rmd* in which you will import your image and knit it in a *.html* file. You will email me [vianneydenis@g.ntu.edu.tw] your files (and/or link) **before next Monday** so that I can review your work. The **title of your email** should be: `Practice 4.1 (your name: your student no.). ENJOY ;)
+**`r knitr::asis_output("\U26A0")` Practice 4.2** Using the `rairuoho` dataset you will use a `ggplot2` visualization to show that **_over the course of the experiment_** the growth of the grass is becoming higher in the **nutrient** treatment than in the **water** treatment. You are free to use the visualization that you think makes the most sense Do not forget to embellish your visualization and the use of a legend and/or theme. The winner is the one who create the most informative and appealing plots. The price is that I will round up final score ;) You will send me a **pdf** file of the plot your made. You can also add your code into a *.Rmd* in which you will import your image and knit it in a *.html* file. You will email me [vianneydenis@g.ntu.edu.tw] your files (and/or link) **before next Monday** so that I can review your work. The **title of your email** should be: `Practice 4.1 (your name: your student no.). ENJOY ;)
 </p>
 
+# Credits
+
+Course content extracted and adapted from [Plotting in R](https://rockefelleruniversity.github.io/Plotting_In_R/index.html) of the Bioinformatics Resource Center, Rockefeller University (GPL v2 license). 
 
