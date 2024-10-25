@@ -40,11 +40,11 @@ Spatial objects are usually represented by vector data. Such data consists of a 
 
 The main vector data types are points, lines and polygons. In all cases, the geometry of these data structures consists of sets of coordinate pairs (x, y). Points are the simplest case. Each point has one coordinate pair, and n associated variables. For example, a point might represent a place where a rat was trapped, and the attributes could include the date it was captured, the person who captured it, the species size and sex, and information about the habitat. It is also possible to combine several points into a multi-point structure, with a single attribute record. For example, all the coffee shops in a town could be considered as a single geometry.
 
-The geometry of lines is a just a little bit more complex. First note that in this context, the term *line* refers to a set of one or more polylines (connected series of line segments). For example, in spatial analysis, a river and all its tributaries could be considered as a single *line* (but they could also also be several lines, perhaps one for each tributary river). Lines are represented as ordered sets of coordinates (nodes). The actual line segments can be computed (and drawn on a map) by connecting the points. Thus, the representation of a line is very similar to that of a multi-point structure. The main difference is that for a line the ordering of the points is important, because we need to know in which order the points should be connected.
+The geometry of lines is just a little bit more complex. First note that in this context, the term *line* refers to a set of one or more polylines ( series of connected line segments). For example, in spatial analysis, a river and all its tributaries could be considered as a single *line* (but they could also be several lines, perhaps one for each tributary river). Lines are represented as ordered sets of coordinates (nodes). The actual line segments can be computed (and drawn on a map) by connecting the points. Thus, the representation of a line is very similar to that of a multi-point structure. The main difference is that for a line the ordering of the points is important, because we need to know in which order the points should be connected.
 
 A network (e.g. a road or river network), or spatial graph, is a special type of lines geometry where there is additional information about things like flow, connectivity, direction, and distance.
 
-A polygon refers to a set of closed polylines. The geometry is very similar to that of lines, but to close a polygon the last coordinate pair coincides with the first pair. A complication with polygons is that they can have holes (that is a polygon entirely enclosed by another polygon, that serves to remove parts of the enclosing polygon (for example to show an island inside a lake. Also, valid polygons do not self-intersect (but it is OK for a line to self-cross). Again, multiple polygons can be considered as a single geometry. For example, Indonesia consists of many islands. Each island can be represented by a single polygon, but together then can be represent a single (multi-) polygon representing the entire country.
+A polygon refers to a set of closed polylines. The geometry is very similar to that of lines, but to close a polygon the last coordinate pair coincides with the first pair. A complication with polygons is that they can have holes (that is a polygon entirely enclosed by another polygon), that serves to remove parts of the enclosing polygon (for example to show an island inside a lake. Also, valid polygons do not self-intersect (but it is OK for a line to self-cross). Again, multiple polygons can be considered as a single geometry. For example, Indonesia consists of many islands. Each island can be represented by a single polygon, but together they can be represented as a single (multi-) polygon for the entire country.
 
 ## Raster data
 
@@ -58,7 +58,7 @@ Continuous surface data are sometimes stored as triangulated irregular networks 
 
 The basic data types in R are numbers, characters, logical (TRUE or FALSE) and factor values. Values of a single type can be combined in vectors and matrices, and variables of multiple types can be combined into a data.frame. We can represent (only very) basic spatial data with these data types. Let’s say we have the location (represented by longitude and latitude) of ten weather stations (named A to J) and their annual precipitation.
 
-In the example below we make a very simple map. Note that a map is special type of plot (like a scatter plot, barplot, etc.). A map is a plot of geospatial data that also has labels and other graphical objects such as a scale bar or legend. The spatial data itself should not be referred to as a map.
+In the example below we make a very simple map. Note that a map is a special type of plot (like a scatter plot, barplot, etc.). A map is a plot of geospatial data that also has labels and other graphical objects such as a scale bar or legend. The spatial data itself should not be referred to as a map.
 
 ```{r,  eval=T}
 name <- LETTERS[1:10]
@@ -143,6 +143,7 @@ library (geodata)
 TWN <- vect('data/gadm/gadm41_TWN_1_pk.rds')
 TWN
 # check for ?gadm
+# The RDS format is a binary file format, native to R. It has been part of R for many years, and provides a convenient method for saving R objects, including data sets. R also has two native data formats—Rdata (sometimes shortened to Rda) and Rds. These formats are used when R objects are saved for later use. Rdata is used to save multiple R objects, while Rds is used to save a single R object.
 ```
 
 Using a .shp file, we can use the `vect` function from the `terra` package to read the file. First:
@@ -177,7 +178,7 @@ writeVector(TWN, outfile1, overwrite=TRUE)
 
 ## Raster files
 
-The terra package can read and write several raster file formats.
+The `terra` package can read and write several raster file formats.
 
 ### Reading raster data
 
@@ -190,7 +191,7 @@ ele <-elevation_30s("TWN", path=tempdir())
 ele
 ```
 
-Using a .tif file, we can use the `rast` function from the `terra` package to read the file. Firstusing example file from the package:
+Using a .tif file, we can use the `rast` function from the `terra` package to read the file. First using example file from the package:
 
 ```{r,  eval=T}
 f <- system.file("ex/logo.tif", package="terra")
@@ -204,7 +205,7 @@ r <- rast(f)
 r
 ```
 
-Note that x is a SpatRaster of three layers (“bands”). We can subset it to get a single layer.
+Note that `r` is a SpatRaster of three layers (“bands”). We can subset it to get a single layer.
 
 ```{r,  eval=T}
 r2 <- r[[2]]

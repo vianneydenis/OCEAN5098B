@@ -20,7 +20,9 @@ navbar:
     - text: "Graphics"
       href: graphs.html   
     - text: "Mapping"
-      href: TEMP_maps.html  
+      href: maps.html
+    - text: "Loop & functions"
+      href: TEMP_functions.html  
           
 output:
   html_document:

@@ -454,7 +454,10 @@ div.tocify {
   <a href="graphs.html">Graphics</a>
 </li>
 <li>
-  <a href="TEMP_maps.html">Mapping</a>
+  <a href="maps.html">Mapping</a>
+</li>
+<li>
+  <a href="TEMP_functions.html">Loop &amp; functions</a>
 </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
@@ -994,7 +997,6 @@ previous materials on <code>tidyr</code> and <code>dplyr</code>.</p>
 <p>For an extensive gide on <code>ggplot2</code> please refer to
 <strong>R graphics Cookbook</strong> by Winston Chang available <a
 href="https://r-graphics.org/">HERE</a>.</p>
-<pre><code>## Warning: package &#39;ggplot2&#39; was built under R version 4.2.3</code></pre>
 <div id="why-use-ggplot2" class="section level2">
 <h2>Why use <code>ggplot2</code>?</h2>
 <p>The structured syntax and high level of abstraction used by ggplot2
@@ -1056,31 +1058,31 @@ Elements used in ggplot
 <div id="overview-of-a-scatter-plot" class="section level3">
 <h3>Overview of a scatter plot</h3>
 <p>Overview of example code for a <code>ggplot2</code> scatter plot.</p>
-<div class="sourceCode" id="cb64"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb64-1"><a href="#cb64-1" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> <span class="sc">&lt;</span>default data set<span class="sc">&gt;</span>, </span>
-<span id="cb64-2"><a href="#cb64-2" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">x =</span> <span class="sc">&lt;</span>default x axis variable<span class="sc">&gt;</span>,</span>
-<span id="cb64-3"><a href="#cb64-3" tabindex="-1"></a>           <span class="at">y =</span> <span class="sc">&lt;</span>default y axis variable<span class="sc">&gt;</span>,</span>
-<span id="cb64-4"><a href="#cb64-4" tabindex="-1"></a>           ... <span class="sc">&lt;</span>other default aesthetic mappings<span class="sc">&gt;</span>),</span>
-<span id="cb64-5"><a href="#cb64-5" tabindex="-1"></a>       ... <span class="sc">&lt;</span>other plot defaults<span class="sc">&gt;</span>) <span class="sc">+</span></span>
-<span id="cb64-6"><a href="#cb64-6" tabindex="-1"></a></span>
-<span id="cb64-7"><a href="#cb64-7" tabindex="-1"></a>       <span class="fu">geom_scatter</span>(<span class="fu">aes</span>(<span class="at">size =</span> <span class="sc">&lt;</span>size variable <span class="cf">for</span> this geom<span class="sc">&gt;</span>, </span>
-<span id="cb64-8"><a href="#cb64-8" tabindex="-1"></a>                      ... <span class="sc">&lt;</span>other aesthetic mappings<span class="sc">&gt;</span>),</span>
-<span id="cb64-9"><a href="#cb64-9" tabindex="-1"></a>                  <span class="at">data =</span> <span class="sc">&lt;</span>data <span class="cf">for</span> this point geom<span class="sc">&gt;</span>,</span>
-<span id="cb64-10"><a href="#cb64-10" tabindex="-1"></a>                  <span class="at">stat =</span> <span class="sc">&lt;</span>statistic string or <span class="cf">function</span><span class="sc">&gt;</span>,</span>
-<span id="cb64-11"><a href="#cb64-11" tabindex="-1"></a>                  <span class="at">position =</span> <span class="sc">&lt;</span>position string or <span class="cf">function</span><span class="sc">&gt;</span>,</span>
-<span id="cb64-12"><a href="#cb64-12" tabindex="-1"></a>                  <span class="at">color =</span> <span class="sc">&lt;</span><span class="st">&quot;fixed color specification&quot;</span><span class="sc">&gt;</span>,</span>
-<span id="cb64-13"><a href="#cb64-13" tabindex="-1"></a>                  <span class="sc">&lt;</span>other arguments, possibly passed to the _stat_ <span class="cf">function</span>) <span class="sc">+</span></span>
-<span id="cb64-14"><a href="#cb64-14" tabindex="-1"></a></span>
-<span id="cb64-15"><a href="#cb64-15" tabindex="-1"></a>  scale_<span class="sc">&lt;</span>aesthetic<span class="sc">&gt;</span>_<span class="sc">&lt;</span>type<span class="sc">&gt;</span>(<span class="at">name =</span> <span class="sc">&lt;</span><span class="st">&quot;scale label&quot;</span><span class="sc">&gt;</span>,</span>
-<span id="cb64-16"><a href="#cb64-16" tabindex="-1"></a>                     <span class="at">breaks =</span> <span class="sc">&lt;</span>where to put tick marks<span class="sc">&gt;</span>,</span>
-<span id="cb64-17"><a href="#cb64-17" tabindex="-1"></a>                     <span class="at">labels =</span> <span class="sc">&lt;</span>labels <span class="cf">for</span> tick marks<span class="sc">&gt;</span>,</span>
-<span id="cb64-18"><a href="#cb64-18" tabindex="-1"></a>                     ... <span class="sc">&lt;</span>other options <span class="cf">for</span> the scale<span class="sc">&gt;</span>) <span class="sc">+</span></span>
-<span id="cb64-19"><a href="#cb64-19" tabindex="-1"></a>  </span>
-<span id="cb64-20"><a href="#cb64-20" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">&quot;Graphics/Plot&quot;</span>)<span class="sc">+</span></span>
-<span id="cb64-21"><a href="#cb64-21" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">&quot;Weight&quot;</span>)<span class="sc">+</span></span>
-<span id="cb64-22"><a href="#cb64-22" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">&quot;Height&quot;</span>)<span class="sc">+</span></span>
-<span id="cb64-23"><a href="#cb64-23" tabindex="-1"></a></span>
-<span id="cb64-24"><a href="#cb64-24" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">color =</span> <span class="st">&quot;gray&quot;</span>),</span>
-<span id="cb64-25"><a href="#cb64-25" tabindex="-1"></a>        ... <span class="sc">&lt;</span>other theme elements<span class="sc">&gt;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb63"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb63-1"><a href="#cb63-1" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> <span class="sc">&lt;</span>default data set<span class="sc">&gt;</span>, </span>
+<span id="cb63-2"><a href="#cb63-2" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">x =</span> <span class="sc">&lt;</span>default x axis variable<span class="sc">&gt;</span>,</span>
+<span id="cb63-3"><a href="#cb63-3" tabindex="-1"></a>           <span class="at">y =</span> <span class="sc">&lt;</span>default y axis variable<span class="sc">&gt;</span>,</span>
+<span id="cb63-4"><a href="#cb63-4" tabindex="-1"></a>           ... <span class="sc">&lt;</span>other default aesthetic mappings<span class="sc">&gt;</span>),</span>
+<span id="cb63-5"><a href="#cb63-5" tabindex="-1"></a>       ... <span class="sc">&lt;</span>other plot defaults<span class="sc">&gt;</span>) <span class="sc">+</span></span>
+<span id="cb63-6"><a href="#cb63-6" tabindex="-1"></a></span>
+<span id="cb63-7"><a href="#cb63-7" tabindex="-1"></a>       <span class="fu">geom_scatter</span>(<span class="fu">aes</span>(<span class="at">size =</span> <span class="sc">&lt;</span>size variable <span class="cf">for</span> this geom<span class="sc">&gt;</span>, </span>
+<span id="cb63-8"><a href="#cb63-8" tabindex="-1"></a>                      ... <span class="sc">&lt;</span>other aesthetic mappings<span class="sc">&gt;</span>),</span>
+<span id="cb63-9"><a href="#cb63-9" tabindex="-1"></a>                  <span class="at">data =</span> <span class="sc">&lt;</span>data <span class="cf">for</span> this point geom<span class="sc">&gt;</span>,</span>
+<span id="cb63-10"><a href="#cb63-10" tabindex="-1"></a>                  <span class="at">stat =</span> <span class="sc">&lt;</span>statistic string or <span class="cf">function</span><span class="sc">&gt;</span>,</span>
+<span id="cb63-11"><a href="#cb63-11" tabindex="-1"></a>                  <span class="at">position =</span> <span class="sc">&lt;</span>position string or <span class="cf">function</span><span class="sc">&gt;</span>,</span>
+<span id="cb63-12"><a href="#cb63-12" tabindex="-1"></a>                  <span class="at">color =</span> <span class="sc">&lt;</span><span class="st">&quot;fixed color specification&quot;</span><span class="sc">&gt;</span>,</span>
+<span id="cb63-13"><a href="#cb63-13" tabindex="-1"></a>                  <span class="sc">&lt;</span>other arguments, possibly passed to the _stat_ <span class="cf">function</span>) <span class="sc">+</span></span>
+<span id="cb63-14"><a href="#cb63-14" tabindex="-1"></a></span>
+<span id="cb63-15"><a href="#cb63-15" tabindex="-1"></a>  scale_<span class="sc">&lt;</span>aesthetic<span class="sc">&gt;</span>_<span class="sc">&lt;</span>type<span class="sc">&gt;</span>(<span class="at">name =</span> <span class="sc">&lt;</span><span class="st">&quot;scale label&quot;</span><span class="sc">&gt;</span>,</span>
+<span id="cb63-16"><a href="#cb63-16" tabindex="-1"></a>                     <span class="at">breaks =</span> <span class="sc">&lt;</span>where to put tick marks<span class="sc">&gt;</span>,</span>
+<span id="cb63-17"><a href="#cb63-17" tabindex="-1"></a>                     <span class="at">labels =</span> <span class="sc">&lt;</span>labels <span class="cf">for</span> tick marks<span class="sc">&gt;</span>,</span>
+<span id="cb63-18"><a href="#cb63-18" tabindex="-1"></a>                     ... <span class="sc">&lt;</span>other options <span class="cf">for</span> the scale<span class="sc">&gt;</span>) <span class="sc">+</span></span>
+<span id="cb63-19"><a href="#cb63-19" tabindex="-1"></a>  </span>
+<span id="cb63-20"><a href="#cb63-20" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">&quot;Graphics/Plot&quot;</span>)<span class="sc">+</span></span>
+<span id="cb63-21"><a href="#cb63-21" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">&quot;Weight&quot;</span>)<span class="sc">+</span></span>
+<span id="cb63-22"><a href="#cb63-22" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">&quot;Height&quot;</span>)<span class="sc">+</span></span>
+<span id="cb63-23"><a href="#cb63-23" tabindex="-1"></a></span>
+<span id="cb63-24"><a href="#cb63-24" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">color =</span> <span class="st">&quot;gray&quot;</span>),</span>
+<span id="cb63-25"><a href="#cb63-25" tabindex="-1"></a>        ... <span class="sc">&lt;</span>other theme elements<span class="sc">&gt;</span>)</span></code></pre></div>
 <p>Don’t panic, you usually specify only a subset of arguments.</p>
 </div>
 <div id="example" class="section level3">
@@ -1094,10 +1096,10 @@ of:</p>
 </ul>
 <p>In the code below we define the data as our <code>iris</code> data
 frame.</p>
-<div class="sourceCode" id="cb65"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb65-1"><a href="#cb65-1" tabindex="-1"></a>ggiris <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data=</span>iris)</span>
-<span id="cb65-2"><a href="#cb65-2" tabindex="-1"></a><span class="fu">class</span>(ggiris)</span></code></pre></div>
+<div class="sourceCode" id="cb64"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb64-1"><a href="#cb64-1" tabindex="-1"></a>ggiris <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data=</span>iris)</span>
+<span id="cb64-2"><a href="#cb64-2" tabindex="-1"></a><span class="fu">class</span>(ggiris)</span></code></pre></div>
 <pre><code>## [1] &quot;gg&quot;     &quot;ggplot&quot;</code></pre>
-<div class="sourceCode" id="cb67"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb67-1"><a href="#cb67-1" tabindex="-1"></a>ggiris<span class="sc">$</span>data[<span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>,]</span></code></pre></div>
+<div class="sourceCode" id="cb66"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb66-1"><a href="#cb66-1" tabindex="-1"></a>ggiris<span class="sc">$</span>data[<span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>,]</span></code></pre></div>
 <pre><code>##   Sepal.Length Sepal.Width Petal.Length Petal.Width Species
 ## 1          5.1         3.5          1.4         0.2  setosa
 ## 2          4.9         3.0          1.4         0.2  setosa
@@ -1108,46 +1110,46 @@ Within this gg/ggplot object the data has been defined, however
 important information on how to map the data to the visual properties
 (aesthetics) of the plot as well as what type of plot to use (geom) have
 however yet to specified.</p>
-<div class="sourceCode" id="cb69"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb69-1"><a href="#cb69-1" tabindex="-1"></a>ggiris<span class="sc">$</span>mapping</span></code></pre></div>
+<div class="sourceCode" id="cb68"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb68-1"><a href="#cb68-1" tabindex="-1"></a>ggiris<span class="sc">$</span>mapping</span></code></pre></div>
 <pre><code>## Aesthetic mapping: 
 ## &lt;empty&gt;</code></pre>
-<div class="sourceCode" id="cb71"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb71-1"><a href="#cb71-1" tabindex="-1"></a>ggiris<span class="sc">$</span>theme</span></code></pre></div>
+<div class="sourceCode" id="cb70"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb70-1"><a href="#cb70-1" tabindex="-1"></a>ggiris<span class="sc">$</span>theme</span></code></pre></div>
 <pre><code>## list()</code></pre>
-<div class="sourceCode" id="cb73"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb73-1"><a href="#cb73-1" tabindex="-1"></a>ggiris<span class="sc">$</span>layers</span></code></pre></div>
+<div class="sourceCode" id="cb72"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb72-1"><a href="#cb72-1" tabindex="-1"></a>ggiris<span class="sc">$</span>layers</span></code></pre></div>
 <pre><code>## list()</code></pre>
 <p>The information to map the data to the plot can be added now using
 the <code>aes()</code> function.</p>
-<div class="sourceCode" id="cb75"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb75-1"><a href="#cb75-1" tabindex="-1"></a>ggiris <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data=</span>iris)</span>
-<span id="cb75-2"><a href="#cb75-2" tabindex="-1"></a>ggiris2 <span class="ot">&lt;-</span> ggiris<span class="sc">+</span><span class="fu">aes</span>(<span class="at">x=</span>Petal.Length,<span class="at">y=</span>Petal.Width)</span>
-<span id="cb75-3"><a href="#cb75-3" tabindex="-1"></a>ggiris2<span class="sc">$</span>mapping</span></code></pre></div>
+<div class="sourceCode" id="cb74"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb74-1"><a href="#cb74-1" tabindex="-1"></a>ggiris <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data=</span>iris)</span>
+<span id="cb74-2"><a href="#cb74-2" tabindex="-1"></a>ggiris2 <span class="ot">&lt;-</span> ggiris<span class="sc">+</span><span class="fu">aes</span>(<span class="at">x=</span>Petal.Length,<span class="at">y=</span>Petal.Width)</span>
+<span id="cb74-3"><a href="#cb74-3" tabindex="-1"></a>ggiris2<span class="sc">$</span>mapping</span></code></pre></div>
 <pre><code>## Aesthetic mapping: 
 ## * `x` -&gt; `Petal.Length`
 ## * `y` -&gt; `Petal.Width`</code></pre>
-<div class="sourceCode" id="cb77"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb77-1"><a href="#cb77-1" tabindex="-1"></a>ggiris2<span class="sc">$</span>theme</span></code></pre></div>
+<div class="sourceCode" id="cb76"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb76-1"><a href="#cb76-1" tabindex="-1"></a>ggiris2<span class="sc">$</span>theme</span></code></pre></div>
 <pre><code>## list()</code></pre>
-<div class="sourceCode" id="cb79"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb79-1"><a href="#cb79-1" tabindex="-1"></a>ggiris2<span class="sc">$</span>layers</span></code></pre></div>
+<div class="sourceCode" id="cb78"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb78-1"><a href="#cb78-1" tabindex="-1"></a>ggiris2<span class="sc">$</span>layers</span></code></pre></div>
 <pre><code>## list()</code></pre>
 <p>But we are still missing the final component of our plot, the type of
 plot to use (geom). Below the <code>geom_point</code> function is used
 to specify a point plot, a scatter plot of <em>Lenght</em> values on the
 x-axis versus <em>Width</em> values on the y values.</p>
-<div class="sourceCode" id="cb81"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb81-1"><a href="#cb81-1" tabindex="-1"></a>ggiris <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data=</span>iris)</span>
-<span id="cb81-2"><a href="#cb81-2" tabindex="-1"></a>ggiris2 <span class="ot">&lt;-</span> ggiris<span class="sc">+</span><span class="fu">aes</span>(<span class="at">x=</span>Petal.Length,<span class="at">y=</span>Petal.Width)</span>
-<span id="cb81-3"><a href="#cb81-3" tabindex="-1"></a>ggiris3 <span class="ot">&lt;-</span> ggiris2<span class="sc">+</span><span class="fu">geom_point</span>()</span></code></pre></div>
-<div class="sourceCode" id="cb82"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb82-1"><a href="#cb82-1" tabindex="-1"></a>ggiris3<span class="sc">$</span>mapping</span></code></pre></div>
+<div class="sourceCode" id="cb80"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb80-1"><a href="#cb80-1" tabindex="-1"></a>ggiris <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data=</span>iris)</span>
+<span id="cb80-2"><a href="#cb80-2" tabindex="-1"></a>ggiris2 <span class="ot">&lt;-</span> ggiris<span class="sc">+</span><span class="fu">aes</span>(<span class="at">x=</span>Petal.Length,<span class="at">y=</span>Petal.Width)</span>
+<span id="cb80-3"><a href="#cb80-3" tabindex="-1"></a>ggiris3 <span class="ot">&lt;-</span> ggiris2<span class="sc">+</span><span class="fu">geom_point</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb81"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb81-1"><a href="#cb81-1" tabindex="-1"></a>ggiris3<span class="sc">$</span>mapping</span></code></pre></div>
 <pre><code>## Aesthetic mapping: 
 ## * `x` -&gt; `Petal.Length`
 ## * `y` -&gt; `Petal.Width`</code></pre>
-<div class="sourceCode" id="cb84"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb84-1"><a href="#cb84-1" tabindex="-1"></a>ggiris3<span class="sc">$</span>theme</span></code></pre></div>
+<div class="sourceCode" id="cb83"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb83-1"><a href="#cb83-1" tabindex="-1"></a>ggiris3<span class="sc">$</span>theme</span></code></pre></div>
 <pre><code>## list()</code></pre>
-<div class="sourceCode" id="cb86"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb86-1"><a href="#cb86-1" tabindex="-1"></a>ggiris3<span class="sc">$</span>layers</span></code></pre></div>
+<div class="sourceCode" id="cb85"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb85-1"><a href="#cb85-1" tabindex="-1"></a>ggiris3<span class="sc">$</span>layers</span></code></pre></div>
 <pre><code>## [[1]]
 ## geom_point: na.rm = FALSE
 ## stat_identity: na.rm = FALSE
 ## position_identity</code></pre>
 <p>Now we have all the components of our plot, we need we can display
 the results.</p>
-<div class="sourceCode" id="cb88"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb88-1"><a href="#cb88-1" tabindex="-1"></a>ggiris3</span></code></pre></div>
+<div class="sourceCode" id="cb87"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb87-1"><a href="#cb87-1" tabindex="-1"></a>ggiris3</span></code></pre></div>
 <p><img src="graphs_files/figure-html/unnamed-chunk-70-1.png" width="672" style="display: block; margin: auto;" /></p>
 </div>
 <div id="geoms" class="section level3">
@@ -1155,9 +1157,9 @@ the results.</p>
 <p>More typically, the data and aesthetics are defined within ggplot
 function and geoms applied afterwards. This makes it easier to switch
 between plot types to find the best way to visualize your data.</p>
-<div class="sourceCode" id="cb89"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb89-1"><a href="#cb89-1" tabindex="-1"></a>ggiris3 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data=</span>iris,</span>
-<span id="cb89-2"><a href="#cb89-2" tabindex="-1"></a>                 <span class="at">mapping=</span><span class="fu">aes</span>(<span class="at">x=</span>Petal.Length,<span class="at">y=</span>Petal.Width))</span>
-<span id="cb89-3"><a href="#cb89-3" tabindex="-1"></a>ggiris3<span class="sc">+</span><span class="fu">geom_point</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb88"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb88-1"><a href="#cb88-1" tabindex="-1"></a>ggiris3 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data=</span>iris,</span>
+<span id="cb88-2"><a href="#cb88-2" tabindex="-1"></a>                 <span class="at">mapping=</span><span class="fu">aes</span>(<span class="at">x=</span>Petal.Length,<span class="at">y=</span>Petal.Width))</span>
+<span id="cb88-3"><a href="#cb88-3" tabindex="-1"></a>ggiris3<span class="sc">+</span><span class="fu">geom_point</span>()</span></code></pre></div>
 <p><img src="graphs_files/figure-html/unnamed-chunk-71-1.png" width="672" /></p>
 <p>There are many geoms available in ggplot2:</p>
 <ul>
@@ -1175,51 +1177,51 @@ between plot types to find the best way to visualize your data.</p>
 </ul>
 <div id="line-plots" class="section level4">
 <h4>Line plots</h4>
-<div class="sourceCode" id="cb90"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb90-1"><a href="#cb90-1" tabindex="-1"></a>ggiris_line<span class="ot">&lt;-</span> ggiris3 <span class="sc">+</span> <span class="fu">geom_line</span>()</span>
-<span id="cb90-2"><a href="#cb90-2" tabindex="-1"></a>ggiris_line</span></code></pre></div>
+<div class="sourceCode" id="cb89"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb89-1"><a href="#cb89-1" tabindex="-1"></a>ggiris_line<span class="ot">&lt;-</span> ggiris3 <span class="sc">+</span> <span class="fu">geom_line</span>()</span>
+<span id="cb89-2"><a href="#cb89-2" tabindex="-1"></a>ggiris_line</span></code></pre></div>
 <p><img src="graphs_files/figure-html/unnamed-chunk-72-1.png" width="672" style="display: block; margin: auto;" /></p>
 </div>
 <div id="smoothed-line-plots" class="section level4">
 <h4>Smoothed line plots</h4>
-<div class="sourceCode" id="cb91"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb91-1"><a href="#cb91-1" tabindex="-1"></a>ggiris_smooth<span class="ot">&lt;-</span> ggiris3 <span class="sc">+</span> <span class="fu">geom_smooth</span>()</span>
-<span id="cb91-2"><a href="#cb91-2" tabindex="-1"></a>ggiris_smooth</span></code></pre></div>
+<div class="sourceCode" id="cb90"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb90-1"><a href="#cb90-1" tabindex="-1"></a>ggiris_smooth<span class="ot">&lt;-</span> ggiris3 <span class="sc">+</span> <span class="fu">geom_smooth</span>()</span>
+<span id="cb90-2"><a href="#cb90-2" tabindex="-1"></a>ggiris_smooth</span></code></pre></div>
 <pre><code>## `geom_smooth()` using method = &#39;loess&#39; and formula = &#39;y ~ x&#39;</code></pre>
 <p><img src="graphs_files/figure-html/unnamed-chunk-73-1.png" width="672" style="display: block; margin: auto;" /></p>
 </div>
 <div id="bar-plots" class="section level4">
 <h4>Bar plots</h4>
-<div class="sourceCode" id="cb93"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb93-1"><a href="#cb93-1" tabindex="-1"></a>ggiris_bar<span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data=</span>iris, <span class="at">mapping=</span><span class="fu">aes</span>(<span class="at">x=</span>Species))</span>
-<span id="cb93-2"><a href="#cb93-2" tabindex="-1"></a>ggiris_bar2<span class="ot">&lt;-</span> ggiris_bar <span class="sc">+</span> <span class="fu">geom_bar</span>()</span>
-<span id="cb93-3"><a href="#cb93-3" tabindex="-1"></a>ggiris_bar2</span></code></pre></div>
+<div class="sourceCode" id="cb92"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb92-1"><a href="#cb92-1" tabindex="-1"></a>ggiris_bar<span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data=</span>iris, <span class="at">mapping=</span><span class="fu">aes</span>(<span class="at">x=</span>Species))</span>
+<span id="cb92-2"><a href="#cb92-2" tabindex="-1"></a>ggiris_bar2<span class="ot">&lt;-</span> ggiris_bar <span class="sc">+</span> <span class="fu">geom_bar</span>()</span>
+<span id="cb92-3"><a href="#cb92-3" tabindex="-1"></a>ggiris_bar2</span></code></pre></div>
 <p><img src="graphs_files/figure-html/unnamed-chunk-74-1.png" width="672" style="display: block; margin: auto;" /></p>
 </div>
 <div id="histograms-1" class="section level4">
 <h4>Histograms</h4>
-<div class="sourceCode" id="cb94"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb94-1"><a href="#cb94-1" tabindex="-1"></a>ggiris_hist <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data=</span>iris,</span>
-<span id="cb94-2"><a href="#cb94-2" tabindex="-1"></a>        <span class="at">mapping=</span><span class="fu">aes</span>(<span class="at">x=</span>Petal.Length))</span>
-<span id="cb94-3"><a href="#cb94-3" tabindex="-1"></a>ggiris_hist2 <span class="ot">&lt;-</span> ggiris_hist <span class="sc">+</span> <span class="fu">geom_histogram</span>() </span>
-<span id="cb94-4"><a href="#cb94-4" tabindex="-1"></a>ggiris_hist2</span></code></pre></div>
+<div class="sourceCode" id="cb93"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb93-1"><a href="#cb93-1" tabindex="-1"></a>ggiris_hist <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data=</span>iris,</span>
+<span id="cb93-2"><a href="#cb93-2" tabindex="-1"></a>        <span class="at">mapping=</span><span class="fu">aes</span>(<span class="at">x=</span>Petal.Length))</span>
+<span id="cb93-3"><a href="#cb93-3" tabindex="-1"></a>ggiris_hist2 <span class="ot">&lt;-</span> ggiris_hist <span class="sc">+</span> <span class="fu">geom_histogram</span>() </span>
+<span id="cb93-4"><a href="#cb93-4" tabindex="-1"></a>ggiris_hist2</span></code></pre></div>
 <pre><code>## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</code></pre>
 <p><img src="graphs_files/figure-html/unnamed-chunk-75-1.png" width="672" style="display: block; margin: auto;" /></p>
 </div>
 <div id="density-plots" class="section level4">
 <h4>Density plots</h4>
-<div class="sourceCode" id="cb96"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb96-1"><a href="#cb96-1" tabindex="-1"></a>ggiris_dens <span class="ot">&lt;-</span> ggiris_hist <span class="sc">+</span> <span class="fu">geom_density</span>() </span>
-<span id="cb96-2"><a href="#cb96-2" tabindex="-1"></a>ggiris_dens</span></code></pre></div>
+<div class="sourceCode" id="cb95"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb95-1"><a href="#cb95-1" tabindex="-1"></a>ggiris_dens <span class="ot">&lt;-</span> ggiris_hist <span class="sc">+</span> <span class="fu">geom_density</span>() </span>
+<span id="cb95-2"><a href="#cb95-2" tabindex="-1"></a>ggiris_dens</span></code></pre></div>
 <p><img src="graphs_files/figure-html/unnamed-chunk-76-1.png" width="672" style="display: block; margin: auto;" /></p>
 </div>
 <div id="box-plots-1" class="section level4">
 <h4>Box plots</h4>
-<div class="sourceCode" id="cb97"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb97-1"><a href="#cb97-1" tabindex="-1"></a>ggiris_box <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data=</span>iris,</span>
-<span id="cb97-2"><a href="#cb97-2" tabindex="-1"></a>        <span class="at">mapping=</span><span class="fu">aes</span>(<span class="at">x=</span>Species,<span class="at">y=</span>Petal.Length))</span>
-<span id="cb97-3"><a href="#cb97-3" tabindex="-1"></a>ggiris_box2 <span class="ot">&lt;-</span> ggiris_box<span class="sc">+</span><span class="fu">geom_boxplot</span>() </span>
-<span id="cb97-4"><a href="#cb97-4" tabindex="-1"></a>ggiris_box2</span></code></pre></div>
+<div class="sourceCode" id="cb96"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb96-1"><a href="#cb96-1" tabindex="-1"></a>ggiris_box <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data=</span>iris,</span>
+<span id="cb96-2"><a href="#cb96-2" tabindex="-1"></a>        <span class="at">mapping=</span><span class="fu">aes</span>(<span class="at">x=</span>Species,<span class="at">y=</span>Petal.Length))</span>
+<span id="cb96-3"><a href="#cb96-3" tabindex="-1"></a>ggiris_box2 <span class="ot">&lt;-</span> ggiris_box<span class="sc">+</span><span class="fu">geom_boxplot</span>() </span>
+<span id="cb96-4"><a href="#cb96-4" tabindex="-1"></a>ggiris_box2</span></code></pre></div>
 <p><img src="graphs_files/figure-html/unnamed-chunk-77-1.png" width="672" style="display: block; margin: auto;" /></p>
 </div>
 <div id="violin-plots" class="section level4">
 <h4>Violin plots</h4>
-<div class="sourceCode" id="cb98"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb98-1"><a href="#cb98-1" tabindex="-1"></a>pcPlot_violin <span class="ot">&lt;-</span> ggiris_box<span class="sc">+</span><span class="fu">geom_violin</span>() </span>
-<span id="cb98-2"><a href="#cb98-2" tabindex="-1"></a>pcPlot_violin</span></code></pre></div>
+<div class="sourceCode" id="cb97"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb97-1"><a href="#cb97-1" tabindex="-1"></a>pcPlot_violin <span class="ot">&lt;-</span> ggiris_box<span class="sc">+</span><span class="fu">geom_violin</span>() </span>
+<span id="cb97-2"><a href="#cb97-2" tabindex="-1"></a>pcPlot_violin</span></code></pre></div>
 <p><img src="graphs_files/figure-html/unnamed-chunk-78-1.png" width="672" style="display: block; margin: auto;" /></p>
 </div>
 <div id="other-geoms" class="section level4">
@@ -1242,9 +1244,9 @@ guide</a></li>
 <strong>constant</strong> value (e.g. set color of all points to red) we
 can supply the color argument to the <code>geom_point()</code>
 function.</p>
-<div class="sourceCode" id="cb99"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb99-1"><a href="#cb99-1" tabindex="-1"></a>ggiris_scatter <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data=</span>iris,</span>
-<span id="cb99-2"><a href="#cb99-2" tabindex="-1"></a>                 <span class="at">mapping=</span><span class="fu">aes</span>(<span class="at">x=</span>Petal.Length,<span class="at">y=</span>Petal.Width))</span>
-<span id="cb99-3"><a href="#cb99-3" tabindex="-1"></a>ggiris_scatter<span class="sc">+</span><span class="fu">geom_point</span>(<span class="at">colour=</span><span class="st">&quot;red&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb98"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb98-1"><a href="#cb98-1" tabindex="-1"></a>ggiris_scatter <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data=</span>iris,</span>
+<span id="cb98-2"><a href="#cb98-2" tabindex="-1"></a>                 <span class="at">mapping=</span><span class="fu">aes</span>(<span class="at">x=</span>Petal.Length,<span class="at">y=</span>Petal.Width))</span>
+<span id="cb98-3"><a href="#cb98-3" tabindex="-1"></a>ggiris_scatter<span class="sc">+</span><span class="fu">geom_point</span>(<span class="at">colour=</span><span class="st">&quot;red&quot;</span>)</span></code></pre></div>
 <p><img src="graphs_files/figure-html/unnamed-chunk-79-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>As we discussed earlier however, <code>ggplot2</code> makes use of
 aesthetic mappings to assign variables in the data to the
@@ -1254,10 +1256,9 @@ supply additional information to the <code>aes()</code> function to
 define what information to display and how it is represented in the
 plot.</p>
 <p>First we can recreate the plot we saw earlier.</p>
-<div class="sourceCode" id="cb100"><pre
-class="sourceCode r"><code class="sourceCode r"><span id="cb100-1"><a href="#cb100-1" tabindex="-1"></a>ggiris_scatter <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data=</span>iris,</span>
-<span id="cb100-2"><a href="#cb100-2" tabindex="-1"></a>                 <span class="at">mapping=</span><span class="fu">aes</span>(<span class="at">x=</span>Petal.Length,<span class="at">y=</span>Petal.Width))</span>
-<span id="cb100-3"><a href="#cb100-3" tabindex="-1"></a>ggiris_scatter<span class="sc">+</span><span class="fu">geom_point</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb99"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb99-1"><a href="#cb99-1" tabindex="-1"></a>ggiris_scatter <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data=</span>iris,</span>
+<span id="cb99-2"><a href="#cb99-2" tabindex="-1"></a>                 <span class="at">mapping=</span><span class="fu">aes</span>(<span class="at">x=</span>Petal.Length,<span class="at">y=</span>Petal.Width))</span>
+<span id="cb99-3"><a href="#cb99-3" tabindex="-1"></a>ggiris_scatter<span class="sc">+</span><span class="fu">geom_point</span>()</span></code></pre></div>
 <p><img src="graphs_files/figure-html/unnamed-chunk-80-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>Now we can adjust the <code>aes</code> mapping by supplying an
 argument to the color parameter in the <code>aes</code> function. (Note
@@ -1266,30 +1267,30 @@ name)</p>
 <p>This simple adjustment allows for identification of the separation
 between species for <code>Petal.Length</code> and
 <code>Petal.Width</code>.</p>
-<div class="sourceCode" id="cb101"><pre
-class="sourceCode r"><code class="sourceCode r"><span id="cb101-1"><a href="#cb101-1" tabindex="-1"></a>ggiris_scatter2 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data=</span>iris,</span>
-<span id="cb101-2"><a href="#cb101-2" tabindex="-1"></a>                  <span class="at">mapping=</span><span class="fu">aes</span>(<span class="at">x=</span>Petal.Length,<span class="at">y=</span>Petal.Width,<span class="at">color=</span>Species))</span>
-<span id="cb101-3"><a href="#cb101-3" tabindex="-1"></a>ggiris_scatter2 <span class="sc">+</span> <span class="fu">geom_point</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb100"><pre
+class="sourceCode r"><code class="sourceCode r"><span id="cb100-1"><a href="#cb100-1" tabindex="-1"></a>ggiris_scatter2 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data=</span>iris,</span>
+<span id="cb100-2"><a href="#cb100-2" tabindex="-1"></a>                  <span class="at">mapping=</span><span class="fu">aes</span>(<span class="at">x=</span>Petal.Length,<span class="at">y=</span>Petal.Width,<span class="at">color=</span>Species))</span>
+<span id="cb100-3"><a href="#cb100-3" tabindex="-1"></a>ggiris_scatter2 <span class="sc">+</span> <span class="fu">geom_point</span>()</span></code></pre></div>
 <p><img src="graphs_files/figure-html/unnamed-chunk-81-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>Similarly the shape of points may be adjusted.</p>
-<div class="sourceCode" id="cb102"><pre
-class="sourceCode r"><code class="sourceCode r"><span id="cb102-1"><a href="#cb102-1" tabindex="-1"></a>ggiris_scatter3 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data=</span>iris,</span>
-<span id="cb102-2"><a href="#cb102-2" tabindex="-1"></a>                  <span class="at">mapping=</span><span class="fu">aes</span>(<span class="at">x=</span>Petal.Length,<span class="at">y=</span>Petal.Width,<span class="at">shape=</span>Species))</span>
-<span id="cb102-3"><a href="#cb102-3" tabindex="-1"></a>ggiris_scatter3 <span class="sc">+</span> <span class="fu">geom_point</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb101"><pre
+class="sourceCode r"><code class="sourceCode r"><span id="cb101-1"><a href="#cb101-1" tabindex="-1"></a>ggiris_scatter3 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data=</span>iris,</span>
+<span id="cb101-2"><a href="#cb101-2" tabindex="-1"></a>                  <span class="at">mapping=</span><span class="fu">aes</span>(<span class="at">x=</span>Petal.Length,<span class="at">y=</span>Petal.Width,<span class="at">shape=</span>Species))</span>
+<span id="cb101-3"><a href="#cb101-3" tabindex="-1"></a>ggiris_scatter3 <span class="sc">+</span> <span class="fu">geom_point</span>()</span></code></pre></div>
 <p><img src="graphs_files/figure-html/unnamed-chunk-82-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>The aesthetic mappings may be set directly in the
 <code>geom_points()</code> function as previously when specifying red.
 This can allow the same ggplot object to be used by different aesthetic
 mappings and varying geoms</p>
-<div class="sourceCode" id="cb103"><pre
-class="sourceCode r"><code class="sourceCode r"><span id="cb103-1"><a href="#cb103-1" tabindex="-1"></a>ggiris_scatter4 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data=</span>iris)</span>
-<span id="cb103-2"><a href="#cb103-2" tabindex="-1"></a>ggiris_scatter4 <span class="sc">+</span> <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">x=</span>Petal.Length,<span class="at">y=</span>Petal.Width,<span class="at">color=</span>Species, <span class="at">shape=</span>Species))</span></code></pre></div>
+<div class="sourceCode" id="cb102"><pre
+class="sourceCode r"><code class="sourceCode r"><span id="cb102-1"><a href="#cb102-1" tabindex="-1"></a>ggiris_scatter4 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data=</span>iris)</span>
+<span id="cb102-2"><a href="#cb102-2" tabindex="-1"></a>ggiris_scatter4 <span class="sc">+</span> <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">x=</span>Petal.Length,<span class="at">y=</span>Petal.Width,<span class="at">color=</span>Species, <span class="at">shape=</span>Species))</span></code></pre></div>
 <p><img src="graphs_files/figure-html/unnamed-chunk-83-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>Again, for a comprehensive list of parameters and aesthetic mappings
 used in <code>geom_type</code> functions see the <code>ggplot2</code>
 documentation for individual geoms by using <code>?geom_type</code></p>
-<div class="sourceCode" id="cb104"><pre
-class="sourceCode r"><code class="sourceCode r"><span id="cb104-1"><a href="#cb104-1" tabindex="-1"></a>?geom_point</span></code></pre></div>
+<div class="sourceCode" id="cb103"><pre
+class="sourceCode r"><code class="sourceCode r"><span id="cb103-1"><a href="#cb103-1" tabindex="-1"></a>?geom_point</span></code></pre></div>
 <p>or visit the ggplot2 documentations pages and quick reference:</p>
 <ul>
 <li><a href="https://ggplot2.tidyverse.org/">ggplot2
@@ -1311,48 +1312,48 @@ data by two factors.</p>
 <p>Let’s get another dataset for the demo. Here we can plot the data
 with the <code>Smokes</code> variable as rows and <code>Sex</code>
 variable as columns.</p>
-<div class="sourceCode" id="cb105"><pre
-class="sourceCode r"><code class="sourceCode r"><span id="cb105-1"><a href="#cb105-1" tabindex="-1"></a>patients_clean<span class="ot">&lt;-</span><span class="fu">read.delim</span>(<span class="st">&#39;data/patients_clean.txt&#39;</span>)</span>
-<span id="cb105-2"><a href="#cb105-2" tabindex="-1"></a>pcPlot <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data=</span>patients_clean,<span class="fu">aes</span>(<span class="at">x=</span>Height,<span class="at">y=</span>Weight, </span>
-<span id="cb105-3"><a href="#cb105-3" tabindex="-1"></a>                                         <span class="at">colour=</span>Sex))<span class="sc">+</span><span class="fu">geom_point</span>()</span>
-<span id="cb105-4"><a href="#cb105-4" tabindex="-1"></a>pcPlot <span class="sc">+</span> <span class="fu">facet_grid</span>(Smokes<span class="sc">~</span>Sex)</span></code></pre></div>
+<div class="sourceCode" id="cb104"><pre
+class="sourceCode r"><code class="sourceCode r"><span id="cb104-1"><a href="#cb104-1" tabindex="-1"></a>patients_clean<span class="ot">&lt;-</span><span class="fu">read.delim</span>(<span class="st">&#39;data/patients_clean.txt&#39;</span>)</span>
+<span id="cb104-2"><a href="#cb104-2" tabindex="-1"></a>pcPlot <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data=</span>patients_clean,<span class="fu">aes</span>(<span class="at">x=</span>Height,<span class="at">y=</span>Weight, </span>
+<span id="cb104-3"><a href="#cb104-3" tabindex="-1"></a>                                         <span class="at">colour=</span>Sex))<span class="sc">+</span><span class="fu">geom_point</span>()</span>
+<span id="cb104-4"><a href="#cb104-4" tabindex="-1"></a>pcPlot <span class="sc">+</span> <span class="fu">facet_grid</span>(Smokes<span class="sc">~</span>Sex)</span></code></pre></div>
 <p><img src="graphs_files/figure-html/unnamed-chunk-85-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>To split by one factor we use the the <code>facet_grid()</code>
 function again, but omit the variable before the “~”. This will facet
 along columns in plot.</p>
-<div class="sourceCode" id="cb106"><pre
-class="sourceCode r"><code class="sourceCode r"><span id="cb106-1"><a href="#cb106-1" tabindex="-1"></a>pcPlot <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data=</span>patients_clean,<span class="fu">aes</span>(<span class="at">x=</span>Height,<span class="at">y=</span>Weight,</span>
-<span id="cb106-2"><a href="#cb106-2" tabindex="-1"></a>                                         <span class="at">colour=</span>Sex))<span class="sc">+</span><span class="fu">geom_point</span>()</span>
-<span id="cb106-3"><a href="#cb106-3" tabindex="-1"></a>pcPlot <span class="sc">+</span> <span class="fu">facet_grid</span>(<span class="sc">~</span>Sex)</span></code></pre></div>
+<div class="sourceCode" id="cb105"><pre
+class="sourceCode r"><code class="sourceCode r"><span id="cb105-1"><a href="#cb105-1" tabindex="-1"></a>pcPlot <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data=</span>patients_clean,<span class="fu">aes</span>(<span class="at">x=</span>Height,<span class="at">y=</span>Weight,</span>
+<span id="cb105-2"><a href="#cb105-2" tabindex="-1"></a>                                         <span class="at">colour=</span>Sex))<span class="sc">+</span><span class="fu">geom_point</span>()</span>
+<span id="cb105-3"><a href="#cb105-3" tabindex="-1"></a>pcPlot <span class="sc">+</span> <span class="fu">facet_grid</span>(<span class="sc">~</span>Sex)</span></code></pre></div>
 <p><img src="graphs_files/figure-html/unnamed-chunk-86-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>Similarly, to split along rows in plot, the variable is placed before
 the “~.”.</p>
-<div class="sourceCode" id="cb107"><pre
-class="sourceCode r"><code class="sourceCode r"><span id="cb107-1"><a href="#cb107-1" tabindex="-1"></a>pcPlot <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data=</span>patients_clean,<span class="fu">aes</span>(<span class="at">x=</span>Height,<span class="at">y=</span>Weight,</span>
-<span id="cb107-2"><a href="#cb107-2" tabindex="-1"></a>                                         <span class="at">colour=</span>Sex))<span class="sc">+</span><span class="fu">geom_point</span>()</span>
-<span id="cb107-3"><a href="#cb107-3" tabindex="-1"></a>pcPlot <span class="sc">+</span> <span class="fu">facet_grid</span>(Sex<span class="sc">~</span>.)</span></code></pre></div>
+<div class="sourceCode" id="cb106"><pre
+class="sourceCode r"><code class="sourceCode r"><span id="cb106-1"><a href="#cb106-1" tabindex="-1"></a>pcPlot <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data=</span>patients_clean,<span class="fu">aes</span>(<span class="at">x=</span>Height,<span class="at">y=</span>Weight,</span>
+<span id="cb106-2"><a href="#cb106-2" tabindex="-1"></a>                                         <span class="at">colour=</span>Sex))<span class="sc">+</span><span class="fu">geom_point</span>()</span>
+<span id="cb106-3"><a href="#cb106-3" tabindex="-1"></a>pcPlot <span class="sc">+</span> <span class="fu">facet_grid</span>(Sex<span class="sc">~</span>.)</span></code></pre></div>
 <p><img src="graphs_files/figure-html/unnamed-chunk-87-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>The <code>facet_wrap()</code> function offers a less grid-based
 structure but is well suited to faceting data by one variable. For
 <code>facet_wrap()</code> we follow as similar syntax to
 facet_grid().</p>
-<div class="sourceCode" id="cb108"><pre
-class="sourceCode r"><code class="sourceCode r"><span id="cb108-1"><a href="#cb108-1" tabindex="-1"></a>pcPlot <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data=</span>patients_clean,<span class="fu">aes</span>(<span class="at">x=</span>Height,<span class="at">y=</span>Weight,</span>
-<span id="cb108-2"><a href="#cb108-2" tabindex="-1"></a>                                         <span class="at">colour=</span>Sex))<span class="sc">+</span><span class="fu">geom_point</span>()</span>
-<span id="cb108-3"><a href="#cb108-3" tabindex="-1"></a>pcPlot <span class="sc">+</span> <span class="fu">facet_wrap</span>(<span class="sc">~</span>Smokes)</span></code></pre></div>
+<div class="sourceCode" id="cb107"><pre
+class="sourceCode r"><code class="sourceCode r"><span id="cb107-1"><a href="#cb107-1" tabindex="-1"></a>pcPlot <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data=</span>patients_clean,<span class="fu">aes</span>(<span class="at">x=</span>Height,<span class="at">y=</span>Weight,</span>
+<span id="cb107-2"><a href="#cb107-2" tabindex="-1"></a>                                         <span class="at">colour=</span>Sex))<span class="sc">+</span><span class="fu">geom_point</span>()</span>
+<span id="cb107-3"><a href="#cb107-3" tabindex="-1"></a>pcPlot <span class="sc">+</span> <span class="fu">facet_wrap</span>(<span class="sc">~</span>Smokes)</span></code></pre></div>
 <p><img src="graphs_files/figure-html/unnamed-chunk-88-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>For more complex faceting both <code>facet_grid</code> and
 <code>facet_wrap</code> can accept combinations of variables. Here we
 use <code>facet_wrap</code>.</p>
-<div class="sourceCode" id="cb109"><pre
-class="sourceCode r"><code class="sourceCode r"><span id="cb109-1"><a href="#cb109-1" tabindex="-1"></a>pcPlot <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data=</span>patients_clean,<span class="fu">aes</span>(<span class="at">x=</span>Height,<span class="at">y=</span>Weight,</span>
-<span id="cb109-2"><a href="#cb109-2" tabindex="-1"></a>                                         <span class="at">colour=</span>Sex))<span class="sc">+</span><span class="fu">geom_point</span>()</span>
-<span id="cb109-3"><a href="#cb109-3" tabindex="-1"></a>pcPlot <span class="sc">+</span> <span class="fu">facet_wrap</span>(<span class="sc">~</span>Pet<span class="sc">+</span>Smokes<span class="sc">+</span>Sex)</span></code></pre></div>
+<div class="sourceCode" id="cb108"><pre
+class="sourceCode r"><code class="sourceCode r"><span id="cb108-1"><a href="#cb108-1" tabindex="-1"></a>pcPlot <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data=</span>patients_clean,<span class="fu">aes</span>(<span class="at">x=</span>Height,<span class="at">y=</span>Weight,</span>
+<span id="cb108-2"><a href="#cb108-2" tabindex="-1"></a>                                         <span class="at">colour=</span>Sex))<span class="sc">+</span><span class="fu">geom_point</span>()</span>
+<span id="cb108-3"><a href="#cb108-3" tabindex="-1"></a>pcPlot <span class="sc">+</span> <span class="fu">facet_wrap</span>(<span class="sc">~</span>Pet<span class="sc">+</span>Smokes<span class="sc">+</span>Sex)</span></code></pre></div>
 <p><img src="graphs_files/figure-html/unnamed-chunk-89-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>Or in a nice grid format using facet_grid() and the Smokes variable
 against a combination of Gender and Pet.</p>
-<div class="sourceCode" id="cb110"><pre
-class="sourceCode r"><code class="sourceCode r"><span id="cb110-1"><a href="#cb110-1" tabindex="-1"></a>pcPlot <span class="sc">+</span> <span class="fu">facet_grid</span>(Smokes<span class="sc">~</span>Sex<span class="sc">+</span>Pet)</span></code></pre></div>
+<div class="sourceCode" id="cb109"><pre
+class="sourceCode r"><code class="sourceCode r"><span id="cb109-1"><a href="#cb109-1" tabindex="-1"></a>pcPlot <span class="sc">+</span> <span class="fu">facet_grid</span>(Smokes<span class="sc">~</span>Sex<span class="sc">+</span>Pet)</span></code></pre></div>
 <p><img src="graphs_files/figure-html/unnamed-chunk-90-1.png" width="672" style="display: block; margin: auto;" /></p>
 </div>
 <div id="plotting-order" class="section level2">
@@ -1361,24 +1362,24 @@ class="sourceCode r"><code class="sourceCode r"><span id="cb110-1"><a href="#cb1
 layout and appearance. However, a common-asked question is how to change
 the order in which R plots a categorical variable. Consider the boxplot
 to compare weights of males and females:</p>
-<div class="sourceCode" id="cb111"><pre
-class="sourceCode r"><code class="sourceCode r"><span id="cb111-1"><a href="#cb111-1" tabindex="-1"></a><span class="fu">ggplot</span>(patients_clean, <span class="fu">aes</span>(<span class="at">x=</span>Sex, <span class="at">y=</span>Weight)) <span class="sc">+</span> <span class="fu">geom_boxplot</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb110"><pre
+class="sourceCode r"><code class="sourceCode r"><span id="cb110-1"><a href="#cb110-1" tabindex="-1"></a><span class="fu">ggplot</span>(patients_clean, <span class="fu">aes</span>(<span class="at">x=</span>Sex, <span class="at">y=</span>Weight)) <span class="sc">+</span> <span class="fu">geom_boxplot</span>()</span></code></pre></div>
 <p><img src="graphs_files/figure-html/unnamed-chunk-91-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>This is related the question raised before about the order of the
 factor levels. Here, R decides the order to arrange the boxes according
 to the levels of the categorical variable. If there are no levels or the
 levels are not ordered it defaults to the alphabetical order.
 i.e. Female before Male.</p>
-<div class="sourceCode" id="cb112"><pre
-class="sourceCode r"><code class="sourceCode r"><span id="cb112-1"><a href="#cb112-1" tabindex="-1"></a><span class="fu">levels</span>(patients_clean<span class="sc">$</span>Sex)</span></code></pre></div>
+<div class="sourceCode" id="cb111"><pre
+class="sourceCode r"><code class="sourceCode r"><span id="cb111-1"><a href="#cb111-1" tabindex="-1"></a><span class="fu">levels</span>(patients_clean<span class="sc">$</span>Sex)</span></code></pre></div>
 <pre><code>## NULL</code></pre>
 <p>Depending on the message we want the plot to convey, we might want
 control over the order of boxes. The factor functions allows us to
 explicitly change the order of the levels.</p>
-<div class="sourceCode" id="cb114"><pre
-class="sourceCode r"><code class="sourceCode r"><span id="cb114-1"><a href="#cb114-1" tabindex="-1"></a>patients_clean<span class="sc">$</span>Sex <span class="ot">&lt;-</span> <span class="fu">factor</span>(patients_clean<span class="sc">$</span>Sex, </span>
-<span id="cb114-2"><a href="#cb114-2" tabindex="-1"></a>                             <span class="at">levels=</span><span class="fu">c</span>(<span class="st">&quot;Male&quot;</span>,<span class="st">&quot;Female&quot;</span>))</span>
-<span id="cb114-3"><a href="#cb114-3" tabindex="-1"></a><span class="fu">ggplot</span>(patients_clean,<span class="fu">aes</span>(<span class="at">x=</span>Sex, <span class="at">y=</span>Weight)) <span class="sc">+</span> <span class="fu">geom_boxplot</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb113"><pre
+class="sourceCode r"><code class="sourceCode r"><span id="cb113-1"><a href="#cb113-1" tabindex="-1"></a>patients_clean<span class="sc">$</span>Sex <span class="ot">&lt;-</span> <span class="fu">factor</span>(patients_clean<span class="sc">$</span>Sex, </span>
+<span id="cb113-2"><a href="#cb113-2" tabindex="-1"></a>                             <span class="at">levels=</span><span class="fu">c</span>(<span class="st">&quot;Male&quot;</span>,<span class="st">&quot;Female&quot;</span>))</span>
+<span id="cb113-3"><a href="#cb113-3" tabindex="-1"></a><span class="fu">ggplot</span>(patients_clean,<span class="fu">aes</span>(<span class="at">x=</span>Sex, <span class="at">y=</span>Weight)) <span class="sc">+</span> <span class="fu">geom_boxplot</span>()</span></code></pre></div>
 <p><img src="graphs_files/figure-html/unnamed-chunk-93-1.png" width="672" style="display: block; margin: auto;" /></p>
 </div>
 <div id="scales" class="section level2">
@@ -1407,48 +1408,48 @@ include:</p>
 control the continuous scale on the x-axis by providing a name, X-axis
 limits, the positions of breaks (ticks/labels) and the labels to place
 at breaks.</p>
-<div class="sourceCode" id="cb115"><pre
-class="sourceCode r"><code class="sourceCode r"><span id="cb115-1"><a href="#cb115-1" tabindex="-1"></a>pcPlot <span class="sc">+</span> <span class="fu">geom_point</span>() <span class="sc">+</span> <span class="fu">facet_grid</span>(Smokes<span class="sc">~</span>Sex)<span class="sc">+</span></span>
-<span id="cb115-2"><a href="#cb115-2" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">name=</span><span class="st">&quot;height (&#39;cm&#39;)&quot;</span>,</span>
-<span id="cb115-3"><a href="#cb115-3" tabindex="-1"></a>                     <span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">100</span>,<span class="dv">200</span>),</span>
-<span id="cb115-4"><a href="#cb115-4" tabindex="-1"></a>                     <span class="at">breaks=</span><span class="fu">c</span>(<span class="dv">125</span>,<span class="dv">150</span>,<span class="dv">175</span>),</span>
-<span id="cb115-5"><a href="#cb115-5" tabindex="-1"></a>                     <span class="at">labels=</span><span class="fu">c</span>(<span class="st">&quot;small&quot;</span>,<span class="st">&quot;justright&quot;</span>,<span class="st">&quot;tall&quot;</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb114"><pre
+class="sourceCode r"><code class="sourceCode r"><span id="cb114-1"><a href="#cb114-1" tabindex="-1"></a>pcPlot <span class="sc">+</span> <span class="fu">geom_point</span>() <span class="sc">+</span> <span class="fu">facet_grid</span>(Smokes<span class="sc">~</span>Sex)<span class="sc">+</span></span>
+<span id="cb114-2"><a href="#cb114-2" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">name=</span><span class="st">&quot;height (&#39;cm&#39;)&quot;</span>,</span>
+<span id="cb114-3"><a href="#cb114-3" tabindex="-1"></a>                     <span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">100</span>,<span class="dv">200</span>),</span>
+<span id="cb114-4"><a href="#cb114-4" tabindex="-1"></a>                     <span class="at">breaks=</span><span class="fu">c</span>(<span class="dv">125</span>,<span class="dv">150</span>,<span class="dv">175</span>),</span>
+<span id="cb114-5"><a href="#cb114-5" tabindex="-1"></a>                     <span class="at">labels=</span><span class="fu">c</span>(<span class="st">&quot;small&quot;</span>,<span class="st">&quot;justright&quot;</span>,<span class="st">&quot;tall&quot;</span>))</span></code></pre></div>
 <p><img src="graphs_files/figure-html/unnamed-chunk-94-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>Similary control over discrete scales is shown below.</p>
-<div class="sourceCode" id="cb116"><pre
-class="sourceCode r"><code class="sourceCode r"><span id="cb116-1"><a href="#cb116-1" tabindex="-1"></a>pcPlot <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data=</span>patients_clean,<span class="fu">aes</span>(<span class="at">x=</span>Sex,<span class="at">y=</span>Height))</span>
-<span id="cb116-2"><a href="#cb116-2" tabindex="-1"></a>pcPlot <span class="sc">+</span></span>
-<span id="cb116-3"><a href="#cb116-3" tabindex="-1"></a>  <span class="fu">geom_violin</span>(<span class="fu">aes</span>(<span class="at">x=</span>Sex,<span class="at">y=</span>Height)) <span class="sc">+</span></span>
-<span id="cb116-4"><a href="#cb116-4" tabindex="-1"></a>  <span class="fu">scale_x_discrete</span>(<span class="at">labels=</span><span class="fu">c</span>(<span class="st">&quot;Women&quot;</span>, <span class="st">&quot;Men&quot;</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb115"><pre
+class="sourceCode r"><code class="sourceCode r"><span id="cb115-1"><a href="#cb115-1" tabindex="-1"></a>pcPlot <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data=</span>patients_clean,<span class="fu">aes</span>(<span class="at">x=</span>Sex,<span class="at">y=</span>Height))</span>
+<span id="cb115-2"><a href="#cb115-2" tabindex="-1"></a>pcPlot <span class="sc">+</span></span>
+<span id="cb115-3"><a href="#cb115-3" tabindex="-1"></a>  <span class="fu">geom_violin</span>(<span class="fu">aes</span>(<span class="at">x=</span>Sex,<span class="at">y=</span>Height)) <span class="sc">+</span></span>
+<span id="cb115-4"><a href="#cb115-4" tabindex="-1"></a>  <span class="fu">scale_x_discrete</span>(<span class="at">labels=</span><span class="fu">c</span>(<span class="st">&quot;Women&quot;</span>, <span class="st">&quot;Men&quot;</span>))</span></code></pre></div>
 <p><img src="graphs_files/figure-html/unnamed-chunk-95-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>Multiple X/Y scales can be combined to give full control of axis
 marks.</p>
-<div class="sourceCode" id="cb117"><pre
-class="sourceCode r"><code class="sourceCode r"><span id="cb117-1"><a href="#cb117-1" tabindex="-1"></a>pcPlot <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data=</span>patients_clean,<span class="fu">aes</span>(<span class="at">x=</span>Sex,<span class="at">y=</span>Height,<span class="at">fill=</span>Smokes))</span>
-<span id="cb117-2"><a href="#cb117-2" tabindex="-1"></a>pcPlot <span class="sc">+</span></span>
-<span id="cb117-3"><a href="#cb117-3" tabindex="-1"></a>  <span class="fu">geom_violin</span>(<span class="fu">aes</span>(<span class="at">x=</span>Sex,<span class="at">y=</span>Height)) <span class="sc">+</span></span>
-<span id="cb117-4"><a href="#cb117-4" tabindex="-1"></a>  <span class="fu">scale_x_discrete</span>(<span class="at">labels=</span><span class="fu">c</span>(<span class="st">&quot;Women&quot;</span>, <span class="st">&quot;Men&quot;</span>))<span class="sc">+</span></span>
-<span id="cb117-5"><a href="#cb117-5" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">breaks=</span><span class="fu">c</span>(<span class="dv">160</span>,<span class="dv">180</span>),<span class="at">labels=</span><span class="fu">c</span>(<span class="st">&quot;Short&quot;</span>, <span class="st">&quot;Tall&quot;</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb116"><pre
+class="sourceCode r"><code class="sourceCode r"><span id="cb116-1"><a href="#cb116-1" tabindex="-1"></a>pcPlot <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data=</span>patients_clean,<span class="fu">aes</span>(<span class="at">x=</span>Sex,<span class="at">y=</span>Height,<span class="at">fill=</span>Smokes))</span>
+<span id="cb116-2"><a href="#cb116-2" tabindex="-1"></a>pcPlot <span class="sc">+</span></span>
+<span id="cb116-3"><a href="#cb116-3" tabindex="-1"></a>  <span class="fu">geom_violin</span>(<span class="fu">aes</span>(<span class="at">x=</span>Sex,<span class="at">y=</span>Height)) <span class="sc">+</span></span>
+<span id="cb116-4"><a href="#cb116-4" tabindex="-1"></a>  <span class="fu">scale_x_discrete</span>(<span class="at">labels=</span><span class="fu">c</span>(<span class="st">&quot;Women&quot;</span>, <span class="st">&quot;Men&quot;</span>))<span class="sc">+</span></span>
+<span id="cb116-5"><a href="#cb116-5" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">breaks=</span><span class="fu">c</span>(<span class="dv">160</span>,<span class="dv">180</span>),<span class="at">labels=</span><span class="fu">c</span>(<span class="st">&quot;Short&quot;</span>, <span class="st">&quot;Tall&quot;</span>))</span></code></pre></div>
 <p><img src="graphs_files/figure-html/unnamed-chunk-96-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>When using fill, color, linetype, shape, size or alpha aesthetic
 mappings the scales are automatically selected for you and the
 appropriate legends created.</p>
-<div class="sourceCode" id="cb118"><pre
-class="sourceCode r"><code class="sourceCode r"><span id="cb118-1"><a href="#cb118-1" tabindex="-1"></a>pcPlot <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data=</span>patients_clean,</span>
-<span id="cb118-2"><a href="#cb118-2" tabindex="-1"></a>                 <span class="fu">aes</span>(<span class="at">x=</span>Height,<span class="at">y=</span>Weight,<span class="at">colour=</span>Sex))</span>
-<span id="cb118-3"><a href="#cb118-3" tabindex="-1"></a>pcPlot <span class="sc">+</span> <span class="fu">geom_point</span>(<span class="at">size=</span><span class="dv">4</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb117"><pre
+class="sourceCode r"><code class="sourceCode r"><span id="cb117-1"><a href="#cb117-1" tabindex="-1"></a>pcPlot <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data=</span>patients_clean,</span>
+<span id="cb117-2"><a href="#cb117-2" tabindex="-1"></a>                 <span class="fu">aes</span>(<span class="at">x=</span>Height,<span class="at">y=</span>Weight,<span class="at">colour=</span>Sex))</span>
+<span id="cb117-3"><a href="#cb117-3" tabindex="-1"></a>pcPlot <span class="sc">+</span> <span class="fu">geom_point</span>(<span class="at">size=</span><span class="dv">4</span>)</span></code></pre></div>
 <p><img src="graphs_files/figure-html/unnamed-chunk-97-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>In the above example the discrete colours for the Sex variable was
 selected by default. Manual control of discrete variables can be
 performed using <code>scale_colour_manual</code> with the values
 parameter. Additionally in this example an updated name for the legend
 is provided.</p>
-<div class="sourceCode" id="cb119"><pre
-class="sourceCode r"><code class="sourceCode r"><span id="cb119-1"><a href="#cb119-1" tabindex="-1"></a>pcPlot <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data=</span>patients_clean,</span>
-<span id="cb119-2"><a href="#cb119-2" tabindex="-1"></a>                 <span class="fu">aes</span>(<span class="at">x=</span>Height,<span class="at">y=</span>Weight,<span class="at">colour=</span>Sex))</span>
-<span id="cb119-3"><a href="#cb119-3" tabindex="-1"></a>pcPlot <span class="sc">+</span> <span class="fu">geom_point</span>(<span class="at">size=</span><span class="dv">4</span>) <span class="sc">+</span> </span>
-<span id="cb119-4"><a href="#cb119-4" tabindex="-1"></a>  <span class="fu">scale_colour_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">&quot;Green&quot;</span>,<span class="st">&quot;Purple&quot;</span>),</span>
-<span id="cb119-5"><a href="#cb119-5" tabindex="-1"></a>                     <span class="at">name=</span><span class="st">&quot;Gender&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb118"><pre
+class="sourceCode r"><code class="sourceCode r"><span id="cb118-1"><a href="#cb118-1" tabindex="-1"></a>pcPlot <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data=</span>patients_clean,</span>
+<span id="cb118-2"><a href="#cb118-2" tabindex="-1"></a>                 <span class="fu">aes</span>(<span class="at">x=</span>Height,<span class="at">y=</span>Weight,<span class="at">colour=</span>Sex))</span>
+<span id="cb118-3"><a href="#cb118-3" tabindex="-1"></a>pcPlot <span class="sc">+</span> <span class="fu">geom_point</span>(<span class="at">size=</span><span class="dv">4</span>) <span class="sc">+</span> </span>
+<span id="cb118-4"><a href="#cb118-4" tabindex="-1"></a>  <span class="fu">scale_colour_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">&quot;Green&quot;</span>,<span class="st">&quot;Purple&quot;</span>),</span>
+<span id="cb118-5"><a href="#cb118-5" tabindex="-1"></a>                     <span class="at">name=</span><span class="st">&quot;Gender&quot;</span>)</span></code></pre></div>
 <p><img src="graphs_files/figure-html/unnamed-chunk-98-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>Here we have specified the colours to be used (hence the manual) but
 when the number of levels to a variable are high this may be impractical
@@ -1471,13 +1472,12 @@ Set3</em></p>
 </ul>
 <p><em>Blues, BuGn, BuPu, GnBu, Greens, Greys, Oranges, OrRd, PuBu,
 PuBuGn, PuRd, Purples, RdPu, Reds, YlGn, YlGnBu, YlOrBr, YlOrRd</em></p>
-<div class="sourceCode" id="cb120"><pre
-class="sourceCode r"><code class="sourceCode r"><span id="cb120-1"><a href="#cb120-1" tabindex="-1"></a>pcPlot <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data=</span>patients_clean,</span>
-<span id="cb120-2"><a href="#cb120-2" tabindex="-1"></a>                 <span class="fu">aes</span>(<span class="at">x=</span>Height,<span class="at">y=</span>Weight,<span class="at">colour=</span>Pet))</span>
-<span id="cb120-3"><a href="#cb120-3" tabindex="-1"></a>pcPlot <span class="sc">+</span> <span class="fu">geom_point</span>(<span class="at">size=</span><span class="dv">4</span>) <span class="sc">+</span> </span>
-<span id="cb120-4"><a href="#cb120-4" tabindex="-1"></a>  <span class="fu">scale_colour_brewer</span>(<span class="at">palette =</span> <span class="st">&quot;Set2&quot;</span>)</span></code></pre></div>
-<pre><code>## Warning: Removed 5 rows containing missing values or values outside the scale range
-## (`geom_point()`).</code></pre>
+<div class="sourceCode" id="cb119"><pre
+class="sourceCode r"><code class="sourceCode r"><span id="cb119-1"><a href="#cb119-1" tabindex="-1"></a>pcPlot <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data=</span>patients_clean,</span>
+<span id="cb119-2"><a href="#cb119-2" tabindex="-1"></a>                 <span class="fu">aes</span>(<span class="at">x=</span>Height,<span class="at">y=</span>Weight,<span class="at">colour=</span>Pet))</span>
+<span id="cb119-3"><a href="#cb119-3" tabindex="-1"></a>pcPlot <span class="sc">+</span> <span class="fu">geom_point</span>(<span class="at">size=</span><span class="dv">4</span>) <span class="sc">+</span> </span>
+<span id="cb119-4"><a href="#cb119-4" tabindex="-1"></a>  <span class="fu">scale_colour_brewer</span>(<span class="at">palette =</span> <span class="st">&quot;Set2&quot;</span>)</span></code></pre></div>
+<pre><code>## Warning: Removed 5 rows containing missing values or values outside the scale range (`geom_point()`).</code></pre>
 <p><img src="graphs_files/figure-html/unnamed-chunk-99-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>For more details on palette sizes and styles visit the <a
 href="https://colorbrewer2.org/#type=sequential&amp;scheme=BuGn&amp;n=3">colorbrewer</a>
@@ -1495,39 +1495,38 @@ offers much functionality for continuous scales such as for size, alpha
 <p>Both these functions accept the range of alpha/size to be used in
 plotting. Below the range of alpha to be used in plot is limited to
 between 0.5 and 1.</p>
-<div class="sourceCode" id="cb122"><pre
-class="sourceCode r"><code class="sourceCode r"><span id="cb122-1"><a href="#cb122-1" tabindex="-1"></a>pcPlot <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data=</span>patients_clean,</span>
-<span id="cb122-2"><a href="#cb122-2" tabindex="-1"></a>                 <span class="fu">aes</span>(<span class="at">x=</span>Height,<span class="at">y=</span>Weight,<span class="at">alpha=</span>BMI))</span>
-<span id="cb122-3"><a href="#cb122-3" tabindex="-1"></a>pcPlot <span class="sc">+</span> <span class="fu">geom_point</span>(<span class="at">size=</span><span class="dv">4</span>) <span class="sc">+</span> </span>
-<span id="cb122-4"><a href="#cb122-4" tabindex="-1"></a>  <span class="fu">scale_alpha_continuous</span>(<span class="at">range =</span> <span class="fu">c</span>(<span class="fl">0.5</span>,<span class="dv">1</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb121"><pre
+class="sourceCode r"><code class="sourceCode r"><span id="cb121-1"><a href="#cb121-1" tabindex="-1"></a>pcPlot <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data=</span>patients_clean,</span>
+<span id="cb121-2"><a href="#cb121-2" tabindex="-1"></a>                 <span class="fu">aes</span>(<span class="at">x=</span>Height,<span class="at">y=</span>Weight,<span class="at">alpha=</span>BMI))</span>
+<span id="cb121-3"><a href="#cb121-3" tabindex="-1"></a>pcPlot <span class="sc">+</span> <span class="fu">geom_point</span>(<span class="at">size=</span><span class="dv">4</span>) <span class="sc">+</span> </span>
+<span id="cb121-4"><a href="#cb121-4" tabindex="-1"></a>  <span class="fu">scale_alpha_continuous</span>(<span class="at">range =</span> <span class="fu">c</span>(<span class="fl">0.5</span>,<span class="dv">1</span>))</span></code></pre></div>
 <p><img src="graphs_files/figure-html/unnamed-chunk-100-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>Below the range of sizes to be used in plot is limited to between 3
 and 6.</p>
-<div class="sourceCode" id="cb123"><pre
-class="sourceCode r"><code class="sourceCode r"><span id="cb123-1"><a href="#cb123-1" tabindex="-1"></a>pcPlot <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data=</span>patients_clean,</span>
-<span id="cb123-2"><a href="#cb123-2" tabindex="-1"></a>                 <span class="fu">aes</span>(<span class="at">x=</span>Height,<span class="at">y=</span>Weight,<span class="at">size=</span>BMI))</span>
-<span id="cb123-3"><a href="#cb123-3" tabindex="-1"></a>pcPlot <span class="sc">+</span> <span class="fu">geom_point</span>(<span class="at">alpha=</span><span class="fl">0.8</span>) <span class="sc">+</span> </span>
-<span id="cb123-4"><a href="#cb123-4" tabindex="-1"></a>  <span class="fu">scale_size_continuous</span>(<span class="at">range =</span> <span class="fu">c</span>(<span class="dv">3</span>,<span class="dv">6</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb122"><pre
+class="sourceCode r"><code class="sourceCode r"><span id="cb122-1"><a href="#cb122-1" tabindex="-1"></a>pcPlot <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data=</span>patients_clean,</span>
+<span id="cb122-2"><a href="#cb122-2" tabindex="-1"></a>                 <span class="fu">aes</span>(<span class="at">x=</span>Height,<span class="at">y=</span>Weight,<span class="at">size=</span>BMI))</span>
+<span id="cb122-3"><a href="#cb122-3" tabindex="-1"></a>pcPlot <span class="sc">+</span> <span class="fu">geom_point</span>(<span class="at">alpha=</span><span class="fl">0.8</span>) <span class="sc">+</span> </span>
+<span id="cb122-4"><a href="#cb122-4" tabindex="-1"></a>  <span class="fu">scale_size_continuous</span>(<span class="at">range =</span> <span class="fu">c</span>(<span class="dv">3</span>,<span class="dv">6</span>))</span></code></pre></div>
 <p><img src="graphs_files/figure-html/unnamed-chunk-101-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>The limits of the scale can also be controlled but it is important to
 note data outside of scale is removed from plot.</p>
-<div class="sourceCode" id="cb124"><pre
-class="sourceCode r"><code class="sourceCode r"><span id="cb124-1"><a href="#cb124-1" tabindex="-1"></a>pcPlot <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data=</span>patients_clean,</span>
-<span id="cb124-2"><a href="#cb124-2" tabindex="-1"></a>                 <span class="fu">aes</span>(<span class="at">x=</span>Height,<span class="at">y=</span>Weight,<span class="at">size=</span>BMI))</span>
-<span id="cb124-3"><a href="#cb124-3" tabindex="-1"></a>pcPlot <span class="sc">+</span> <span class="fu">geom_point</span>() <span class="sc">+</span> <span class="fu">scale_size_continuous</span>(<span class="at">range =</span> <span class="fu">c</span>(<span class="dv">3</span>,<span class="dv">6</span>),</span>
-<span id="cb124-4"><a href="#cb124-4" tabindex="-1"></a>                                              <span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">25</span>,<span class="dv">40</span>))</span></code></pre></div>
-<pre><code>## Warning: Removed 14 rows containing missing values or values outside the scale range
-## (`geom_point()`).</code></pre>
+<div class="sourceCode" id="cb123"><pre
+class="sourceCode r"><code class="sourceCode r"><span id="cb123-1"><a href="#cb123-1" tabindex="-1"></a>pcPlot <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data=</span>patients_clean,</span>
+<span id="cb123-2"><a href="#cb123-2" tabindex="-1"></a>                 <span class="fu">aes</span>(<span class="at">x=</span>Height,<span class="at">y=</span>Weight,<span class="at">size=</span>BMI))</span>
+<span id="cb123-3"><a href="#cb123-3" tabindex="-1"></a>pcPlot <span class="sc">+</span> <span class="fu">geom_point</span>() <span class="sc">+</span> <span class="fu">scale_size_continuous</span>(<span class="at">range =</span> <span class="fu">c</span>(<span class="dv">3</span>,<span class="dv">6</span>),</span>
+<span id="cb123-4"><a href="#cb123-4" tabindex="-1"></a>                                              <span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">25</span>,<span class="dv">40</span>))</span></code></pre></div>
+<pre><code>## Warning: Removed 14 rows containing missing values or values outside the scale range (`geom_point()`).</code></pre>
 <p><img src="graphs_files/figure-html/unnamed-chunk-102-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>What points of scale to be labeled and labels text can also be
 controlled.</p>
-<div class="sourceCode" id="cb126"><pre
-class="sourceCode r"><code class="sourceCode r"><span id="cb126-1"><a href="#cb126-1" tabindex="-1"></a>pcPlot <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data=</span>patients_clean,</span>
-<span id="cb126-2"><a href="#cb126-2" tabindex="-1"></a>                 <span class="fu">aes</span>(<span class="at">x=</span>Height,<span class="at">y=</span>Weight,<span class="at">size=</span>BMI))</span>
-<span id="cb126-3"><a href="#cb126-3" tabindex="-1"></a>pcPlot <span class="sc">+</span> <span class="fu">geom_point</span>() <span class="sc">+</span> </span>
-<span id="cb126-4"><a href="#cb126-4" tabindex="-1"></a>  <span class="fu">scale_size_continuous</span>(<span class="at">range =</span> <span class="fu">c</span>(<span class="dv">3</span>,<span class="dv">6</span>), </span>
-<span id="cb126-5"><a href="#cb126-5" tabindex="-1"></a>                        <span class="at">breaks=</span><span class="fu">c</span>(<span class="dv">25</span>,<span class="dv">30</span>), </span>
-<span id="cb126-6"><a href="#cb126-6" tabindex="-1"></a>                        <span class="at">labels=</span><span class="fu">c</span>(<span class="st">&quot;Good&quot;</span>,<span class="st">&quot;Good but not 25&quot;</span>)) </span></code></pre></div>
+<div class="sourceCode" id="cb125"><pre
+class="sourceCode r"><code class="sourceCode r"><span id="cb125-1"><a href="#cb125-1" tabindex="-1"></a>pcPlot <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data=</span>patients_clean,</span>
+<span id="cb125-2"><a href="#cb125-2" tabindex="-1"></a>                 <span class="fu">aes</span>(<span class="at">x=</span>Height,<span class="at">y=</span>Weight,<span class="at">size=</span>BMI))</span>
+<span id="cb125-3"><a href="#cb125-3" tabindex="-1"></a>pcPlot <span class="sc">+</span> <span class="fu">geom_point</span>() <span class="sc">+</span> </span>
+<span id="cb125-4"><a href="#cb125-4" tabindex="-1"></a>  <span class="fu">scale_size_continuous</span>(<span class="at">range =</span> <span class="fu">c</span>(<span class="dv">3</span>,<span class="dv">6</span>), </span>
+<span id="cb125-5"><a href="#cb125-5" tabindex="-1"></a>                        <span class="at">breaks=</span><span class="fu">c</span>(<span class="dv">25</span>,<span class="dv">30</span>), </span>
+<span id="cb125-6"><a href="#cb125-6" tabindex="-1"></a>                        <span class="at">labels=</span><span class="fu">c</span>(<span class="st">&quot;Good&quot;</span>,<span class="st">&quot;Good but not 25&quot;</span>)) </span></code></pre></div>
 <p><img src="graphs_files/figure-html/unnamed-chunk-103-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>Control of color/fill scales can be best achieved through the
 gradient subfunctions of scale.</p>
@@ -1546,46 +1545,46 @@ Change, Up): scale_(colour/fill)_gradient2</p></li>
 <p>An example using <code>scale_color_gradient</code> below sets the low
 and high end colors to <code>White</code> and <code>Red</code>
 respectively</p>
-<div class="sourceCode" id="cb127"><pre
-class="sourceCode r"><code class="sourceCode r"><span id="cb127-1"><a href="#cb127-1" tabindex="-1"></a>pcPlot <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data=</span>patients_clean,</span>
-<span id="cb127-2"><a href="#cb127-2" tabindex="-1"></a>                 <span class="fu">aes</span>(<span class="at">x=</span>Height,<span class="at">y=</span>Weight,<span class="at">colour=</span>BMI))</span>
-<span id="cb127-3"><a href="#cb127-3" tabindex="-1"></a>pcPlot <span class="sc">+</span> <span class="fu">geom_point</span>(<span class="at">size=</span><span class="dv">4</span>,<span class="at">alpha=</span><span class="fl">0.8</span>) <span class="sc">+</span> </span>
-<span id="cb127-4"><a href="#cb127-4" tabindex="-1"></a>  <span class="fu">scale_colour_gradient</span>(<span class="at">low =</span> <span class="st">&quot;White&quot;</span>,<span class="at">high=</span><span class="st">&quot;Red&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb126"><pre
+class="sourceCode r"><code class="sourceCode r"><span id="cb126-1"><a href="#cb126-1" tabindex="-1"></a>pcPlot <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data=</span>patients_clean,</span>
+<span id="cb126-2"><a href="#cb126-2" tabindex="-1"></a>                 <span class="fu">aes</span>(<span class="at">x=</span>Height,<span class="at">y=</span>Weight,<span class="at">colour=</span>BMI))</span>
+<span id="cb126-3"><a href="#cb126-3" tabindex="-1"></a>pcPlot <span class="sc">+</span> <span class="fu">geom_point</span>(<span class="at">size=</span><span class="dv">4</span>,<span class="at">alpha=</span><span class="fl">0.8</span>) <span class="sc">+</span> </span>
+<span id="cb126-4"><a href="#cb126-4" tabindex="-1"></a>  <span class="fu">scale_colour_gradient</span>(<span class="at">low =</span> <span class="st">&quot;White&quot;</span>,<span class="at">high=</span><span class="st">&quot;Red&quot;</span>)</span></code></pre></div>
 <p><img src="graphs_files/figure-html/unnamed-chunk-104-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>Similarly we can use the <code>scale_color_gradient2</code> function
 which allows for the specification of a midpoint value and its
 associated color.</p>
+<div class="sourceCode" id="cb127"><pre
+class="sourceCode r"><code class="sourceCode r"><span id="cb127-1"><a href="#cb127-1" tabindex="-1"></a>pcPlot <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data=</span>patients_clean,</span>
+<span id="cb127-2"><a href="#cb127-2" tabindex="-1"></a>                 <span class="fu">aes</span>(<span class="at">x=</span>Height,<span class="at">y=</span>Weight,<span class="at">colour=</span>BMI))</span>
+<span id="cb127-3"><a href="#cb127-3" tabindex="-1"></a>pcPlot <span class="sc">+</span> <span class="fu">geom_point</span>(<span class="at">size=</span><span class="dv">4</span>,<span class="at">alpha=</span><span class="fl">0.8</span>) <span class="sc">+</span> </span>
+<span id="cb127-4"><a href="#cb127-4" tabindex="-1"></a>  <span class="fu">scale_colour_gradient2</span>(<span class="at">low =</span> <span class="st">&quot;Blue&quot;</span>,<span class="at">mid=</span><span class="st">&quot;Black&quot;</span>, <span class="at">high=</span><span class="st">&quot;Red&quot;</span>,</span>
+<span id="cb127-5"><a href="#cb127-5" tabindex="-1"></a>                         <span class="at">midpoint =</span> <span class="fu">median</span>(patients_clean<span class="sc">$</span>BMI))</span></code></pre></div>
+<p><img src="graphs_files/figure-html/unnamed-chunk-105-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>As with previous continuous scales, limits and custom labels in scale
+legend can be added.</p>
 <div class="sourceCode" id="cb128"><pre
 class="sourceCode r"><code class="sourceCode r"><span id="cb128-1"><a href="#cb128-1" tabindex="-1"></a>pcPlot <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data=</span>patients_clean,</span>
 <span id="cb128-2"><a href="#cb128-2" tabindex="-1"></a>                 <span class="fu">aes</span>(<span class="at">x=</span>Height,<span class="at">y=</span>Weight,<span class="at">colour=</span>BMI))</span>
 <span id="cb128-3"><a href="#cb128-3" tabindex="-1"></a>pcPlot <span class="sc">+</span> <span class="fu">geom_point</span>(<span class="at">size=</span><span class="dv">4</span>,<span class="at">alpha=</span><span class="fl">0.8</span>) <span class="sc">+</span> </span>
-<span id="cb128-4"><a href="#cb128-4" tabindex="-1"></a>  <span class="fu">scale_colour_gradient2</span>(<span class="at">low =</span> <span class="st">&quot;Blue&quot;</span>,<span class="at">mid=</span><span class="st">&quot;Black&quot;</span>, <span class="at">high=</span><span class="st">&quot;Red&quot;</span>,</span>
-<span id="cb128-5"><a href="#cb128-5" tabindex="-1"></a>                         <span class="at">midpoint =</span> <span class="fu">median</span>(patients_clean<span class="sc">$</span>BMI))</span></code></pre></div>
-<p><img src="graphs_files/figure-html/unnamed-chunk-105-1.png" width="672" style="display: block; margin: auto;" /></p>
-<p>As with previous continuous scales, limits and custom labels in scale
-legend can be added.</p>
-<div class="sourceCode" id="cb129"><pre
-class="sourceCode r"><code class="sourceCode r"><span id="cb129-1"><a href="#cb129-1" tabindex="-1"></a>pcPlot <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data=</span>patients_clean,</span>
-<span id="cb129-2"><a href="#cb129-2" tabindex="-1"></a>                 <span class="fu">aes</span>(<span class="at">x=</span>Height,<span class="at">y=</span>Weight,<span class="at">colour=</span>BMI))</span>
-<span id="cb129-3"><a href="#cb129-3" tabindex="-1"></a>pcPlot <span class="sc">+</span> <span class="fu">geom_point</span>(<span class="at">size=</span><span class="dv">4</span>,<span class="at">alpha=</span><span class="fl">0.8</span>) <span class="sc">+</span> </span>
-<span id="cb129-4"><a href="#cb129-4" tabindex="-1"></a>  <span class="fu">scale_colour_gradient2</span>(<span class="at">low =</span> <span class="st">&quot;Blue&quot;</span>,</span>
-<span id="cb129-5"><a href="#cb129-5" tabindex="-1"></a>                         <span class="at">mid=</span><span class="st">&quot;Black&quot;</span>,</span>
-<span id="cb129-6"><a href="#cb129-6" tabindex="-1"></a>                         <span class="at">high=</span><span class="st">&quot;Red&quot;</span>,</span>
-<span id="cb129-7"><a href="#cb129-7" tabindex="-1"></a>                         <span class="at">midpoint =</span> <span class="fu">median</span>(patients_clean<span class="sc">$</span>BMI),</span>
-<span id="cb129-8"><a href="#cb129-8" tabindex="-1"></a>                         <span class="at">breaks=</span><span class="fu">c</span>(<span class="dv">25</span>,<span class="dv">30</span>),<span class="at">labels=</span><span class="fu">c</span>(<span class="st">&quot;Low&quot;</span>,<span class="st">&quot;High&quot;</span>),</span>
-<span id="cb129-9"><a href="#cb129-9" tabindex="-1"></a>                         <span class="at">name=</span><span class="st">&quot;Body Mass Index&quot;</span>)</span></code></pre></div>
+<span id="cb128-4"><a href="#cb128-4" tabindex="-1"></a>  <span class="fu">scale_colour_gradient2</span>(<span class="at">low =</span> <span class="st">&quot;Blue&quot;</span>,</span>
+<span id="cb128-5"><a href="#cb128-5" tabindex="-1"></a>                         <span class="at">mid=</span><span class="st">&quot;Black&quot;</span>,</span>
+<span id="cb128-6"><a href="#cb128-6" tabindex="-1"></a>                         <span class="at">high=</span><span class="st">&quot;Red&quot;</span>,</span>
+<span id="cb128-7"><a href="#cb128-7" tabindex="-1"></a>                         <span class="at">midpoint =</span> <span class="fu">median</span>(patients_clean<span class="sc">$</span>BMI),</span>
+<span id="cb128-8"><a href="#cb128-8" tabindex="-1"></a>                         <span class="at">breaks=</span><span class="fu">c</span>(<span class="dv">25</span>,<span class="dv">30</span>),<span class="at">labels=</span><span class="fu">c</span>(<span class="st">&quot;Low&quot;</span>,<span class="st">&quot;High&quot;</span>),</span>
+<span id="cb128-9"><a href="#cb128-9" tabindex="-1"></a>                         <span class="at">name=</span><span class="st">&quot;Body Mass Index&quot;</span>)</span></code></pre></div>
 <p><img src="graphs_files/figure-html/unnamed-chunk-106-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>Multiple scales may be combined to create high customizable plots and
 scales</p>
-<div class="sourceCode" id="cb130"><pre
-class="sourceCode r"><code class="sourceCode r"><span id="cb130-1"><a href="#cb130-1" tabindex="-1"></a>pcPlot <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data=</span>patients_clean,</span>
-<span id="cb130-2"><a href="#cb130-2" tabindex="-1"></a>                 <span class="fu">aes</span>(<span class="at">x=</span>Height,<span class="at">y=</span>Weight,<span class="at">colour=</span>BMI,<span class="at">shape=</span>Sex))</span>
-<span id="cb130-3"><a href="#cb130-3" tabindex="-1"></a>pcPlot <span class="sc">+</span> <span class="fu">geom_point</span>(<span class="at">size=</span><span class="dv">4</span>,<span class="at">alpha=</span><span class="fl">0.8</span>)<span class="sc">+</span> </span>
-<span id="cb130-4"><a href="#cb130-4" tabindex="-1"></a>  <span class="fu">scale_shape_discrete</span>(<span class="at">name=</span><span class="st">&quot;Gender&quot;</span>) <span class="sc">+</span></span>
-<span id="cb130-5"><a href="#cb130-5" tabindex="-1"></a>  <span class="fu">scale_colour_gradient2</span>(<span class="at">low =</span> <span class="st">&quot;Blue&quot;</span>,<span class="at">mid=</span><span class="st">&quot;Black&quot;</span>,<span class="at">high=</span><span class="st">&quot;Red&quot;</span>,</span>
-<span id="cb130-6"><a href="#cb130-6" tabindex="-1"></a>                         <span class="at">midpoint =</span> <span class="fu">median</span>(patients_clean<span class="sc">$</span>BMI),</span>
-<span id="cb130-7"><a href="#cb130-7" tabindex="-1"></a>                         <span class="at">breaks=</span><span class="fu">c</span>(<span class="dv">25</span>,<span class="dv">30</span>),<span class="at">labels=</span><span class="fu">c</span>(<span class="st">&quot;Low&quot;</span>,<span class="st">&quot;High&quot;</span>),</span>
-<span id="cb130-8"><a href="#cb130-8" tabindex="-1"></a>                         <span class="at">name=</span><span class="st">&quot;Body Mass Index&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb129"><pre
+class="sourceCode r"><code class="sourceCode r"><span id="cb129-1"><a href="#cb129-1" tabindex="-1"></a>pcPlot <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data=</span>patients_clean,</span>
+<span id="cb129-2"><a href="#cb129-2" tabindex="-1"></a>                 <span class="fu">aes</span>(<span class="at">x=</span>Height,<span class="at">y=</span>Weight,<span class="at">colour=</span>BMI,<span class="at">shape=</span>Sex))</span>
+<span id="cb129-3"><a href="#cb129-3" tabindex="-1"></a>pcPlot <span class="sc">+</span> <span class="fu">geom_point</span>(<span class="at">size=</span><span class="dv">4</span>,<span class="at">alpha=</span><span class="fl">0.8</span>)<span class="sc">+</span> </span>
+<span id="cb129-4"><a href="#cb129-4" tabindex="-1"></a>  <span class="fu">scale_shape_discrete</span>(<span class="at">name=</span><span class="st">&quot;Gender&quot;</span>) <span class="sc">+</span></span>
+<span id="cb129-5"><a href="#cb129-5" tabindex="-1"></a>  <span class="fu">scale_colour_gradient2</span>(<span class="at">low =</span> <span class="st">&quot;Blue&quot;</span>,<span class="at">mid=</span><span class="st">&quot;Black&quot;</span>,<span class="at">high=</span><span class="st">&quot;Red&quot;</span>,</span>
+<span id="cb129-6"><a href="#cb129-6" tabindex="-1"></a>                         <span class="at">midpoint =</span> <span class="fu">median</span>(patients_clean<span class="sc">$</span>BMI),</span>
+<span id="cb129-7"><a href="#cb129-7" tabindex="-1"></a>                         <span class="at">breaks=</span><span class="fu">c</span>(<span class="dv">25</span>,<span class="dv">30</span>),<span class="at">labels=</span><span class="fu">c</span>(<span class="st">&quot;Low&quot;</span>,<span class="st">&quot;High&quot;</span>),</span>
+<span id="cb129-8"><a href="#cb129-8" tabindex="-1"></a>                         <span class="at">name=</span><span class="st">&quot;Body Mass Index&quot;</span>)</span></code></pre></div>
 <p><img src="graphs_files/figure-html/unnamed-chunk-107-1.png" width="672" style="display: block; margin: auto;" /></p>
 </div>
 <div id="transformations" class="section level2">
@@ -1602,38 +1601,38 @@ very useful include the <code>stat_smooth()</code> and
 <h3>Fitting lines</h3>
 <p>The <code>stat_smooth()</code> function can be used to fit a line to
 the data being displayed.</p>
-<div class="sourceCode" id="cb131"><pre
-class="sourceCode r"><code class="sourceCode r"><span id="cb131-1"><a href="#cb131-1" tabindex="-1"></a>pcPlot <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data=</span>patients_clean,</span>
-<span id="cb131-2"><a href="#cb131-2" tabindex="-1"></a>        <span class="at">mapping=</span><span class="fu">aes</span>(<span class="at">x=</span>Weight,<span class="at">y=</span>Height))</span>
-<span id="cb131-3"><a href="#cb131-3" tabindex="-1"></a>pcPlot<span class="sc">+</span><span class="fu">geom_point</span>()<span class="sc">+</span><span class="fu">stat_smooth</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb130"><pre
+class="sourceCode r"><code class="sourceCode r"><span id="cb130-1"><a href="#cb130-1" tabindex="-1"></a>pcPlot <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data=</span>patients_clean,</span>
+<span id="cb130-2"><a href="#cb130-2" tabindex="-1"></a>        <span class="at">mapping=</span><span class="fu">aes</span>(<span class="at">x=</span>Weight,<span class="at">y=</span>Height))</span>
+<span id="cb130-3"><a href="#cb130-3" tabindex="-1"></a>pcPlot<span class="sc">+</span><span class="fu">geom_point</span>()<span class="sc">+</span><span class="fu">stat_smooth</span>()</span></code></pre></div>
 <pre><code>## `geom_smooth()` using method = &#39;loess&#39; and formula = &#39;y ~ x&#39;</code></pre>
 <p><img src="graphs_files/figure-html/unnamed-chunk-108-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>By default a “loess” smooth line is plotted by stat_smooth. Other
 methods available include lm, glm, gam, rlm.</p>
-<div class="sourceCode" id="cb133"><pre
-class="sourceCode r"><code class="sourceCode r"><span id="cb133-1"><a href="#cb133-1" tabindex="-1"></a>pcPlot <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data=</span>patients_clean,</span>
-<span id="cb133-2"><a href="#cb133-2" tabindex="-1"></a>        <span class="at">mapping=</span><span class="fu">aes</span>(<span class="at">x=</span>Weight,<span class="at">y=</span>Height))</span>
-<span id="cb133-3"><a href="#cb133-3" tabindex="-1"></a>pcPlot<span class="sc">+</span><span class="fu">geom_point</span>()<span class="sc">+</span><span class="fu">stat_smooth</span>(<span class="at">method=</span><span class="st">&quot;lm&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb132"><pre
+class="sourceCode r"><code class="sourceCode r"><span id="cb132-1"><a href="#cb132-1" tabindex="-1"></a>pcPlot <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data=</span>patients_clean,</span>
+<span id="cb132-2"><a href="#cb132-2" tabindex="-1"></a>        <span class="at">mapping=</span><span class="fu">aes</span>(<span class="at">x=</span>Weight,<span class="at">y=</span>Height))</span>
+<span id="cb132-3"><a href="#cb132-3" tabindex="-1"></a>pcPlot<span class="sc">+</span><span class="fu">geom_point</span>()<span class="sc">+</span><span class="fu">stat_smooth</span>(<span class="at">method=</span><span class="st">&quot;lm&quot;</span>)</span></code></pre></div>
 <pre><code>## `geom_smooth()` using formula = &#39;y ~ x&#39;</code></pre>
 <p><img src="graphs_files/figure-html/unnamed-chunk-109-1.png" width="672" style="display: block; margin: auto;" />
 A useful feature of <code>ggplot2</code> is that it uses previously
 defined grouping when performing smoothing. If color by <code>Sex</code>
 is an aesthetic mapping then two smooth lines are drawn, one for each
 sex.</p>
-<div class="sourceCode" id="cb135"><pre
-class="sourceCode r"><code class="sourceCode r"><span id="cb135-1"><a href="#cb135-1" tabindex="-1"></a>pcPlot <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data=</span>patients_clean,</span>
-<span id="cb135-2"><a href="#cb135-2" tabindex="-1"></a>        <span class="at">mapping=</span><span class="fu">aes</span>(<span class="at">x=</span>Weight,<span class="at">y=</span>Height,<span class="at">colour=</span>Sex))</span>
-<span id="cb135-3"><a href="#cb135-3" tabindex="-1"></a>pcPlot<span class="sc">+</span><span class="fu">geom_point</span>()<span class="sc">+</span><span class="fu">stat_smooth</span>(<span class="at">method=</span><span class="st">&quot;lm&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb134"><pre
+class="sourceCode r"><code class="sourceCode r"><span id="cb134-1"><a href="#cb134-1" tabindex="-1"></a>pcPlot <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data=</span>patients_clean,</span>
+<span id="cb134-2"><a href="#cb134-2" tabindex="-1"></a>        <span class="at">mapping=</span><span class="fu">aes</span>(<span class="at">x=</span>Weight,<span class="at">y=</span>Height,<span class="at">colour=</span>Sex))</span>
+<span id="cb134-3"><a href="#cb134-3" tabindex="-1"></a>pcPlot<span class="sc">+</span><span class="fu">geom_point</span>()<span class="sc">+</span><span class="fu">stat_smooth</span>(<span class="at">method=</span><span class="st">&quot;lm&quot;</span>)</span></code></pre></div>
 <pre><code>## `geom_smooth()` using formula = &#39;y ~ x&#39;</code></pre>
 <p><img src="graphs_files/figure-html/unnamed-chunk-110-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>This behavior can be overridden by specifying an <code>aes</code>
 within the <code>stat_smooth()</code> function and setting
 <code>inherit.aes</code> to <code>FALSE</code>.</p>
-<div class="sourceCode" id="cb137"><pre
-class="sourceCode r"><code class="sourceCode r"><span id="cb137-1"><a href="#cb137-1" tabindex="-1"></a>pcPlot <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data=</span>patients_clean,</span>
-<span id="cb137-2"><a href="#cb137-2" tabindex="-1"></a>        <span class="at">mapping=</span><span class="fu">aes</span>(<span class="at">x=</span>Weight,<span class="at">y=</span>Height,<span class="at">colour=</span>Sex))</span>
-<span id="cb137-3"><a href="#cb137-3" tabindex="-1"></a>pcPlot<span class="sc">+</span><span class="fu">geom_point</span>()<span class="sc">+</span><span class="fu">stat_smooth</span>(<span class="fu">aes</span>(<span class="at">x=</span>Weight,<span class="at">y=</span>Height),<span class="at">method=</span><span class="st">&quot;lm&quot;</span>,</span>
-<span id="cb137-4"><a href="#cb137-4" tabindex="-1"></a>                                <span class="at">inherit.aes =</span> F)</span></code></pre></div>
+<div class="sourceCode" id="cb136"><pre
+class="sourceCode r"><code class="sourceCode r"><span id="cb136-1"><a href="#cb136-1" tabindex="-1"></a>pcPlot <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data=</span>patients_clean,</span>
+<span id="cb136-2"><a href="#cb136-2" tabindex="-1"></a>        <span class="at">mapping=</span><span class="fu">aes</span>(<span class="at">x=</span>Weight,<span class="at">y=</span>Height,<span class="at">colour=</span>Sex))</span>
+<span id="cb136-3"><a href="#cb136-3" tabindex="-1"></a>pcPlot<span class="sc">+</span><span class="fu">geom_point</span>()<span class="sc">+</span><span class="fu">stat_smooth</span>(<span class="fu">aes</span>(<span class="at">x=</span>Weight,<span class="at">y=</span>Height),<span class="at">method=</span><span class="st">&quot;lm&quot;</span>,</span>
+<span id="cb136-4"><a href="#cb136-4" tabindex="-1"></a>                                <span class="at">inherit.aes =</span> F)</span></code></pre></div>
 <pre><code>## `geom_smooth()` using formula = &#39;y ~ x&#39;</code></pre>
 <p><img src="graphs_files/figure-html/unnamed-chunk-111-1.png" width="672" style="display: block; margin: auto;" /></p>
 </div>
@@ -1645,11 +1644,11 @@ to be performed and then visualized.</p>
 variables for every value of x. In this example we use it to plot the
 quantiles of the <code>Female</code> and <code>Male</code> Height
 data</p>
-<div class="sourceCode" id="cb139"><pre
-class="sourceCode r"><code class="sourceCode r"><span id="cb139-1"><a href="#cb139-1" tabindex="-1"></a>pcPlot <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data=</span>patients_clean,</span>
-<span id="cb139-2"><a href="#cb139-2" tabindex="-1"></a>        <span class="at">mapping=</span><span class="fu">aes</span>(<span class="at">x=</span>Sex,<span class="at">y=</span>Height)) <span class="sc">+</span> <span class="fu">geom_jitter</span>()</span>
-<span id="cb139-3"><a href="#cb139-3" tabindex="-1"></a>pcPlot <span class="sc">+</span> <span class="fu">stat_summary</span>(<span class="at">fun=</span>quantile, <span class="at">geom=</span><span class="st">&quot;point&quot;</span>,<span class="at">shape=</span><span class="dv">8</span>,</span>
-<span id="cb139-4"><a href="#cb139-4" tabindex="-1"></a>                    <span class="at">colour=</span><span class="st">&quot;purple&quot;</span>, <span class="at">size=</span><span class="dv">4</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb138"><pre
+class="sourceCode r"><code class="sourceCode r"><span id="cb138-1"><a href="#cb138-1" tabindex="-1"></a>pcPlot <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data=</span>patients_clean,</span>
+<span id="cb138-2"><a href="#cb138-2" tabindex="-1"></a>        <span class="at">mapping=</span><span class="fu">aes</span>(<span class="at">x=</span>Sex,<span class="at">y=</span>Height)) <span class="sc">+</span> <span class="fu">geom_jitter</span>()</span>
+<span id="cb138-3"><a href="#cb138-3" tabindex="-1"></a>pcPlot <span class="sc">+</span> <span class="fu">stat_summary</span>(<span class="at">fun=</span>quantile, <span class="at">geom=</span><span class="st">&quot;point&quot;</span>,<span class="at">shape=</span><span class="dv">8</span>,</span>
+<span id="cb138-4"><a href="#cb138-4" tabindex="-1"></a>                    <span class="at">colour=</span><span class="st">&quot;purple&quot;</span>, <span class="at">size=</span><span class="dv">4</span>)</span></code></pre></div>
 <p><img src="graphs_files/figure-html/unnamed-chunk-112-1.png" width="672" style="display: block; margin: auto;" /></p>
 </div>
 </div>
@@ -1663,14 +1662,14 @@ specification of theme used. Predefined themes can be applied to a
 <code>ggplot2</code> object using a family of functions
 <code>theme_style()</code></p>
 <p>Here is a scatter with the default theme…</p>
-<div class="sourceCode" id="cb140"><pre
-class="sourceCode r"><code class="sourceCode r"><span id="cb140-1"><a href="#cb140-1" tabindex="-1"></a>pcPlot <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data=</span>patients_clean,</span>
-<span id="cb140-2"><a href="#cb140-2" tabindex="-1"></a>        <span class="at">mapping=</span><span class="fu">aes</span>(<span class="at">x=</span>Weight,<span class="at">y=</span>Height))<span class="sc">+</span><span class="fu">geom_point</span>()</span>
-<span id="cb140-3"><a href="#cb140-3" tabindex="-1"></a>pcPlot</span></code></pre></div>
+<div class="sourceCode" id="cb139"><pre
+class="sourceCode r"><code class="sourceCode r"><span id="cb139-1"><a href="#cb139-1" tabindex="-1"></a>pcPlot <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data=</span>patients_clean,</span>
+<span id="cb139-2"><a href="#cb139-2" tabindex="-1"></a>        <span class="at">mapping=</span><span class="fu">aes</span>(<span class="at">x=</span>Weight,<span class="at">y=</span>Height))<span class="sc">+</span><span class="fu">geom_point</span>()</span>
+<span id="cb139-3"><a href="#cb139-3" tabindex="-1"></a>pcPlot</span></code></pre></div>
 <p><img src="graphs_files/figure-html/unnamed-chunk-113-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>… and the same scatter plot with the minimal theme.</p>
-<div class="sourceCode" id="cb141"><pre
-class="sourceCode r"><code class="sourceCode r"><span id="cb141-1"><a href="#cb141-1" tabindex="-1"></a>pcPlot<span class="sc">+</span><span class="fu">theme_minimal</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb140"><pre
+class="sourceCode r"><code class="sourceCode r"><span id="cb140-1"><a href="#cb140-1" tabindex="-1"></a>pcPlot<span class="sc">+</span><span class="fu">theme_minimal</span>()</span></code></pre></div>
 <p><img src="graphs_files/figure-html/unnamed-chunk-114-1.png" width="672" style="display: block; margin: auto;" /></p>
 <div id="predefined-themes" class="section level3">
 <h3>Predefined themes</h3>
@@ -1732,62 +1731,62 @@ href="ggplot2%20themes">themes</a>).</p>
 element of theme. Here we will change the text colour for the plot (Note
 because we are changing a text element we use the
 <code>element_text()</code> function).</p>
-<div class="sourceCode" id="cb142"><pre
-class="sourceCode r"><code class="sourceCode r"><span id="cb142-1"><a href="#cb142-1" tabindex="-1"></a>pcPlot <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data=</span>patients_clean,</span>
-<span id="cb142-2"><a href="#cb142-2" tabindex="-1"></a>        <span class="at">mapping=</span><span class="fu">aes</span>(<span class="at">x=</span>Weight,<span class="at">y=</span>Height))<span class="sc">+</span></span>
-<span id="cb142-3"><a href="#cb142-3" tabindex="-1"></a>  <span class="fu">geom_point</span>()</span>
-<span id="cb142-4"><a href="#cb142-4" tabindex="-1"></a>pcPlot<span class="sc">+</span></span>
-<span id="cb142-5"><a href="#cb142-5" tabindex="-1"></a>  <span class="fu">theme</span>(</span>
-<span id="cb142-6"><a href="#cb142-6" tabindex="-1"></a>    <span class="at">text =</span> <span class="fu">element_text</span>(<span class="at">colour=</span><span class="st">&quot;red&quot;</span>)</span>
-<span id="cb142-7"><a href="#cb142-7" tabindex="-1"></a>      )</span></code></pre></div>
+<div class="sourceCode" id="cb141"><pre
+class="sourceCode r"><code class="sourceCode r"><span id="cb141-1"><a href="#cb141-1" tabindex="-1"></a>pcPlot <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data=</span>patients_clean,</span>
+<span id="cb141-2"><a href="#cb141-2" tabindex="-1"></a>        <span class="at">mapping=</span><span class="fu">aes</span>(<span class="at">x=</span>Weight,<span class="at">y=</span>Height))<span class="sc">+</span></span>
+<span id="cb141-3"><a href="#cb141-3" tabindex="-1"></a>  <span class="fu">geom_point</span>()</span>
+<span id="cb141-4"><a href="#cb141-4" tabindex="-1"></a>pcPlot<span class="sc">+</span></span>
+<span id="cb141-5"><a href="#cb141-5" tabindex="-1"></a>  <span class="fu">theme</span>(</span>
+<span id="cb141-6"><a href="#cb141-6" tabindex="-1"></a>    <span class="at">text =</span> <span class="fu">element_text</span>(<span class="at">colour=</span><span class="st">&quot;red&quot;</span>)</span>
+<span id="cb141-7"><a href="#cb141-7" tabindex="-1"></a>      )</span></code></pre></div>
 <p><img src="graphs_files/figure-html/unnamed-chunk-115-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>If we wished to set the y-axis label to be at an angle we can adjust
 that as well.</p>
-<div class="sourceCode" id="cb143"><pre
-class="sourceCode r"><code class="sourceCode r"><span id="cb143-1"><a href="#cb143-1" tabindex="-1"></a>pcPlot <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data=</span>patients_clean,</span>
-<span id="cb143-2"><a href="#cb143-2" tabindex="-1"></a>        <span class="at">mapping=</span><span class="fu">aes</span>(<span class="at">x=</span>Weight,<span class="at">y=</span>Height))<span class="sc">+</span><span class="fu">geom_point</span>()</span>
-<span id="cb143-3"><a href="#cb143-3" tabindex="-1"></a>pcPlot <span class="sc">+</span> <span class="fu">theme</span>(<span class="at">text =</span> <span class="fu">element_text</span>(<span class="at">colour=</span><span class="st">&quot;red&quot;</span>),</span>
-<span id="cb143-4"><a href="#cb143-4" tabindex="-1"></a>        <span class="at">axis.title.y =</span> <span class="fu">element_text</span>(<span class="at">angle=</span><span class="dv">0</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb142"><pre
+class="sourceCode r"><code class="sourceCode r"><span id="cb142-1"><a href="#cb142-1" tabindex="-1"></a>pcPlot <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data=</span>patients_clean,</span>
+<span id="cb142-2"><a href="#cb142-2" tabindex="-1"></a>        <span class="at">mapping=</span><span class="fu">aes</span>(<span class="at">x=</span>Weight,<span class="at">y=</span>Height))<span class="sc">+</span><span class="fu">geom_point</span>()</span>
+<span id="cb142-3"><a href="#cb142-3" tabindex="-1"></a>pcPlot <span class="sc">+</span> <span class="fu">theme</span>(<span class="at">text =</span> <span class="fu">element_text</span>(<span class="at">colour=</span><span class="st">&quot;red&quot;</span>),</span>
+<span id="cb142-4"><a href="#cb142-4" tabindex="-1"></a>        <span class="at">axis.title.y =</span> <span class="fu">element_text</span>(<span class="at">angle=</span><span class="dv">0</span>))</span></code></pre></div>
 <p><img src="graphs_files/figure-html/unnamed-chunk-116-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>Finally we may wish to remove axis line, set the background of plot
 panels to be white and give the strips (title above facet) a cyan
 background colour.</p>
-<div class="sourceCode" id="cb144"><pre
-class="sourceCode r"><code class="sourceCode r"><span id="cb144-1"><a href="#cb144-1" tabindex="-1"></a>pcPlot <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data=</span>patients_clean,</span>
-<span id="cb144-2"><a href="#cb144-2" tabindex="-1"></a>        <span class="at">mapping=</span><span class="fu">aes</span>(<span class="at">x=</span>Weight,<span class="at">y=</span>Height))<span class="sc">+</span></span>
-<span id="cb144-3"><a href="#cb144-3" tabindex="-1"></a>  <span class="fu">geom_point</span>()<span class="sc">+</span></span>
-<span id="cb144-4"><a href="#cb144-4" tabindex="-1"></a>  <span class="fu">facet_grid</span>(Sex<span class="sc">~</span>Smokes)</span>
-<span id="cb144-5"><a href="#cb144-5" tabindex="-1"></a>pcPlot<span class="sc">+</span></span>
-<span id="cb144-6"><a href="#cb144-6" tabindex="-1"></a>  <span class="fu">theme</span>(</span>
-<span id="cb144-7"><a href="#cb144-7" tabindex="-1"></a>    <span class="at">text =</span> <span class="fu">element_text</span>(<span class="at">colour=</span><span class="st">&quot;red&quot;</span>),</span>
-<span id="cb144-8"><a href="#cb144-8" tabindex="-1"></a>    <span class="at">axis.title.y =</span> <span class="fu">element_text</span>(<span class="at">angle=</span><span class="dv">0</span>),</span>
-<span id="cb144-9"><a href="#cb144-9" tabindex="-1"></a>    <span class="at">axis.line =</span> <span class="fu">element_line</span>(<span class="at">linetype =</span> <span class="dv">0</span>),</span>
-<span id="cb144-10"><a href="#cb144-10" tabindex="-1"></a>    <span class="at">panel.background=</span><span class="fu">element_rect</span>(<span class="at">fill=</span><span class="st">&quot;white&quot;</span>),</span>
-<span id="cb144-11"><a href="#cb144-11" tabindex="-1"></a>    <span class="at">strip.background=</span><span class="fu">element_rect</span>(<span class="at">fill=</span><span class="st">&quot;cyan&quot;</span>)</span>
-<span id="cb144-12"><a href="#cb144-12" tabindex="-1"></a>    )</span></code></pre></div>
+<div class="sourceCode" id="cb143"><pre
+class="sourceCode r"><code class="sourceCode r"><span id="cb143-1"><a href="#cb143-1" tabindex="-1"></a>pcPlot <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data=</span>patients_clean,</span>
+<span id="cb143-2"><a href="#cb143-2" tabindex="-1"></a>        <span class="at">mapping=</span><span class="fu">aes</span>(<span class="at">x=</span>Weight,<span class="at">y=</span>Height))<span class="sc">+</span></span>
+<span id="cb143-3"><a href="#cb143-3" tabindex="-1"></a>  <span class="fu">geom_point</span>()<span class="sc">+</span></span>
+<span id="cb143-4"><a href="#cb143-4" tabindex="-1"></a>  <span class="fu">facet_grid</span>(Sex<span class="sc">~</span>Smokes)</span>
+<span id="cb143-5"><a href="#cb143-5" tabindex="-1"></a>pcPlot<span class="sc">+</span></span>
+<span id="cb143-6"><a href="#cb143-6" tabindex="-1"></a>  <span class="fu">theme</span>(</span>
+<span id="cb143-7"><a href="#cb143-7" tabindex="-1"></a>    <span class="at">text =</span> <span class="fu">element_text</span>(<span class="at">colour=</span><span class="st">&quot;red&quot;</span>),</span>
+<span id="cb143-8"><a href="#cb143-8" tabindex="-1"></a>    <span class="at">axis.title.y =</span> <span class="fu">element_text</span>(<span class="at">angle=</span><span class="dv">0</span>),</span>
+<span id="cb143-9"><a href="#cb143-9" tabindex="-1"></a>    <span class="at">axis.line =</span> <span class="fu">element_line</span>(<span class="at">linetype =</span> <span class="dv">0</span>),</span>
+<span id="cb143-10"><a href="#cb143-10" tabindex="-1"></a>    <span class="at">panel.background=</span><span class="fu">element_rect</span>(<span class="at">fill=</span><span class="st">&quot;white&quot;</span>),</span>
+<span id="cb143-11"><a href="#cb143-11" tabindex="-1"></a>    <span class="at">strip.background=</span><span class="fu">element_rect</span>(<span class="at">fill=</span><span class="st">&quot;cyan&quot;</span>)</span>
+<span id="cb143-12"><a href="#cb143-12" tabindex="-1"></a>    )</span></code></pre></div>
 <p><img src="graphs_files/figure-html/unnamed-chunk-117-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>A useful example of using the theme can be seen in controlling the
 legend. By default the legend is in right of plot.</p>
+<div class="sourceCode" id="cb144"><pre
+class="sourceCode r"><code class="sourceCode r"><span id="cb144-1"><a href="#cb144-1" tabindex="-1"></a>pcPlot <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data=</span>patients_clean,<span class="fu">aes</span>(<span class="at">x=</span>Height,<span class="at">y=</span>Weight,</span>
+<span id="cb144-2"><a href="#cb144-2" tabindex="-1"></a>                                         <span class="at">colour=</span>Sex))<span class="sc">+</span><span class="fu">geom_point</span>()</span>
+<span id="cb144-3"><a href="#cb144-3" tabindex="-1"></a>pcPlot</span></code></pre></div>
+<p><img src="graphs_files/figure-html/unnamed-chunk-118-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>By modifying the theme we can control the legend positioning.</p>
 <div class="sourceCode" id="cb145"><pre
 class="sourceCode r"><code class="sourceCode r"><span id="cb145-1"><a href="#cb145-1" tabindex="-1"></a>pcPlot <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data=</span>patients_clean,<span class="fu">aes</span>(<span class="at">x=</span>Height,<span class="at">y=</span>Weight,</span>
 <span id="cb145-2"><a href="#cb145-2" tabindex="-1"></a>                                         <span class="at">colour=</span>Sex))<span class="sc">+</span><span class="fu">geom_point</span>()</span>
-<span id="cb145-3"><a href="#cb145-3" tabindex="-1"></a>pcPlot</span></code></pre></div>
-<p><img src="graphs_files/figure-html/unnamed-chunk-118-1.png" width="672" style="display: block; margin: auto;" /></p>
-<p>By modifying the theme we can control the legend positioning.</p>
-<div class="sourceCode" id="cb146"><pre
-class="sourceCode r"><code class="sourceCode r"><span id="cb146-1"><a href="#cb146-1" tabindex="-1"></a>pcPlot <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data=</span>patients_clean,<span class="fu">aes</span>(<span class="at">x=</span>Height,<span class="at">y=</span>Weight,</span>
-<span id="cb146-2"><a href="#cb146-2" tabindex="-1"></a>                                         <span class="at">colour=</span>Sex))<span class="sc">+</span><span class="fu">geom_point</span>()</span>
-<span id="cb146-3"><a href="#cb146-3" tabindex="-1"></a>pcPlot<span class="sc">+</span><span class="fu">theme</span>(<span class="at">legend.position=</span><span class="st">&quot;left&quot;</span>)</span></code></pre></div>
+<span id="cb145-3"><a href="#cb145-3" tabindex="-1"></a>pcPlot<span class="sc">+</span><span class="fu">theme</span>(<span class="at">legend.position=</span><span class="st">&quot;left&quot;</span>)</span></code></pre></div>
 <p><img src="graphs_files/figure-html/unnamed-chunk-119-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>We can control all aspects of a legend as we can for other theme
 elements.</p>
-<div class="sourceCode" id="cb147"><pre
-class="sourceCode r"><code class="sourceCode r"><span id="cb147-1"><a href="#cb147-1" tabindex="-1"></a>pcPlot <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data=</span>patients_clean,<span class="fu">aes</span>(<span class="at">x=</span>Height,<span class="at">y=</span>Weight,</span>
-<span id="cb147-2"><a href="#cb147-2" tabindex="-1"></a>                                         <span class="at">colour=</span>Sex))<span class="sc">+</span><span class="fu">geom_point</span>()</span>
-<span id="cb147-3"><a href="#cb147-3" tabindex="-1"></a>pcPlot<span class="sc">+</span><span class="fu">theme</span>(<span class="at">legend.text =</span> <span class="fu">element_text</span>(<span class="at">colour=</span><span class="st">&quot;darkred&quot;</span>),</span>
-<span id="cb147-4"><a href="#cb147-4" tabindex="-1"></a>             <span class="at">legend.title =</span> <span class="fu">element_text</span>(<span class="at">size=</span><span class="dv">20</span>),</span>
-<span id="cb147-5"><a href="#cb147-5" tabindex="-1"></a>             <span class="at">legend.position =</span> <span class="st">&quot;bottom&quot;</span></span>
-<span id="cb147-6"><a href="#cb147-6" tabindex="-1"></a>             )</span></code></pre></div>
+<div class="sourceCode" id="cb146"><pre
+class="sourceCode r"><code class="sourceCode r"><span id="cb146-1"><a href="#cb146-1" tabindex="-1"></a>pcPlot <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data=</span>patients_clean,<span class="fu">aes</span>(<span class="at">x=</span>Height,<span class="at">y=</span>Weight,</span>
+<span id="cb146-2"><a href="#cb146-2" tabindex="-1"></a>                                         <span class="at">colour=</span>Sex))<span class="sc">+</span><span class="fu">geom_point</span>()</span>
+<span id="cb146-3"><a href="#cb146-3" tabindex="-1"></a>pcPlot<span class="sc">+</span><span class="fu">theme</span>(<span class="at">legend.text =</span> <span class="fu">element_text</span>(<span class="at">colour=</span><span class="st">&quot;darkred&quot;</span>),</span>
+<span id="cb146-4"><a href="#cb146-4" tabindex="-1"></a>             <span class="at">legend.title =</span> <span class="fu">element_text</span>(<span class="at">size=</span><span class="dv">20</span>),</span>
+<span id="cb146-5"><a href="#cb146-5" tabindex="-1"></a>             <span class="at">legend.position =</span> <span class="st">&quot;bottom&quot;</span></span>
+<span id="cb146-6"><a href="#cb146-6" tabindex="-1"></a>             )</span></code></pre></div>
 <p><img src="graphs_files/figure-html/unnamed-chunk-120-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>When altering themes we have been using the <code>+</code> operator
 to add themes as we would adding geoms,scales and stats.</p>
@@ -1802,11 +1801,11 @@ new theme are maintained.</p></li>
 old themes.</p>
 <p>In the example below, we maintain all elements set by theme_bw() but
 overwrite the theme element attribute of the colour of text.</p>
-<div class="sourceCode" id="cb148"><pre
-class="sourceCode r"><code class="sourceCode r"><span id="cb148-1"><a href="#cb148-1" tabindex="-1"></a>pcPlot <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data=</span>patients_clean,</span>
-<span id="cb148-2"><a href="#cb148-2" tabindex="-1"></a>        <span class="at">mapping=</span><span class="fu">aes</span>(<span class="at">x=</span>Weight,<span class="at">y=</span>Height))<span class="sc">+</span><span class="fu">geom_point</span>()<span class="sc">+</span><span class="fu">theme_bw</span>()</span>
-<span id="cb148-3"><a href="#cb148-3" tabindex="-1"></a>pcPlot<span class="sc">+</span></span>
-<span id="cb148-4"><a href="#cb148-4" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">text =</span> <span class="fu">element_text</span>(<span class="at">colour=</span><span class="st">&quot;red&quot;</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb147"><pre
+class="sourceCode r"><code class="sourceCode r"><span id="cb147-1"><a href="#cb147-1" tabindex="-1"></a>pcPlot <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data=</span>patients_clean,</span>
+<span id="cb147-2"><a href="#cb147-2" tabindex="-1"></a>        <span class="at">mapping=</span><span class="fu">aes</span>(<span class="at">x=</span>Weight,<span class="at">y=</span>Height))<span class="sc">+</span><span class="fu">geom_point</span>()<span class="sc">+</span><span class="fu">theme_bw</span>()</span>
+<span id="cb147-3"><a href="#cb147-3" tabindex="-1"></a>pcPlot<span class="sc">+</span></span>
+<span id="cb147-4"><a href="#cb147-4" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">text =</span> <span class="fu">element_text</span>(<span class="at">colour=</span><span class="st">&quot;red&quot;</span>))</span></code></pre></div>
 <p><img src="graphs_files/figure-html/unnamed-chunk-121-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>In contrast <code>%+replace%</code> replaces all elements within a
 theme regardless of whether they have been previously specfied in old
@@ -1818,15 +1817,15 @@ theme</p></li>
 <li><p>Theme elements in the old theme which have not been specified in
 new theme are also replaced by blank theme elements.</p></li>
 </ul>
-<div class="sourceCode" id="cb149"><pre
-class="sourceCode r"><code class="sourceCode r"><span id="cb149-1"><a href="#cb149-1" tabindex="-1"></a>oldTheme <span class="ot">&lt;-</span> <span class="fu">theme_bw</span>()</span>
-<span id="cb149-2"><a href="#cb149-2" tabindex="-1"></a>newTheme_Plus <span class="ot">&lt;-</span> <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
-<span id="cb149-3"><a href="#cb149-3" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">text =</span> <span class="fu">element_text</span>(<span class="at">colour=</span><span class="st">&quot;red&quot;</span>))</span>
-<span id="cb149-4"><a href="#cb149-4" tabindex="-1"></a>  </span>
-<span id="cb149-5"><a href="#cb149-5" tabindex="-1"></a>newTheme_Replace <span class="ot">&lt;-</span> <span class="fu">theme_bw</span>() <span class="sc">%+replace%</span></span>
-<span id="cb149-6"><a href="#cb149-6" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">text =</span> <span class="fu">element_text</span>(<span class="at">colour=</span><span class="st">&quot;red&quot;</span>))</span>
-<span id="cb149-7"><a href="#cb149-7" tabindex="-1"></a>  </span>
-<span id="cb149-8"><a href="#cb149-8" tabindex="-1"></a>oldTheme<span class="sc">$</span>text</span></code></pre></div>
+<div class="sourceCode" id="cb148"><pre
+class="sourceCode r"><code class="sourceCode r"><span id="cb148-1"><a href="#cb148-1" tabindex="-1"></a>oldTheme <span class="ot">&lt;-</span> <span class="fu">theme_bw</span>()</span>
+<span id="cb148-2"><a href="#cb148-2" tabindex="-1"></a>newTheme_Plus <span class="ot">&lt;-</span> <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
+<span id="cb148-3"><a href="#cb148-3" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">text =</span> <span class="fu">element_text</span>(<span class="at">colour=</span><span class="st">&quot;red&quot;</span>))</span>
+<span id="cb148-4"><a href="#cb148-4" tabindex="-1"></a>  </span>
+<span id="cb148-5"><a href="#cb148-5" tabindex="-1"></a>newTheme_Replace <span class="ot">&lt;-</span> <span class="fu">theme_bw</span>() <span class="sc">%+replace%</span></span>
+<span id="cb148-6"><a href="#cb148-6" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">text =</span> <span class="fu">element_text</span>(<span class="at">colour=</span><span class="st">&quot;red&quot;</span>))</span>
+<span id="cb148-7"><a href="#cb148-7" tabindex="-1"></a>  </span>
+<span id="cb148-8"><a href="#cb148-8" tabindex="-1"></a>oldTheme<span class="sc">$</span>text</span></code></pre></div>
 <pre><code>## List of 11
 ##  $ family       : chr &quot;&quot;
 ##  $ face         : chr &quot;plain&quot;
@@ -1841,8 +1840,8 @@ class="sourceCode r"><code class="sourceCode r"><span id="cb149-1"><a href="#cb1
 ##  $ debug        : logi FALSE
 ##  $ inherit.blank: logi TRUE
 ##  - attr(*, &quot;class&quot;)= chr [1:2] &quot;element_text&quot; &quot;element&quot;</code></pre>
-<div class="sourceCode" id="cb151"><pre
-class="sourceCode r"><code class="sourceCode r"><span id="cb151-1"><a href="#cb151-1" tabindex="-1"></a>newTheme_Plus<span class="sc">$</span>text</span></code></pre></div>
+<div class="sourceCode" id="cb150"><pre
+class="sourceCode r"><code class="sourceCode r"><span id="cb150-1"><a href="#cb150-1" tabindex="-1"></a>newTheme_Plus<span class="sc">$</span>text</span></code></pre></div>
 <pre><code>## List of 11
 ##  $ family       : chr &quot;&quot;
 ##  $ face         : chr &quot;plain&quot;
@@ -1857,8 +1856,8 @@ class="sourceCode r"><code class="sourceCode r"><span id="cb151-1"><a href="#cb1
 ##  $ debug        : logi FALSE
 ##  $ inherit.blank: logi FALSE
 ##  - attr(*, &quot;class&quot;)= chr [1:2] &quot;element_text&quot; &quot;element&quot;</code></pre>
-<div class="sourceCode" id="cb153"><pre
-class="sourceCode r"><code class="sourceCode r"><span id="cb153-1"><a href="#cb153-1" tabindex="-1"></a>newTheme_Replace<span class="sc">$</span>text</span></code></pre></div>
+<div class="sourceCode" id="cb152"><pre
+class="sourceCode r"><code class="sourceCode r"><span id="cb152-1"><a href="#cb152-1" tabindex="-1"></a>newTheme_Replace<span class="sc">$</span>text</span></code></pre></div>
 <pre><code>## List of 11
 ##  $ family       : NULL
 ##  $ face         : NULL
@@ -1883,14 +1882,14 @@ may want it to apply to every plot you draw.</p>
 <p>Some themes readily available reproduce styles of famous publication,
 see theme based on plots in the Wall Street Journal. In
 <code>ggthemes</code>:</p>
-<div class="sourceCode" id="cb155"><pre
-class="sourceCode r"><code class="sourceCode r"><span id="cb155-1"><a href="#cb155-1" tabindex="-1"></a><span class="fu">library</span>(ggthemes)</span></code></pre></div>
+<div class="sourceCode" id="cb154"><pre
+class="sourceCode r"><code class="sourceCode r"><span id="cb154-1"><a href="#cb154-1" tabindex="-1"></a><span class="fu">library</span>(ggthemes)</span></code></pre></div>
 <pre><code>## Warning: package &#39;ggthemes&#39; was built under R version 4.2.3</code></pre>
-<div class="sourceCode" id="cb157"><pre
-class="sourceCode r"><code class="sourceCode r"><span id="cb157-1"><a href="#cb157-1" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(iris, <span class="fu">aes</span>(Sepal.Length, Sepal.Width, <span class="at">colour =</span> Species))<span class="sc">+</span></span>
-<span id="cb157-2"><a href="#cb157-2" tabindex="-1"></a>  <span class="fu">geom_point</span>()</span>
-<span id="cb157-3"><a href="#cb157-3" tabindex="-1"></a>p <span class="sc">+</span> <span class="fu">theme_wsj</span>()<span class="sc">+</span> <span class="fu">scale_colour_wsj</span>(<span class="st">&quot;colors6&quot;</span>)<span class="sc">+</span></span>
-<span id="cb157-4"><a href="#cb157-4" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">&quot;Iris data&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb156"><pre
+class="sourceCode r"><code class="sourceCode r"><span id="cb156-1"><a href="#cb156-1" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(iris, <span class="fu">aes</span>(Sepal.Length, Sepal.Width, <span class="at">colour =</span> Species))<span class="sc">+</span></span>
+<span id="cb156-2"><a href="#cb156-2" tabindex="-1"></a>  <span class="fu">geom_point</span>()</span>
+<span id="cb156-3"><a href="#cb156-3" tabindex="-1"></a>p <span class="sc">+</span> <span class="fu">theme_wsj</span>()<span class="sc">+</span> <span class="fu">scale_colour_wsj</span>(<span class="st">&quot;colors6&quot;</span>)<span class="sc">+</span></span>
+<span id="cb156-4"><a href="#cb156-4" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">&quot;Iris data&quot;</span>)</span></code></pre></div>
 <p><img src="graphs_files/figure-html/unnamed-chunk-125-1.png" width="672" /></p>
 <p>Creat your own style :)</p>
 </div>
@@ -1899,17 +1898,17 @@ class="sourceCode r"><code class="sourceCode r"><span id="cb157-1"><a href="#cb1
 <h2>Titles and Labels</h2>
 <p>So far no plot titles have been specified. Plot titles can be
 specified using the <code>labs</code> functions.</p>
-<div class="sourceCode" id="cb158"><pre
-class="sourceCode r"><code class="sourceCode r"><span id="cb158-1"><a href="#cb158-1" tabindex="-1"></a>pcPlot <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data=</span>patients_clean,</span>
-<span id="cb158-2"><a href="#cb158-2" tabindex="-1"></a>        <span class="at">mapping=</span><span class="fu">aes</span>(<span class="at">x=</span>Weight,<span class="at">y=</span>Height))<span class="sc">+</span><span class="fu">geom_point</span>()</span>
-<span id="cb158-3"><a href="#cb158-3" tabindex="-1"></a>pcPlot<span class="sc">+</span><span class="fu">labs</span>(<span class="at">title=</span><span class="st">&quot;Weight vs Height&quot;</span>,<span class="at">y=</span><span class="st">&quot;Height (cm)&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb157"><pre
+class="sourceCode r"><code class="sourceCode r"><span id="cb157-1"><a href="#cb157-1" tabindex="-1"></a>pcPlot <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data=</span>patients_clean,</span>
+<span id="cb157-2"><a href="#cb157-2" tabindex="-1"></a>        <span class="at">mapping=</span><span class="fu">aes</span>(<span class="at">x=</span>Weight,<span class="at">y=</span>Height))<span class="sc">+</span><span class="fu">geom_point</span>()</span>
+<span id="cb157-3"><a href="#cb157-3" tabindex="-1"></a>pcPlot<span class="sc">+</span><span class="fu">labs</span>(<span class="at">title=</span><span class="st">&quot;Weight vs Height&quot;</span>,<span class="at">y=</span><span class="st">&quot;Height (cm)&quot;</span>)</span></code></pre></div>
 <p><img src="graphs_files/figure-html/unnamed-chunk-126-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>You can also specify titles using the <code>ggtitle</code> and
 <code>xlab</code>/<code>ylab</code> functions.</p>
-<div class="sourceCode" id="cb159"><pre
-class="sourceCode r"><code class="sourceCode r"><span id="cb159-1"><a href="#cb159-1" tabindex="-1"></a>pcPlot <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data=</span>patients_clean,</span>
-<span id="cb159-2"><a href="#cb159-2" tabindex="-1"></a>        <span class="at">mapping=</span><span class="fu">aes</span>(<span class="at">x=</span>Height,<span class="at">y=</span>Weight))<span class="sc">+</span><span class="fu">geom_point</span>()</span>
-<span id="cb159-3"><a href="#cb159-3" tabindex="-1"></a>pcPlot<span class="sc">+</span><span class="fu">ggtitle</span>(<span class="st">&quot;Weight vs Height&quot;</span>)<span class="sc">+</span><span class="fu">ylab</span>(<span class="st">&quot;Height (cm)&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb158"><pre
+class="sourceCode r"><code class="sourceCode r"><span id="cb158-1"><a href="#cb158-1" tabindex="-1"></a>pcPlot <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data=</span>patients_clean,</span>
+<span id="cb158-2"><a href="#cb158-2" tabindex="-1"></a>        <span class="at">mapping=</span><span class="fu">aes</span>(<span class="at">x=</span>Height,<span class="at">y=</span>Weight))<span class="sc">+</span><span class="fu">geom_point</span>()</span>
+<span id="cb158-3"><a href="#cb158-3" tabindex="-1"></a>pcPlot<span class="sc">+</span><span class="fu">ggtitle</span>(<span class="st">&quot;Weight vs Height&quot;</span>)<span class="sc">+</span><span class="fu">ylab</span>(<span class="st">&quot;Height (cm)&quot;</span>)</span></code></pre></div>
 <p><img src="graphs_files/figure-html/unnamed-chunk-127-1.png" width="672" style="display: block; margin: auto;" /></p>
 </div>
 <div id="saving-plot" class="section level2">
@@ -1921,12 +1920,12 @@ plot.</p>
 <p>By default <code>ggsave()</code> will use the size of your current
 graphics window when saving plots so it may be important to specify
 width and height arguments desired.</p>
-<div class="sourceCode" id="cb160"><pre
-class="sourceCode r"><code class="sourceCode r"><span id="cb160-1"><a href="#cb160-1" tabindex="-1"></a>pcPlot <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data=</span>patients_clean,</span>
-<span id="cb160-2"><a href="#cb160-2" tabindex="-1"></a>        <span class="at">mapping=</span><span class="fu">aes</span>(<span class="at">x=</span>Weight,<span class="at">y=</span>Height))<span class="sc">+</span><span class="fu">geom_point</span>()</span>
-<span id="cb160-3"><a href="#cb160-3" tabindex="-1"></a>        </span>
-<span id="cb160-4"><a href="#cb160-4" tabindex="-1"></a><span class="fu">ggsave</span>(pcPlot,<span class="at">filename =</span> <span class="st">&quot;outputs/anExampleplot.png&quot;</span>,<span class="at">width =</span> <span class="dv">15</span>,</span>
-<span id="cb160-5"><a href="#cb160-5" tabindex="-1"></a>       <span class="at">height =</span> <span class="dv">15</span>,<span class="at">units =</span> <span class="st">&quot;cm&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb159"><pre
+class="sourceCode r"><code class="sourceCode r"><span id="cb159-1"><a href="#cb159-1" tabindex="-1"></a>pcPlot <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data=</span>patients_clean,</span>
+<span id="cb159-2"><a href="#cb159-2" tabindex="-1"></a>        <span class="at">mapping=</span><span class="fu">aes</span>(<span class="at">x=</span>Weight,<span class="at">y=</span>Height))<span class="sc">+</span><span class="fu">geom_point</span>()</span>
+<span id="cb159-3"><a href="#cb159-3" tabindex="-1"></a>        </span>
+<span id="cb159-4"><a href="#cb159-4" tabindex="-1"></a><span class="fu">ggsave</span>(pcPlot,<span class="at">filename =</span> <span class="st">&quot;outputs/anExampleplot.png&quot;</span>,<span class="at">width =</span> <span class="dv">15</span>,</span>
+<span id="cb159-5"><a href="#cb159-5" tabindex="-1"></a>       <span class="at">height =</span> <span class="dv">15</span>,<span class="at">units =</span> <span class="st">&quot;cm&quot;</span>)</span></code></pre></div>
 </div>
 </div>
 <div id="references" class="section level1">

@@ -37,6 +37,7 @@ wst
 ## TWN <- vect('data/gadm/gadm41_TWN_1_pk.rds')
 ## TWN
 ## # check for ?gadm
+## # The RDS format is a binary file format, native to R. It has been part of R for many years, and provides a convenient method for saving R objects, including data sets. R also has two native data formats—Rdata (sometimes shortened to Rda) and Rds. These formats are used when R objects are saved for later use. Rdata is used to save multiple R objects, while Rds is used to save a single R object.
 
 # example using .shp file
 library(terra)
