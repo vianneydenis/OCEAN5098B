@@ -27,7 +27,7 @@ This is an introduction to spatial data manipulation with R and the terra packag
 
 The package `terra` is now the package of reference for manipulating spatial data, spatial analysis and modeling in R. It is a very large topics and here we cover the basics of data manipulation.
 
-Because of the many changes happening in the past few years related to spatial data analysis in R, this section of the course is still under developement. **The information below are largely extracted form Terra online tutorial available [here](https://rspatial.org/spatial/2-spatialdata.html).**
+Because of the many changes happening in the past few years related to spatial data analysis in R, this section of the course is still under developement. **The information below are largely extracted from Terra online tutorial available [here](https://rspatial.org/spatial/2-spatialdata.html).**
 
 
 # Spatial data
@@ -56,7 +56,7 @@ Continuous surface data are sometimes stored as triangulated irregular networks 
 
 ## Simple representation of spatial data
 
-The basic data types in R are numbers, characters, logical (TRUE or FALSE) and factor values. Values of a single type can be combined in vectors and matrices, and variables of multiple types can be combined into a data.frame. We can represent (only very) basic spatial data with these data types. Let’s say we have the location (represented by longitude and latitude) of ten weather stations (named A to J) and their annual precipitation.
+The basic data types in R are numbers, characters, logical (TRUE or FALSE) and factor values. Values of a single type can be combined in vectors and matrices, and variables of multiple types can be combined into a `data.frame`. We can represent (only very) basic spatial data with these data types. Let’s say we have the location (represented by longitude and latitude) of ten weather stations (named A to J) and their annual precipitation.
 
 In the example below we make a very simple map. Note that a map is a special type of plot (like a scatter plot, barplot, etc.). A map is a plot of geospatial data that also has labels and other graphical objects such as a scale bar or legend. The spatial data itself should not be referred to as a map.
 
@@ -72,7 +72,7 @@ set.seed(0)
 precip <- round((runif(length(latitude))*10)^3)
 ```
 
-A map of point locations is not that different from a basic x-y scatter plot. Below is a plot (a map in this case) that shows the location of the weather stations, and the size of the dots is proportional to the amount of precipitation. The point size is set with argument cex.
+A map of point locations is not that different from a basic x-y scatter plot. Below is a plot (a map in this case) that shows the location of the weather stations, and the size of the dots is proportional to the amount of precipitation. The point size is set with argument `cex`.
 
 ```{r,  eval=T}
 psize <- 1 + precip/500
@@ -134,18 +134,6 @@ It is easy to read and write such files. Here we use a shapefile that comes with
 
 ### Reading
 
-Let's first download some spatial data of Taiwan using the `geodata` package:
-
-```{r,  eval=F}
-library (geodata)
-#TWN <- gadm(country="TWN", level=1, path=tempdir())
-#TWN <- gadm(country="TWN", level=1, path="./data"
-TWN <- vect('data/gadm/gadm41_TWN_1_pk.rds')
-TWN
-# check for ?gadm
-# The RDS format is a binary file format, native to R. It has been part of R for many years, and provides a convenient method for saving R objects, including data sets. R also has two native data formats—Rdata (sometimes shortened to Rda) and Rds. These formats are used when R objects are saved for later use. Rdata is used to save multiple R objects, while Rds is used to save a single R object.
-```
-
 Using a .shp file, we can use the `vect` function from the `terra` package to read the file. First:
 
 ```{r,  eval=T}
@@ -154,7 +142,7 @@ library(terra)
 filename1 <- system.file("ex/lux.shp", package="terra")
 basename(filename1)
 ```
-> We use the system.file function to get the full path name of the file’s location. We need to do this as the location of this file depends on where the terra package is installed. You should not use the system.file function for your own files. It only serves for creating examples with data that ship with R. With your own files, just use the filename (and path if the file is not in your working directory).
+> We use the `system.file` function to get the full path name of the file’s location. We need to do this as the location of this file depends on where the `terra` package is installed - nothing to do with mapping. You should not use the `system.file` function for your own files but I do here for the code to be reproducible. It only serves for creating examples with data that are shipped with R. With your own files, just use the filename (and path if the file is not in your working directory).
 
 Then:
 
@@ -168,7 +156,21 @@ The `vect` function returns `SpatVector` objects. It is important to recognise t
 
 ### Writing
 
-You can write new files using the `writeVector` method. You need to add argument `overwrite=TRUE` if you want to overwrite an existing file.
+You can write new files using the `writeVector` method. You need to add argument `overwrite=TRUE` if you want to overwrite an existing file. 
+
+Let's first download some spatial data of Taiwan using the `geodata` package (try different country code; some with many islands maybe slower to download then plot, why?):
+
+```{r,  eval=F}
+library (geodata)
+#TWN <- gadm(country="TWN", level=1, path=tempdir())
+#TWN <- gadm(country="TWN", level=1, path="./data"
+TWN <- vect('data/gadm/gadm41_TWN_1_pk.rds')
+TWN
+# check for ?gadm
+# The RDS format is a binary file format, native to R. It has been part of R for many years, and provides a convenient method for saving R objects, including data sets. R also has two native data formats—Rdata (sometimes shortened to Rda) and Rds. These formats are used when R objects are saved for later use. Rdata is used to save multiple R objects, while Rds is used to save a single R object.
+```
+
+Then overwrite:
 
 ```{r,  eval=T}
 TWN <- vect('data/gadm/gadm41_TWN_1_pk.rds')
@@ -181,15 +183,6 @@ writeVector(TWN, outfile1, overwrite=TRUE)
 The `terra` package can read and write several raster file formats.
 
 ### Reading raster data
-
-
-Get raster data of taiwan elevation using the `geodata` package:
-
-```{r,  eval=T}
-library(geodata)
-ele <-elevation_30s("TWN", path=tempdir())
-ele
-```
 
 Using a .tif file, we can use the `rast` function from the `terra` package to read the file. First using example file from the package:
 
@@ -213,6 +206,16 @@ r2
 ```
 
 The same approach holds for other raster file formats, including GeoTiff, NetCDF, Imagine, and ESRI Grid formats.
+
+Now, get raster data of Taiwan elevation using the `geodata` package:
+
+```{r,  eval=T}
+library(geodata)
+ele <-elevation_30s("TWN", path=tempdir())
+ele
+```
+
+Check `min` and `max` values of your `SpatRaster`
 
 ### Writing raster data
 
@@ -242,7 +245,7 @@ So the basic way to record a location is a coordinate pair in degrees and a refe
 
 ### Projections
 
-A major question in spatial analysis and cartography is how to transform this three dimensional angular system to a two dimensional planar (sometimes called “Cartesian”) system. A planar system is easier to use for certain calculations and required to make maps (unless you have a 3-d printer). The different types of planar coordinate reference systems are referred to as “projections”. Examples are “Mercator”, “UTM”, “Robinson”, “Lambert”, “Sinusoidal” and “Albers”.
+A major question in spatial analysis and cartography is how to transform this three dimensional angular system to a two dimensional planar (sometimes called “Cartesian”) system. A planar system is easier to use for certain calculations and required to make maps (unless you have a 3-d printer). The different types of planar coordinate reference systems are referred to as “projections” (see [here](https://www.jasondavies.com/maps/transition/)). Examples are “Mercator”, “UTM”, “Robinson”, “Lambert”, “Sinusoidal” and “Albers”.
 
 There is not one best projection. Some projections can be used for a map of the whole world; other projections are appropriate for small areas only. One of the most important characteristics of a map projection is whether it is “equal area” (the scale of the map is constant) or “conformal” (the shapes of the geographic features are as they are seen on a globe). No two dimensional map projection can be both conformal and equal-area (but they can be approximately both for smaller areas, e.g. UTM, or Lambert Equal Area for a larger area), and some are neither.
 
@@ -270,7 +273,7 @@ crs(s1)
 
 ## Assigning CRS
 
-Sometimes we have data without a CRS. This can be because the file used was incomplete, or perhaps because we created the data ourselves with R code. In that case we can assign the CRS if we know what it should be. Here I first remove the CRS of `pp` and then I set it again.
+Sometimes we have data without a CRS. This can be because the file used was incomplete, or perhaps because we created the data ourselves with R code. In that case we can assign the CRS if we know what it should be. Here I first remove the CRS of `ss` and then I set it again.
 
 ```{r,  eval=T}
 ss <- s1
@@ -351,16 +354,19 @@ For raster based analysis it is often important to use equal area projections, p
 
 # Vector data manipulation
 
-This chapter illustrates some ways in which we can manipulate vector data. We start with an example SpatVector that we read from a shapefile.
+This section illustrates some ways in which we can manipulate vector data. We start with an example SpatVector that we read from a shapefile.
 
 ```{r,  eval=T}
 TWN <- vect('data/gadm/gadm41_TWN_1_pk.rds')
-plot(TWN, "NAME_1")
 ```
 
 We can plot these data in many ways. For example:
 
-We can see this data set is incomplete for Taiwan. Let's get some data directly from Taiwan
+```{r,  eval=T}
+plot(TWN, "NAME_1")
+```
+
+We can see this data set is incomplete for Taiwan. Let's get some better quality data directly from Taiwan database:
 
 ```{r,  eval=F}
 url <- 'https://data.moi.gov.tw/MoiOD/System/DownloadFile.aspx?DATA=72874C55-884D-4CEA-B7D6-F60B0BE85AB0'
@@ -382,6 +388,16 @@ Make the new plot:
 plot(Taiwan, "COUNTYENG")
 ```
 
+That's way better !
+
+Note that your system may have some problem to deal with Chinese character (like mine). Actually, those steps have no relationship with making a map however to deal with special characters is a common issue you may experience when "mapping around". To prepare your system to receive traditional Chinese characters if like mine your system is not set to accept them, check:
+
+```{r,  eval=F}
+sessionInfo()
+Sys.setlocale(category = "LC_ALL", "Chinese (Traditional)_Taiwan.950")
+
+#Sys.setlocale("LC_TIME", "English")
+```
 
 ## Basics
 
@@ -392,7 +408,7 @@ To extract the attributes (data.frame) from a SpatVector, use:
 
 ```{r,  eval=T}
 d <- as.data.frame(Taiwan)
-# head(d) # not run for Chinese character
+head(d) # may not work because of Chinese character
 ```
 You can also extract the geometry as a a matrix (this is rarely needed).
 
@@ -426,7 +442,7 @@ You can add a new variable to a SpatVector just as if it were a data.frame.
 ```{r,  eval=T}
 set.seed(0)
 Taiwan$lets <- sample(letters, nrow(Taiwan))
-# Taiwan
+head(Taiwan)
 ```
 
 Note that to get the number of geometries of SpatVector `Taiwan`, you can use `nrow(Taiwan)`, or `size(Taiwan)`. You can also do `perim(Taiwan)` to get the “length” of the spatial objects (zero for points, the length of the lines, or the perimeter of the polygons).
@@ -435,7 +451,7 @@ Assigning a new value to an existing variable.
 
 ```{r,  eval=T}
 Taiwan$lets <- sample(LETTERS, nrow(Taiwan))
-# head(Taiwan)
+head(Taiwan)
 ```
 
 To get rid of a variable, set it to `NULL`.
@@ -446,15 +462,14 @@ Taiwan$lets <- NULL
 
 ### Merge
 
-You can assign an attributes table (data.frame) to a SpatVector with `values<-`. To add attributes to a SpatVector that already has attributes use `merge` (or `cbind` if you know the order of the records is the same).
+You can assign an attributes table (`data.frame`) to a SpatVector with `values<-`. To add attributes to a SpatVector that already has attributes use `merge` (or `cbind` if you know the order of the records is the same).
 
 
 ```{r,  eval=T}
 dfr <- data.frame(County=Taiwan$COUNTYENG, Value=round(runif(length(Taiwan), 100, 1000)))
 dfr <- dfr[order(dfr$County), ]
 pm <- merge(Taiwan, dfr, by.x="COUNTYENG",by.y="County")
-# pm 
-# head(pm)
+head(pm)
 ```
 
 Note the new variable `Value` added to `pm`
@@ -466,7 +481,7 @@ Selecting rows (records).
 ```{r,  eval=T}
 i <- which(Taiwan$COUNTYENG == 'Taipei City')
 g <- Taiwan[i,]
-# g
+g
 ```
 
 It is also possible to interactively select and query records by clicking on a plotted dataset. That is difficult to show here. See `?sel` for interactively selecting geometries and `?click` to identify attributes by clicking on a plot (map).
@@ -513,7 +528,7 @@ Taiwan$region<-c(rep("Others",6), rep("North",3), rep("Others",2), "North", rep(
 pa <- aggregate(Taiwan, by='region')
 za <- aggregate(z)
 plot(za, col='light gray', border='light gray', lwd=5)
-plot(pa, add=TRUE, col=rainbow(3), lwd=3, border='white')
+plot(pa, add=TRUE, col=rainbow(2), lwd=3, border='white')
 ```
 
 It is also possible to aggregate polygons without dissolving the borders.
@@ -523,7 +538,7 @@ Taiwan$region<-c(rep("Others",6), rep("North",3), rep("Others",2), "North", rep(
 pa <- aggregate(Taiwan, by='region',dissolve=FALSE)
 za <- aggregate(z, dissolve = FALSE)
 plot(za, col='light gray', border='dark gray', lwd=3)
-plot(pa, add=TRUE, col=rainbow(3), lwd=2, border='white')
+plot(pa, add=TRUE, col=rainbow(2), lwd=2, border='white')
 ```
 
 This is a structure that is similar to what you may get for an archipelago: multiple polygons represented as one entity (one row). Use `disagg` to split these up into their parts.
@@ -619,8 +634,9 @@ lines(Taiwan, col='blue', lwd=2)
 
 `extract` is used for queries between SpatVector and SpatRaster objects, and also for queries between SpatVectors.
 
-```{r,  eval=T}
+```{r,  eval=F}
 terra::extract(spts, Taiwan)
+#NAs here
 ```
 
 # Raster data manipulation
@@ -736,7 +752,7 @@ filename <- system.file("ex/elev.tif", package="terra")
 basename(filename)
 ```
 
-That's teh file with the elevation of Luxembourg.
+That's the file with the elevation of Luxembourg.
 
 ```{r,  eval=T}
 r <- rast(filename)
@@ -753,10 +769,10 @@ tai.pop <- rast('./data/popmap15adj.tif')
 par(mfrow=c(1,2))
 # plot(tai.pop, main="Taiwan - Population Density (2015)")
 # Need a log transformaton
-plot(log(tai.pop+1), main="Taiwan - log-transformed Population Density (2015)")
+plot(log(tai.pop+1), main="Taiwan - log population Density (2015)")
 ```
 
-We can also use our previous SpatRaster of elevation of Taiwan in a nicer map: 
+We can also use our previous SpatRaster of elevation of Taiwan in a nicer map made with `ggplot2`: 
 
 ```{r,  eval=T}
 library(geodata)
@@ -1055,7 +1071,7 @@ ctb <- crosstab(c(r*3, s))
 head(ctb)
 ```
 
-## Helper functions
+## Helper functions (extra)
 
 The cell number is an important concept in the terra package. Raster data can be thought of as a matrix, but in a `SpatRaster` it is more commonly treated as a vector. Cells are numbered from the upper left cell to the upper right cell and then continuing on the left side of the next row, and so on until the last cell at the lower right side of the raster. There are several helper functions to determine the column or row number from a cell and vice versa, and to determine the cell number for x, y coordinates and vice versa.
 
@@ -1074,7 +1090,7 @@ colFromX(r, 0)
 rowFromY(r, 0)
 ```
 
-## Accessing cell values
+## Accessing cell values (extra)
 
 Cell values can be accessed with several methods. Use `values` to get all values or a subset such as a single row or a block (rectangle) of cell values.
 
@@ -1130,7 +1146,7 @@ as.matrix(r, wide=TRUE)[1:3, 1:4]
 
 Accessing values through this type of indexing should be avoided inside functions as it is less efficient than accessing values via functions like `getValues`.
 
-## Coercion to other classes
+## Coercion to other classes (extra)
 
 You can convert `SpatRaster` objects to `Raster*` objects defined in the raster package.
 
@@ -1176,6 +1192,7 @@ You can request maps for multiple variables:
 ```{r,  eval=T}
 plot(TWN, c("NAME_1", ""), col=rainbow(25))
 ```
+
 Below we also make two maps, but do it “by hand”. We adjust the spacing, and put the legends inside the map area, and use non-rotated text for the vertical axis.
 
 
@@ -1185,6 +1202,7 @@ m <- c(3.1, 3.1, 2.1, 2.1)
 plot(TWN, "", mar=m, pax=list(las=1))
 plot(TWN, "NAME_1", col=rainbow(25), mar=m, plg=list(x="bottomleft", cex=.75), pax=list(las=1))
 ```
+
 More costumization. Choose the axes to draw, at a label and a box to the legend.
 
 ```{r,  eval=T}
@@ -1197,8 +1215,6 @@ axis(2, at=c(49,51)); axis(2, las=1)
 plot(TWN, "NAME_1", col=rainbow(25), mar=m, plg=list(x="bottomleft", cex=.75, title="County", bty = "o"), main="", axes=FALSE)
 axis(1, at=c(5, 7)); axis(1)
 ```
-
-
 
 We can combine multiple SpatVectors using `lines` and `points` to draw on top of what we plotted first.
 
@@ -1238,6 +1254,7 @@ Or use a different legend type:
 m <- c(3.1, 3.1, 1.1, 1.1)
 plot(ele, type="interval", plg=list(x="bottomleft"), mar=m)
 ```
+
 If there are only a few values, the default is to show “classes”
 
 ```{r,  eval=T}
@@ -1256,6 +1273,7 @@ levels(x) <- data.frame(id=0:2, elevation=c("low", "intermediate", "high"))
 # is.factor(x)
 plot(x, col=c("green", "blue", "light gray"))
 ```
+
 When plot is used with a multi-layer object, all layers are plotted (up to 16), unless the layers desired are indicated with an additional argument.
 
 ```{r,  eval=T}
@@ -1278,7 +1296,7 @@ The `rasterVi`s and `tmap` packages provides a lot of very nice mapping options 
 
 You can get many different base-maps with the `maptiles` package. Reading the data again.
 
-```{r,  eval=T}
+```{r,  eval=T, message=F}
 library(maptiles)
 bg <- get_tiles(ext(Taiwan))
 plotRGB(bg)
@@ -1290,9 +1308,69 @@ lines(TWN, col="blue", lwd=3)
 You can use the `leaflet` package to make interactive maps.
 
 ```{r,  eval=T}
-#remotes::install_github("rstudio/leaflet")
+# using `plet` from terra package
+# These methods require the development version of leaflet that you can install with:
+# remotes::install_github("rstudio/leaflet")
 library(leaflet)
 m <- plet(Taiwan, alpha=0.5, fill=0.5)
 m
 ```
 
+## Bathy and topo maps
+
+`marmap` can query and plot NOAA's bathymetry database
+
+```{r,  eval=T}
+library (marmap)
+# query
+TW.bathy <- getNOAA.bathy(lon1=118,lon2=124, lat1=21,lat2=26,resolution=1) # don't put too wide / resolution: 1 
+# define palette
+blues <- colorRampPalette(c("darkblue", "cyan"))
+greys <- colorRampPalette(c(grey(0.4),grey(0.99)))
+# make the plot
+plot.bathy(TW.bathy,
+     image=T,
+     deepest.isobath=c(-6000,-120,-30,0),
+     shallowest.isobath=c(-1000,-60,0,0),
+     step=c(2000,60,30,0),
+     lwd=c(0.3,1,1,2),
+     lty=c(1,1,1,1),
+     col=c("grey","black","black","black"), 
+     drawlabels=c(T,T,T,F),
+     bpal = list(c(0,max(TW.bathy),greys(100)),c(min(TW.bathy),0,blues(100))),
+     land=T, xaxs="i"
+     )
+```
+
+
+Profiles can be extract using `get.transect`:
+
+```{r,  eval=T}
+tw.profile <-get.transect(TW.bathy,x1=119.5,y1=23.75, x2=122,y2=23.75, dis=TRUE)
+plotProfile(tw.profile) 
+#### Not Run: extract a profile Manually
+#### manual.profile<-get.transect (TW.bathy, loc=T,dist=T) 
+#### plotProfile(manual.profile)
+```
+
+## Species distribution `rgbif`
+
+Import Global Biodiversity Information Facility ([GBIF](https://www.gbif.org/)) data using `rgbif` package and create a quick distribution map using the `maps` package.
+
+```{r,  eval=T}
+library (rgbif)
+library(maps)
+# Dowload occurence
+gbif_magpie <- occ_search(scientificName = "Urocissa caerulea", hasCoordinate=T, basisOfRecord='HUMAN_OBSERVATION', limit = 1000) 
+# We are just interested in the data frame containing the records
+gbif_magpie <- gbif_magpie$data
+# A quick map
+maps::map('world',xlim=c(119,123), ylim=c(21,26))
+points(gbif_magpie$decimalLongitude, gbif_magpie$decimalLatitude, col='red',  pch=19)
+```
+
+Note the problem of projection between the polygon of Taiwan and distribution point - not fixed.
+
+<p class="alert">
+**`r knitr::asis_output("\U26A0")` Practice 5.1** Using the `rgbif` package download data from any species you like. Make a nice map of the distribution of the selected species. Of course you will fix projection problem when plotting you map. You map can be static or interactive. This homework must be prepared in *.Rmd* format, which you will knit as a *.html* file. You will **push** your files in a public repository accessible via your Github account. You will email me [vianneydenis@g.ntu.edu.tw] with the address (URL) of this repository (e.g. https://github.com/vianneydenis/OCEAN5098B.git) **before next Monday** so that I can review your work. The **title of your email** should be: `Practice 5.1 (your name: your student number)`. BE CREATIVE!
+</p>

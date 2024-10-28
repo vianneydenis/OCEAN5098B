@@ -31,14 +31,6 @@ points(stations, cex=psize, pch=20, col='red', main='Precipitation')
 wst <- data.frame(longitude, latitude, name, precip)
 wst
 
-## library (geodata)
-## #TWN <- gadm(country="TWN", level=1, path=tempdir())
-## #TWN <- gadm(country="TWN", level=1, path="./data"
-## TWN <- vect('data/gadm/gadm41_TWN_1_pk.rds')
-## TWN
-## # check for ?gadm
-## # The RDS format is a binary file format, native to R. It has been part of R for many years, and provides a convenient method for saving R objects, including data sets. R also has two native data formats—Rdata (sometimes shortened to Rda) and Rds. These formats are used when R objects are saved for later use. Rdata is used to save multiple R objects, while Rds is used to save a single R object.
-
 # example using .shp file
 library(terra)
 filename1 <- system.file("ex/lux.shp", package="terra")
@@ -48,13 +40,17 @@ basename(filename1)
 s1 <- vect(filename1)
 s1
 
+## library (geodata)
+## #TWN <- gadm(country="TWN", level=1, path=tempdir())
+## #TWN <- gadm(country="TWN", level=1, path="./data"
+## TWN <- vect('data/gadm/gadm41_TWN_1_pk.rds')
+## TWN
+## # check for ?gadm
+## # The RDS format is a binary file format, native to R. It has been part of R for many years, and provides a convenient method for saving R objects, including data sets. R also has two native data formats—Rdata (sometimes shortened to Rda) and Rds. These formats are used when R objects are saved for later use. Rdata is used to save multiple R objects, while Rds is used to save a single R object.
+
 TWN <- vect('data/gadm/gadm41_TWN_1_pk.rds')
 outfile1 <- "data/shp_TWN.shp"
 writeVector(TWN, outfile1, overwrite=TRUE)
-
-library(geodata)
-ele <-elevation_30s("TWN", path=tempdir())
-ele
 
 f <- system.file("ex/logo.tif", package="terra")
 basename(f)
@@ -64,6 +60,10 @@ r
 
 r2 <- r[[2]]
 r2
+
+library(geodata)
+ele <-elevation_30s("TWN", path=tempdir())
+ele
 
 x <- writeRaster(ele, "data/ele.tif", overwrite=TRUE)
 x
@@ -104,6 +104,7 @@ pr3
 plot(pr3)
 
 TWN <- vect('data/gadm/gadm41_TWN_1_pk.rds')
+
 plot(TWN, "NAME_1")
 
 ## url <- 'https://data.moi.gov.tw/MoiOD/System/DownloadFile.aspx?DATA=72874C55-884D-4CEA-B7D6-F60B0BE85AB0'
@@ -116,8 +117,13 @@ Taiwan <-vect(Taiwan)
 
 plot(Taiwan, "COUNTYENG")
 
+## sessionInfo()
+## Sys.setlocale(category = "LC_ALL", "Chinese (Traditional)_Taiwan.950")
+## 
+## #Sys.setlocale("LC_TIME", "English")
+
 d <- as.data.frame(Taiwan)
-# head(d) # not run for Chinese character
+head(d) # may not work because of Chinese character
 
 g <- geom(Taiwan) 
 head(g)
@@ -131,22 +137,21 @@ Taiwan[,"COUNTYENG"]
 
 set.seed(0)
 Taiwan$lets <- sample(letters, nrow(Taiwan))
-# Taiwan
+head(Taiwan)
 
 Taiwan$lets <- sample(LETTERS, nrow(Taiwan))
-# head(Taiwan)
+head(Taiwan)
 
 Taiwan$lets <- NULL
 
 dfr <- data.frame(County=Taiwan$COUNTYENG, Value=round(runif(length(Taiwan), 100, 1000)))
 dfr <- dfr[order(dfr$County), ]
 pm <- merge(Taiwan, dfr, by.x="COUNTYENG",by.y="County")
-# pm 
-# head(pm)
+head(pm)
 
 i <- which(Taiwan$COUNTYENG == 'Taipei City')
 g <- Taiwan[i,]
-# g
+g
 
 z <- rast(Taiwan)
 dim(z) <- c(2,2)
@@ -170,13 +175,13 @@ Taiwan$region<-c(rep("Others",6), rep("North",3), rep("Others",2), "North", rep(
 pa <- aggregate(Taiwan, by='region')
 za <- aggregate(z)
 plot(za, col='light gray', border='light gray', lwd=5)
-plot(pa, add=TRUE, col=rainbow(3), lwd=3, border='white')
+plot(pa, add=TRUE, col=rainbow(2), lwd=3, border='white')
 
 Taiwan$region<-c(rep("Others",6), rep("North",3), rep("Others",2), "North", rep("Others",10))
 pa <- aggregate(Taiwan, by='region',dissolve=FALSE)
 za <- aggregate(z, dissolve = FALSE)
 plot(za, col='light gray', border='dark gray', lwd=3)
-plot(pa, add=TRUE, col=rainbow(3), lwd=2, border='white')
+plot(pa, add=TRUE, col=rainbow(2), lwd=2, border='white')
 
 zd <- disagg(pa)
 zd
@@ -214,7 +219,8 @@ points(spts, col='light gray', pch=20, cex=6)
 text(spts, 1:nrow(pts), col='red', font=2, cex=1.5)
 lines(Taiwan, col='blue', lwd=2)
 
-terra::extract(spts, Taiwan)
+## terra::extract(spts, Taiwan)
+## #NAs here
 
 library (terra)
 x<-rast()
@@ -275,7 +281,7 @@ tai.pop <- rast('./data/popmap15adj.tif')
 par(mfrow=c(1,2))
 # plot(tai.pop, main="Taiwan - Population Density (2015)")
 # Need a log transformaton
-plot(log(tai.pop+1), main="Taiwan - log-transformed Population Density (2015)")
+plot(log(tai.pop+1), main="Taiwan - log population Density (2015)")
 
 library(geodata)
 library(ggplot2)
@@ -499,7 +505,45 @@ bg <- get_tiles(ext(Taiwan))
 plotRGB(bg)
 lines(TWN, col="blue", lwd=3)
 
-#remotes::install_github("rstudio/leaflet")
+# using `plet` from terra package
+# These methods require the development version of leaflet that you can install with:
+# remotes::install_github("rstudio/leaflet")
 library(leaflet)
 m <- plet(Taiwan, alpha=0.5, fill=0.5)
 m
+
+library (marmap)
+# query
+TW.bathy <- getNOAA.bathy(lon1=118,lon2=124, lat1=21,lat2=26,resolution=1) # don't put too wide / resolution: 1 
+# define palette
+blues <- colorRampPalette(c("darkblue", "cyan"))
+greys <- colorRampPalette(c(grey(0.4),grey(0.99)))
+# make the plot
+plot.bathy(TW.bathy,
+     image=T,
+     deepest.isobath=c(-6000,-120,-30,0),
+     shallowest.isobath=c(-1000,-60,0,0),
+     step=c(2000,60,30,0),
+     lwd=c(0.3,1,1,2),
+     lty=c(1,1,1,1),
+     col=c("grey","black","black","black"), 
+     drawlabels=c(T,T,T,F),
+     bpal = list(c(0,max(TW.bathy),greys(100)),c(min(TW.bathy),0,blues(100))),
+     land=T, xaxs="i"
+     )
+
+tw.profile <-get.transect(TW.bathy,x1=119.5,y1=23.75, x2=122,y2=23.75, dis=TRUE)
+plotProfile(tw.profile) 
+#### Not Run: extract a profile Manually
+#### manual.profile<-get.transect (TW.bathy, loc=T,dist=T) 
+#### plotProfile(manual.profile)
+
+library (rgbif)
+library(maps)
+# Dowload occurence
+gbif_magpie <- occ_search(scientificName = "Urocissa caerulea", hasCoordinate=T, basisOfRecord='HUMAN_OBSERVATION', limit = 1000) 
+# We are just interested in the data frame containing the records
+gbif_magpie <- gbif_magpie$data
+# A quick map
+maps::map('world',xlim=c(119,123), ylim=c(21,26))
+points(gbif_magpie$decimalLongitude, gbif_magpie$decimalLatitude, col='red',  pch=19)
