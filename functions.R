@@ -9,47 +9,41 @@ library (gganimate)
 ## print(i*i)
 ## }
 
-foo <- seq (1,100,by=2) # sequence  1, 3, ..., 99
-n<-length(foo) #  size of the foo sequence
-foo.squared = NULL #  empty object
+demo <- seq (1,100,by=2) # sequence  1, 3, ..., 99
+n<-length(demo) #  size of the foo sequence
+demo.squared = NULL #  empty object
 
 for (i in 1:n) { # our counter
-  foo.squared[i] = foo[i]^2 # the task
+  demo.squared[i] = demo[i]^2 # the task
 }
 
-foo.df<-data.frame(foo,foo.squared) 
-plot (foo.df$foo~foo.df$foo.squared)
+demo.df<-data.frame(demo,demo.squared) 
+plot (demo.df$demo~demo.df$demo.squared)
 
 
-## foo.squared2<-foo^2
-## plot (foo~foo.squared2)
+## demo.squared2<-demo^2
+## plot (demo~demo.squared2)
 
-## system.time(foo.squared2<-foo^2)
+## system.time(demo.squared2<-demo^2)
 
-## num_gen <- 10 #   no. generation
-## N <- rep (0,num_gen) #  "vector" of 10 zeros (could be `NULL`)
-## N[1] <- 2 # We need a beginning for our population
-## for (i in 2:num_gen){ # counter
-## N[i]=2*N[i-1] # task: double individuals
-## }
-## plot (N)
-
-num_gen<-10 
-generation<-1:num_gen 
-N <- rep (0,num_gen)
-N[1] <- 2
-for (i in 2:num_gen) { 
-  N[i]=2*N[i-1]
+num_gen<-10  # no. generation
+generation<-1:num_gen # create a variable generation
+N <- rep (0,num_gen) #  "vector" of 10 zeros (could be `NULL`)
+lambda <- 2 # growth rate
+N[1] <- 2 # We need to set initial pop size
+for (t in 1:(num_gen - 1)) { # the counter
+  N[t+1]=lambda*N[t]  # task: double individuals
    }
-plot(N~generation, type='b')
+plot(N~generation, type='b', col='blue', main='Discrete exponential growth') # the plot
 
 grow <- function (growth.rate) { # argument "growth.rate" of function "grow" 
 num_gen<-10
 generation<-1:num_gen
 N <- rep (0,num_gen)
 N[1] <- 1
-for (i in 2:num_gen) {
-  N[i]=growth.rate*N[i-1] # not the use growth.rate argument
+for (t in 2:num_gen) { 
+# not the use growth.rate argument and t-1  this time
+  N[t]=growth.rate*N[t-1] 
 }
   plot(N~generation,type='b', main=paste("Rate =", growth.rate)) 
 }
@@ -101,7 +95,9 @@ p + transition_time(generation) +
    labs(title = "Generation: {frame_time}") +
    shadow_wake(wake_length = 0.2, alpha = FALSE)
 
-## #Explanation, but no solution. Call me when you are here.
+## # By clicking here, you are ready for the next step below: Practice 6.2.
+## 
+## # Here are explanation of the logistic grwoth, but not the solution. Call me when you are here then you can go.
 ## 
 ## # if r < 1 then the increase in population size between t and t+1 will be less than the difference between N and K and the population will adjust monotonically.
 ## 
@@ -112,8 +108,6 @@ p + transition_time(generation) +
 ## # When r > 2 especially if r > 2.52 oscillation will actually increase and the population growth will become chaotic
 ## 
 ## # When r >> 2 the population will likely crash, generally in a short time
-
-## # By clicking here, you are ready for the next step below
 
 ## # WRONG CODE
 ## # ADVICES: START FROM SCRATCH,

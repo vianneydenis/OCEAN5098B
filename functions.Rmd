@@ -60,71 +60,71 @@ print(i*i)
 
 `for(i in 1:100)` is our **counter**: `i` (but can be anything else, `i` is standard) will take the values 1, 2, 3, ..., and up to 100. Therefore the loop will repeat 100 times the element (**task**) that follows within the `{}`. 
 
-In our loop, `i` will take the value 1 in the first loop "cycle". `i` will take the value 2 in the second loop "cycle", and so on until 100. Within the same cycle, it will also `print` `"Hello World`" follows by the result of the product `i*i` e.g. 1 for the first cycle (in order to illustrate the value taken by `i`). Here, it will be the same task for the next 99 remaining cycles of our loop. Got it? Let's now make it a more standard:
+In our loop, `i` will take the value 1 in the first loop "cycle". `i` will take the value 2 in the second loop "cycle", and so on until 100. Within the same cycle, it will also `print` `"Hello World"` follows by the result of the product `i*i` e.g. 1 for the first cycle (in order to illustrate the value taken by `i`). Here, it will be the same task for the next 99 remaining cycles of our loop. Got it? Let's now make it a more standard:
 
 The "counter" is commonly set distinctly.  Check carefully, the syntax of a loop:
 
 ```{r,  eval=T}
-foo <- seq (1,100,by=2) # sequence  1, 3, ..., 99
-n<-length(foo) #  size of the foo sequence
-foo.squared = NULL #  empty object
+demo <- seq (1,100,by=2) # sequence  1, 3, ..., 99
+n<-length(demo) #  size of the foo sequence
+demo.squared = NULL #  empty object
 
 for (i in 1:n) { # our counter
-  foo.squared[i] = foo[i]^2 # the task
+  demo.squared[i] = demo[i]^2 # the task
 }
 
-foo.df<-data.frame(foo,foo.squared) 
-plot (foo.df$foo~foo.df$foo.squared)
+demo.df<-data.frame(demo,demo.squared) 
+plot (demo.df$demo~demo.df$demo.squared)
 
 ```
 
-The sequence `foo.squared` received the square value of eah individual element of the sequence `foo`. **Beautiful**, but totally  **useless**. The exact same operation can  be accomplished with the most concise: 
+The sequence `demo.squared` received the square value of each individual element of the sequence `demo`. **Nice**, but totally  **useless**. The exact same operation can  be accomplished with the most concise writing: 
 
 ```{r,  eval=FALSE}
-foo.squared2<-foo^2
-plot (foo~foo.squared2)
+demo.squared2<-demo^2
+plot (demo~demo.squared2)
 ```
 
 As mentioned earlier and like we already saw in action, the functions in R are generally **vectorized**. It means when you applied them to a selected **vector**, they will apply to all the elements of this vector. It makes life easier that you don't need to say you want to apply something to the first element of this vector, then repeat the same for the second element, etc. (what we did in our loop). In addition, vectorized functions are way faster than making loops. Compare the time of the following with the time that you need to do the same using a loop. Make the sequence longer, such as up to 1,000,000.  
 
 ```{r,  eval=FALSE}
-system.time(foo.squared2<-foo^2)
+system.time(demo.squared2<-demo^2)
 ```
 
 A vectorized function will usually consider a vector as a block and will apply this task to all elements at once. That's why it is way faster. So, why do we care about loops?
 
-Simply saying, a loop have their use and interest in recycling an element you just created in a previous cycle. The next cycle will use the same task but it will "enrich" the element previously created, such as with adding newborns in a population at year 2.
+Simply saying, a loop have their use and interest in recycling an element you just created in a previous cycle. The next cycle will use the same task but it will "enrich" the element previously created, such as with adding number of recruits in a population at year 2.
 
 ## Recycling
 
-Let's get this idea about population growth where the number of individuals at one generation (cycle *t*) will determine the population at the following generation (cycle *t+1*):
+Let's get this idea about population growth where the number of individuals at one generation (cycle *t*) will determine the population at the following generation (cycle *t+1*). Note that it is the equivalent of *t-1* and *t*. 
 
-```{r,  eval=FALSE}
-num_gen <- 10 #   no. generation
+```{r,  eval=T, fig.align='center'}
+num_gen<-10  # no. generation
+generation<-1:num_gen # create a variable generation
 N <- rep (0,num_gen) #  "vector" of 10 zeros (could be `NULL`)
-N[1] <- 2 # We need a beginning for our population
-for (i in 2:num_gen){ # counter
-N[i]=2*N[i-1] # task: double individuals
-}
-plot (N)
-```
-
-Let's add a variable `generation`, to make our plot more visual:
-
-```{r,  eval=T}
-num_gen<-10 
-generation<-1:num_gen 
-N <- rep (0,num_gen)
-N[1] <- 2
-for (i in 2:num_gen) { 
-  N[i]=2*N[i-1]
+lambda <- 2 # growth rate
+N[1] <- 2 # We need to set initial pop size
+for (t in 1:(num_gen - 1)) { # the counter
+  N[t+1]=lambda*N[t]  # task: double individuals
    }
-plot(N~generation, type='b')
+plot(N~generation, type='b', col='blue', main='Discrete exponential growth') # the plot
 ```
 
-Congrats! You just wrote a demographic model called exponential growth. This is typically the type of model used to examine bacteria growth. In our model, the population double (growth rate = 2) at each generation (time). You can now play at increasing initial population size and manipulating growth rate. All the other loops will follow the same structure, just the task may be a 'little' bit more complicated. You can also add loop within loop, etc. 
 
-More read on loops in the free online class available [here](https://www.datacamp.com/community/tutorials/tutorial-on-loops-in-r)
+Congrats! You just wrote a demographic model called exponential growth. This is typically the type of model used to examine bacteria growth. 
+
+
+**Exponential grwoth**
+
+$$N_{t+1}= N_{t}+bN_{t}-dN_{t}$$
+$$N_{t+1}= N_{t}+(b-d)N_{t}$$
+$$N_{t+1}= N_{t}+rN_{t}$$
+$$N_{t+1}= (1+r)N_{t}$$
+$$N_{t+1}= \lambda N_{t}$$
+Here $N_{t+1}$ is the new population, $N_t$  is the old population, $b$  is the per capita birth rate, $d$ is the per capita death rate, and $λ$ is the growth rate such that $\lambda =b−d+1$. In our model, the population doubles (growth rate = 2) at each generation (time). You can now play at increasing initial population size and manipulating growth rate. All the other loops will follow the same structure, just the task may be a 'little' bit more complicated. You can also add loop within loop, etc. 
+
+More read on loops and why to avoid them in the free online class available [here](https://www.datacamp.com/community/tutorials/tutorial-on-loops-in-r)
 
 # Function
 
@@ -136,8 +136,9 @@ num_gen<-10
 generation<-1:num_gen
 N <- rep (0,num_gen)
 N[1] <- 1
-for (i in 2:num_gen) {
-  N[i]=growth.rate*N[i-1] # not the use growth.rate argument
+for (t in 2:num_gen) { 
+# not the use growth.rate argument and t-1  this time
+  N[t]=growth.rate*N[t-1] 
 }
   plot(N~generation,type='b', main=paste("Rate =", growth.rate)) 
 }
@@ -147,7 +148,7 @@ It created a function called `grow` and now visible in RStudio environment under
 
 ![](illustrations/Env_funct.png)
 
-You can simply use this new function by calling it and changing the argument `growth.rate`. The function can itself be in a loop (therefore, creating a loop within a loop). It is usually no recommended because it may turn to be quite  'slow' (check again `system.time()` when doing so). Let's make a good use of our function:
+You can simply use this new function by calling it and changing the argument `growth.rate`. The function can itself be in a loop (therefore, creating a loop within a loop). Again this is usually no recommended because it may turn to be quite  'slow' (check again `system.time()` when doing so). Let's make a good use of our function:
 
 ```{r,  eval=T} 
 par(mfrow=c(2,3))
@@ -159,11 +160,11 @@ for (i in 2:7){
 Our function can be further extended with an extra argument such as the number of generation. 
 
 <p class="comment">
-**Practice 6.1** Create a function called `grow2` where both arguments: the `growth.rate` and `number.generation` can be  customized.
+**Practice 6.1** Create a function called `grow2` where both arguments: the `growth.rate` and `number.generation` can be  "customized".
 </p>
 
 
-```{r, code_folding = 'Show Solution',  eval=FALSE}
+```{r, class.source = "fold-hide",  eval=FALSE}
 grow2 <- function (growth.rate, number.generation) { 
   num_gen<-number.generation
   generation<-1:num_gen
@@ -180,7 +181,7 @@ grow2 <- function (growth.rate, number.generation) {
 
 ## gif
 
-An animation type **gif** consists in overlapping sequential plots. By generating plots for each cycles of our loop and putting them behind each other you can easily figure out that you will get an animated plot (in a very similar way than an animate).  Obviously and because we want to overlap plot, we must first fix the limit of our axes. Let's do it for `growth.rate` and create a function called `grow3` with fixed limits for the axes.
+An animation type **gif** consists in overlapping sequential plots. By generating plots for each cycles of our loop and putting them behind each other you can easily figure out that you will get an animated plot (in a very similar way than an animate).  Obviously and because we want to overlap plot, we must first fix the limit of our axes. Let's do it for `growth.rate` and create a function called `grow3` with this time fixed limits for the axes.
 
 ```{r class.source = "fold-show",  eval=T}
 grow3 <- function (growth.rate) { 
@@ -232,22 +233,23 @@ p + transition_time(generation) +
 ```
 
 
-Check it [here](https://www.datanovia.com/en/blog/gganimate-how-to-create-plots-with-beautiful-animation-in-r/) for more fancy option. Obviously, you can combine those animations in a [map](https://gist.github.com/rafapereirabr/0d68f7ccfc3af1680c4c8353cf9ab345)
+Check it [here](https://www.datanovia.com/en/blog/gganimate-how-to-create-plots-with-beautiful-animation-in-r/) for more fancy option. Obviously, you can combine those animations in a [map](https://conservancy.umn.edu/server/api/core/bitstreams/ba6ea265-c865-48d2-bcf4-e287542efd9a/content)
 
 # DIY
 
-## Progressing
-
+## Logistic 
 
 <p class="comment">
-**Practice 6.2**  Write the code to illustrate a different kind of growth, the logistic growth. Logistic growth follows: 
+**Practice 6.2**  Write your own. The equation below illustrates a different kind of growth, the logistic growth: 
 $$N_{t+1}= N_{t}+\left[growth.rate* N_{t}*\left(\frac{100-N_{t}}{100}\right)\right]$$
-The 100 value is called the "carrying capacities" or *K*, it means the population will be limited at 100 individuals. In your model you will start with a population of 10 individuals. You will then make the number of generation flexible using a function simulating population growth over 50 generations. You will further make this function flexible by changing growth.rate. What do you observe? Save the outcome as a .gif if you can make it. Called me when you have the solution. 
+The 100 value is called the "carrying capacities" also called *K*, it means the population will be limited at 100 individuals. In your model the population will start with 10 individuals. You will then make the number of generation flexible using a function simulating population growth over 50 generations. You will further make this function flexible by changing *growth.rate* between 0.5 and 3.0. What do you observe? Save the outcome as a .gif if this works on your computer. Called me when you have the solution. 
 </p>
 
 
 ```{r, code_folding = 'Show Explanation',  eval=F}
-#Explanation, but no solution. Call me when you are here.
+# By clicking here, you are ready for the next step below: Practice 6.2. 
+
+# Here are explanation of the logistic grwoth, but not the solution. Call me when you are here then you can go.
 
 # if r < 1 then the increase in population size between t and t+1 will be less than the difference between N and K and the population will adjust monotonically.
 
@@ -261,11 +263,7 @@ The 100 value is called the "carrying capacities" or *K*, it means the populatio
 ```
 
 
-```{r, code_folding = 'Show Solution',  eval=F}
-# By clicking here, you are ready for the next step below
-```
-
-## Perfection
+## LV
 
 <p class="alert">
 **`r knitr::asis_output("\U26A0")` Practice 6.2** When having two species using the same resources but with different rates of efficiency), we can model their population growth using two linked equations:
@@ -321,3 +319,6 @@ text(6,110,"Both Species competing")
 ```
 
 ![](illustrations/Lotka.png)
+
+Further check your results using `compLV` from the package `EcoVirtual`. You should now be ready to develop your own package ;) 
+
