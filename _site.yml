@@ -22,7 +22,7 @@ navbar:
     - text: "Mapping"
       href: maps.html
     - text: "Loop & functions"
-      href: TEMP_functions.html  
+      href: functions.html  
           
 output:
   html_document:
