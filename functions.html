@@ -1,0 +1,1040 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+
+
+<title>…</title>
+
+<script src="site_libs/header-attrs-2.21/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/flatly.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<script src="site_libs/navigation-1.1/codefolding.js"></script>
+<script src="site_libs/clipboard-2.0.6/clipboard.min.js"></script>
+<link href="site_libs/xaringanExtra-clipboard-0.2.6/xaringanExtra-clipboard.css" rel="stylesheet" />
+<script src="site_libs/xaringanExtra-clipboard-0.2.6/xaringanExtra-clipboard.js"></script>
+<script>window.xaringanExtraClipboard(null, {"button":"Copy Code","success":"Copied!","error":"Press Ctrl+C to Copy"})</script>
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+
+
+<style type="text/css">
+  code {
+    white-space: pre;
+  }
+  .sourceCode {
+    overflow: visible;
+  }
+</style>
+<style type="text/css" data-origin="pandoc">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; } /* Alert */
+code span.an { color: #008000; } /* Annotation */
+code span.at { } /* Attribute */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #0000ff; } /* ControlFlow */
+code span.ch { color: #008080; } /* Char */
+code span.cn { color: #585cf6; } /* Constant */
+code span.co { color: #4c886b; } /* Comment */
+code span.cv { color: #008000; } /* CommentVar */
+code span.do { color: #008000; } /* Documentation */
+code span.dv { color: #0000cd; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #0000cd; } /* Float */
+code span.im { } /* Import */
+code span.in { color: #008000; } /* Information */
+code span.kw { color: #0000ff; } /* Keyword */
+code span.op { color: #687687; } /* Operator */
+code span.ot { color: #ff4000; } /* Other */
+code span.pp { color: #ff4000; } /* Preprocessor */
+code span.sc { color: #008080; } /* SpecialChar */
+code span.ss { color: #008080; } /* SpecialString */
+code span.st { color: #036a07; } /* String */
+code span.va { } /* Variable */
+code span.vs { color: #008080; } /* VerbatimString */
+code span.wa { color: #008000; font-weight: bold; } /* Warning */
+
+.sourceCode .row {
+  width: 100%;
+}
+.sourceCode {
+  overflow-x: auto;
+}
+.code-folding-btn {
+  margin-right: -30px;
+}
+</style>
+<script>
+// apply pandoc div.sourceCode style to pre.sourceCode instead
+(function() {
+  var sheets = document.styleSheets;
+  for (var i = 0; i < sheets.length; i++) {
+    if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
+    try { var rules = sheets[i].cssRules; } catch (e) { continue; }
+    var j = 0;
+    while (j < rules.length) {
+      var rule = rules[j];
+      // check if there is a div.sourceCode rule
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") {
+        j++;
+        continue;
+      }
+      var style = rule.style.cssText;
+      // check if color or background-color is set
+      if (rule.style.color === '' && rule.style.backgroundColor === '') {
+        j++;
+        continue;
+      }
+      // replace div.sourceCode by a pre.sourceCode rule
+      sheets[i].deleteRule(j);
+      sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
+    }
+  }
+})();
+</script>
+
+
+
+
+<link rel="stylesheet" href="styles.css" type="text/css" />
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "\e258";
+  font-family: 'Glyphicons Halflings';
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+<style type="text/css">
+.code-folding-btn { margin-bottom: 4px; }
+</style>
+
+
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">OCEAN_5098</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Home</a>
+</li>
+<li>
+  <a href="environment.html">Environment</a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Manipulation
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="basics.html">Basics</a>
+    </li>
+    <li>
+      <a href="dplyr.html">dplyr</a>
+    </li>
+    <li>
+      <a href="tidyr.html">tidyr</a>
+    </li>
+  </ul>
+</li>
+<li>
+  <a href="types.html">Types &amp; structures</a>
+</li>
+<li>
+  <a href="graphs.html">Graphics</a>
+</li>
+<li>
+  <a href="maps.html">Mapping</a>
+</li>
+<li>
+  <a href="functions.html">Loop &amp; functions</a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Statistics
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="stat_1.html">Initiation</a>
+    </li>
+    <li>
+      <a href="stat_2.html">Linear models</a>
+    </li>
+    <li>
+      <a href="stat_3.html">Multivariates</a>
+    </li>
+  </ul>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+<div class="btn-group pull-right float-right">
+<button type="button" class="btn btn-default btn-xs btn-secondary btn-sm dropdown-toggle" data-toggle="dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span>Code</span> <span class="caret"></span></button>
+<ul class="dropdown-menu dropdown-menu-right" style="min-width: 50px;">
+<li><a id="rmd-show-all-code" href="#">Show All Code</a></li>
+<li><a id="rmd-hide-all-code" href="#">Hide All Code</a></li>
+</ul>
+</div>
+
+
+
+<h1 class="title toc-ignore">…</h1>
+
+</div>
+
+
+<a href="data:text/x-markdown;base64,LS0tDQp0aXRsZTogIi4uLiINCi0tLQ0KDQoNCmBgYHtyIGV2YWwgPSBUUlVFLCAgbWVzc2FnZT1GLCBpbmNsdWRlPUZBTFNFLCB3YXJuaW5nPUYsIHB1cmw9RiwgcmVzdWx0cz0iaGlkZSJ9DQprbml0cjo6cHVybCgnZnVuY3Rpb25zLlJtZCcsIGRvY3VtZW50YXRpb24gPSAwKQ0KYGBgDQoNCmBgYHtyIGVjaG89RkFMU0UsIHB1cmw9Rn0NCnhmdW46OmVtYmVkX2ZpbGUoJ2Z1bmN0aW9ucy5SbWQnKQ0KYGBgDQoNCmBgYHtyIGVjaG89RkFMU0UsIHB1cmw9Rn0NCnhmdW46OmVtYmVkX2ZpbGUoJ2Z1bmN0aW9ucy5SJykNCmBgYA0KDQpgYGB7ciBlY2hvPUZBTFNFfQ0KeGFyaW5nYW5FeHRyYTo6dXNlX2NsaXBib2FyZCgpDQpgYGANCg0KLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0NCg0KVG9kYXksIHdlIGFyZSBnb2luZyB0byBzcGVhayBhYm91dCAqKmxvb3BzKiogd2l0aCBhbiBleGFtcGxlIG9mIHRoZWlyIHVzZSBieSBjcmVhdGluZyBvdXIgb3duICoqZnVuY3Rpb25zKio6IHNvbWUgc2ltcGxlIGRlbW9ncmFwaGljIG1vZGVscy4gVG8gbWFrZSBpdCBmdW5uaWVyIC0gYnV0IGFsc28gYmVjYXVzZSBpdCBpbGx1c3RyYXRlcyB2ZXJ5IHdlbGwgd2hhdCB0aGUgcHVycG9zZSBvZiBhIGxvb3AgLSB3ZSB3aWxsIHZpc3VhbGl6ZSBwb3B1bGF0aW9uIGR5bmFtaWNzIHVzaW5nIGFuaW1hdGlvbi4gU3BlY2lmaWNhbGx5LCBXZSB3aWxsIGNyZWF0ZSBHSUZzIHVzaW5nIHRoZSBwYWNrYWdlIGBhbmltYXRpb25gLiBUaGUgZnVuY3Rpb24gYHNhdmVHSUZgIHdpbGwgb25seSB3b3JrIGlmIHlvdSBoYXZlIGluc3RhbGwgW0ltYWdlIE1hZ2lja10oaHR0cDovL2ltYWdlbWFnaWNrLm9yZykgb3IgW0dyYXBoaWNzTWFnaWNrXShodHRwOi8vd3d3LmdyYXBoaWNzbWFnaWNrLm9yZykgb24geW91ciBjb21wdXRlci4gSW5zdGFsbCB3aXRoICoqbGVnYWN5IHV0aWxpdGllcyoqIChlLmcuIGNvbnZlcnQpLiBPYnZpb3VzbHkgdGhlIGFuaW1hdGlvbiB3aWxsIG5vdCB3b3JrIGlmIHlvdSBza2lwIHRoaXMgc3RlcC4gWW91IG1heSBhbHNvIGV4cGVyaWVuY2Ugb3RoZXIgaXNzdWVzIGNyZWF0aW5nIGFuaW1hdGVkIHBsb3RzLCBidXQgaXQgaXMgbm90IHRoZSBwcmltYXJ5IHB1cnBvc2Ugb2YgdGhpcyBjbGFzcyBhbmQgeW91IHNob3VsZCBub3cgYmUgYWJsZSB0byB0cm91Ymxlc2hvb3QgOikgDQoNCg0KYGBge3IsICBldmFsPVR9DQpsaWJyYXJ5KGFuaW1hdGlvbikNCmxpYnJhcnkoZ2dwbG90MikNCmxpYnJhcnkgKGdnYW5pbWF0ZSkNCmBgYA0KDQohW10oaWxsdXN0cmF0aW9ucy9JbWFnZU1hZ2ljazcuMC5wbmcpDQoNCiMgTG9vcHMNCg0KKipXaGF0J3MgdGhhdD8qKiBBIGxvb3AgaXMgc2ltcGx5IHRvIHJlcGVhdCB0aGUgc2FtZSB0YXNrIGEgc3BlY2lmaWMgbnVtYmVyIG9mIHRpbWUuIEFsbCBsb29wcyAod2hhdGV2ZXIgdGhlaXIgc2l6ZXMpIGhhdmUgYWx3YXlzIHRoZSBzYW1lIHN0cnVjdHVyZSAoYXJjaGl0ZWN0dXJlKS4gQXMgZm9yIGFuIGV4YW1wbGUgYSBgZm9yYCBsb29wIGlzIGdpdmVuIGFzOiANCg0KDQo8Y2VudGVyPg0KYGZvcmAgYChgY291bnRlciBgaW5gIHZlY3RvcmApe2B0YXNrYH1gDQo8L2NlbnRlcj4NCg0KDQpgZm9yYCBsb29wcyBhcmUgdmVyeSBjb21tb24uIEl0IG1lYW5zICoqZm9yKiogYSBnaXZlbiBjb25kaXRpb24gZG8gc29tZXRoaW5nIGEgbnVtYmVyIG9mIHRpbWUuIFRoaXMgYGZvcmAgY2FuIGJlIHJlcGxhY2VkIGJ5IGB3aGlsZWAgb3IgYHJlcGVhdGAuIFRob3NlIGFyZSBgd2hpbGVgIGFuZCBgcmVwZWF0YCBsb29wcy4gQ2hlY2sgdGhlIGZpZ3VyZSBiZWxvdyB0aGF0IGlsbHVzdHJhdGVzIHRob3NlIGRpZmZlcmVuY2VzLg0KDQohW10oaWxsdXN0cmF0aW9ucy9sb29wcy5wbmcpDQoNCg0KIyMgQmFzaWNzDQoNCkEgdGhlIGpvYiBhY2NvbXBsaXNoZWQgYnkgYSBsb29wIGNhbiBzaW1wbHkgYmUgaWxsdXN0cmF0ZWQgYXMgYmVsb3c6DQoNCmBgYHtyLCAgZXZhbD1GQUxTRX0NCmZvcihpIGluIDE6MTAwKSB7DQpwcmludCgiSGVsbG8gd29ybGQhIikNCnByaW50KGkqaSkNCn0NCmBgYA0KDQpgZm9yKGkgaW4gMToxMDApYCBpcyBvdXIgKipjb3VudGVyKio6IGBpYCAoYnV0IGNhbiBiZSBhbnl0aGluZyBlbHNlLCBgaWAgaXMgc3RhbmRhcmQpIHdpbGwgdGFrZSB0aGUgdmFsdWVzIDEsIDIsIDMsIC4uLiwgYW5kIHVwIHRvIDEwMC4gVGhlcmVmb3JlIHRoZSBsb29wIHdpbGwgcmVwZWF0IDEwMCB0aW1lcyB0aGUgZWxlbWVudCAoKip0YXNrKiopIHRoYXQgZm9sbG93cyB3aXRoaW4gdGhlIGB7fWAuIA0KDQpJbiBvdXIgbG9vcCwgYGlgIHdpbGwgdGFrZSB0aGUgdmFsdWUgMSBpbiB0aGUgZmlyc3QgbG9vcCAiY3ljbGUiLiBgaWAgd2lsbCB0YWtlIHRoZSB2YWx1ZSAyIGluIHRoZSBzZWNvbmQgbG9vcCAiY3ljbGUiLCBhbmQgc28gb24gdW50aWwgMTAwLiBXaXRoaW4gdGhlIHNhbWUgY3ljbGUsIGl0IHdpbGwgYWxzbyBgcHJpbnRgIGAiSGVsbG8gV29ybGQiYCBmb2xsb3dzIGJ5IHRoZSByZXN1bHQgb2YgdGhlIHByb2R1Y3QgYGkqaWAgZS5nLiAxIGZvciB0aGUgZmlyc3QgY3ljbGUgKGluIG9yZGVyIHRvIGlsbHVzdHJhdGUgdGhlIHZhbHVlIHRha2VuIGJ5IGBpYCkuIEhlcmUsIGl0IHdpbGwgYmUgdGhlIHNhbWUgdGFzayBmb3IgdGhlIG5leHQgOTkgcmVtYWluaW5nIGN5Y2xlcyBvZiBvdXIgbG9vcC4gR290IGl0PyBMZXQncyBub3cgbWFrZSBpdCBhIG1vcmUgc3RhbmRhcmQ6DQoNClRoZSAiY291bnRlciIgaXMgY29tbW9ubHkgc2V0IGRpc3RpbmN0bHkuICBDaGVjayBjYXJlZnVsbHksIHRoZSBzeW50YXggb2YgYSBsb29wOg0KDQpgYGB7ciwgIGV2YWw9VH0NCmRlbW8gPC0gc2VxICgxLDEwMCxieT0yKSAjIHNlcXVlbmNlICAxLCAzLCAuLi4sIDk5DQpuPC1sZW5ndGgoZGVtbykgIyAgc2l6ZSBvZiB0aGUgZm9vIHNlcXVlbmNlDQpkZW1vLnNxdWFyZWQgPSBOVUxMICMgIGVtcHR5IG9iamVjdA0KDQpmb3IgKGkgaW4gMTpuKSB7ICMgb3VyIGNvdW50ZXINCiAgZGVtby5zcXVhcmVkW2ldID0gZGVtb1tpXV4yICMgdGhlIHRhc2sNCn0NCg0KZGVtby5kZjwtZGF0YS5mcmFtZShkZW1vLGRlbW8uc3F1YXJlZCkgDQpwbG90IChkZW1vLmRmJGRlbW9+ZGVtby5kZiRkZW1vLnNxdWFyZWQpDQoNCmBgYA0KDQpUaGUgc2VxdWVuY2UgYGRlbW8uc3F1YXJlZGAgcmVjZWl2ZWQgdGhlIHNxdWFyZSB2YWx1ZSBvZiBlYWNoIGluZGl2aWR1YWwgZWxlbWVudCBvZiB0aGUgc2VxdWVuY2UgYGRlbW9gLiAqKk5pY2UqKiwgYnV0IHRvdGFsbHkgICoqdXNlbGVzcyoqLiBUaGUgZXhhY3Qgc2FtZSBvcGVyYXRpb24gY2FuICBiZSBhY2NvbXBsaXNoZWQgd2l0aCB0aGUgbW9zdCBjb25jaXNlIHdyaXRpbmc6IA0KDQpgYGB7ciwgIGV2YWw9RkFMU0V9DQpkZW1vLnNxdWFyZWQyPC1kZW1vXjINCnBsb3QgKGRlbW9+ZGVtby5zcXVhcmVkMikNCmBgYA0KDQpBcyBtZW50aW9uZWQgZWFybGllciBhbmQgbGlrZSB3ZSBhbHJlYWR5IHNhdyBpbiBhY3Rpb24sIHRoZSBmdW5jdGlvbnMgaW4gUiBhcmUgZ2VuZXJhbGx5ICoqdmVjdG9yaXplZCoqLiBJdCBtZWFucyB3aGVuIHlvdSBhcHBsaWVkIHRoZW0gdG8gYSBzZWxlY3RlZCAqKnZlY3RvcioqLCB0aGV5IHdpbGwgYXBwbHkgdG8gYWxsIHRoZSBlbGVtZW50cyBvZiB0aGlzIHZlY3Rvci4gSXQgbWFrZXMgbGlmZSBlYXNpZXIgdGhhdCB5b3UgZG9uJ3QgbmVlZCB0byBzYXkgeW91IHdhbnQgdG8gYXBwbHkgc29tZXRoaW5nIHRvIHRoZSBmaXJzdCBlbGVtZW50IG9mIHRoaXMgdmVjdG9yLCB0aGVuIHJlcGVhdCB0aGUgc2FtZSBmb3IgdGhlIHNlY29uZCBlbGVtZW50LCBldGMuICh3aGF0IHdlIGRpZCBpbiBvdXIgbG9vcCkuIEluIGFkZGl0aW9uLCB2ZWN0b3JpemVkIGZ1bmN0aW9ucyBhcmUgd2F5IGZhc3RlciB0aGFuIG1ha2luZyBsb29wcy4gQ29tcGFyZSB0aGUgdGltZSBvZiB0aGUgZm9sbG93aW5nIHdpdGggdGhlIHRpbWUgdGhhdCB5b3UgbmVlZCB0byBkbyB0aGUgc2FtZSB1c2luZyBhIGxvb3AuIE1ha2UgdGhlIHNlcXVlbmNlIGxvbmdlciwgc3VjaCBhcyB1cCB0byAxLDAwMCwwMDAuICANCg0KYGBge3IsICBldmFsPUZBTFNFfQ0Kc3lzdGVtLnRpbWUoZGVtby5zcXVhcmVkMjwtZGVtb14yKQ0KYGBgDQoNCkEgdmVjdG9yaXplZCBmdW5jdGlvbiB3aWxsIHVzdWFsbHkgY29uc2lkZXIgYSB2ZWN0b3IgYXMgYSBibG9jayBhbmQgd2lsbCBhcHBseSB0aGlzIHRhc2sgdG8gYWxsIGVsZW1lbnRzIGF0IG9uY2UuIFRoYXQncyB3aHkgaXQgaXMgd2F5IGZhc3Rlci4gU28sIHdoeSBkbyB3ZSBjYXJlIGFib3V0IGxvb3BzPw0KDQpTaW1wbHkgc2F5aW5nLCBhIGxvb3AgaGF2ZSB0aGVpciB1c2UgYW5kIGludGVyZXN0IGluIHJlY3ljbGluZyBhbiBlbGVtZW50IHlvdSBqdXN0IGNyZWF0ZWQgaW4gYSBwcmV2aW91cyBjeWNsZS4gVGhlIG5leHQgY3ljbGUgd2lsbCB1c2UgdGhlIHNhbWUgdGFzayBidXQgaXQgd2lsbCAiZW5yaWNoIiB0aGUgZWxlbWVudCBwcmV2aW91c2x5IGNyZWF0ZWQsIHN1Y2ggYXMgd2l0aCBhZGRpbmcgbnVtYmVyIG9mIHJlY3J1aXRzIGluIGEgcG9wdWxhdGlvbiBhdCB5ZWFyIDIuDQoNCiMjIFJlY3ljbGluZw0KDQpMZXQncyBnZXQgdGhpcyBpZGVhIGFib3V0IHBvcHVsYXRpb24gZ3Jvd3RoIHdoZXJlIHRoZSBudW1iZXIgb2YgaW5kaXZpZHVhbHMgYXQgb25lIGdlbmVyYXRpb24gKGN5Y2xlICp0Kikgd2lsbCBkZXRlcm1pbmUgdGhlIHBvcHVsYXRpb24gYXQgdGhlIGZvbGxvd2luZyBnZW5lcmF0aW9uIChjeWNsZSAqdCsxKikuIE5vdGUgdGhhdCBpdCBpcyB0aGUgZXF1aXZhbGVudCBvZiAqdC0xKiBhbmQgKnQqLiANCg0KYGBge3IsICBldmFsPVQsIGZpZy5hbGlnbj0nY2VudGVyJ30NCm51bV9nZW48LTEwICAjIG5vLiBnZW5lcmF0aW9uDQpnZW5lcmF0aW9uPC0xOm51bV9nZW4gIyBjcmVhdGUgYSB2YXJpYWJsZSBnZW5lcmF0aW9uDQpOIDwtIHJlcCAoMCxudW1fZ2VuKSAjICAidmVjdG9yIiBvZiAxMCB6ZXJvcyAoY291bGQgYmUgYE5VTExgKQ0KbGFtYmRhIDwtIDIgIyBncm93dGggcmF0ZQ0KTlsxXSA8LSAyICMgV2UgbmVlZCB0byBzZXQgaW5pdGlhbCBwb3Agc2l6ZQ0KZm9yICh0IGluIDE6KG51bV9nZW4gLSAxKSkgeyAjIHRoZSBjb3VudGVyDQogIE5bdCsxXT1sYW1iZGEqTlt0XSAgIyB0YXNrOiBkb3VibGUgaW5kaXZpZHVhbHMNCiAgIH0NCnBsb3QoTn5nZW5lcmF0aW9uLCB0eXBlPSdiJywgY29sPSdibHVlJywgbWFpbj0nRGlzY3JldGUgZXhwb25lbnRpYWwgZ3Jvd3RoJykgIyB0aGUgcGxvdA0KYGBgDQoNCg0KQ29uZ3JhdHMhIFlvdSBqdXN0IHdyb3RlIGEgZGVtb2dyYXBoaWMgbW9kZWwgY2FsbGVkIGV4cG9uZW50aWFsIGdyb3d0aC4gVGhpcyBpcyB0eXBpY2FsbHkgdGhlIHR5cGUgb2YgbW9kZWwgdXNlZCB0byBleGFtaW5lIGJhY3RlcmlhIGdyb3d0aC4gDQoNCg0KKipFeHBvbmVudGlhbCBncndvdGgqKg0KDQokJE5fe3QrMX09IE5fe3R9K2JOX3t0fS1kTl97dH0kJA0KJCROX3t0KzF9PSBOX3t0fSsoYi1kKU5fe3R9JCQNCiQkTl97dCsxfT0gTl97dH0rck5fe3R9JCQNCiQkTl97dCsxfT0gKDErcilOX3t0fSQkDQokJE5fe3QrMX09IFxsYW1iZGEgTl97dH0kJA0KSGVyZSAkTl97dCsxfSQgaXMgdGhlIG5ldyBwb3B1bGF0aW9uLCAkTl90JCAgaXMgdGhlIG9sZCBwb3B1bGF0aW9uLCAkYiQgIGlzIHRoZSBwZXIgY2FwaXRhIGJpcnRoIHJhdGUsICRkJCBpcyB0aGUgcGVyIGNhcGl0YSBkZWF0aCByYXRlLCBhbmQgJM67JCBpcyB0aGUgZ3Jvd3RoIHJhdGUgc3VjaCB0aGF0ICRcbGFtYmRhID1i4oiSZCsxJC4gSW4gb3VyIG1vZGVsLCB0aGUgcG9wdWxhdGlvbiBkb3VibGVzIChncm93dGggcmF0ZSA9IDIpIGF0IGVhY2ggZ2VuZXJhdGlvbiAodGltZSkuIFlvdSBjYW4gbm93IHBsYXkgYXQgaW5jcmVhc2luZyBpbml0aWFsIHBvcHVsYXRpb24gc2l6ZSBhbmQgbWFuaXB1bGF0aW5nIGdyb3d0aCByYXRlLiBBbGwgdGhlIG90aGVyIGxvb3BzIHdpbGwgZm9sbG93IHRoZSBzYW1lIHN0cnVjdHVyZSwganVzdCB0aGUgdGFzayBtYXkgYmUgYSAnbGl0dGxlJyBiaXQgbW9yZSBjb21wbGljYXRlZC4gWW91IGNhbiBhbHNvIGFkZCBsb29wIHdpdGhpbiBsb29wLCBldGMuIA0KDQpNb3JlIHJlYWQgb24gbG9vcHMgYW5kIHdoeSB0byBhdm9pZCB0aGVtIGluIHRoZSBmcmVlIG9ubGluZSBjbGFzcyBhdmFpbGFibGUgW2hlcmVdKGh0dHBzOi8vd3d3LmRhdGFjYW1wLmNvbS9jb21tdW5pdHkvdHV0b3JpYWxzL3R1dG9yaWFsLW9uLWxvb3BzLWluLXIpDQoNCiMgRnVuY3Rpb24NCg0KV2UgYWxyZWFkeSB1c2VkIHBsZW50eSBvZiBmdW5jdGlvbiBzbyBmYXIsIHNvIGxldCdzIG5vdyBjcmVhdGUgb3Vycy4gV2UgY3JlYXRlIGEgKipmdW5jdGlvbioqIHdpdGggYW4gbmFtZWQgb2JqZWN0IGNvbnRhaW5pbmcgYSBgZnVuY3Rpb25gLiBZb3UgY2FuIHNwZWNpZnkgd2l0aGluIHRoZSAqKmFyZ3VtZW50cyoqIHlvdSB3YW5uYSBjb250cm9sLiBMZXQncyBpbGx1c3RyYXRlIGl0IGJ5IHdyYXBwaW5nIG91ciBzbWFsbCBkZW1vZ3JhcGhpYyBtb2RlbCBpbnRvIGEgZnVuY3Rpb24gZ2l2aW5nIGl0IG1vcmUgZmxleGliaWxpdHkgaW4gY3VzdG9taXppbmcgdGhlIGdyb3d0aCByYXRlIG9mIHRoZSBwb3B1bGF0aW9uLg0KDQpgYGB7ciwgIGV2YWw9VH0gDQpncm93IDwtIGZ1bmN0aW9uIChncm93dGgucmF0ZSkgeyAjIGFyZ3VtZW50ICJncm93dGgucmF0ZSIgb2YgZnVuY3Rpb24gImdyb3ciIA0KbnVtX2dlbjwtMTANCmdlbmVyYXRpb248LTE6bnVtX2dlbg0KTiA8LSByZXAgKDAsbnVtX2dlbikNCk5bMV0gPC0gMQ0KZm9yICh0IGluIDI6bnVtX2dlbikgeyANCiMgbm90IHRoZSB1c2UgZ3Jvd3RoLnJhdGUgYXJndW1lbnQgYW5kIHQtMSAgdGhpcyB0aW1lDQogIE5bdF09Z3Jvd3RoLnJhdGUqTlt0LTFdIA0KfQ0KICBwbG90KE5+Z2VuZXJhdGlvbix0eXBlPSdiJywgbWFpbj1wYXN0ZSgiUmF0ZSA9IiwgZ3Jvd3RoLnJhdGUpKSANCn0NCmBgYA0KDQpJdCBjcmVhdGVkIGEgZnVuY3Rpb24gY2FsbGVkIGBncm93YCBhbmQgbm93IHZpc2libGUgaW4gUlN0dWRpbyBlbnZpcm9ubWVudCB1bmRlciAqKmZ1bmN0aW9ucyoqOiANCg0KIVtdKGlsbHVzdHJhdGlvbnMvRW52X2Z1bmN0LnBuZykNCg0KWW91IGNhbiBzaW1wbHkgdXNlIHRoaXMgbmV3IGZ1bmN0aW9uIGJ5IGNhbGxpbmcgaXQgYW5kIGNoYW5naW5nIHRoZSBhcmd1bWVudCBgZ3Jvd3RoLnJhdGVgLiBUaGUgZnVuY3Rpb24gY2FuIGl0c2VsZiBiZSBpbiBhIGxvb3AgKHRoZXJlZm9yZSwgY3JlYXRpbmcgYSBsb29wIHdpdGhpbiBhIGxvb3ApLiBBZ2FpbiB0aGlzIGlzIHVzdWFsbHkgbm8gcmVjb21tZW5kZWQgYmVjYXVzZSBpdCBtYXkgdHVybiB0byBiZSBxdWl0ZSAgJ3Nsb3cnIChjaGVjayBhZ2FpbiBgc3lzdGVtLnRpbWUoKWAgd2hlbiBkb2luZyBzbykuIExldCdzIG1ha2UgYSBnb29kIHVzZSBvZiBvdXIgZnVuY3Rpb246DQoNCmBgYHtyLCAgZXZhbD1UfSANCnBhcihtZnJvdz1jKDIsMykpDQpmb3IgKGkgaW4gMjo3KXsNCiAgZ3JvdyhpKQ0KfQ0KYGBgDQoNCk91ciBmdW5jdGlvbiBjYW4gYmUgZnVydGhlciBleHRlbmRlZCB3aXRoIGFuIGV4dHJhIGFyZ3VtZW50IHN1Y2ggYXMgdGhlIG51bWJlciBvZiBnZW5lcmF0aW9uLiANCg0KPHAgY2xhc3M9ImNvbW1lbnQiPg0KKipQcmFjdGljZSA2LjEqKiBDcmVhdGUgYSBmdW5jdGlvbiBjYWxsZWQgYGdyb3cyYCB3aGVyZSBib3RoIGFyZ3VtZW50czogdGhlIGBncm93dGgucmF0ZWAgYW5kIGBudW1iZXIuZ2VuZXJhdGlvbmAgY2FuIGJlICAiY3VzdG9taXplZCIuDQo8L3A+DQoNCg0KYGBge3IsIGNsYXNzLnNvdXJjZSA9ICJmb2xkLWhpZGUiLCAgZXZhbD1GQUxTRX0NCmdyb3cyIDwtIGZ1bmN0aW9uIChncm93dGgucmF0ZSwgbnVtYmVyLmdlbmVyYXRpb24pIHsgDQogIG51bV9nZW48LW51bWJlci5nZW5lcmF0aW9uDQogIGdlbmVyYXRpb248LTE6bnVtX2dlbg0KICBOIDwtIHJlcCAoMCxudW1fZ2VuKQ0KICBOWzFdIDwtIDENCiAgZm9yIChpIGluIDI6bnVtX2dlbikgew0KICAgIE5baV09Z3Jvd3RoLnJhdGUqTltpLTFdIA0KICB9DQogIHBsb3QoTn5nZW5lcmF0aW9uLHR5cGU9J2InLCBtYWluPXBhc3RlKCJSYXRlID0iLCBncm93dGgucmF0ZSwgIiwgIiwgbnVtYmVyLmdlbmVyYXRpb24sICJnZW5lcmF0aW9ucyIpKQ0KICB9DQpgYGANCg0KIyBBbmltYXRpb24NCg0KIyMgZ2lmDQoNCkFuIGFuaW1hdGlvbiB0eXBlICoqZ2lmKiogY29uc2lzdHMgaW4gb3ZlcmxhcHBpbmcgc2VxdWVudGlhbCBwbG90cy4gQnkgZ2VuZXJhdGluZyBwbG90cyBmb3IgZWFjaCBjeWNsZXMgb2Ygb3VyIGxvb3AgYW5kIHB1dHRpbmcgdGhlbSBiZWhpbmQgZWFjaCBvdGhlciB5b3UgY2FuIGVhc2lseSBmaWd1cmUgb3V0IHRoYXQgeW91IHdpbGwgZ2V0IGFuIGFuaW1hdGVkIHBsb3QgKGluIGEgdmVyeSBzaW1pbGFyIHdheSB0aGFuIGFuIGFuaW1hdGUpLiAgT2J2aW91c2x5IGFuZCBiZWNhdXNlIHdlIHdhbnQgdG8gb3ZlcmxhcCBwbG90LCB3ZSBtdXN0IGZpcnN0IGZpeCB0aGUgbGltaXQgb2Ygb3VyIGF4ZXMuIExldCdzIGRvIGl0IGZvciBgZ3Jvd3RoLnJhdGVgIGFuZCBjcmVhdGUgYSBmdW5jdGlvbiBjYWxsZWQgYGdyb3czYCB3aXRoIHRoaXMgdGltZSBmaXhlZCBsaW1pdHMgZm9yIHRoZSBheGVzLg0KDQpgYGB7ciBjbGFzcy5zb3VyY2UgPSAiZm9sZC1zaG93IiwgIGV2YWw9VH0NCmdyb3czIDwtIGZ1bmN0aW9uIChncm93dGgucmF0ZSkgeyANCiAgbnVtX2dlbjwtMTANCiAgZ2VuZXJhdGlvbjwtMTpudW1fZ2VuDQogIE4gPC0gcmVwICgwLG51bV9nZW4pDQogIE5bMV0gPC0gMQ0KICBmb3IgKGkgaW4gMjpudW1fZ2VuKSB7DQogICAgTltpXT1ncm93dGgucmF0ZSpOW2ktMV0NCiAgfQ0KICBwbG90KE5+Z2VuZXJhdGlvbiwgeGxpbT1jKDAsMTApLCB5bGltPWMoMCwxMDAwMDApLCB0eXBlPSdiJywgbWFpbj1wYXN0ZSgiUmF0ZSA9IiwgZ3Jvd3RoLnJhdGUpKQ0KfQ0KYGBgDQoNCk91ciBmdW5jdGlvbiBjcmVhdGVkLCBsZXQncyB1c2UgdGhpcyBgZ3JvdzNgIGZ1bmN0aW9uIGFzIGEgKipnaWYqKi4gVGhlICBmdW5jdGlvbiBgc2F2ZUdJRmAgZnJvbSB0aGUgIHBhY2thZ2UgIGBhbmltYXRpb25gICgqKklNUE9SVEFOVCBBR0FJTioqOiB3aXRoICJsZWdhY3kiIHV0aWxpdGllcykgc2hvdWxkIGNvbWJpbmUgYWxsIHBsb3RzIGNyZWF0ZWQgKHdvcnN0IGNhc2UgeW91IHdpbGwgZ2V0IDkgcGxvdHMpLg0KDQpgYGB7ciwgIGV2YWw9VH0gDQpzYXZlR0lGKHsNCmZvciAoaSBpbiAyOjEwKXsNCiAgZ3JvdzMoaSkNCn19KQ0KYGBgDQoNCiFbXShpbGx1c3RyYXRpb25zL2FuaW1hdGlvbi5naWYpDQoNCg0KSXQgcmVzdWx0cyBpbiBhbiBhbmltYXRlZCBpbWFnZSByZXByZXNlbnRpbmcgZXhwb25lbnRpYWwgZ3Jvd3RoIG92ZXIgMTAgZ2VuZXJhdGlvbnMgYXQgdmFyaW91cyBncm93dGggcmF0ZXMuDQoNCg0KIyMgYGdnYW5pbWF0ZWANCg0KVGhlIHBhY2thZ2VzIGBnZ3Bsb3QyYCBhbmQgYGdnYW5pbWF0ZWAgcHJvdmlkZXMgYWxzbyBmYW5jaWVyIG9wdGlvbiBmb3IgYW5pbWF0ZWQgcGxvdHM6IA0KDQpgYGB7ciwgIGV2YWw9VH0gDQpkZW1vPC1OVUxMDQpkZW1vJGNvdW50PC1ODQpkZW1vJGdlbmVyYXRpb248LWdlbmVyYXRpb24NCmRlbW88LWFzLmRhdGEuZnJhbWUoZGVtbykNCg0KcCA8LSBnZ3Bsb3QoZGVtbywgYWVzKHggPSBnZW5lcmF0aW9uLCB5PWNvdW50LCBzaXplID0yKSkgKw0KICAgZ2VvbV9wb2ludChzaG93LmxlZ2VuZCA9IEZBTFNFLCBhbHBoYSA9IDAuNykgKw0KICAgc2NhbGVfY29sb3JfdmlyaWRpc19kKCkgKw0KICAgc2NhbGVfc2l6ZShyYW5nZSA9IGMoMCwgMTIpKSArDQogICBsYWJzKHggPSAiR2VuZXJhdGlvbiIsIHkgPSAiSW5kaXZpZHVhbHMiKQ0KDQpwICsgdHJhbnNpdGlvbl90aW1lKGdlbmVyYXRpb24pICsNCiAgIGxhYnModGl0bGUgPSAiR2VuZXJhdGlvbjoge2ZyYW1lX3RpbWV9IikgKw0KICAgc2hhZG93X3dha2Uod2FrZV9sZW5ndGggPSAwLjIsIGFscGhhID0gRkFMU0UpDQpgYGANCg0KDQpDaGVjayBpdCBbaGVyZV0oaHR0cHM6Ly93d3cuZGF0YW5vdmlhLmNvbS9lbi9ibG9nL2dnYW5pbWF0ZS1ob3ctdG8tY3JlYXRlLXBsb3RzLXdpdGgtYmVhdXRpZnVsLWFuaW1hdGlvbi1pbi1yLykgZm9yIG1vcmUgZmFuY3kgb3B0aW9uLiBPYnZpb3VzbHksIHlvdSBjYW4gY29tYmluZSB0aG9zZSBhbmltYXRpb25zIGluIGEgW21hcF0oaHR0cHM6Ly9jb25zZXJ2YW5jeS51bW4uZWR1L3NlcnZlci9hcGkvY29yZS9iaXRzdHJlYW1zL2JhNmVhMjY1LWM4NjUtNDhkMi1iY2Y0LWUyODc1NDJlZmQ5YS9jb250ZW50KQ0KDQojIERJWQ0KDQojIyBMb2dpc3RpYyANCg0KPHAgY2xhc3M9ImNvbW1lbnQiPg0KKipQcmFjdGljZSA2LjIqKiAgV3JpdGUgeW91ciBvd24uIFRoZSBlcXVhdGlvbiBiZWxvdyBpbGx1c3RyYXRlcyBhIGRpZmZlcmVudCBraW5kIG9mIGdyb3d0aCwgdGhlIGxvZ2lzdGljIGdyb3d0aDogDQokJE5fe3QrMX09IE5fe3R9K1xsZWZ0W2dyb3d0aC5yYXRlKiBOX3t0fSpcbGVmdChcZnJhY3sxMDAtTl97dH19ezEwMH1ccmlnaHQpXHJpZ2h0XSQkDQpUaGUgMTAwIHZhbHVlIGlzIGNhbGxlZCB0aGUgImNhcnJ5aW5nIGNhcGFjaXRpZXMiIGFsc28gY2FsbGVkICpLKiwgaXQgbWVhbnMgdGhlIHBvcHVsYXRpb24gd2lsbCBiZSBsaW1pdGVkIGF0IDEwMCBpbmRpdmlkdWFscy4gSW4geW91ciBtb2RlbCB0aGUgcG9wdWxhdGlvbiB3aWxsIHN0YXJ0IHdpdGggMTAgaW5kaXZpZHVhbHMuIFlvdSB3aWxsIHRoZW4gbWFrZSB0aGUgbnVtYmVyIG9mIGdlbmVyYXRpb24gZmxleGlibGUgdXNpbmcgYSBmdW5jdGlvbiBzaW11bGF0aW5nIHBvcHVsYXRpb24gZ3Jvd3RoIG92ZXIgNTAgZ2VuZXJhdGlvbnMuIFlvdSB3aWxsIGZ1cnRoZXIgbWFrZSB0aGlzIGZ1bmN0aW9uIGZsZXhpYmxlIGJ5IGNoYW5naW5nICpncm93dGgucmF0ZSogYmV0d2VlbiAwLjUgYW5kIDMuMC4gV2hhdCBkbyB5b3Ugb2JzZXJ2ZT8gU2F2ZSB0aGUgb3V0Y29tZSBhcyBhIC5naWYgaWYgdGhpcyB3b3JrcyBvbiB5b3VyIGNvbXB1dGVyLiBDYWxsZWQgbWUgd2hlbiB5b3UgaGF2ZSB0aGUgc29sdXRpb24uIA0KPC9wPg0KDQoNCmBgYHtyLCBjbGFzcy5zb3VyY2UgPSAiZm9sZC1oaWRlIiwgIGV2YWw9Rn0NCiMgQnkgY2xpY2tpbmcgaGVyZSwgeW91IGFyZSByZWFkeSBmb3IgdGhlIG5leHQgc3RlcCBiZWxvdzogUHJhY3RpY2UgNi4yLiANCg0KIyBIZXJlIGFyZSBleHBsYW5hdGlvbiBvZiB0aGUgbG9naXN0aWMgZ3J3b3RoLCBidXQgbm90IHRoZSBzb2x1dGlvbi4gQ2FsbCBtZSB3aGVuIHlvdSBhcmUgaGVyZSB0aGVuIHlvdSBjYW4gZ28uDQoNCiMgaWYgciA8IDEgdGhlbiB0aGUgaW5jcmVhc2UgaW4gcG9wdWxhdGlvbiBzaXplIGJldHdlZW4gdCBhbmQgdCsxIHdpbGwgYmUgbGVzcyB0aGFuIHRoZSBkaWZmZXJlbmNlIGJldHdlZW4gTiBhbmQgSyBhbmQgdGhlIHBvcHVsYXRpb24gd2lsbCBhZGp1c3QgbW9ub3RvbmljYWxseS4NCg0KIyBpZiAxIDwgciA8IDIgdGhlbiB0aGUgcG9wdWxhdGlvbiB3aWxsIGhhdmUgYSBkYW1wZW5lZCBvc2NpbGxhdGlvbi4NCg0KIyBXaGVuIHIgPiAyIGJ1dCA8IDIuNSB0aGUgcG9wdWxhdGlvbiBtYXkgZGlzcGxheSBhIHN0YWJsZSAocmVndWxhciB3aXRoIHNhbWUgYW1wbGl0dWRlKSBsaW1pdCBjeWNsZS4NCg0KIyBXaGVuIHIgPiAyIGVzcGVjaWFsbHkgaWYgciA+IDIuNTIgb3NjaWxsYXRpb24gd2lsbCBhY3R1YWxseSBpbmNyZWFzZSBhbmQgdGhlIHBvcHVsYXRpb24gZ3Jvd3RoIHdpbGwgYmVjb21lIGNoYW90aWMNCg0KIyBXaGVuIHIgPj4gMiB0aGUgcG9wdWxhdGlvbiB3aWxsIGxpa2VseSBjcmFzaCwgZ2VuZXJhbGx5IGluIGEgc2hvcnQgdGltZQ0KYGBgDQoNCg0KIyMgTFYNCg0KPHAgY2xhc3M9ImFsZXJ0Ij4NCioqYHIga25pdHI6OmFzaXNfb3V0cHV0KCJcVTI2QTAiKWAgUHJhY3RpY2UgNi4zKiogV2hlbiBoYXZpbmcgdHdvIHNwZWNpZXMgdXNpbmcgdGhlIHNhbWUgcmVzb3VyY2VzIGJ1dCB3aXRoIGRpZmZlcmVudCByYXRlcyBvZiBlZmZpY2llbmN5KSwgd2UgY2FuIG1vZGVsIHRoZWlyIHBvcHVsYXRpb24gZ3Jvd3RoIHVzaW5nIHR3byBsaW5rZWQgZXF1YXRpb25zOg0KJCROMV97dCsxfT0gTjFfe3R9K1xsZWZ0W2dyb3d0aC5yYXRlKk4xX3t0fSpcbGVmdChcZnJhY3tLMS1OMV97dH0tXGFscGhhX3sxMn1OMl97dH19e0sxfVxyaWdodClccmlnaHRdJCQNCiQkTjJfe3QrMX09IE4yX3t0fStcbGVmdFtncm93dGgucmF0ZSpOMl97dH0qXGxlZnQoXGZyYWN7SzItTjJfe3R9LVxhbHBoYV97MjF9TjFfe3R9fXtLMn1ccmlnaHQpXHJpZ2h0XSQkDQpUaG9zZSBlcXVhdGlvbnMgYXJlIGtub3duIGFzIHRoZSBfTG90a2EtVm9sdGVycmFfIGVxdWF0aW9ucyB3aGVyZSBfS18gdmFsdWVzIGFyZSB0aGUgY2FycnlpbmcgY2FwYWNpdGllcyBmb3IgZWFjaCBvZiB0aGUgdHdvIHNwZWNpZXMsIGJvdGggJFxhbHBoYSQgdmFsdWVzIGFyZSBjb21wZXRpdGlvbiBjb2VmZmljaWVudHMgdGhhdCB0cmFuc2xhdGUgdGhlIGVmZmVjdCBvZiBvbmUgc3BlY2llcyBvbiBhbm90aGVyLiBEbyBub3Qgd29ycnkgYWJvdXQgdGhpcyBmb3Igbm93LCB0cnkgYSByYW5nZSBvZiAwLjUgdG8gMS41LCB3aGljaCB3b3VsZCBpbmRpY2F0ZSB0aGF0IHNwZWNpZXMgYXJlIGZhaXJseSBzaW1pbGFyIGNvbXBldGl0b3JzLg0KSSB3cm90ZSB0aGUgc2NyaXB0LCBhcHByb2FjaGluZyB0aGUgc29sdXRpb24gYnV0IGRhbW4uLi4gc3RpbGwgbm90IHdvcmtpbmchIEhlbHAgbWUgdG8gZml4IHRoZSBmb2xsb3dpbmcgY29kZXMgLSB0aGlzIHRpbWUgeW91IGNhbiBsb29rIGF0IGl0ISBTZWUgaWYgeW91IGNhbiBkZWJ1ZyB0aGlzIGNvZGUgdGhhdCBzaG91bGQgZ3JvdyBlYWNoIHNwZWNpZXMgYWxvbmUgKG5vIGNvbXBldGl0aW9uKSwgdGhlbiBwdXQgdGhlIHR3byBzcGVjaWVzIGludGVyYWN0aW5nLiBDb21wYXJlIHRoZSByZXN1bHRzIG9mIDMgZGlmZmVyZW50IHBsb3QuIE5vdGUgSXQgd291bGQgYmUgZWFzaWVyIGlmIHlvdSBmaXJzdCBmb2N1cyB5b3VyIGF0dGVudGlvbiBvbiB0aGUgZnVuY3Rpb25zIG9mIHR3byBzcGVjaWVzIGNvbXBldGluZy4gTWFrZSBhbiBhbmltYXRpb24gdGhhdCBtYWtlcyBzZW5zZSB3aWxsIGZ1cnRoZXIgYmUgYW1hemluZy4NCjwvcD4NCg0KDQpgYGB7ciwgY29kZV9mb2xkaW5nID0gJ1Nob3cgQ29kZSB0byBiZSBmaXhlZCcsICBldmFsPUZ9DQojIFdST05HIENPREUNCiMgQURWSUNFUzogU1RBUlQgRlJPTSBTQ1JBVENILCANCiMgSlVTVCBHRVQgSU5TUElSQVRJT04gRlJPTSBNWSBDT0RFLCBXT1JLIFNURVAgQlkgU1RFUA0KZ3JvdzwtZnVuY3Rpb24oc3RhcnRfMSl7DQogIG51bV9nZW48PTMwDQogIE4xIDwtIHJlcCgwLDEwKQ0KICBOMiA8LSByZXAoMCwxMCkNCiAgZ2VuZXJhdGlvbjwtcmVwKDEsbnVtX2dlbikNCiAgZ3Jvd3RoLnJhdGU8LTEuMg0KICBLMTwtMTAwDQogIEsyPC0xMjANCiAgYTEyPC0wLjgNCiAgYTIxPC0wLjgNCiAgTjFbMV08LTANCiAgTjJbMV08LXN0YXJ0XzINCiAgZm9yIChpIGluIDI6MykgIHsNCiAgICBOMVtpXSA9IE4xW2ktMV0gKyAoMy4yKiBOMVtpLTFdICogKChLMS1OMVtpLTFdLShhMTIqTjJbaS0xXSkpL0sxKSkNCiAgICBOMltpXSA9IE4yW2ldICsgKGdyb3d0aC5yYXRlICogTjJbaS0xXSAqICgoSzItTjJbaS0xXS0oYTIxKk4xW2ktMV0pKSpLMikpDQogICAgZ2VuZXJhdGlvblsxXT0xDQogICAgcHJpbnQgKE4xW2ldKQ0KICApDQogIGlmIChOMVsxXT4yKXsNCiAgICBwbG90KE4xfmdlbmVyYXRpb24sdHlwPSJiIix5bGltPWMoMCxtaW4oYyhLMSxLMikpKSx5bGFiPSJOIikNCiAgfSAgZWxzZSB7DQogICAgcGxvdChOMX5nZW5lcmF0aW9uLHR5cD0ibiIseWxpbT1jKDAsbWluKGMoSzEsSzIpKSkseWxhYj0iTiIpDQogIH0NCiAgcHJpbnQoTjJbMV0pDQogIGlmIChOMlsxXT4wKXsNCiAgICBsaW5lcyhOMn5nZW5lcmF0aW9uLHR5cD0iYiIsY29sPTIpfQ0KICB9DQoNCnBhcihtYXI9Yyg5LDQsMSwxKSxtZnJvdz1jKDUsMSksbGFzPTEpDQoNCmdyb3coMSwwKQ0KdGV4dCg0LDExMCwiU3BlY2llcyAxIGFsb25lIikNCg0KZ3JvdygwLDEpDQp0ZXh0KDQsMTEwLCJTcGVjaWVzIDIgYWxvbmUiKQ0KDQpncm93KDEsMikNCnRleHQoNiwxMTAsIkJvdGggU3BlY2llcyBjb21wZXRpbmciKQ0KYGBgDQoNCiFbXShpbGx1c3RyYXRpb25zL0xvdGthLnBuZykNCg0KRnVydGhlciBjaGVjayB5b3VyIHJlc3VsdHMgdXNpbmcgYGNvbXBMVmAgZnJvbSB0aGUgcGFja2FnZSBgRWNvVmlydHVhbGAuIFlvdSBzaG91bGQgbm93IGJlIHJlYWR5IHRvIGRldmVsb3AgeW91ciBvd24gcGFja2FnZSA7KSANCg0K" download="functions.Rmd">Download functions.Rmd</a>
+<a href="data:text/plain;base64,eGFyaW5nYW5FeHRyYTo6dXNlX2NsaXBib2FyZCgpDQoNCmxpYnJhcnkoYW5pbWF0aW9uKQ0KbGlicmFyeShnZ3Bsb3QyKQ0KbGlicmFyeSAoZ2dhbmltYXRlKQ0KDQojIyBmb3IoaSBpbiAxOjEwMCkgew0KIyMgcHJpbnQoIkhlbGxvIHdvcmxkISIpDQojIyBwcmludChpKmkpDQojIyB9DQoNCmRlbW8gPC0gc2VxICgxLDEwMCxieT0yKSAjIHNlcXVlbmNlICAxLCAzLCAuLi4sIDk5DQpuPC1sZW5ndGgoZGVtbykgIyAgc2l6ZSBvZiB0aGUgZm9vIHNlcXVlbmNlDQpkZW1vLnNxdWFyZWQgPSBOVUxMICMgIGVtcHR5IG9iamVjdA0KDQpmb3IgKGkgaW4gMTpuKSB7ICMgb3VyIGNvdW50ZXINCiAgZGVtby5zcXVhcmVkW2ldID0gZGVtb1tpXV4yICMgdGhlIHRhc2sNCn0NCg0KZGVtby5kZjwtZGF0YS5mcmFtZShkZW1vLGRlbW8uc3F1YXJlZCkgDQpwbG90IChkZW1vLmRmJGRlbW9+ZGVtby5kZiRkZW1vLnNxdWFyZWQpDQoNCg0KIyMgZGVtby5zcXVhcmVkMjwtZGVtb14yDQojIyBwbG90IChkZW1vfmRlbW8uc3F1YXJlZDIpDQoNCiMjIHN5c3RlbS50aW1lKGRlbW8uc3F1YXJlZDI8LWRlbW9eMikNCg0KbnVtX2dlbjwtMTAgICMgbm8uIGdlbmVyYXRpb24NCmdlbmVyYXRpb248LTE6bnVtX2dlbiAjIGNyZWF0ZSBhIHZhcmlhYmxlIGdlbmVyYXRpb24NCk4gPC0gcmVwICgwLG51bV9nZW4pICMgICJ2ZWN0b3IiIG9mIDEwIHplcm9zIChjb3VsZCBiZSBgTlVMTGApDQpsYW1iZGEgPC0gMiAjIGdyb3d0aCByYXRlDQpOWzFdIDwtIDIgIyBXZSBuZWVkIHRvIHNldCBpbml0aWFsIHBvcCBzaXplDQpmb3IgKHQgaW4gMToobnVtX2dlbiAtIDEpKSB7ICMgdGhlIGNvdW50ZXINCiAgTlt0KzFdPWxhbWJkYSpOW3RdICAjIHRhc2s6IGRvdWJsZSBpbmRpdmlkdWFscw0KICAgfQ0KcGxvdChOfmdlbmVyYXRpb24sIHR5cGU9J2InLCBjb2w9J2JsdWUnLCBtYWluPSdEaXNjcmV0ZSBleHBvbmVudGlhbCBncm93dGgnKSAjIHRoZSBwbG90DQoNCmdyb3cgPC0gZnVuY3Rpb24gKGdyb3d0aC5yYXRlKSB7ICMgYXJndW1lbnQgImdyb3d0aC5yYXRlIiBvZiBmdW5jdGlvbiAiZ3JvdyIgDQpudW1fZ2VuPC0xMA0KZ2VuZXJhdGlvbjwtMTpudW1fZ2VuDQpOIDwtIHJlcCAoMCxudW1fZ2VuKQ0KTlsxXSA8LSAxDQpmb3IgKHQgaW4gMjpudW1fZ2VuKSB7IA0KIyBub3QgdGhlIHVzZSBncm93dGgucmF0ZSBhcmd1bWVudCBhbmQgdC0xICB0aGlzIHRpbWUNCiAgTlt0XT1ncm93dGgucmF0ZSpOW3QtMV0gDQp9DQogIHBsb3QoTn5nZW5lcmF0aW9uLHR5cGU9J2InLCBtYWluPXBhc3RlKCJSYXRlID0iLCBncm93dGgucmF0ZSkpIA0KfQ0KDQpwYXIobWZyb3c9YygyLDMpKQ0KZm9yIChpIGluIDI6Nyl7DQogIGdyb3coaSkNCn0NCg0KIyMgZ3JvdzIgPC0gZnVuY3Rpb24gKGdyb3d0aC5yYXRlLCBudW1iZXIuZ2VuZXJhdGlvbikgew0KIyMgICBudW1fZ2VuPC1udW1iZXIuZ2VuZXJhdGlvbg0KIyMgICBnZW5lcmF0aW9uPC0xOm51bV9nZW4NCiMjICAgTiA8LSByZXAgKDAsbnVtX2dlbikNCiMjICAgTlsxXSA8LSAxDQojIyAgIGZvciAoaSBpbiAyOm51bV9nZW4pIHsNCiMjICAgICBOW2ldPWdyb3d0aC5yYXRlKk5baS0xXQ0KIyMgICB9DQojIyAgIHBsb3QoTn5nZW5lcmF0aW9uLHR5cGU9J2InLCBtYWluPXBhc3RlKCJSYXRlID0iLCBncm93dGgucmF0ZSwgIiwgIiwgbnVtYmVyLmdlbmVyYXRpb24sICJnZW5lcmF0aW9ucyIpKQ0KIyMgICB9DQoNCmdyb3czIDwtIGZ1bmN0aW9uIChncm93dGgucmF0ZSkgeyANCiAgbnVtX2dlbjwtMTANCiAgZ2VuZXJhdGlvbjwtMTpudW1fZ2VuDQogIE4gPC0gcmVwICgwLG51bV9nZW4pDQogIE5bMV0gPC0gMQ0KICBmb3IgKGkgaW4gMjpudW1fZ2VuKSB7DQogICAgTltpXT1ncm93dGgucmF0ZSpOW2ktMV0NCiAgfQ0KICBwbG90KE5+Z2VuZXJhdGlvbiwgeGxpbT1jKDAsMTApLCB5bGltPWMoMCwxMDAwMDApLCB0eXBlPSdiJywgbWFpbj1wYXN0ZSgiUmF0ZSA9IiwgZ3Jvd3RoLnJhdGUpKQ0KfQ0KDQpzYXZlR0lGKHsNCmZvciAoaSBpbiAyOjEwKXsNCiAgZ3JvdzMoaSkNCn19KQ0KDQpkZW1vPC1OVUxMDQpkZW1vJGNvdW50PC1ODQpkZW1vJGdlbmVyYXRpb248LWdlbmVyYXRpb24NCmRlbW88LWFzLmRhdGEuZnJhbWUoZGVtbykNCg0KcCA8LSBnZ3Bsb3QoZGVtbywgYWVzKHggPSBnZW5lcmF0aW9uLCB5PWNvdW50LCBzaXplID0yKSkgKw0KICAgZ2VvbV9wb2ludChzaG93LmxlZ2VuZCA9IEZBTFNFLCBhbHBoYSA9IDAuNykgKw0KICAgc2NhbGVfY29sb3JfdmlyaWRpc19kKCkgKw0KICAgc2NhbGVfc2l6ZShyYW5nZSA9IGMoMCwgMTIpKSArDQogICBsYWJzKHggPSAiR2VuZXJhdGlvbiIsIHkgPSAiSW5kaXZpZHVhbHMiKQ0KDQpwICsgdHJhbnNpdGlvbl90aW1lKGdlbmVyYXRpb24pICsNCiAgIGxhYnModGl0bGUgPSAiR2VuZXJhdGlvbjoge2ZyYW1lX3RpbWV9IikgKw0KICAgc2hhZG93X3dha2Uod2FrZV9sZW5ndGggPSAwLjIsIGFscGhhID0gRkFMU0UpDQoNCiMjICMgQnkgY2xpY2tpbmcgaGVyZSwgeW91IGFyZSByZWFkeSBmb3IgdGhlIG5leHQgc3RlcCBiZWxvdzogUHJhY3RpY2UgNi4yLg0KIyMgDQojIyAjIEhlcmUgYXJlIGV4cGxhbmF0aW9uIG9mIHRoZSBsb2dpc3RpYyBncndvdGgsIGJ1dCBub3QgdGhlIHNvbHV0aW9uLiBDYWxsIG1lIHdoZW4geW91IGFyZSBoZXJlIHRoZW4geW91IGNhbiBnby4NCiMjIA0KIyMgIyBpZiByIDwgMSB0aGVuIHRoZSBpbmNyZWFzZSBpbiBwb3B1bGF0aW9uIHNpemUgYmV0d2VlbiB0IGFuZCB0KzEgd2lsbCBiZSBsZXNzIHRoYW4gdGhlIGRpZmZlcmVuY2UgYmV0d2VlbiBOIGFuZCBLIGFuZCB0aGUgcG9wdWxhdGlvbiB3aWxsIGFkanVzdCBtb25vdG9uaWNhbGx5Lg0KIyMgDQojIyAjIGlmIDEgPCByIDwgMiB0aGVuIHRoZSBwb3B1bGF0aW9uIHdpbGwgaGF2ZSBhIGRhbXBlbmVkIG9zY2lsbGF0aW9uLg0KIyMgDQojIyAjIFdoZW4gciA+IDIgYnV0IDwgMi41IHRoZSBwb3B1bGF0aW9uIG1heSBkaXNwbGF5IGEgc3RhYmxlIChyZWd1bGFyIHdpdGggc2FtZSBhbXBsaXR1ZGUpIGxpbWl0IGN5Y2xlLg0KIyMgDQojIyAjIFdoZW4gciA+IDIgZXNwZWNpYWxseSBpZiByID4gMi41MiBvc2NpbGxhdGlvbiB3aWxsIGFjdHVhbGx5IGluY3JlYXNlIGFuZCB0aGUgcG9wdWxhdGlvbiBncm93dGggd2lsbCBiZWNvbWUgY2hhb3RpYw0KIyMgDQojIyAjIFdoZW4gciA+PiAyIHRoZSBwb3B1bGF0aW9uIHdpbGwgbGlrZWx5IGNyYXNoLCBnZW5lcmFsbHkgaW4gYSBzaG9ydCB0aW1lDQoNCiMjICMgV1JPTkcgQ09ERQ0KIyMgIyBBRFZJQ0VTOiBTVEFSVCBGUk9NIFNDUkFUQ0gsDQojIyAjIEpVU1QgR0VUIElOU1BJUkFUSU9OIEZST00gTVkgQ09ERSwgV09SSyBTVEVQIEJZIFNURVANCiMjIGdyb3c8LWZ1bmN0aW9uKHN0YXJ0XzEpew0KIyMgICBudW1fZ2VuPD0zMA0KIyMgICBOMSA8LSByZXAoMCwxMCkNCiMjICAgTjIgPC0gcmVwKDAsMTApDQojIyAgIGdlbmVyYXRpb248LXJlcCgxLG51bV9nZW4pDQojIyAgIGdyb3d0aC5yYXRlPC0xLjINCiMjICAgSzE8LTEwMA0KIyMgICBLMjwtMTIwDQojIyAgIGExMjwtMC44DQojIyAgIGEyMTwtMC44DQojIyAgIE4xWzFdPC0wDQojIyAgIE4yWzFdPC1zdGFydF8yDQojIyAgIGZvciAoaSBpbiAyOjMpICB7DQojIyAgICAgTjFbaV0gPSBOMVtpLTFdICsgKDMuMiogTjFbaS0xXSAqICgoSzEtTjFbaS0xXS0oYTEyKk4yW2ktMV0pKS9LMSkpDQojIyAgICAgTjJbaV0gPSBOMltpXSArIChncm93dGgucmF0ZSAqIE4yW2ktMV0gKiAoKEsyLU4yW2ktMV0tKGEyMSpOMVtpLTFdKSkqSzIpKQ0KIyMgICAgIGdlbmVyYXRpb25bMV09MQ0KIyMgICAgIHByaW50IChOMVtpXSkNCiMjICAgKQ0KIyMgICBpZiAoTjFbMV0+Mil7DQojIyAgICAgcGxvdChOMX5nZW5lcmF0aW9uLHR5cD0iYiIseWxpbT1jKDAsbWluKGMoSzEsSzIpKSkseWxhYj0iTiIpDQojIyAgIH0gIGVsc2Ugew0KIyMgICAgIHBsb3QoTjF+Z2VuZXJhdGlvbix0eXA9Im4iLHlsaW09YygwLG1pbihjKEsxLEsyKSkpLHlsYWI9Ik4iKQ0KIyMgICB9DQojIyAgIHByaW50KE4yWzFdKQ0KIyMgICBpZiAoTjJbMV0+MCl7DQojIyAgICAgbGluZXMoTjJ+Z2VuZXJhdGlvbix0eXA9ImIiLGNvbD0yKX0NCiMjICAgfQ0KIyMgDQojIyBwYXIobWFyPWMoOSw0LDEsMSksbWZyb3c9Yyg1LDEpLGxhcz0xKQ0KIyMgDQojIyBncm93KDEsMCkNCiMjIHRleHQoNCwxMTAsIlNwZWNpZXMgMSBhbG9uZSIpDQojIyANCiMjIGdyb3coMCwxKQ0KIyMgdGV4dCg0LDExMCwiU3BlY2llcyAyIGFsb25lIikNCiMjIA0KIyMgZ3JvdygxLDIpDQojIyB0ZXh0KDYsMTEwLCJCb3RoIFNwZWNpZXMgY29tcGV0aW5nIikNCg==" download="functions.R">Download functions.R</a>
+<hr />
+<p>Today, we are going to speak about <strong>loops</strong> with an
+example of their use by creating our own <strong>functions</strong>:
+some simple demographic models. To make it funnier - but also because it
+illustrates very well what the purpose of a loop - we will visualize
+population dynamics using animation. Specifically, We will create GIFs
+using the package <code>animation</code>. The function
+<code>saveGIF</code> will only work if you have install <a
+href="http://imagemagick.org">Image Magick</a> or <a
+href="http://www.graphicsmagick.org">GraphicsMagick</a> on your
+computer. Install with <strong>legacy utilities</strong> (e.g. convert).
+Obviously the animation will not work if you skip this step. You may
+also experience other issues creating animated plots, but it is not the
+primary purpose of this class and you should now be able to troubleshoot
+:)</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="fu">library</span>(animation)</span>
+<span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a><span class="fu">library</span> (gganimate)</span></code></pre></div>
+<p><img src="illustrations/ImageMagick7.0.png" /></p>
+<div id="loops" class="section level1">
+<h1>Loops</h1>
+<p><strong>What’s that?</strong> A loop is simply to repeat the same
+task a specific number of time. All loops (whatever their sizes) have
+always the same structure (architecture). As for an example a
+<code>for</code> loop is given as:</p>
+<center>
+<code>for</code> <code>(</code>counter <code>in</code>
+vector<code>){</code>task<code>}</code>
+</center>
+<p><code>for</code> loops are very common. It means <strong>for</strong>
+a given condition do something a number of time. This <code>for</code>
+can be replaced by <code>while</code> or <code>repeat</code>. Those are
+<code>while</code> and <code>repeat</code> loops. Check the figure below
+that illustrates those differences.</p>
+<p><img src="illustrations/loops.png" /></p>
+<div id="basics" class="section level2">
+<h2>Basics</h2>
+<p>A the job accomplished by a loop can simply be illustrated as
+below:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">100</span>) {</span>
+<span id="cb2-2"><a href="#cb2-2" tabindex="-1"></a><span class="fu">print</span>(<span class="st">&quot;Hello world!&quot;</span>)</span>
+<span id="cb2-3"><a href="#cb2-3" tabindex="-1"></a><span class="fu">print</span>(i<span class="sc">*</span>i)</span>
+<span id="cb2-4"><a href="#cb2-4" tabindex="-1"></a>}</span></code></pre></div>
+<p><code>for(i in 1:100)</code> is our <strong>counter</strong>:
+<code>i</code> (but can be anything else, <code>i</code> is standard)
+will take the values 1, 2, 3, …, and up to 100. Therefore the loop will
+repeat 100 times the element (<strong>task</strong>) that follows within
+the <code>{}</code>.</p>
+<p>In our loop, <code>i</code> will take the value 1 in the first loop
+“cycle”. <code>i</code> will take the value 2 in the second loop
+“cycle”, and so on until 100. Within the same cycle, it will also
+<code>print</code> <code>"Hello World"</code> follows by the result of
+the product <code>i*i</code> e.g. 1 for the first cycle (in order to
+illustrate the value taken by <code>i</code>). Here, it will be the same
+task for the next 99 remaining cycles of our loop. Got it? Let’s now
+make it a more standard:</p>
+<p>The “counter” is commonly set distinctly. Check carefully, the syntax
+of a loop:</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a>demo <span class="ot">&lt;-</span> <span class="fu">seq</span> (<span class="dv">1</span>,<span class="dv">100</span>,<span class="at">by=</span><span class="dv">2</span>) <span class="co"># sequence  1, 3, ..., 99</span></span>
+<span id="cb3-2"><a href="#cb3-2" tabindex="-1"></a>n<span class="ot">&lt;-</span><span class="fu">length</span>(demo) <span class="co">#  size of the foo sequence</span></span>
+<span id="cb3-3"><a href="#cb3-3" tabindex="-1"></a>demo.squared <span class="ot">=</span> <span class="cn">NULL</span> <span class="co">#  empty object</span></span>
+<span id="cb3-4"><a href="#cb3-4" tabindex="-1"></a></span>
+<span id="cb3-5"><a href="#cb3-5" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>n) { <span class="co"># our counter</span></span>
+<span id="cb3-6"><a href="#cb3-6" tabindex="-1"></a>  demo.squared[i] <span class="ot">=</span> demo[i]<span class="sc">^</span><span class="dv">2</span> <span class="co"># the task</span></span>
+<span id="cb3-7"><a href="#cb3-7" tabindex="-1"></a>}</span>
+<span id="cb3-8"><a href="#cb3-8" tabindex="-1"></a></span>
+<span id="cb3-9"><a href="#cb3-9" tabindex="-1"></a>demo.df<span class="ot">&lt;-</span><span class="fu">data.frame</span>(demo,demo.squared) </span>
+<span id="cb3-10"><a href="#cb3-10" tabindex="-1"></a><span class="fu">plot</span> (demo.df<span class="sc">$</span>demo<span class="sc">~</span>demo.df<span class="sc">$</span>demo.squared)</span></code></pre></div>
+<p><img src="functions_files/figure-html/unnamed-chunk-7-1.png" width="672" /></p>
+<p>The sequence <code>demo.squared</code> received the square value of
+each individual element of the sequence <code>demo</code>.
+<strong>Nice</strong>, but totally <strong>useless</strong>. The exact
+same operation can be accomplished with the most concise writing:</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a>demo.squared2<span class="ot">&lt;-</span>demo<span class="sc">^</span><span class="dv">2</span></span>
+<span id="cb4-2"><a href="#cb4-2" tabindex="-1"></a><span class="fu">plot</span> (demo<span class="sc">~</span>demo.squared2)</span></code></pre></div>
+<p>As mentioned earlier and like we already saw in action, the functions
+in R are generally <strong>vectorized</strong>. It means when you
+applied them to a selected <strong>vector</strong>, they will apply to
+all the elements of this vector. It makes life easier that you don’t
+need to say you want to apply something to the first element of this
+vector, then repeat the same for the second element, etc. (what we did
+in our loop). In addition, vectorized functions are way faster than
+making loops. Compare the time of the following with the time that you
+need to do the same using a loop. Make the sequence longer, such as up
+to 1,000,000.</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a><span class="fu">system.time</span>(demo.squared2<span class="ot">&lt;-</span>demo<span class="sc">^</span><span class="dv">2</span>)</span></code></pre></div>
+<p>A vectorized function will usually consider a vector as a block and
+will apply this task to all elements at once. That’s why it is way
+faster. So, why do we care about loops?</p>
+<p>Simply saying, a loop have their use and interest in recycling an
+element you just created in a previous cycle. The next cycle will use
+the same task but it will “enrich” the element previously created, such
+as with adding number of recruits in a population at year 2.</p>
+</div>
+<div id="recycling" class="section level2">
+<h2>Recycling</h2>
+<p>Let’s get this idea about population growth where the number of
+individuals at one generation (cycle <em>t</em>) will determine the
+population at the following generation (cycle <em>t+1</em>). Note that
+it is the equivalent of <em>t-1</em> and <em>t</em>.</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" tabindex="-1"></a>num_gen<span class="ot">&lt;-</span><span class="dv">10</span>  <span class="co"># no. generation</span></span>
+<span id="cb6-2"><a href="#cb6-2" tabindex="-1"></a>generation<span class="ot">&lt;-</span><span class="dv">1</span><span class="sc">:</span>num_gen <span class="co"># create a variable generation</span></span>
+<span id="cb6-3"><a href="#cb6-3" tabindex="-1"></a>N <span class="ot">&lt;-</span> <span class="fu">rep</span> (<span class="dv">0</span>,num_gen) <span class="co">#  &quot;vector&quot; of 10 zeros (could be `NULL`)</span></span>
+<span id="cb6-4"><a href="#cb6-4" tabindex="-1"></a>lambda <span class="ot">&lt;-</span> <span class="dv">2</span> <span class="co"># growth rate</span></span>
+<span id="cb6-5"><a href="#cb6-5" tabindex="-1"></a>N[<span class="dv">1</span>] <span class="ot">&lt;-</span> <span class="dv">2</span> <span class="co"># We need to set initial pop size</span></span>
+<span id="cb6-6"><a href="#cb6-6" tabindex="-1"></a><span class="cf">for</span> (t <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>(num_gen <span class="sc">-</span> <span class="dv">1</span>)) { <span class="co"># the counter</span></span>
+<span id="cb6-7"><a href="#cb6-7" tabindex="-1"></a>  N[t<span class="sc">+</span><span class="dv">1</span>]<span class="ot">=</span>lambda<span class="sc">*</span>N[t]  <span class="co"># task: double individuals</span></span>
+<span id="cb6-8"><a href="#cb6-8" tabindex="-1"></a>   }</span>
+<span id="cb6-9"><a href="#cb6-9" tabindex="-1"></a><span class="fu">plot</span>(N<span class="sc">~</span>generation, <span class="at">type=</span><span class="st">&#39;b&#39;</span>, <span class="at">col=</span><span class="st">&#39;blue&#39;</span>, <span class="at">main=</span><span class="st">&#39;Discrete exponential growth&#39;</span>) <span class="co"># the plot</span></span></code></pre></div>
+<p><img src="functions_files/figure-html/unnamed-chunk-10-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>Congrats! You just wrote a demographic model called exponential
+growth. This is typically the type of model used to examine bacteria
+growth.</p>
+<p><strong>Exponential grwoth</strong></p>
+<p><span class="math display">\[N_{t+1}= N_{t}+bN_{t}-dN_{t}\]</span>
+<span class="math display">\[N_{t+1}= N_{t}+(b-d)N_{t}\]</span> <span
+class="math display">\[N_{t+1}= N_{t}+rN_{t}\]</span> <span
+class="math display">\[N_{t+1}= (1+r)N_{t}\]</span> <span
+class="math display">\[N_{t+1}= \lambda N_{t}\]</span> Here <span
+class="math inline">\(N_{t+1}\)</span> is the new population, <span
+class="math inline">\(N_t\)</span> is the old population, <span
+class="math inline">\(b\)</span> is the per capita birth rate, <span
+class="math inline">\(d\)</span> is the per capita death rate, and <span
+class="math inline">\(λ\)</span> is the growth rate such that <span
+class="math inline">\(\lambda =b−d+1\)</span>. In our model, the
+population doubles (growth rate = 2) at each generation (time). You can
+now play at increasing initial population size and manipulating growth
+rate. All the other loops will follow the same structure, just the task
+may be a ‘little’ bit more complicated. You can also add loop within
+loop, etc.</p>
+<p>More read on loops and why to avoid them in the free online class
+available <a
+href="https://www.datacamp.com/community/tutorials/tutorial-on-loops-in-r">here</a></p>
+</div>
+</div>
+<div id="function" class="section level1">
+<h1>Function</h1>
+<p>We already used plenty of function so far, so let’s now create ours.
+We create a <strong>function</strong> with an named object containing a
+<code>function</code>. You can specify within the
+<strong>arguments</strong> you wanna control. Let’s illustrate it by
+wrapping our small demographic model into a function giving it more
+flexibility in customizing the growth rate of the population.</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" tabindex="-1"></a>grow <span class="ot">&lt;-</span> <span class="cf">function</span> (growth.rate) { <span class="co"># argument &quot;growth.rate&quot; of function &quot;grow&quot; </span></span>
+<span id="cb7-2"><a href="#cb7-2" tabindex="-1"></a>num_gen<span class="ot">&lt;-</span><span class="dv">10</span></span>
+<span id="cb7-3"><a href="#cb7-3" tabindex="-1"></a>generation<span class="ot">&lt;-</span><span class="dv">1</span><span class="sc">:</span>num_gen</span>
+<span id="cb7-4"><a href="#cb7-4" tabindex="-1"></a>N <span class="ot">&lt;-</span> <span class="fu">rep</span> (<span class="dv">0</span>,num_gen)</span>
+<span id="cb7-5"><a href="#cb7-5" tabindex="-1"></a>N[<span class="dv">1</span>] <span class="ot">&lt;-</span> <span class="dv">1</span></span>
+<span id="cb7-6"><a href="#cb7-6" tabindex="-1"></a><span class="cf">for</span> (t <span class="cf">in</span> <span class="dv">2</span><span class="sc">:</span>num_gen) { </span>
+<span id="cb7-7"><a href="#cb7-7" tabindex="-1"></a><span class="co"># not the use growth.rate argument and t-1  this time</span></span>
+<span id="cb7-8"><a href="#cb7-8" tabindex="-1"></a>  N[t]<span class="ot">=</span>growth.rate<span class="sc">*</span>N[t<span class="dv">-1</span>] </span>
+<span id="cb7-9"><a href="#cb7-9" tabindex="-1"></a>}</span>
+<span id="cb7-10"><a href="#cb7-10" tabindex="-1"></a>  <span class="fu">plot</span>(N<span class="sc">~</span>generation,<span class="at">type=</span><span class="st">&#39;b&#39;</span>, <span class="at">main=</span><span class="fu">paste</span>(<span class="st">&quot;Rate =&quot;</span>, growth.rate)) </span>
+<span id="cb7-11"><a href="#cb7-11" tabindex="-1"></a>}</span></code></pre></div>
+<p>It created a function called <code>grow</code> and now visible in
+RStudio environment under <strong>functions</strong>:</p>
+<p><img src="illustrations/Env_funct.png" /></p>
+<p>You can simply use this new function by calling it and changing the
+argument <code>growth.rate</code>. The function can itself be in a loop
+(therefore, creating a loop within a loop). Again this is usually no
+recommended because it may turn to be quite ‘slow’ (check again
+<code>system.time()</code> when doing so). Let’s make a good use of our
+function:</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow=</span><span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">3</span>))</span>
+<span id="cb8-2"><a href="#cb8-2" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">2</span><span class="sc">:</span><span class="dv">7</span>){</span>
+<span id="cb8-3"><a href="#cb8-3" tabindex="-1"></a>  <span class="fu">grow</span>(i)</span>
+<span id="cb8-4"><a href="#cb8-4" tabindex="-1"></a>}</span></code></pre></div>
+<p><img src="functions_files/figure-html/unnamed-chunk-12-1.png" width="672" /></p>
+<p>Our function can be further extended with an extra argument such as
+the number of generation.</p>
+<p class="comment">
+<strong>Practice 6.1</strong> Create a function called
+<code>grow2</code> where both arguments: the <code>growth.rate</code>
+and <code>number.generation</code> can be “customized”.
+</p>
+<div class="sourceCode" id="cb9"><pre
+class="sourceCode r fold-hide"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" tabindex="-1"></a>grow2 <span class="ot">&lt;-</span> <span class="cf">function</span> (growth.rate, number.generation) { </span>
+<span id="cb9-2"><a href="#cb9-2" tabindex="-1"></a>  num_gen<span class="ot">&lt;-</span>number.generation</span>
+<span id="cb9-3"><a href="#cb9-3" tabindex="-1"></a>  generation<span class="ot">&lt;-</span><span class="dv">1</span><span class="sc">:</span>num_gen</span>
+<span id="cb9-4"><a href="#cb9-4" tabindex="-1"></a>  N <span class="ot">&lt;-</span> <span class="fu">rep</span> (<span class="dv">0</span>,num_gen)</span>
+<span id="cb9-5"><a href="#cb9-5" tabindex="-1"></a>  N[<span class="dv">1</span>] <span class="ot">&lt;-</span> <span class="dv">1</span></span>
+<span id="cb9-6"><a href="#cb9-6" tabindex="-1"></a>  <span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">2</span><span class="sc">:</span>num_gen) {</span>
+<span id="cb9-7"><a href="#cb9-7" tabindex="-1"></a>    N[i]<span class="ot">=</span>growth.rate<span class="sc">*</span>N[i<span class="dv">-1</span>] </span>
+<span id="cb9-8"><a href="#cb9-8" tabindex="-1"></a>  }</span>
+<span id="cb9-9"><a href="#cb9-9" tabindex="-1"></a>  <span class="fu">plot</span>(N<span class="sc">~</span>generation,<span class="at">type=</span><span class="st">&#39;b&#39;</span>, <span class="at">main=</span><span class="fu">paste</span>(<span class="st">&quot;Rate =&quot;</span>, growth.rate, <span class="st">&quot;, &quot;</span>, number.generation, <span class="st">&quot;generations&quot;</span>))</span>
+<span id="cb9-10"><a href="#cb9-10" tabindex="-1"></a>  }</span></code></pre></div>
+</div>
+<div id="animation" class="section level1">
+<h1>Animation</h1>
+<div id="gif" class="section level2">
+<h2>gif</h2>
+<p>An animation type <strong>gif</strong> consists in overlapping
+sequential plots. By generating plots for each cycles of our loop and
+putting them behind each other you can easily figure out that you will
+get an animated plot (in a very similar way than an animate). Obviously
+and because we want to overlap plot, we must first fix the limit of our
+axes. Let’s do it for <code>growth.rate</code> and create a function
+called <code>grow3</code> with this time fixed limits for the axes.</p>
+<div class="sourceCode" id="cb10"><pre
+class="sourceCode r fold-show"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" tabindex="-1"></a>grow3 <span class="ot">&lt;-</span> <span class="cf">function</span> (growth.rate) { </span>
+<span id="cb10-2"><a href="#cb10-2" tabindex="-1"></a>  num_gen<span class="ot">&lt;-</span><span class="dv">10</span></span>
+<span id="cb10-3"><a href="#cb10-3" tabindex="-1"></a>  generation<span class="ot">&lt;-</span><span class="dv">1</span><span class="sc">:</span>num_gen</span>
+<span id="cb10-4"><a href="#cb10-4" tabindex="-1"></a>  N <span class="ot">&lt;-</span> <span class="fu">rep</span> (<span class="dv">0</span>,num_gen)</span>
+<span id="cb10-5"><a href="#cb10-5" tabindex="-1"></a>  N[<span class="dv">1</span>] <span class="ot">&lt;-</span> <span class="dv">1</span></span>
+<span id="cb10-6"><a href="#cb10-6" tabindex="-1"></a>  <span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">2</span><span class="sc">:</span>num_gen) {</span>
+<span id="cb10-7"><a href="#cb10-7" tabindex="-1"></a>    N[i]<span class="ot">=</span>growth.rate<span class="sc">*</span>N[i<span class="dv">-1</span>]</span>
+<span id="cb10-8"><a href="#cb10-8" tabindex="-1"></a>  }</span>
+<span id="cb10-9"><a href="#cb10-9" tabindex="-1"></a>  <span class="fu">plot</span>(N<span class="sc">~</span>generation, <span class="at">xlim=</span><span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">10</span>), <span class="at">ylim=</span><span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">100000</span>), <span class="at">type=</span><span class="st">&#39;b&#39;</span>, <span class="at">main=</span><span class="fu">paste</span>(<span class="st">&quot;Rate =&quot;</span>, growth.rate))</span>
+<span id="cb10-10"><a href="#cb10-10" tabindex="-1"></a>}</span></code></pre></div>
+<p>Our function created, let’s use this <code>grow3</code> function as a
+<strong>gif</strong>. The function <code>saveGIF</code> from the package
+<code>animation</code> (<strong>IMPORTANT AGAIN</strong>: with “legacy”
+utilities) should combine all plots created (worst case you will get 9
+plots).</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" tabindex="-1"></a><span class="fu">saveGIF</span>({</span>
+<span id="cb11-2"><a href="#cb11-2" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">2</span><span class="sc">:</span><span class="dv">10</span>){</span>
+<span id="cb11-3"><a href="#cb11-3" tabindex="-1"></a>  <span class="fu">grow3</span>(i)</span>
+<span id="cb11-4"><a href="#cb11-4" tabindex="-1"></a>}})</span></code></pre></div>
+<pre><code>## Output at: animation.gif</code></pre>
+<pre><code>## [1] TRUE</code></pre>
+<p><img src="illustrations/animation.gif" /></p>
+<p>It results in an animated image representing exponential growth over
+10 generations at various growth rates.</p>
+</div>
+<div id="gganimate" class="section level2">
+<h2><code>gganimate</code></h2>
+<p>The packages <code>ggplot2</code> and <code>gganimate</code> provides
+also fancier option for animated plots:</p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" tabindex="-1"></a>demo<span class="ot">&lt;-</span><span class="cn">NULL</span></span>
+<span id="cb14-2"><a href="#cb14-2" tabindex="-1"></a>demo<span class="sc">$</span>count<span class="ot">&lt;-</span>N</span>
+<span id="cb14-3"><a href="#cb14-3" tabindex="-1"></a>demo<span class="sc">$</span>generation<span class="ot">&lt;-</span>generation</span>
+<span id="cb14-4"><a href="#cb14-4" tabindex="-1"></a>demo<span class="ot">&lt;-</span><span class="fu">as.data.frame</span>(demo)</span>
+<span id="cb14-5"><a href="#cb14-5" tabindex="-1"></a></span>
+<span id="cb14-6"><a href="#cb14-6" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(demo, <span class="fu">aes</span>(<span class="at">x =</span> generation, <span class="at">y=</span>count, <span class="at">size =</span><span class="dv">2</span>)) <span class="sc">+</span></span>
+<span id="cb14-7"><a href="#cb14-7" tabindex="-1"></a>   <span class="fu">geom_point</span>(<span class="at">show.legend =</span> <span class="cn">FALSE</span>, <span class="at">alpha =</span> <span class="fl">0.7</span>) <span class="sc">+</span></span>
+<span id="cb14-8"><a href="#cb14-8" tabindex="-1"></a>   <span class="fu">scale_color_viridis_d</span>() <span class="sc">+</span></span>
+<span id="cb14-9"><a href="#cb14-9" tabindex="-1"></a>   <span class="fu">scale_size</span>(<span class="at">range =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">12</span>)) <span class="sc">+</span></span>
+<span id="cb14-10"><a href="#cb14-10" tabindex="-1"></a>   <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;Generation&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Individuals&quot;</span>)</span>
+<span id="cb14-11"><a href="#cb14-11" tabindex="-1"></a></span>
+<span id="cb14-12"><a href="#cb14-12" tabindex="-1"></a>p <span class="sc">+</span> <span class="fu">transition_time</span>(generation) <span class="sc">+</span></span>
+<span id="cb14-13"><a href="#cb14-13" tabindex="-1"></a>   <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Generation: {frame_time}&quot;</span>) <span class="sc">+</span></span>
+<span id="cb14-14"><a href="#cb14-14" tabindex="-1"></a>   <span class="fu">shadow_wake</span>(<span class="at">wake_length =</span> <span class="fl">0.2</span>, <span class="at">alpha =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
+<pre><code>## 
+Rendering [==&gt;-------------------------------------------------------------------------------------------] at 14 fps ~ eta:  7s
+Rendering [===&gt;------------------------------------------------------------------------------------------] at 11 fps ~ eta:  9s
+Rendering [====&gt;-----------------------------------------------------------------------------------------] at 11 fps ~ eta:  9s
+Rendering [=====&gt;----------------------------------------------------------------------------------------] at 11 fps ~ eta:  8s
+Rendering [======&gt;---------------------------------------------------------------------------------------] at 11 fps ~ eta:  8s
+Rendering [=======&gt;--------------------------------------------------------------------------------------] at 12 fps ~ eta:  8s
+Rendering [========&gt;-------------------------------------------------------------------------------------] at 12 fps ~ eta:  8s
+Rendering [=========&gt;------------------------------------------------------------------------------------] at 12 fps ~ eta:  7s
+Rendering [==========&gt;-----------------------------------------------------------------------------------] at 12 fps ~ eta:  8s
+Rendering [===========&gt;----------------------------------------------------------------------------------] at 12 fps ~ eta:  7s
+Rendering [============&gt;---------------------------------------------------------------------------------] at 12 fps ~ eta:  7s
+Rendering [=============&gt;--------------------------------------------------------------------------------] at 12 fps ~ eta:  7s
+Rendering [==============&gt;-------------------------------------------------------------------------------] at 12 fps ~ eta:  7s
+Rendering [===============&gt;------------------------------------------------------------------------------] at 12 fps ~ eta:  7s
+Rendering [================&gt;-----------------------------------------------------------------------------] at 12 fps ~ eta:  7s
+Rendering [=================&gt;----------------------------------------------------------------------------] at 12 fps ~ eta:  7s
+Rendering [==================&gt;---------------------------------------------------------------------------] at 12 fps ~ eta:  7s
+Rendering [===================&gt;--------------------------------------------------------------------------] at 12 fps ~ eta:  7s
+Rendering [====================&gt;-------------------------------------------------------------------------] at 12 fps ~ eta:  7s
+Rendering [=====================&gt;------------------------------------------------------------------------] at 12 fps ~ eta:  6s
+Rendering [======================&gt;-----------------------------------------------------------------------] at 12 fps ~ eta:  6s
+Rendering [=======================&gt;----------------------------------------------------------------------] at 12 fps ~ eta:  6s
+Rendering [========================&gt;---------------------------------------------------------------------] at 12 fps ~ eta:  6s
+Rendering [=========================&gt;--------------------------------------------------------------------] at 12 fps ~ eta:  6s
+Rendering [==========================&gt;-------------------------------------------------------------------] at 12 fps ~ eta:  6s
+Rendering [===========================&gt;------------------------------------------------------------------] at 12 fps ~ eta:  6s
+Rendering [============================&gt;-----------------------------------------------------------------] at 12 fps ~ eta:  6s
+Rendering [=============================&gt;----------------------------------------------------------------] at 12 fps ~ eta:  6s
+Rendering [==============================&gt;---------------------------------------------------------------] at 12 fps ~ eta:  6s
+Rendering [===============================&gt;--------------------------------------------------------------] at 12 fps ~ eta:  6s
+Rendering [================================&gt;-------------------------------------------------------------] at 12 fps ~ eta:  6s
+Rendering [=================================&gt;------------------------------------------------------------] at 12 fps ~ eta:  6s
+Rendering [==================================&gt;-----------------------------------------------------------] at 12 fps ~ eta:  5s
+Rendering [===================================&gt;----------------------------------------------------------] at 12 fps ~ eta:  5s
+Rendering [====================================&gt;---------------------------------------------------------] at 12 fps ~ eta:  5s
+Rendering [=====================================&gt;--------------------------------------------------------] at 12 fps ~ eta:  5s
+Rendering [======================================&gt;-------------------------------------------------------] at 12 fps ~ eta:  5s
+Rendering [======================================&gt;-------------------------------------------------------] at 11 fps ~ eta:  5s
+Rendering [=======================================&gt;------------------------------------------------------] at 11 fps ~ eta:  5s
+Rendering [========================================&gt;-----------------------------------------------------] at 11 fps ~ eta:  5s
+Rendering [=========================================&gt;----------------------------------------------------] at 11 fps ~ eta:  5s
+Rendering [==========================================&gt;---------------------------------------------------] at 11 fps ~ eta:  5s
+Rendering [===========================================&gt;--------------------------------------------------] at 11 fps ~ eta:  5s
+Rendering [============================================&gt;-------------------------------------------------] at 11 fps ~ eta:  5s
+Rendering [=============================================&gt;------------------------------------------------] at 11 fps ~ eta:  5s
+Rendering [==============================================&gt;-----------------------------------------------] at 11 fps ~ eta:  5s
+Rendering [===============================================&gt;----------------------------------------------] at 11 fps ~ eta:  5s
+Rendering [================================================&gt;---------------------------------------------] at 11 fps ~ eta:  4s
+Rendering [=================================================&gt;--------------------------------------------] at 11 fps ~ eta:  4s
+Rendering [==================================================&gt;-------------------------------------------] at 11 fps ~ eta:  4s
+Rendering [===================================================&gt;------------------------------------------] at 11 fps ~ eta:  4s
+Rendering [====================================================&gt;-----------------------------------------] at 11 fps ~ eta:  4s
+Rendering [=====================================================&gt;----------------------------------------] at 11 fps ~ eta:  4s
+Rendering [======================================================&gt;---------------------------------------] at 11 fps ~ eta:  4s
+Rendering [=======================================================&gt;--------------------------------------] at 11 fps ~ eta:  4s
+Rendering [========================================================&gt;-------------------------------------] at 11 fps ~ eta:  4s
+Rendering [=========================================================&gt;------------------------------------] at 11 fps ~ eta:  4s
+Rendering [==========================================================&gt;-----------------------------------] at 11 fps ~ eta:  3s
+Rendering [===========================================================&gt;----------------------------------] at 11 fps ~ eta:  3s
+Rendering [============================================================&gt;---------------------------------] at 11 fps ~ eta:  3s
+Rendering [=============================================================&gt;--------------------------------] at 11 fps ~ eta:  3s
+Rendering [==============================================================&gt;-------------------------------] at 11 fps ~ eta:  3s
+Rendering [===============================================================&gt;------------------------------] at 11 fps ~ eta:  3s
+Rendering [================================================================&gt;-----------------------------] at 11 fps ~ eta:  3s
+Rendering [=================================================================&gt;----------------------------] at 11 fps ~ eta:  3s
+Rendering [==================================================================&gt;---------------------------] at 11 fps ~ eta:  3s
+Rendering [===================================================================&gt;--------------------------] at 11 fps ~ eta:  3s
+Rendering [====================================================================&gt;-------------------------] at 10 fps ~ eta:  3s
+Rendering [=====================================================================&gt;------------------------] at 11 fps ~ eta:  2s
+Rendering [======================================================================&gt;-----------------------] at 11 fps ~ eta:  2s
+Rendering [=======================================================================&gt;----------------------] at 11 fps ~ eta:  2s
+Rendering [========================================================================&gt;---------------------] at 11 fps ~ eta:  2s
+Rendering [=========================================================================&gt;--------------------] at 11 fps ~ eta:  2s
+Rendering [==========================================================================&gt;-------------------] at 11 fps ~ eta:  2s
+Rendering [===========================================================================&gt;------------------] at 11 fps ~ eta:  2s
+Rendering [============================================================================&gt;-----------------] at 11 fps ~ eta:  2s
+Rendering [=============================================================================&gt;----------------] at 11 fps ~ eta:  2s
+Rendering [==============================================================================&gt;---------------] at 11 fps ~ eta:  2s
+Rendering [===============================================================================&gt;--------------] at 11 fps ~ eta:  1s
+Rendering [================================================================================&gt;-------------] at 11 fps ~ eta:  1s
+Rendering [=================================================================================&gt;------------] at 11 fps ~ eta:  1s
+Rendering [==================================================================================&gt;-----------] at 11 fps ~ eta:  1s
+Rendering [===================================================================================&gt;----------] at 11 fps ~ eta:  1s
+Rendering [====================================================================================&gt;---------] at 11 fps ~ eta:  1s
+Rendering [=====================================================================================&gt;--------] at 11 fps ~ eta:  1s
+Rendering [======================================================================================&gt;-------] at 11 fps ~ eta:  1s
+Rendering [=======================================================================================&gt;------] at 11 fps ~ eta:  1s
+Rendering [========================================================================================&gt;-----] at 11 fps ~ eta:  0s
+Rendering [=========================================================================================&gt;----] at 11 fps ~ eta:  0s
+Rendering [==========================================================================================&gt;---] at 11 fps ~ eta:  0s
+Rendering [===========================================================================================&gt;--] at 11 fps ~ eta:  0s
+Rendering [============================================================================================&gt;-] at 11 fps ~ eta:  0s
+Rendering [==============================================================================================] at 11 fps ~ eta:  0s
+                                                                                                                               </code></pre>
+<p><img
+src="functions_files/figure-html/unnamed-chunk-16-1.gif" /><!-- --></p>
+<p>Check it <a
+href="https://www.datanovia.com/en/blog/gganimate-how-to-create-plots-with-beautiful-animation-in-r/">here</a>
+for more fancy option. Obviously, you can combine those animations in a
+<a
+href="https://conservancy.umn.edu/server/api/core/bitstreams/ba6ea265-c865-48d2-bcf4-e287542efd9a/content">map</a></p>
+</div>
+</div>
+<div id="diy" class="section level1">
+<h1>DIY</h1>
+<div id="logistic" class="section level2">
+<h2>Logistic</h2>
+<p class="comment">
+<strong>Practice 6.2</strong> Write your own. The equation below
+illustrates a different kind of growth, the logistic growth: <span
+class="math display">\[N_{t+1}= N_{t}+\left[growth.rate*
+N_{t}*\left(\frac{100-N_{t}}{100}\right)\right]\]</span> The 100 value
+is called the “carrying capacities” also called <em>K</em>, it means the
+population will be limited at 100 individuals. In your model the
+population will start with 10 individuals. You will then make the number
+of generation flexible using a function simulating population growth
+over 50 generations. You will further make this function flexible by
+changing <em>growth.rate</em> between 0.5 and 3.0. What do you observe?
+Save the outcome as a .gif if this works on your computer. Called me
+when you have the solution.
+</p>
+<div class="sourceCode" id="cb16"><pre
+class="sourceCode r fold-hide"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" tabindex="-1"></a><span class="co"># By clicking here, you are ready for the next step below: Practice 6.2. </span></span>
+<span id="cb16-2"><a href="#cb16-2" tabindex="-1"></a></span>
+<span id="cb16-3"><a href="#cb16-3" tabindex="-1"></a><span class="co"># Here are explanation of the logistic grwoth, but not the solution. Call me when you are here then you can go.</span></span>
+<span id="cb16-4"><a href="#cb16-4" tabindex="-1"></a></span>
+<span id="cb16-5"><a href="#cb16-5" tabindex="-1"></a><span class="co"># if r &lt; 1 then the increase in population size between t and t+1 will be less than the difference between N and K and the population will adjust monotonically.</span></span>
+<span id="cb16-6"><a href="#cb16-6" tabindex="-1"></a></span>
+<span id="cb16-7"><a href="#cb16-7" tabindex="-1"></a><span class="co"># if 1 &lt; r &lt; 2 then the population will have a dampened oscillation.</span></span>
+<span id="cb16-8"><a href="#cb16-8" tabindex="-1"></a></span>
+<span id="cb16-9"><a href="#cb16-9" tabindex="-1"></a><span class="co"># When r &gt; 2 but &lt; 2.5 the population may display a stable (regular with same amplitude) limit cycle.</span></span>
+<span id="cb16-10"><a href="#cb16-10" tabindex="-1"></a></span>
+<span id="cb16-11"><a href="#cb16-11" tabindex="-1"></a><span class="co"># When r &gt; 2 especially if r &gt; 2.52 oscillation will actually increase and the population growth will become chaotic</span></span>
+<span id="cb16-12"><a href="#cb16-12" tabindex="-1"></a></span>
+<span id="cb16-13"><a href="#cb16-13" tabindex="-1"></a><span class="co"># When r &gt;&gt; 2 the population will likely crash, generally in a short time</span></span></code></pre></div>
+</div>
+<div id="lv" class="section level2">
+<h2>LV</h2>
+<p class="alert">
+<strong>⚠ Practice 6.3</strong> When having two species using the same
+resources but with different rates of efficiency), we can model their
+population growth using two linked equations: <span
+class="math display">\[N1_{t+1}=
+N1_{t}+\left[growth.rate*N1_{t}*\left(\frac{K1-N1_{t}-\alpha_{12}N2_{t}}{K1}\right)\right]\]</span>
+<span class="math display">\[N2_{t+1}=
+N2_{t}+\left[growth.rate*N2_{t}*\left(\frac{K2-N2_{t}-\alpha_{21}N1_{t}}{K2}\right)\right]\]</span>
+Those equations are known as the <em>Lotka-Volterra</em> equations where
+<em>K</em> values are the carrying capacities for each of the two
+species, both <span class="math inline">\(\alpha\)</span> values are
+competition coefficients that translate the effect of one species on
+another. Do not worry about this for now, try a range of 0.5 to 1.5,
+which would indicate that species are fairly similar competitors. I
+wrote the script, approaching the solution but damn… still not working!
+Help me to fix the following codes - this time you can look at it! See
+if you can debug this code that should grow each species alone (no
+competition), then put the two species interacting. Compare the results
+of 3 different plot. Note It would be easier if you first focus your
+attention on the functions of two species competing. Make an animation
+that makes sense will further be amazing.
+</p>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" tabindex="-1"></a><span class="co"># WRONG CODE</span></span>
+<span id="cb17-2"><a href="#cb17-2" tabindex="-1"></a><span class="co"># ADVICES: START FROM SCRATCH, </span></span>
+<span id="cb17-3"><a href="#cb17-3" tabindex="-1"></a><span class="co"># JUST GET INSPIRATION FROM MY CODE, WORK STEP BY STEP</span></span>
+<span id="cb17-4"><a href="#cb17-4" tabindex="-1"></a>grow<span class="ot">&lt;-</span><span class="cf">function</span>(start_1){</span>
+<span id="cb17-5"><a href="#cb17-5" tabindex="-1"></a>  num_gen<span class="sc">&lt;=</span><span class="dv">30</span></span>
+<span id="cb17-6"><a href="#cb17-6" tabindex="-1"></a>  N1 <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="dv">0</span>,<span class="dv">10</span>)</span>
+<span id="cb17-7"><a href="#cb17-7" tabindex="-1"></a>  N2 <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="dv">0</span>,<span class="dv">10</span>)</span>
+<span id="cb17-8"><a href="#cb17-8" tabindex="-1"></a>  generation<span class="ot">&lt;-</span><span class="fu">rep</span>(<span class="dv">1</span>,num_gen)</span>
+<span id="cb17-9"><a href="#cb17-9" tabindex="-1"></a>  growth.rate<span class="ot">&lt;-</span><span class="fl">1.2</span></span>
+<span id="cb17-10"><a href="#cb17-10" tabindex="-1"></a>  K1<span class="ot">&lt;-</span><span class="dv">100</span></span>
+<span id="cb17-11"><a href="#cb17-11" tabindex="-1"></a>  K2<span class="ot">&lt;-</span><span class="dv">120</span></span>
+<span id="cb17-12"><a href="#cb17-12" tabindex="-1"></a>  a12<span class="ot">&lt;-</span><span class="fl">0.8</span></span>
+<span id="cb17-13"><a href="#cb17-13" tabindex="-1"></a>  a21<span class="ot">&lt;-</span><span class="fl">0.8</span></span>
+<span id="cb17-14"><a href="#cb17-14" tabindex="-1"></a>  N1[<span class="dv">1</span>]<span class="ot">&lt;-</span><span class="dv">0</span></span>
+<span id="cb17-15"><a href="#cb17-15" tabindex="-1"></a>  N2[<span class="dv">1</span>]<span class="ot">&lt;-</span>start_2</span>
+<span id="cb17-16"><a href="#cb17-16" tabindex="-1"></a>  <span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">2</span><span class="sc">:</span><span class="dv">3</span>)  {</span>
+<span id="cb17-17"><a href="#cb17-17" tabindex="-1"></a>    N1[i] <span class="ot">=</span> N1[i<span class="dv">-1</span>] <span class="sc">+</span> (<span class="fl">3.2</span><span class="sc">*</span> N1[i<span class="dv">-1</span>] <span class="sc">*</span> ((K1<span class="sc">-</span>N1[i<span class="dv">-1</span>]<span class="sc">-</span>(a12<span class="sc">*</span>N2[i<span class="dv">-1</span>]))<span class="sc">/</span>K1))</span>
+<span id="cb17-18"><a href="#cb17-18" tabindex="-1"></a>    N2[i] <span class="ot">=</span> N2[i] <span class="sc">+</span> (growth.rate <span class="sc">*</span> N2[i<span class="dv">-1</span>] <span class="sc">*</span> ((K2<span class="sc">-</span>N2[i<span class="dv">-1</span>]<span class="sc">-</span>(a21<span class="sc">*</span>N1[i<span class="dv">-1</span>]))<span class="sc">*</span>K2))</span>
+<span id="cb17-19"><a href="#cb17-19" tabindex="-1"></a>    generation[<span class="dv">1</span>]<span class="ot">=</span><span class="dv">1</span></span>
+<span id="cb17-20"><a href="#cb17-20" tabindex="-1"></a>    <span class="fu">print</span> (N1[i])</span>
+<span id="cb17-21"><a href="#cb17-21" tabindex="-1"></a>  <span class="er">)</span></span>
+<span id="cb17-22"><a href="#cb17-22" tabindex="-1"></a>  <span class="cf">if</span> (N1[<span class="dv">1</span>]<span class="sc">&gt;</span><span class="dv">2</span>){</span>
+<span id="cb17-23"><a href="#cb17-23" tabindex="-1"></a>    <span class="fu">plot</span>(N1<span class="sc">~</span>generation,<span class="at">typ=</span><span class="st">&quot;b&quot;</span>,<span class="at">ylim=</span><span class="fu">c</span>(<span class="dv">0</span>,<span class="fu">min</span>(<span class="fu">c</span>(K1,K2))),<span class="at">ylab=</span><span class="st">&quot;N&quot;</span>)</span>
+<span id="cb17-24"><a href="#cb17-24" tabindex="-1"></a>  }  <span class="cf">else</span> {</span>
+<span id="cb17-25"><a href="#cb17-25" tabindex="-1"></a>    <span class="fu">plot</span>(N1<span class="sc">~</span>generation,<span class="at">typ=</span><span class="st">&quot;n&quot;</span>,<span class="at">ylim=</span><span class="fu">c</span>(<span class="dv">0</span>,<span class="fu">min</span>(<span class="fu">c</span>(K1,K2))),<span class="at">ylab=</span><span class="st">&quot;N&quot;</span>)</span>
+<span id="cb17-26"><a href="#cb17-26" tabindex="-1"></a>  }</span>
+<span id="cb17-27"><a href="#cb17-27" tabindex="-1"></a>  <span class="fu">print</span>(N2[<span class="dv">1</span>])</span>
+<span id="cb17-28"><a href="#cb17-28" tabindex="-1"></a>  <span class="cf">if</span> (N2[<span class="dv">1</span>]<span class="sc">&gt;</span><span class="dv">0</span>){</span>
+<span id="cb17-29"><a href="#cb17-29" tabindex="-1"></a>    <span class="fu">lines</span>(N2<span class="sc">~</span>generation,<span class="at">typ=</span><span class="st">&quot;b&quot;</span>,<span class="at">col=</span><span class="dv">2</span>)}</span>
+<span id="cb17-30"><a href="#cb17-30" tabindex="-1"></a>  }</span>
+<span id="cb17-31"><a href="#cb17-31" tabindex="-1"></a></span>
+<span id="cb17-32"><a href="#cb17-32" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mar=</span><span class="fu">c</span>(<span class="dv">9</span>,<span class="dv">4</span>,<span class="dv">1</span>,<span class="dv">1</span>),<span class="at">mfrow=</span><span class="fu">c</span>(<span class="dv">5</span>,<span class="dv">1</span>),<span class="at">las=</span><span class="dv">1</span>)</span>
+<span id="cb17-33"><a href="#cb17-33" tabindex="-1"></a></span>
+<span id="cb17-34"><a href="#cb17-34" tabindex="-1"></a><span class="fu">grow</span>(<span class="dv">1</span>,<span class="dv">0</span>)</span>
+<span id="cb17-35"><a href="#cb17-35" tabindex="-1"></a><span class="fu">text</span>(<span class="dv">4</span>,<span class="dv">110</span>,<span class="st">&quot;Species 1 alone&quot;</span>)</span>
+<span id="cb17-36"><a href="#cb17-36" tabindex="-1"></a></span>
+<span id="cb17-37"><a href="#cb17-37" tabindex="-1"></a><span class="fu">grow</span>(<span class="dv">0</span>,<span class="dv">1</span>)</span>
+<span id="cb17-38"><a href="#cb17-38" tabindex="-1"></a><span class="fu">text</span>(<span class="dv">4</span>,<span class="dv">110</span>,<span class="st">&quot;Species 2 alone&quot;</span>)</span>
+<span id="cb17-39"><a href="#cb17-39" tabindex="-1"></a></span>
+<span id="cb17-40"><a href="#cb17-40" tabindex="-1"></a><span class="fu">grow</span>(<span class="dv">1</span>,<span class="dv">2</span>)</span>
+<span id="cb17-41"><a href="#cb17-41" tabindex="-1"></a><span class="fu">text</span>(<span class="dv">6</span>,<span class="dv">110</span>,<span class="st">&quot;Both Species competing&quot;</span>)</span></code></pre></div>
+<p><img src="illustrations/Lotka.png" /></p>
+<p>Further check your results using <code>compLV</code> from the package
+<code>EcoVirtual</code>. You should now be ready to develop your own
+package ;)</p>
+</div>
+</div>
+
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+<script>
+$(document).ready(function () {
+  window.initializeCodeFolding("show" === "show");
+});
+</script>
+
+<script>
+$(document).ready(function ()  {
+
+    // temporarily add toc-ignore selector to headers for the consistency with Pandoc
+    $('.unlisted.unnumbered').addClass('toc-ignore')
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
