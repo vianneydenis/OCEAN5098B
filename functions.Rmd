@@ -246,7 +246,7 @@ The 100 value is called the "carrying capacities" also called *K*, it means the 
 </p>
 
 
-```{r, code_folding = 'Show Explanation',  eval=F}
+```{r, class.source = "fold-hide",  eval=F}
 # By clicking here, you are ready for the next step below: Practice 6.2. 
 
 # Here are explanation of the logistic grwoth, but not the solution. Call me when you are here then you can go.
@@ -266,7 +266,7 @@ The 100 value is called the "carrying capacities" also called *K*, it means the 
 ## LV
 
 <p class="alert">
-**`r knitr::asis_output("\U26A0")` Practice 6.2** When having two species using the same resources but with different rates of efficiency), we can model their population growth using two linked equations:
+**`r knitr::asis_output("\U26A0")` Practice 6.3** When having two species using the same resources but with different rates of efficiency), we can model their population growth using two linked equations:
 $$N1_{t+1}= N1_{t}+\left[growth.rate*N1_{t}*\left(\frac{K1-N1_{t}-\alpha_{12}N2_{t}}{K1}\right)\right]$$
 $$N2_{t+1}= N2_{t}+\left[growth.rate*N2_{t}*\left(\frac{K2-N2_{t}-\alpha_{21}N1_{t}}{K2}\right)\right]$$
 Those equations are known as the _Lotka-Volterra_ equations where _K_ values are the carrying capacities for each of the two species, both $\alpha$ values are competition coefficients that translate the effect of one species on another. Do not worry about this for now, try a range of 0.5 to 1.5, which would indicate that species are fairly similar competitors.

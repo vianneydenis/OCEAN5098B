@@ -22,7 +22,15 @@ navbar:
     - text: "Mapping"
       href: maps.html
     - text: "Loop & functions"
-      href: functions.html  
+      href: functions.html
+    - text: "Statistics"
+      menu:
+        - text: "Initiation"
+          href: stat_1.html    
+        - text: "Linear models"
+          href: stat_2.html
+        - text: "Multivariates"
+          href: stat_3.html
           
 output:
   html_document:
