@@ -459,6 +459,24 @@ div.tocify {
 <li>
   <a href="functions.html">Loop &amp; functions</a>
 </li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Statistics
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="stat_1.html">Initiation</a>
+    </li>
+    <li>
+      <a href="stat_2.html">Linear models</a>
+    </li>
+    <li>
+      <a href="stat_3.html">Multivariates</a>
+    </li>
+  </ul>
+</li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         
@@ -620,8 +638,8 @@ window into a grid by specifying the number of row first and the number
 of column them. Any modification using <code>par</code> will be applied
 to next plots. You can terminated using <code>dev.off()</code>.</p>
 <div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" tabindex="-1"></a><span class="fu">dev.off</span>()</span></code></pre></div>
-<pre><code>## RStudioGD 
-##         2</code></pre>
+<pre><code>## null device 
+##           1</code></pre>
 <p>A lot of graphical parameters can be modified using <code>par</code>.
 See the full list of set parameters using <code>par()</code> or
 <code>?par</code>. Change will apply to all subsequent plots until your
@@ -785,8 +803,8 @@ required bins to the <code>breaks</code> argument.</p>
 <span id="cb40-3"><a href="#cb40-3" tabindex="-1"></a><span class="fu">hist</span>(treatment, <span class="at">col=</span><span class="st">&quot;lightblue&quot;</span>, <span class="at">ylim=</span><span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">5</span>), <span class="at">cex.main=</span><span class="fl">0.8</span>, <span class="at">breaks =</span> <span class="dv">10</span>)</span></code></pre></div>
 <p><img src="graphs_files/figure-html/unnamed-chunk-37-1.png" width="672" style="display: block; margin: auto;" /></p>
 <div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" tabindex="-1"></a><span class="fu">dev.off</span>()</span></code></pre></div>
-<pre><code>## RStudioGD 
-##         2</code></pre>
+<pre><code>## null device 
+##           1</code></pre>
 </div>
 <div id="dot-charts" class="section level2">
 <h2>Dot charts</h2>
@@ -913,24 +931,24 @@ can be entered as usual. The output would be redirected to the file.</p>
 <div class="sourceCode" id="cb55"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb55-1"><a href="#cb55-1" tabindex="-1"></a><span class="fu">bmp</span>(<span class="at">file =</span> <span class="st">&quot;outputs/control.bmp&quot;</span>)</span>
 <span id="cb55-2"><a href="#cb55-2" tabindex="-1"></a><span class="fu">plot</span>(control)</span>
 <span id="cb55-3"><a href="#cb55-3" tabindex="-1"></a><span class="fu">dev.off</span>()</span></code></pre></div>
-<pre><code>## RStudioGD 
-##         2</code></pre>
+<pre><code>## png 
+##   2</code></pre>
 </div>
 <div id="saving-in-jpeg-format" class="section level3">
 <h3>Saving in jpeg format</h3>
 <div class="sourceCode" id="cb57"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb57-1"><a href="#cb57-1" tabindex="-1"></a><span class="fu">jpeg</span>(<span class="at">file =</span> <span class="st">&quot;control.jpg&quot;</span>, <span class="at">quality =</span> <span class="dv">20</span>)</span>
 <span id="cb57-2"><a href="#cb57-2" tabindex="-1"></a><span class="fu">plot</span>(control)</span>
 <span id="cb57-3"><a href="#cb57-3" tabindex="-1"></a><span class="fu">dev.off</span>()</span></code></pre></div>
-<pre><code>## RStudioGD 
-##         2</code></pre>
+<pre><code>## png 
+##   2</code></pre>
 </div>
 <div id="saving-in-postscript-format" class="section level3">
 <h3>Saving in postscript format</h3>
 <div class="sourceCode" id="cb59"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb59-1"><a href="#cb59-1" tabindex="-1"></a><span class="fu">postscript</span>(<span class="at">file =</span> <span class="st">&quot;control.ps&quot;</span>)</span>
 <span id="cb59-2"><a href="#cb59-2" tabindex="-1"></a><span class="fu">plot</span>(control)</span>
 <span id="cb59-3"><a href="#cb59-3" tabindex="-1"></a><span class="fu">dev.off</span>()</span></code></pre></div>
-<pre><code>## RStudioGD 
-##         2</code></pre>
+<pre><code>## png 
+##   2</code></pre>
 </div>
 <div id="saving-in-pdf-format" class="section level3">
 <h3>Saving in pdf format</h3>
@@ -947,8 +965,8 @@ pixelation.</p>
 <div class="sourceCode" id="cb61"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb61-1"><a href="#cb61-1" tabindex="-1"></a><span class="fu">pdf</span>(<span class="at">file =</span> <span class="st">&quot;control.pdf&quot;</span>, <span class="at">paper =</span> <span class="st">&quot;A4&quot;</span>)</span>
 <span id="cb61-2"><a href="#cb61-2" tabindex="-1"></a><span class="fu">plot</span>(control)</span>
 <span id="cb61-3"><a href="#cb61-3" tabindex="-1"></a><span class="fu">dev.off</span>()</span></code></pre></div>
-<pre><code>## RStudioGD 
-##         2</code></pre>
+<pre><code>## png 
+##   2</code></pre>
 <p class="alert">
 <strong>⚠ Practice 4.1</strong> Using the <code>iris</code> dataset,
 reproduce the plot below. <strong>Explore</strong> the function

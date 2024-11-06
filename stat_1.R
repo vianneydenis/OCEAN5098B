@@ -74,34 +74,39 @@ tapply(softies$ratio,softies$species, FUN="median")
 ## aggregate(iris[,1:4],by=list(iris$Species), median)
 ## tapply(iris$Sepal.Length , iris$Species, mean)
 
-## # dataset hypotheses?
-## x<-students$height
-## y<-students$shoesize
-## s<-students[,1:2] # a matrix
+students<-read.table('https://www.dipintothereef.com/uploads/3/7/3/5/37359245/students.txt',header=T, sep="\t", dec='.')
+# HO: no significant relationship between height and shoesize
+# H1: significant relationship between height and shoesize
+x1<-students$height
+y1<-students$shoesize
+s1<-students[,1:2] # a matrix
+# Pearson correlation
+# cor(x1,y1)
+# cor(s1)
+cor.test(x1,y1)
+
+## # HO: no significant relationship between the amounts of chl a and c
+## # H1: significant relationship between the amounts of chl a and c
+## x2<-softies$chla.afdw
+## y2<-softies$chlc.afdw
+## s2<-softies[,c(12,14)] # a matrix
 ## # Pearson correlation
 ## # cor(x,y)
 ## # cor(s)
-## cor.test(x,y)
+## cor.test(x2,y2)
 
-## ggplot(students, aes(x = height, y = shoesize)) +
+## ggplot(softies, aes(x = chla.afdw, y = chlc.afdw)) +
 ##   geom_point() +
 ##   stat_smooth(method = "lm", col = "red")
 
-## # Spearman correlation (monotonic)
-## # cor(x,y, method ='spearman')
-## cor.test(x,y, method ='spearman')
-
 ## w<-(1:100)
 ## z<-exp(x)
-## cor.test(w,z,method='pearson') # super low
-## cor.test(w,z,method='spearman') #super high
+## cor.test(w,z,method='spearman')
+## # cor.test(w,z,method='pearson')
 
 ## #Cast 240 times a die. We counted occurrence of 1,2,3,4,5,6
 ## die<-data.frame(obs=c(55,44,35,45,31,30), row.names=c('Cast1','Cast2','Cast3','Cast4','Cast5','Cast6'))
-## die #Is this die fair? Define H0 and H1.
-
 ## chisq.test(die)
-## # I am cheating
 
 ## obs <- c(750, 50, 200)
 ## exp <- c(0.60, 0.35, 0.05)
@@ -111,34 +116,51 @@ tapply(softies$ratio,softies$species, FUN="median")
 ## chisq.test(F) # alternative see `fisher.test`
 
 ## # One sample
-## t.test (students$height, mu=170)
+## t.test (softies$ratio, mu=0.4)
 ## # Two sample (with equal variances)
-## t.test (students$height~students$gender, var.equal = TRUE)
-## # Two sample (with unequal variances, default option when using t.test)
-## t.test (students$height~students$gender)
+## t.test (softies$ratio~softies$species, var.equal = TRUE)
+## # Two sample (with unequal variances)
+## t.test (softies$chla.afdw~softies$species)
 ## # Two sample paired t.test
-## t.test (students$height~students$gender, paired=T)
+## # ?sleep
+## sleep2 <- reshape(sleep, direction = "wide", idvar = "ID", timevar = "group")
+## t.test (sleep2$extra.1,sleep2$extra.2,paired=T )
+## # same as: t.test(Pair(extra.1, extra.2) ~ 1, data = sleep2)
 
 ## set <- iris[iris$Species == "setosa", ]$Sepal.Length
 ## ver <- iris[iris$Species == "versicolor", ]$Sepal.Length
-## vir <- iris[iris$Species == "virginica", ]$Sepal.Length
-## 
-## setver <- t.test(set, ver, paired = FALSE, alternative = "two.sided", var.equal = FALSE)
-## vervir <- t.test(ver, vir, paired = FALSE, alternative = "two.sided", var.equal = FALSE)
+## boxplot(set, ver)
+## setver <- t.test(set, ver, var.equal = TRUE, paired = FALSE)
 
-## # Normality plot & test
-## students$height[6]<-132
-## students$height[10]<-310
-## students$height[8]<-132
-## students$height[9]<-210
-## boxplot(height~gender, students)
-## qqnorm(students$height)
-## qqline(students$height)
-## shapiro.test(students$height) # data are not normal
-## wilcox.test (students$height~students$gender)
+## 
+## ## One-sample test.
+## ## Hollander & Wolfe (1973), 29f.
+## ## Hamilton depression scale factor measurements in 9 patients with
+## ##  mixed anxiety and depression, taken at the first (x) and second
+## ##  (y) visit after initiation of a therapy (administration of a
+## ##  tranquilizer).
+## x <- c(1.83,  0.50,  1.62,  2.48, 1.68, 1.88, 1.55, 3.06, 1.30)
+## y <- c(0.878, 0.647, 0.598, 2.05, 1.06, 1.29, 1.06, 3.14, 1.29)
+## depression <- data.frame(first = x, second = y, change = y - x)
+## wilcox.test(change ~ 1, data = depression) # Formula interface to one-sample
+## wilcox.test(Pair(first, second) ~ 1, data = depression) # Formula interface to paired tests
+## 
+## ## Two-sample test.
+## ### Ozone
+## boxplot(Ozone ~ Month, data = airquality)
+## wilcox.test(Ozone ~ Month, data = airquality, subset = Month %in% c(5, 8))
+## ### wilcox_test in package coin for exact, asymptotic and Monte Carlo conditional p-values, including in the presence of ties.
+## 
+## ## Softies
+## boxplot(prot.afdw~species, data=softies)
+## shapiro.test(softies$prot.afdw) # data are not normal
+## qqnorm(softies$prot.afdw)
+## qqline(softies$prot.afdw)
+## wilcox.test (softies$prot.afdw~softies$species)
 
 ## # Test of variance: we test HO: homogeneous, H1:heterogeneous
-## fligner.test (students$height ~ students$gender)
+## fligner.test (softies$ratio ~ softies$species)
+## fligner.test (softies$chla.afdw ~ softies$species)
 
 ## tg<-ToothGrowth
 ## tg$dose<-factor(tg$dose)

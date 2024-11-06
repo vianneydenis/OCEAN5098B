@@ -459,6 +459,24 @@ div.tocify {
 <li>
   <a href="functions.html">Loop &amp; functions</a>
 </li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Statistics
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="stat_1.html">Initiation</a>
+    </li>
+    <li>
+      <a href="stat_2.html">Linear models</a>
+    </li>
+    <li>
+      <a href="stat_3.html">Multivariates</a>
+    </li>
+  </ul>
+</li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         
@@ -554,12 +572,10 @@ class="sourceCode r fold-show"><code class="sourceCode r"><span id="cb1-1"><a hr
 reef region:</p>
 <div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a>TW_corals<span class="ot">&lt;-</span><span class="fu">read.table</span>(<span class="st">&#39;Data/tw_corals.txt&#39;</span>, <span class="at">header=</span>T, <span class="at">sep=</span><span class="st">&#39;</span><span class="sc">\t</span><span class="st">&#39;</span>, <span class="at">dec=</span><span class="st">&#39;.&#39;</span>) </span>
 <span id="cb5-2"><a href="#cb5-2" tabindex="-1"></a>TW_corals</span></code></pre></div>
-<pre><code>##   Southern_TW Northern_TW Eastern_TW Ludao Lanyu Xiaoliuqiu
-## 1         280         136        210   250   248        239
-##   Penghu_North Penghu_East Penghu_Inner Penghu.South Dongsha Taiping
-## 1          107          84           75           99     229     163
-##   Northern_Is
-## 1         112</code></pre>
+<pre><code>##   Southern_TW Northern_TW Eastern_TW Ludao Lanyu Xiaoliuqiu Penghu_North
+## 1         280         136        210   250   248        239          107
+##   Penghu_East Penghu_Inner Penghu.South Dongsha Taiping Northern_Is
+## 1          84           75           99     229     163         112</code></pre>
 <p>This table is a <strong>wide table</strong>. It can easily be
 reformatted into a long table by combining the pipe operator
 <code>%&gt;%</code> with <code>pivot_longer</code> as follows:</p>
@@ -589,12 +605,11 @@ order to recreate the wide version of our table:</p>
 <span id="cb9-2"><a href="#cb9-2" tabindex="-1"></a>  <span class="fu">pivot_wider</span>( <span class="at">names_from =</span> Region, <span class="at">values_from =</span> Richness) </span>
 <span id="cb9-3"><a href="#cb9-3" tabindex="-1"></a>TW_corals_wide</span></code></pre></div>
 <pre><code>## # A tibble: 1 × 13
-##   Southern_TW Northern_TW Eastern_TW Ludao Lanyu Xiaoliuqiu
-##         &lt;int&gt;       &lt;int&gt;      &lt;int&gt; &lt;int&gt; &lt;int&gt;      &lt;int&gt;
-## 1         280         136        210   250   248        239
-## # ℹ 7 more variables: Penghu_North &lt;int&gt;, Penghu_East &lt;int&gt;,
-## #   Penghu_Inner &lt;int&gt;, Penghu.South &lt;int&gt;, Dongsha &lt;int&gt;,
-## #   Taiping &lt;int&gt;, Northern_Is &lt;int&gt;</code></pre>
+##   Southern_TW Northern_TW Eastern_TW Ludao Lanyu Xiaoliuqiu Penghu_North
+##         &lt;int&gt;       &lt;int&gt;      &lt;int&gt; &lt;int&gt; &lt;int&gt;      &lt;int&gt;        &lt;int&gt;
+## 1         280         136        210   250   248        239          107
+## # ℹ 6 more variables: Penghu_East &lt;int&gt;, Penghu_Inner &lt;int&gt;,
+## #   Penghu.South &lt;int&gt;, Dongsha &lt;int&gt;, Taiping &lt;int&gt;, Northern_Is &lt;int&gt;</code></pre>
 <p><span style="color: red"><strong>Note</strong>: The pipe operator
 <code>%&gt;%</code> is optional, but it is generally more elegant and
 you will discover its importance as your programming skills mature and
