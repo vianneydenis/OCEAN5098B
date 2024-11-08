@@ -30,10 +30,11 @@ xfun::embed_file('data/sf_res.csv')
 
 ```{r,  eval=T, warning=F, message=F}
 library (psych)
-library(ggplot2)
-library(dplyr)
+library (tidyverse)
 library(gridExtra)
 library(car)
+library(ggpubr)
+library(rstatix)
 ```
 
 Sample survey methods are used to collect data from observational studies, and experimental design methods are used to collect data from experimental studies. The area of descriptive statistics is concerned primarily with methods of presenting and interpreting data using graphs, tables, and numerical summaries. Whenever statisticians use data from a sample—i.e., a subset of the population—to make statements about a population, they are performing statistical inference. Estimation and hypothesis testing are procedures used to make statistical inferences. Probability plays a key role in statistical inference; it is used to provide measures of the quality and precision of the inferences. 
@@ -186,7 +187,7 @@ Math may look scary for some of you but it is actually very easy to compute (see
 
 + Confirming calculation of `students` in Excel with R 
 
-```{r}
+```{r,  eval=T}
 students<-read.table('https://www.dipintothereef.com/uploads/3/7/3/5/37359245/students.txt',header=T, sep="\t", dec='.')
 # HO: no significant relationship between height and shoesize
 # H1: significant relationship between height and shoesize
@@ -201,7 +202,7 @@ cor.test(x1,y1)
 
 + Using `softies` and examining relationship between amounts of chlorophyll in corals. 
 
-```{r class.source = "fold-show",  eval=F}
+```{r,  eval=T}
 # HO: no significant relationship between the amounts of chl a and c
 # H1: significant relationship between the amounts of chl a and c
 x2<-softies$chla.afdw
@@ -215,7 +216,7 @@ cor.test(x2,y2)
 
 This relationship is usually represented with it confident interval on a scatter plot.
 
-```{r,  eval=F}
+```{r,  eval=T}
 ggplot(softies, aes(x = chla.afdw, y = chlc.afdw)) + 
   geom_point() +
   stat_smooth(method = "lm", col = "red")
@@ -225,9 +226,9 @@ ggplot(softies, aes(x = chla.afdw, y = chlc.afdw)) +
 ### Spearman's correlation (non parametric)
 
 It is based on ranking. Basically it tests for a monotonic relationship. `method` is added as an argument (default `pearson`) 
-```{r,  eval=F}
+```{r,  eval=T}
 w<-(1:100)
-z<-exp(x)
+z<-exp(w)
 cor.test(w,z,method='spearman')
 # cor.test(w,z,method='pearson') 
 ```
@@ -242,7 +243,7 @@ Also called a goodness-of-fit test: observed vs theoretical.
 
 + A casino example: all results should be equally probable
 
-```{r,  eval=F}
+```{r,  eval=T}
 #Cast 240 times a die. We counted occurrence of 1,2,3,4,5,6
 die<-data.frame(obs=c(55,44,35,45,31,30), row.names=c('Cast1','Cast2','Cast3','Cast4','Cast5','Cast6'))
 chisq.test(die)
@@ -252,7 +253,7 @@ chisq.test(die)
 
 A common biological application of a Chi-square test is the Hardy-Weinberg equilibrium. Genotypes at the Hardy-Weinberg equilibrium (HW-equilibrium) will follow: *p*2 + 2*pq* + *q*2 = 1 at panmixia (random mating, *p* and *q* represent allele frequency). In this case, we want to compare our observation to a theoretical distribution. Let's assume 2 alleles (*A* and *T*) with observed genotypes in a population: 750 *AA*, *50* AT, 200 *TT* => *f(A)*: 0.775 / *f(T)*= 0.225. Theoretical distribution should follow: 0.60(*p2*), 0.5 (*2pq*), 0.05 (*q2*) with *p2* + *2pq* + *q2* = 1. Is our population at the HW-equilibrium (H0)?
 
-```{r,  eval=F}
+```{r,  eval=T}
 obs <- c(750, 50, 200)
 exp <- c(0.60, 0.35, 0.05)
 chisq.test (x=obs, p=exp)
@@ -262,7 +263,7 @@ chisq.test (x=obs, p=exp)
 
 Chi-square test can simply be used to compare the distribution of frequencies in two populations: 
 
-```{r,  eval=F}
+```{r,  eval=T}
 F <- matrix(nrow=4,ncol=2,data=c(33,14, 8,18,31,25,14,12))
 chisq.test(F) # alternative see `fisher.test`
 ```
@@ -272,7 +273,7 @@ chisq.test(F) # alternative see `fisher.test`
 Several version of Student's t-test exist: **one sample** compared to a known mean, **two samples** (with variance equal - Student's or with unequal variance - Welsh's), **paired samples** (compare two dependent (e.g. before-after) samples). 
 
 
-```{r,  eval=F}
+```{r,  eval=T}
 # One sample
 t.test (softies$ratio, mu=0.4)
 # Two sample (with equal variances)
@@ -308,8 +309,7 @@ setver <- t.test(set, ver, var.equal = TRUE, paired = FALSE)
 
 A non-parametric alternative for the comparison of two samples: Mann-Whitney U-test (independent) or Wilcoxon W-test (dependant). Assuming normality assumptions are violated.
 
-```{r class.source = "fold-show",  eval=F}
-
+```{r,  eval=T}
 ## One-sample test.
 ## Hollander & Wolfe (1973), 29f.
 ## Hamilton depression scale factor measurements in 9 patients with
@@ -336,6 +336,38 @@ qqline(softies$prot.afdw)
 wilcox.test (softies$prot.afdw~softies$species) 
 ```
 
+Two or more samples? `kruskal.test` also perfoms a rank sum test. Kruskall-Wallis test (KW-test) is a non-parametric (assumption free) version of 1-way ANOVA.
+
+```{r,  eval=T}
+kruskal.test(Ozone ~ Month, data = airquality)
+# see also from rstatix
+res.kruskal <- airquality %>% kruskal_test(Ozone ~ Month)
+res.kruskal
+```
+
+From the output of the Kruskal-Wallis test, we know that there is a significant difference between groups, but we don’t know which pairs of groups are different.
+
+A significant Kruskal-Wallis test is generally followed up by **Dunn’s test** to identify which groups are different. It’s also possible to use the Wilcoxon’s test to calculate pairwise comparisons between group levels with corrections for multiple testing.
+
+```{r,  eval=T}
+# Pairwise comparisons
+oz <- airquality %>% 
+  dunn_test(Ozone ~ Month, p.adjust.method = "bonferroni") 
+oz
+```
+
+There was a statistically significant differences between treatment groups as assessed using the Kruskal-Wallis test (p < 0.001). Dunn’s test identified differences between groups 5 & 7, 5 & 8, 7 & 9, 8 & 9. Note the use of an adjusted p-value in case of multiple comparison. 
+
+```{r,  eval=T}
+oz <- oz %>% add_xy_position(x = "Month")
+ggboxplot(airquality, x = "Month", y = "Ozone") +
+  stat_pvalue_manual(oz, hide.ns = TRUE) +
+  labs(
+    subtitle = get_test_label(res.kruskal, detailed = TRUE),
+    caption = get_pwc_label(oz)
+    )
+```
+
 ## Variances
 
 Variance tests (F-tests) are used to determine if the variances of two (or more) samples are equal.  F-test are generally very sensitive to the non-normality of the data and can also be assessed visually using `boxplot` and qqplot among other visualization. The **homoscedasticity** (or **homogeneity of variance**) is a very important assumption of parametric statistics.
@@ -358,6 +390,8 @@ bartlett.test(len~interaction (supp,dose),data=ToothGrowth) # sensitivity non-no
 leveneTest(len~interaction (supp,dose),data=ToothGrowth) # sensitivity non-normality ++
 fligner.test(len~interaction (supp,dose),data=ToothGrowth) # sensitivity non-normality +
 ```
+
+More on Analysis of Variance (ANOVA) next week.
 
 
 <p class="alert">
