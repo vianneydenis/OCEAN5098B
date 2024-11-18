@@ -429,7 +429,7 @@ In this case, because we have numbers for the four levels of the Temperature tre
 
 ```{r}
 turtles$Temperature <- factor(turtles$Temperature)
-boxplot(Days ~ Temperature, data = turtles, ylab = "Hatching time (days)", xlab = "Temperature (°C)")
+boxplot(Days ~ Temperature, data = turtles, ylab = "Hatching time (days)", xlab = "Temperature (C)")
 ```
 
 Now, we can run the analysis of variance contrasting hatching time (days) across temperatures using the function `aov`. The arguments of the function are simply a formula statement, `y~x`, with the response variable to the left of the `~`, the predictor variable to the right, and some code to specify which data frame holds those variables.
@@ -632,7 +632,7 @@ The same assumptions of linear models apply to nested ANOVA’s; **independence*
 
 Generalised linear models (GLMs) are used when the distribution of data do not conform to the assumptions of linear models, specifically the assumptions of normally distributed residuals and no relationship between the variance and the mean (e.g., presence/absence, count or highly skewed data).
 
-## Introduction and example
+## Introduction
 
 Linear models (e.g., linear regression) are used to model the relationship between a **continuous** response variable $y$ and one or more explanatory variables $x_1,x_2,...$. When we have a **discrete** response we use GLMs. 
 
@@ -659,6 +659,9 @@ If had surveyed a beach and wanted to analyse how the presence of a crab varied 
 Crab_PA <- read.csv("data/crabs.csv", header = T)
 head(Crab_PA)
 ```
+
+### Running the analysis
+
 
 The variable `CrabPres` contains binomial data, i.e. presence/absence data or data as 0/1.Fitting a GLM uses a very similar syntax to fitting linear models but we use the `glm` function instead of `lm`. We also need to indicate the `family` as an argument to the function. To test whether the probability of crab presence changes with time (a factor) and distance (a continuous variable), we fit the following model. The response variable (presence/absence of crabs) is binomial, so we use `family=binomial`.
 
@@ -692,10 +695,124 @@ plot(ft.crab.many)
 Now we can look for a fan shape in the residual plot. For these data, there doesn’t seem to be a fan shape, so we can conclude the mean-variance assumption the model made was reasonable for our data. The residuals in this plot have a random component. If you see a pattern it’s best to repeat the plot a few times to see if the pattern is real.
 
 
+**Assumption 3 : There is a straight line relationship between a known function $g$ of the mean $y$  and he predictor $x$**
+
+To check this assumption, we check the residual plot above for non-linearity, or a U-shape. In our case there is no evidence of non-linearity. If the residuals seem to go down then up, or up then down, we may need to add a polynomial function of the predictors using the `poly` function.
 
 
+### Interpreting
+
+If all the assumption checks are okay, we can have a look at the results the model gave us. The two main functions for inference are the same as for linear models: `summary` and `anova`.
+
+The p-values these give you if you use `glm` for fitting the model work well in large samples, although they are still approximate. For binomial models in particular the p-values from the `summary` function can be funny, and we prefer to use the `anova` function to see if predictors are significant. The `summary()` function is still useful to look at the model equation.
+
+```{r}
+anova(ft.crab, test = "Chisq")
+```
+The p-value for *Time* is small (P<0.01), so we conclude there is an effect of time on the presence of crabs, but no effect of distance or an interaction between time and distance. This sample is reasonably large, so these p-values should be a good approximation. For a small sample it is often better to use resampling to calculate p-values. When you use `manyglm` the summary and anova functions use resampling by default.
 
 
+```{r}
+anova(ft.crab.many)
+```
+In this case the results are quite similar, but in small samples it can often make a big difference.
+
+You can also use `summary` with either the `glm` or `manyglm` function. This is interpreted in a similar manner as for linear regression, but we need to include the link function, `g`.
+
+```{r}
+summary(ft.crab)
+```
+
+If $p$ is the probability of crab presence, this output tells us:
+
+$logit(p) = -3.01 + 0.26 * Time - 0.03 * Dist + 0.01 * Time * Dist$
 
 
+**Conclusion:**  We used a binomial linear model because of binary data (presence/abscence) of crabs. Inference was carried out using bootstrap resampling with 1000 resamples (default when using manyglm). There is strong evidence that the presence of crabs varies with time (p = 0.01). Note that for multiple predictors it’s best to display the results in a table.
 
+## Poisson example
+
+For this worked example, we have counts of different animal groups at control sites and sites where bush regeneration has been carried out (treatment). We want to know if the the bush regeneration activities have affected the count of slugs.
+
+```{r}
+Reveg <- read.csv("data/revegetation.csv", header = T)
+head(Reveg)
+```
+If you view the frequency histogram of the slug counts, you will see that it is very skewed, with many small values and few large counts (the variable name, Soleolifera, is the order name of terrestrial slugs).
+
+
+```{r}
+hist(Reveg$Soleolifera)
+```
+
+The default distribution for count data is the Poisson. The Poisson distribution assumes the variance equals the mean. This is quite a restrictive assumption which ecological count data often violate. We may need to use the more flexible negative-binomial distribution instead.
+
+### Running the analysis
+
+We can use a GLM to test whether the counts of slugs (from the order Soleolifera) differ between control and regenerated sites. To fit the GLM, we will use the `manyglm` function instead of `glm` so we have access to more useful residual plots.
+
+
+```{r}
+ft.sol.pois <- manyglm(Soleolifera ~ Treatment, family = "poisson", data = Reveg)
+```
+
+where Soleolifera is the response variable, and Treatment is the predictor variable (with two levels, control and revegetated).
+
+
+### Assumptions
+
+Before we look at the results, we need to look at the residual plot to check the assumption
+
+```{r, warning = F}
+plot(ft.sol.pois)
+```
+
+It’s hard to say whether there is any non-linearity in this plot, this is because the predictor is binary (treatment vs revegetated). Looking at the variance assumption, it does appear as though there is a fan shape. The residuals are more spread out on the right than the left - we call this overdispersion.
+
+This tells us the variance assumption of the Poisson may be too restrictive and we should try a different distribution. We can instead fit a negative-binomial distribution in `manyglm` by changing the family argument to `family="negative binomial"`.
+
+```{r}
+ft.sol.nb <- manyglm(Soleolifera ~ Treatment, family = "negative binomiale", data = Reveg)
+```
+
+Look again at the residual plot:
+
+```{r, warning = F}
+plot(ft.sol.nb)
+```
+
+This seems to have improved the residual plot. There is no longer a strong fan shape, so we can go ahead and look at the results.
+
+
+### Interpreting
+
+
+```{r}
+anova(ft.sol.nb)
+```
+```{r}
+summary(ft.sol.nb)
+```
+Both indicate strong evidence of a treatment effect (p<0.01). To extract the model equation we can look at the coefficients from the fit.
+
+```{r}
+ft.sol.nb$coefficients
+```
+
+The default link function for Poisson and negative binomial models is $log$. If we write the mean count as $\lambda$
+
+$log(\lambda)=-0.92+2.12 \times Treatment$
+
+**Conclusion:**  We used a negative-binomial generalised linear model due to overdispersion evident in the data. Inference was carried out using bootstrap resampling with 1000 resamples (default when using manyglm). There is strong evidence of positive effect of bush regeneration on the abundance of slugs from the order Soleolifera (p < 0.001).
+
+```{r}
+boxplot(Soleolifera ~ Treatment, ylab = "Count", xlab = "Treatment", data = Reveg)
+```
+
+# Mixed models
+
+
+Mixed models are those with a mixture of fixed and random effects. Random effects are categorical factors where the levels have been selected from many possible levels and the investigator would like to make inferences beyond just the levels chosen. Tricky concept, but imagine contrasting two habitat types (forest and grassland) by sampling five sites within each, and five replicate measures within each site. Habitat type is a fixed factor with the researcher only interested in those two levels of habitat type. If the five sites were chosen from a larger collection of possible sites, then site is considered a random effect with 10 levels.
+
+
+to be continued (...)

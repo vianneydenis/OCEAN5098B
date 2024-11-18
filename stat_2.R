@@ -74,7 +74,7 @@ turtles <- read.csv(file = "data/turtles.csv", header = TRUE)
 str(turtles)
 
 turtles$Temperature <- factor(turtles$Temperature)
-boxplot(Days ~ Temperature, data = turtles, ylab = "Hatching time (days)", xlab = "Temperature (°C)")
+boxplot(Days ~ Temperature, data = turtles, ylab = "Hatching time (days)", xlab = "Temperature (C)")
 
 turtles.aov <- aov(Days ~ Temperature, data = turtles)
 summary(turtles.aov)
@@ -124,3 +124,29 @@ plot(ft.crab, which = 1)
 
 ft.crab.many <- manyglm(CrabPres ~ Time * Dist, family = "binomial", data = Crab_PA)
 plot(ft.crab.many)
+
+anova(ft.crab, test = "Chisq")
+
+anova(ft.crab.many)
+
+summary(ft.crab)
+
+Reveg <- read.csv("data/revegetation.csv", header = T)
+head(Reveg)
+
+hist(Reveg$Soleolifera)
+
+ft.sol.pois <- manyglm(Soleolifera ~ Treatment, family = "poisson", data = Reveg)
+
+plot(ft.sol.pois)
+
+ft.sol.nb <- manyglm(Soleolifera ~ Treatment, family = "negative binomiale", data = Reveg)
+
+plot(ft.sol.nb)
+
+anova(ft.sol.nb)
+summary(ft.sol.nb)
+
+ft.sol.nb$coefficients
+
+boxplot(Soleolifera ~ Treatment, ylab = "Count", xlab = "Treatment", data = Reveg)

@@ -407,7 +407,3 @@ Once you project is connected:
 
 </p>
 
-# Credits
-
-
-> Content derived from Fukami T. & Coyle J. (Standford University) derived itself from Data Carpentry and Software Carpentry materials (Copyright (c) Data Carpentry) under CC-3.0 Attribution License (see http://creativecommons.org/licenses/by/3.0/).

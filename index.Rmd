@@ -118,3 +118,11 @@ Note that this selection is not random if the homework is not sent.
 **(3)** DATATHON (**NEW**) as final project. The students are provided with a data set to analyze (type 'Scientific Data': https://www.nature.com/sdata/). Students (in groups of 2-3 if necessary) will identify relevant research questions based on this dataset and prepare a short scientific report (max. 10 pages + references), presenting **methodology** and **results** in a **scientific format**. Introduction and discussion/conclusion will be presented as **bullet points**. The report should be sent as *.Rmd* **AND** *.html* or shared via a GitHub repository. This report should be generated during the semester and not in the last week. Accordingly, no advise will be given on this report during the last two weeks of the semester as I usually receive tons of requests as the end of the semester approaches.
 
 <p style="color:red">The final grade is usually made up of class participation (**10%**), homework/reviews (**20%**) and the final group report (**70%**)</p>
+
+# Credits
+
+The content of this class is derived from many online websites and available resources:
+
++ Fukami T. & Coyle J. (Standford University) derived itself from Data Carpentry and Software Carpentry materials (Copyright (c) Data Carpentry) under CC-3.0 Attribution License (see http://creativecommons.org/licenses/by/3.0/).
+
++ Bain K., Blakey R., Brodie S., Callaghan C., Cornwell W., Griffin K., Holland M., Lavender J., Letten A.,  Nakagawa S., Nielsen S., Poore A., Popovic G., Robinson F &  Stoklosa J (2016) Environmental computing. School of Biological, Earth and Environmental Sciences at the University of New South Wales. https://environmentalcomputing.net/
