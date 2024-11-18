@@ -692,6 +692,7 @@ Unfortunately the `glm` plot function gives us a very odd looking plot due to th
 ft.crab.many <- manyglm(CrabPres ~ Time * Dist, family = "binomial", data = Crab_PA)
 plot(ft.crab.many)
 ```
+
 Now we can look for a fan shape in the residual plot. For these data, there doesn’t seem to be a fan shape, so we can conclude the mean-variance assumption the model made was reasonable for our data. The residuals in this plot have a random component. If you see a pattern it’s best to repeat the plot a few times to see if the pattern is real.
 
 
