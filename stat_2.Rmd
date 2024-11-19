@@ -49,7 +49,7 @@ library(ggplot2)
 ```
 
 
-Previously, we saw that correlations look at the association between two variables. The measure of this association is called the Pearson coefficient (parametric). It is the covariance of the two variables divided by the the product of their standard deviation. It is scaled between 1 (for a perfect positive correlation) to -1 (for a perfect negative correlation), 0 would be complete randomness. Using parametric assumption this coefficient divided by its standard error gives a value that follow a t-distribution. Squared, we obtain the amount of variation in $y$ explained by $x$. However such results do not allow any explanation of the effect of $x$ on $y$, indeed $x$ could act on $y$ in various way that are not always direct, all we can say from the correlation is that these two variables are linked somehow, to really explain and measure effects of $x$ on $y$ we need to use regression method. That's the reason why`lm` is used in `abline()` or `geom_smooth` in order to represent correlation. 
+Previously, we saw that correlations look at the association between two variables. The measure of this association is called the Pearson coefficient (parametric). It is the covariance of the two variables divided by the product of their standard deviation. It is scaled between 1 (for a perfect positive correlation) to -1 (for a perfect negative correlation), 0 would be complete randomness. Using parametric assumption this coefficient divided by its standard error gives a value that follow a t-distribution. Squared, we obtain the amount of variation in $y$ explained by $x$. However such results do not allow any explanation of the effect of $x$ on $y$, indeed $x$ could act on $y$ in various way that are not always direct, all we can say from the correlation is that these two variables are linked somehow, to really explain and measure effects of $x$ on $y$ we need to use regression method. That's the reason why`lm` is used in `abline()` or `geom_smooth` in order to represent correlation. 
 
 # Linear regression
 
@@ -57,7 +57,7 @@ Previously, we saw that correlations look at the association between two variabl
 ## One predictor 
 
 Regression is somehow different from correlation because it try to put variables into equation and thus explain relationship between them.
-In **Model I regression** (indeed we have Model II when two variables in the regression equation are random , i.e. no controlled by the researcher), it is used to predict a quantitative outcome of a dependent variable $y$ on the basis of one single independent predictor variable $x$. The goal is to build a mathematical model (or formula) that defines $y$ as a function of the $x$ variable, and that's why why linear regression are also called linear modelling (previously added to our scatter plot using `abline` or `geom_smooth`.
+In **Model I regression** (indeed we have Model II when two variables in the regression equation are random , i.e. no controlled by the researcher), it is used to predict a quantitative outcome of a dependent variable $y$ on the basis of one single independent predictor variable $x$. The goal is to build a mathematical model (or formula) that defines $y$ as a function of the $x$ variable, and that's why linear regression are also called linear modelling (previously added to our scatter plot using `abline` or `geom_smooth`.
 
 Note that the `linear` in linear model does not imply a straight-line relationship but rather that the response is a linear (additive) combination of the effects of the explanatory variables. However, because we tend to start by fitting the simplest relationship, many linear models are represented by straight lines.
 
@@ -107,7 +107,7 @@ Once, the beta coefficients are calculated, a *t*-test is performed to check whe
 
 ### Running the analysis
 
-So, the goal in linear regression is obtain the best estimates for the model coefficients ($\alpha$ and $\beta$). In R you can fit linear models using the function `lm`.
+So, the goal in linear regression is obtain the best estimates for the model coefficients ($\beta_0$ and $\beta_1$). In R you can fit linear models using the function `lm`.
 
 In this example, we will use a data set on plant heights around the world `Plant_height.csv`.
 
@@ -181,11 +181,11 @@ The statistical hypotheses are as follow:
 
 Mathematically, for a given beta coefficient ($\beta$), the _t_-test is computed as $t = (\beta - 0)/SE(\beta)$, where $SE(\beta)$ is the SE of the coefficient $\beta$. Simply said, the t-statistic measures the number of standard deviations that $\beta$ is away from 0. Thus a large _t_-statistic will produce a small p-value (=different).
 
-The higher the _t_-statistic (and the lower the p-value), the more significant the predictor. The symbols to the right (***) visually specifies the level of significance. The line below the table shows the definition of these symbols; one star means 0.01 < p < 0.05. The more the stars beside the variable’s p-value, the more significant the variable.
+The higher the _t_-statistic (and the lower the p-value), the more significant the predictor. The symbols to the right (***) visually specifies the level of significance. The line below the table shows the definition of these symbols; one star means p < 0.05, two stars p < 0.01, three stars p < 0.001. So the more stars beside the variable’s p-value, the more significant is the variable.
 
 A statistically significant coefficient indicates that there is an association between the predictor ($x$) and the outcome ($y$) variable.
 
-The _t_-statistic is a very useful guide for whether or not to include a predictor in a model. High t-statistics (which go with low p-values near 0) indicate that a predictor should be retained in a model, while very low _t_-statistics indicate a predictor could be dropped (Bruce and Bruce 2017).
+The _t_-statistic is a very useful guide for whether or not to include a predictor in a model. High t-statistics (which go with low p-values near 0) indicate that a predictor should be retained in a model, while very low _t_-statistics indicate a predictor could be dropped (Bruce & Bruce 2017).
 
 **2 - Standard errors and confidence intervals**
 
@@ -224,7 +224,7 @@ In our example, RSE = `0.6848`, meaning that the observed Petal.width values dev
 Whether or not an RSE of `0.6848` units is an acceptable prediction error is subjective and depends on the problem context. 
 
 
-However, we can calculate the percentage error. In our data set, the mean value of `loght` is 0.458267, and so the percentage error is 0.6848/0.458267 * 100 = 149 %. There is indeed a high variation.
+However, we can calculate the percentage error. In our data set, the mean value of `loght` is $0.458267$, and so the percentage error is $0.6848/0.458267\times100=149%$. There is indeed a high variation.
 
 ```{r,  eval=T, warning=F, message=F}
 sigma(mod1_plant)*100/mean(Plant_height$loght)
@@ -236,7 +236,7 @@ The **R-squared** $R^2$ ranges from 0 to 1 and represents the proportion of info
 
 The $R^2$ measures, how well the model fits the data. For a simple linear regression, $R^2$ is the square of the **Pearson correlation coefficient**.
 
-A high value of $R^2$ is a good indication. However, as the value of $R^2$ tends to increase when more predictors are added in the model, such as in **multiple linear regression mode**l, you should mainly consider the adjusted $R^2$**, which is a penalized $R^2$ for a higher number of predictors.
+A high value of $R^2$ is a good indication. However, as the value of $R^2$ tends to increase when more predictors are added in the model, such as in **multiple linear regression mode**l, you should mainly consider the adjusted $R^2$, which is a penalized $R^2$ for a higher number of predictors.
 
 + An (adjusted) $R^2$ that is close to 1 indicates that a large proportion of the variability in the outcome has been explained by the regression model.
 
@@ -250,17 +250,17 @@ In a simple linear regression, this test is not really interesting since it just
 
 The F-statistic becomes **more important** once we start **using multiple predictors** as in multiple linear regression.
 
-A large F-statistic will corresponds to a statistically significant *p*-value (p < 0.05). In our example, the F-statistic equal 57.5 producing a p-value of < 1.868e-12, which is highly significant.
+A large F-statistic will corresponds to a statistically significant *p*-value (p < 0.05). In our example, the F-statistic equal $57.5$ producing a p-value of $1.868e-12$, which is highly significant (***).
 
 
 #### Other useful functions
 
 ```{r,  eval=F, warning=F, message=F}
-fitted(fit1) # predicted values
-residuals(fit1) # residuals
-anova(fit1) # anova table
-vcov(fit1) # covariance matrix for model parameters
-influence(fit1) # regression diagnostics
+fitted(mod1_plant) # predicted values
+residuals(mod1_plant) # residuals
+anova(mod1_plant) # anova table
+vcov(mod1_plant) # covariance matrix for model parameters
+influence(mod1_plant) # regression diagnostics
 ```
 
 ### Model assumption
@@ -271,7 +271,7 @@ influence(fit1) # regression diagnostics
 plot(mod1_plant, which = 1)
 ```
 
-The absence of strong pattern in the above plot indicates the assumption of linearity is valid. If there is strong pattern, one potential solution is to log-transform the response. Note in the above example plant height had already been log-transformed.
+The absence of strong pattern in the above plot indicates the assumption of linearity is valid. If there is strong pattern, one potential solution is to log-transform the response. Note in the above example plant height had already been log-transformed. Try to run the same diagnostic on the untransformed data, variable `height`.
 
 Click [here](https://gallery.shinyapps.io/slr_diag/) to see a nice interactive app that shows you what patterns of residuals you would expect with curved relationships
 
@@ -291,7 +291,7 @@ There are a variety of measures for dealing with non-independence. These include
 
 
 
-Based on Pena and Slate (2006), the four assumptions in linear regression are normality, heteroscedasticity, and linearity, and what the authors refer to as uncorrelatedness. The `gvlma( )` function in the `gvlma` package, performs a global validation of linear model assumptions as well separate evaluations of skewness, kurtosis, and heteroscedasticity.
+Based on Peña & Slate (2006), the four assumptions in linear regression are normality, heteroscedasticity, and linearity, and what the authors refer to as uncorrelatedness. The `gvlma( )` function in the `gvlma` package, performs a global validation of linear model assumptions as well separate evaluations of skewness, kurtosis, and heteroscedasticity.
 
 ```{r,  eval=T, warning=F, message=F}
 gvmodel <- gvlma(mod1_plant)
@@ -386,7 +386,7 @@ However, selecting a subset of predictor variables from a larger set (e.g., step
 
 # ANOVA
 
-Analysis of variance (ANOVA) is one of the most frequently used techniques in the biological and environmental sciences. ANOVA is used to contrast a continuous dependent variable y across levels of one or more categorical independent variables x. The independent variables are termed the factor or treatment, and the various categories within that treatment are termed the levels. In this module, we will start with the simplest design - those with a single factor.
+Analysis of variance (ANOVA) is one of the most frequently used techniques in the biological and environmental sciences. ANOVA is used to contrast a continuous dependent variable $y$ across levels of one or more categorical independent variables $x$. The independent variables are termed the **factor** or ****treatment, and the various categories within that treatment are termed the **levels**. We will start with the simplest design - those ANOVA with a single factor.
 
 Where an independent samples t-test would be used for comparison of group means across two levels, ANOVA is used for the comparison of >2 group means, or when there are more than two or more predictor variables. The logic of this test is essentially the same as the t-test - it compares variation between groups to variation within groups to determine whether the observed differences are due to chance or not.
 
@@ -395,15 +395,15 @@ Where an independent samples t-test would be used for comparison of group means 
 
 Also called single factor ANOVA.
 
-For example, to contrast the the hatching times of turtle eggs incubated at four different temperatures (15°C, 20°C, 25°C and 30°C), hatching time is the continuous response variable and temperature is the categorical predictor variable with with four levels. The null hypothesis would be that mean hatching time is equal for all temperatures.
+For example, to compare the hatching times of turtle eggs incubated at four different temperatures (15°C, 20°C, 25°C and 30°C); hatching time is the continuous response variable and temperature is the categorical predictor variable with with four levels. The null hypothesis would be that mean hatching time is equal for all temperatures.
 
-$H_0=\mu_{15}=\mu_{20}=\mu_{25}=\mu_{30}$
+$H_0: \mu_{15}=\mu_{20}=\mu_{25}=\mu_{30}$
 
 Note that an **ANOVA is a linear model**, just like linear regression except that the predictor variables are categorical rather than continuous.
 
-$y_{ij}=\mu + \alpha_i + \epsilon_{ij}$
+$y_{ij}=\mu + \beta_i + \epsilon_{ij}$
 
-where $\mu$ is the overall mean and $\alpha_i$ is the effect of the $i^{th}$ group.
+where $\mu$ is the overall mean and $\beta_i$ is the effect of the $i^{th}$ group.
 
 
 It is the same as a multiple linear regression with a predictor variable for each level of the categorical variable (each coded as a dummy variable). For the question of whether hatching time of turtles differs between four incubation tempeatures, we must fit four parameters to describe the mean response of each temperature (rather than just a single intercept and single slope in a simple linear regression). For this example, our linear model equation will have this form:
@@ -418,7 +418,7 @@ where MS are the mean squares, a measure of variation. The probability of obtain
 
 ### Running the analysis
 
-The data should be formatted such that the individual replicates are rows and the variables are separate columns. Include a column for the dependent variable, $y$, and a corresponding column for the categorical variable, $x$. Download the sample data set for the turtle hatching example, `turtles.csv`, import into R and check that temperature variable is a factor with the `str` function.
+The data should be formatted such that the individual replicates are rows and the variables are separate in columns. Include a column for the dependent variable, $y$, and a corresponding column for the categorical variable, $x$. Download the sample data set for the turtle hatching example, `turtles.csv`, import into R and check that temperature variable is a factor with the `str` function.
 
 ```{r}
 turtles <- read.csv(file = "data/turtles.csv", header = TRUE)
@@ -439,7 +439,7 @@ turtles.aov <- aov(Days ~ Temperature, data = turtles)
 summary(turtles.aov)
 ```
 
-Check but the same can be produced by passing a `lm` in `anova()`:
+Check but the same can be produced by passing a `lm` in `anova()`. An ANOVA is simply another way to summarize the results of a `lm`, especially useful in case of categorical variables. 
 
 ```{r}
 turtles.lm <- lm(Days ~ Temperature, data = turtles)
@@ -467,7 +467,7 @@ TukeyHSD(turtles.aov)
 ```
 ### Assumptions
 
-As for any linear models, The important assumptions of ANOVA are independence, homogeneity of variance and normality. We advocate a qualitative evalutation of the normality and homogeneity of variance assumptions, by examining the patterns of variation in the residuals, rather than a formal test. Linear models in general are quite ‘robust’ for violating these assumptions (heterogeneity and normality), within reason.
+As for any linear models, The important assumptions of ANOVA are independence, homogeneity of variance and normality. Many advocate a qualitative evaluation of the normality and homogeneity of variance assumptions, by examining the patterns of variation in the residuals, rather than a formal test. Linear models in general are quite ‘robust’ for violating these assumptions (heterogeneity and normality), within reason of course.
 
 
 ```{r}
@@ -567,17 +567,17 @@ Here you can see that the effect of copper (a decline in species richness) is mo
 
 The assumptions of factorial ANOVA’s are the same as for all linear models including the simpler one-way ANOVA’s, being **independence**, **normality** and **homogeneity of variances**. We also need to consider two new issues: 1) whether your factors are **fixed** or **random**, and 2) whether your sampling or experimental design is **balanced** (i.e., has the same number of replicates in each combination of treatments).
 
-**Fixed and random factors** There is an important distinction between factors whose levels are the only ones of interest (termed fixed), and factors whose levels are a sampled from a larger collection of possible levels (termed random). For example, if we repeated the experiment above at three different sites in another harbour, chosen from many possible sites, we would consider site a random factor. We are not interested in those sites in particular, but would like to know if our experimental treatments were consistent across sites. On the other hand, if you were only interested in Darling Harbour and Circular Quay, then these two could be considered two levels of a fixed factor. Treating sites as a fixed factor in that case means that you conclusions should not be extrapolated to other possible sites, but restricted to those particular sites.
+**Fixed and random factors** There is an important distinction between factors whose levels are the only ones of interest (termed fixed), and factors whose levels are a sampled from a larger collection of possible levels (termed random). For example, if we repeated the experiment above at three different sites in another harbour, chosen from many possible sites, we would consider site a random factor. We are not interested in those sites in particular, but would like to know if our experimental treatments were consistent across sites. On the other hand, if you were only interested in Keelung Harbour and Kaoshiung Harbour, then these two could be considered two levels of a fixed factor. Treating sites as a fixed factor in that case means that you conclusions should not be extrapolated to other possible sites, but restricted to those particular sites.
 
-Statistically, there is a big difference between a fixed factors were you have measured all possible levels of interest (e.g, control vs a single treatment) and random factors where the levels are sampled from all possible levels. In analysis of variance, all this matters because the F tests that are being used to test your hypotheses are constructed differently depending on which factors are fixed and random. In the example above, all factors were fixed and the denominator of all F tests was $MS_{within}$. In models with all factors random, and models with a mix of fixed and random factors (termed mixed effects models), other components of the variation are used as the denominators in the $F$ tests.
+Statistically, there is a big difference between a fixed factors were you have measured all possible levels of interest (e.g, control vs a single treatment) and random factors where the levels are sampled from all possible levels. In analysis of variance, all this matters because the F-tests that are being used to test your hypotheses are constructed differently depending on which factors are fixed and random. In the example above, all factors were fixed and the denominator of all F tests was $MS_{within}$. In models with all factors random, and models with a mix of fixed and random factors (termed mixed effects models), other components of the variation are used as the denominators in the $F$ tests.
 
 If you have random factors, you will need to read more to establish the correct F ratios for your specific design.
 
 **Balanced and unbalanced designs** Ideally, factorial ANOVA should be conducted with a balanced design - one with the same number of replicates in each combination of factors. Balanced designs are less likely to be affected by minor deviations from the assumptions of normality and homogeneity of variance. Unfortunately, unbalanced designs where you have unequal numbers of replicates for each level are common in practice (e.g. bad weather prevented sampling the second site as intensively, volunteer lost the data sheet etc!).
 
-Unbalanced designs are more susceptible to violating the assumptions of ANOVA and there is no single way to partitioning the $SS_{total}$ into the main effect and interaction components. The `aov` and `lm` functions in R use what are called Type I sums of squares where the terms in the model are fitted sequentially (i.e., how much variation is explained by factor A, then how much additional variation is explained by adding factor B). This means that the order of the terms in model matters: the model formulae `Y ~ A + B + A:B` and `Y ~ B + A + B:A` will give you different results.
+Unbalanced designs are more susceptible to violating the assumptions of ANOVA and there is no single way to partitioning the $SS_{total}$ into the main effect and interaction components. The `aov` and `lm` functions in R use what are called **Type I sums of squares** where the terms in the model are fitted sequentially (i.e., how much variation is explained by factor A, then how much additional variation is explained by adding factor B). This means that the order of the terms in model matters: the model formulae `Y ~ A + B + A:B` and `Y ~ B + A + B:A` will give you different results.
 
-There is a fair bit of debate on this in the statistical literature, but many advise using what are called Type II or Type III sums of squares for unbalanced designs. Other software packages like SPSS, SYSTAT and Minitab will automatically use Type III sums of squares where the order of terms in the model doesn’t matter. To access these in R, we can use the Anova function in the `car` package. But this debate is also one of reason many researcher will prefer to avoid ANOVAs.
+There is a fair bit of debate on this in the statistical literature, but many advise using what are called Type II or Type III sums of squares for unbalanced designs. Other software packages like SPSS, SYSTAT and Minitab will automatically use Type III sums of squares where the order of terms in the model doesn’t matter. To access these in R, we can use the `Anova` function in the `car` package. But this debate is also one of reason many researcher prefer to avoid or does not like ANOVAs.
 
 ## Nested ANOVA
 
@@ -817,3 +817,9 @@ Mixed models are those with a mixture of fixed and random effects. Random effect
 
 
 to be continued (...)
+
+> References:
+
+Bruce, P., Bruce, A. (2017). Pratical Statistics for Data Scientists. O'Reilly Media, Inc.
+
+Peña, E. A., & Slate, E. H. (2006). Global validation of linear model assumptions. Journal of the American Statistical Association, 101(473), 341-354.
