@@ -22,6 +22,7 @@ library(corrplot)
 library(mvabund)
 library(ggplot2)
 library (lme4)
+library(mgcv)
 
 knitr::include_graphics("illustrations/linear-regression.png")
 
@@ -333,3 +334,65 @@ legend("topleft",
 
 Est.means <- summarize(means, Estuaries$Estuary, mean)$means # extract means by Estuary
 stripchart(Est.means ~ sort(unique(Estuary)), data = Estuaries, pch = 18, col = "red", vertical = TRUE, add = TRUE) # plot means by estuary
+
+x <- seq(0, pi * 2, 0.1)
+sin_x <- sin(x)
+y <- sin_x + rnorm(n = length(x), mean = 0, sd = sd(sin_x / 2))
+Sample_data <- data.frame(y, x)
+ggplot(Sample_data, aes(x, y)) +
+  geom_point()
+
+lm_y <- lm(y ~ x, data = Sample_data)
+ggplot(Sample_data, aes(x, y)) +
+  geom_point() +
+  geom_smooth(method = lm)
+plot(lm_y, which = 1)
+
+gam_y <- gam(y ~ s(x), method = "REML")
+
+x_new <- seq(0, max(x), length.out = 100)
+y_pred <- predict(gam_y, data.frame(x = x_new))
+
+ggplot(Sample_data, aes(x, y)) +
+  geom_point() +
+  geom_smooth(method = "gam", formula = y ~ s(x))
+
+par(mfrow = c(2, 2))
+gam.check(gam_y)
+
+CO2 <- read.csv("data/mauna_loa_co2.csv")
+CO2$time <- as.integer(as.Date(CO2$Date, format = "%d/%m/%Y"))
+CO2_dat <- CO2
+CO2 <- CO2_dat[CO2_dat$year %in% (2000:2010), ]
+
+ggplot(CO2_dat, aes(time, co2)) +
+  geom_line()
+
+CO2_time <- gam(co2 ~ s(time), data = CO2, method = "REML")
+
+plot(CO2_time)
+
+par(mfrow = c(2, 2))
+gam.check(CO2_time)
+
+CO2_season_time <- gam(co2 ~ s(month, bs = "cc", k = 12) + s(time), data = CO2, method = "REML")
+
+par(mfrow = c(1, 2))
+plot(CO2_season_time)
+
+par(mfrow = c(2, 2))
+gam.check(CO2_season_time)
+
+CO2_season_time <- gam(co2 ~ s(month, bs = "cc", k = 12) + s(time), data = CO2_dat, method = "REML")
+par(mfrow = c(1, 2))
+plot(CO2_season_time)
+
+CO2_pred <- data.frame(
+  time = CO2_dat$time,
+  co2 = CO2_dat$co2,
+  predicted_values = predict(CO2_season_time, newdata = CO2_dat)
+)
+ggplot(CO2_pred, aes(x = time)) +
+  geom_point(aes(y = co2), size = 1, alpha = 0.5) +
+  geom_line(aes(y = predicted_values), colour = "red")
+

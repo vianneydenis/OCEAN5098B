@@ -1,0 +1,5 @@
+---
+title: "Multivariate analysis"
+---
+
+Multivariate data are common in the environmental sciences, occurring when ever we measure several response variables from each replicate sample. Questions like how does the species composition of a community vary across sites, or how does the shape of trees (as measured by several morphological traits) vary with altitude are multivariate questions.
