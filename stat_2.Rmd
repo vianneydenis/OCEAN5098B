@@ -395,7 +395,7 @@ However, selecting a subset of predictor variables from a larger set (e.g., step
 
 
 
-Analysis of variance (ANOVA) is one of the most frequently used techniques in the biological and environmental sciences. ANOVA is used to contrast a continuous dependent variable $y$ across levels of one or more categorical independent variables $x$. The independent variables are termed the **factor** or ****treatment, and the various categories within that treatment are termed the **levels**. We will start with the simplest design - those ANOVA with a single factor.
+Analysis of variance (ANOVA) is one of the most frequently used techniques in the biological and environmental sciences. ANOVA is used to contrast a continuous dependent variable $y$ across levels of one or more categorical independent variables $x$. The independent variables are termed the **factor** or **treatment**, and the various categories within that treatment are termed the **levels**. We will start with the simplest design - those ANOVA with a single factor.
 
 Where an independent samples t-test would be used for comparison of group means across two levels, ANOVA is used for the comparison of >2 group means, or when there are more than two or more predictor variables. The logic of this test is essentially the same as the t-test - it compares variation between groups to variation within groups to determine whether the observed differences are due to chance or not.
 
@@ -514,7 +514,7 @@ You have three null hypotheses:
 - there is no interaction between the factors
 
 
-This is far better than running two separate single factor ANOVAs that contrast copper effects for each level of orientation because you have more statistical power (higher degrees of freedom) for the tests of interest, and you get a formal test of the interaction between factors which is often scientifically interesting.
+This is far better than running two separate single factor ANOVAs that contrast copper effects for each level of orientation because you have **more statistical power** (higher degrees of freedom) for the tests of interest, and you get a formal test of the interaction between factors which is often scientifically interesting.
 
 $y_{ij}=\mu + \alpha_i + \beta_j + (\alpha\beta)_{ij} + \epsilon_{ijk}$
 
@@ -561,7 +561,7 @@ In this example, there is strong evidence to reject all three null hypotheses:
 - that the vertical and horizontal orientations are equal (P < 0.001)
 - that there is no interaction between copper and orientation (P < 0.001)
 
-A significant interaction means that the effect of one factor depends upon the other. In this example, it would mean that the effect of copper was not consistent between the vertical and horizontal habitats. Consequently, the interpretation of the main effects becomes more complex. A quick way to help you understand an interaction if you get one is to examine an interactions plot.
+**A significant interaction means that the effect of one factor depends upon the other**. In this example, it would mean that the effect of copper was not consistent between the vertical and horizontal habitats. Consequently, the interpretation of the main effects becomes more complex and it is better to limit your interpretation to the interaction term. A quick way to help you understand an interaction if you get one is to examine an interactions plot.
 
 
 ```{r}
@@ -578,19 +578,19 @@ The assumptions of factorial ANOVA’s are the same as for all linear models inc
 
 **Fixed and random factors** There is an important distinction between factors whose levels are the only ones of interest (termed fixed), and factors whose levels are a sampled from a larger collection of possible levels (termed random). For example, if we repeated the experiment above at three different sites in another harbour, chosen from many possible sites, we would consider site a random factor. We are not interested in those sites in particular, but would like to know if our experimental treatments were consistent across sites. On the other hand, if you were only interested in Keelung Harbour and Kaoshiung Harbour, then these two could be considered two levels of a fixed factor. Treating sites as a fixed factor in that case means that you conclusions should not be extrapolated to other possible sites, but restricted to those particular sites.
 
-Statistically, there is a big difference between a fixed factors were you have measured all possible levels of interest (e.g, control vs a single treatment) and random factors where the levels are sampled from all possible levels. In analysis of variance, all this matters because the F-tests that are being used to test your hypotheses are constructed differently depending on which factors are fixed and random. In the example above, all factors were fixed and the denominator of all F tests was $MS_{within}$. In models with all factors random, and models with a mix of fixed and random factors (termed mixed effects models), other components of the variation are used as the denominators in the $F$ tests.
+Statistically, there is a big difference between a fixed factors were you have measured all possible levels of interest (e.g, control vs a single treatment) and random factors where the levels are sampled from all possible levels. In analysis of variance, all this matters because the **F-tests that are being used to test your hypotheses are constructed differently depending on which factors are fixed and random**. In the example above, all factors were fixed and the denominator of all F tests was $MS_{within}$. In models with all factors random, and models with a mix of fixed and random factors (termed mixed effects models), other components of the variation are used as the denominators in the $F$ tests.
 
 If you have random factors, you will need to read more to establish the correct F ratios for your specific design.
 
-**Balanced and unbalanced designs** Ideally, factorial ANOVA should be conducted with a balanced design - one with the same number of replicates in each combination of factors. Balanced designs are less likely to be affected by minor deviations from the assumptions of normality and homogeneity of variance. Unfortunately, unbalanced designs where you have unequal numbers of replicates for each level are common in practice (e.g. bad weather prevented sampling the second site as intensively, volunteer lost the data sheet etc!).
+**Balanced and unbalanced designs** Ideally, factorial ANOVA should be conducted with a **balanced design** - one with the same number of replicates in each combination of factors. Balanced designs are less likely to be affected by minor deviations from the assumptions of normality and homogeneity of variance. Unfortunately, unbalanced designs where you have unequal numbers of replicates for each level are common in practice (e.g. bad weather prevented sampling the second site as intensively, volunteer lost the data sheet etc!).
 
-Unbalanced designs are more susceptible to violating the assumptions of ANOVA and there is no single way to partitioning the $SS_{total}$ into the main effect and interaction components. The `aov` and `lm` functions in R use what are called **Type I sums of squares** where the terms in the model are fitted sequentially (i.e., how much variation is explained by factor A, then how much additional variation is explained by adding factor B). This means that the order of the terms in model matters: the model formulae `Y ~ A + B + A:B` and `Y ~ B + A + B:A` will give you different results.
+Unbalanced designs are more susceptible to violating the assumptions of ANOVA and there is no single way to partitioning the $SS_{total}$ into the main effect and interaction components. The `aov` and `lm` functions in R use what are called **Type I sums of squares** where the terms in the model are fitted sequentially (i.e., **how much variation is explained by factor A, then how much additional variation is explained by adding factor B**). This means that the order of the terms in model matters: the model formula `Y ~ A + B + A:B` and `Y ~ B + A + B:A` will give you different results.
 
-There is a fair bit of debate on this in the statistical literature, but many advise using what are called Type II or Type III sums of squares for unbalanced designs. Other software packages like SPSS, SYSTAT and Minitab will automatically use Type III sums of squares where the order of terms in the model doesn’t matter. To access these in R, we can use the `Anova` function in the `car` package. But this debate is also one of reason many researcher prefer to avoid or does not like ANOVAs.
+There is a fair bit of debate on this in the statistical literature, but many advise using what are called **Type II** or **Type III** sums of squares for unbalanced designs. Other software packages like SPSS, SYSTAT and Minitab will automatically use Type III sums of squares where the order of terms in the model doesn’t matter. To access these in R, we can use the `Anova` function in the `car` package. But this debate is also one of reason many researcher prefer to avoid or does not like ANOVAs.
 
 ## Nested ANOVA
 
-In the two-way ANOVA design, the two factors are known as factorial (i.e., there was every combination of every level of each factor). Other experimental designs feature factors that are termed nested. This is when each level of one of the factors is unique to only one level of the other factor. In the nested design, the levels of factor B appear in only one of the levels in factor A, not both. This often happens with factors like “site” or “area” - they usually belong to only one level of your other factor. Factor B is termed nested within factor A, usually written as B(A). These designs have different sources of variance to the factorial designs, and do not have an interaction term. The designs are quite common in ecology and environmental sciences, and are often used to partition variance in spatially hierarchical sampling (e.g., habitats, areas within habitats, plots within areas etc.).
+In the two-way ANOVA design, the two factors are known as factorial (i.e., there was every combination of every level of each factor). Other experimental designs feature factors that are termed **nested**. This is when **each level of one of the factors is unique to only one level of the other factor**. In the nested design, the levels of factor B appear in only one of the levels in factor A, not both. This often happens with factors like “site” or “area” - they usually belong to only one level of your other factor. Factor B is termed nested within factor A, usually written as B(A). **These designs have different sources of variance to the factorial designs, and do not have an interaction term**. The designs are quite common in ecology and environmental sciences, and are often used to partition variance in spatially hierarchical sampling (e.g., habitats, areas within habitats, plots within areas etc.).
 
 The examples below comes from an experiment investigating the impact of introduced American mink on small rodents (voles) in Finland. The hypothesis was that mink prey upon voles thereby reducing vole numbers and limiting their population size. To test this, minks were removed from large areas (> 20 km2) in the Baltic Sea. The Ho from the experiment is that the mean count of voles on islands in removal sites will be the same as the mean vole count on islands in control areas. 
 The data represent two treatments (mink removal and control) and two areas nested within each treatment. Then there are 10 samples in each area. Each of these samples represents the numbers of individual voles trapped on an island (all islands were more than 300 m apart ensuring some independence) over 4 nights.
@@ -614,7 +614,7 @@ summary(Mink.nested)
 ```
 The output is a little different to the factorial ANOVA. The top section gives a significance test of the fixed effect, Treatment, - this is what we’re interested in. The residuals for this test are those associated with the random effect ‘Area’.
 
-A significant F-ratio (P<0.05) for a nested factor indicates high variance among subgroups within a group. For example, a difference in mean vole numbers of the two areas within a treatment. This is expected, however, leads to few degrees of freedom to test main effects. Additionally, it suggests treatments may not have a uniform effect across levels of the nested factor. For example, voles in one removal area showed a stronger response than another area.
+**A significant F-ratio (P<0.05) for a nested factor indicates high variance among subgroups within a group**. For example, a difference in mean vole numbers of the two areas within a treatment. This is expected, however, leads to few degrees of freedom to test main effects. Additionally, it suggests treatments may not have a uniform effect across levels of the nested factor. For example, voles in one removal area showed a stronger response than another area.
 
 **F-ratios**
 
@@ -631,7 +631,7 @@ Where there are greater than 2 levels of the the fixed factor of interest, *post
 
 **Pooling** Always examine nested factors before the upper levels. If the variance explained by the nested factor is negligible, it can be pooled. If the F ratio of MSsubgroup/MSwithin is non significant then you don’t need subgroups and can perform a one factor analysis.
 
-Even if MSsubgroup/MSwithin is non-significant at a = 0.05, there may be subgroup effects (may be high Type II error). To be cautious, only pool SS when P>>>0.05, so there is very little chance that you are incorrectly accepting the null hypothesis of no effect.
+If MSsubgroup/MSwithin is non-significant at p = 0.05, there may be subgroup effects (may be high Type II error). To be cautious, only pool SS when P>>>0.05, so there is very little chance that you are incorrectly accepting the null hypothesis of no effect.
 
 ### Assumptions
 
@@ -645,17 +645,16 @@ Generalised linear models (GLMs) are used when the distribution of data do not c
 
 ## Introduction
 
-Linear models (e.g., linear regression) are used to model the relationship between a **continuous** response variable $y$ and one or more explanatory variables $x_1,x_2,...$. When we have a **discrete** response we use GLMs. 
+Linear models (e.g., linear regression) are used to model the relationship between a **continuous** response variable $y$ and one or more explanatory variables $x_1,x_2,...$. When we have a **discrete** response we can use GLMs. 
 
-**Properties of GLM’s** Discrete response data, like counts and presence/absence data, generally exhibit a mean-variance relationship. For example; for counts that are on average 5, we would expect most samples to be between about 1 and 9, but for counts that are on average 500, most of the observations will tend to be between 450 and 550, giving us a much larger variance when the mean is large. In contrast, as we know it already, linear models assume constant variance. You might transform count data and  fit a linear model. This can reduce the mean variance relationship, but it won’t get rid of it completely, especially if you have a lot of zeros in your data. To analyse discrete data accurately we need to use GLM’s.
-
+**Properties of GLM’s** Discrete response data, like counts and presence/absence data, generally exhibit a mean-variance relationship (e.g. small mean small variance vs large mean large variance). For example; for **counts** that are on average 5, we would expect most samples to be between about 1 and 9, but for counts that are on average 500, most of the observations will tend to be between 450 and 550, giving us a much larger variance when the mean is large. In contrast, as we know it already, linear models assume constant variance. You might transform count data and fit a linear model. This can reduce the mean variance relationship, but it won’t get rid of it completely, especially if you have a lot of zeros in your data. To analyse discrete data accurately we need to use GLM’s.
 
 
 A GLM makes some important assumptions (we’ll check these later for our examples):
 
-1. The observed $y$ are independent, conditional on some predictors $x$
-2. The response $y$ come from a known distribution with a known mean-variance relationship
-3. There is a straight line relationship between a known function $g$ of the mean of $y$ and the predictors $x$
+1. The observed $y$ are **independent, conditional on some predictors $x$**
+2. The response $y$ come from a known distribution with a **known mean-variance relationship**
+3. There is a **straight line relationship between a known function $g$ of the mean of $y$ and the predictors $x$**
 
 $g(\mu_y)=\alpha+\beta_1x_1+\beta_2x_2+...$
 
@@ -716,18 +715,18 @@ To check this assumption, we check the residual plot above for non-linearity, or
 
 If all the assumption checks are okay, we can have a look at the results the model gave us. The two main functions for inference are the same as for linear models: `summary` and `anova`.
 
-The p-values these give you if you use `glm` for fitting the model work well in large samples, although they are still approximate. For binomial models in particular the p-values from the `summary` function can be funny, and we prefer to use the `anova` function to see if predictors are significant. The `summary()` function is still useful to look at the model equation.
+The p-values these give you if you use `glm` for fitting the model work well in large samples, although they are **approximate**. For binomial models in particular the p-values from the `summary` function can be funny, and the use of the `anova` function is often preferred to see if predictors are significant. The `summary()` function is still useful to look at the model equation.
 
 ```{r}
 anova(ft.crab, test = "Chisq")
 ```
-The p-value for *Time* is small (P<0.01), so we conclude there is an effect of time on the presence of crabs, but no effect of distance or an interaction between time and distance. This sample is reasonably large, so these p-values should be a good approximation. For a small sample it is often better to use resampling to calculate p-values. When you use `manyglm` the summary and anova functions use resampling by default.
+The p-value for *Time* is small (P<0.01), so we conclude **there is an effect of time on the presence of crabs**, but **no effect of distance or an interaction between time and distance**. This sample is reasonably large, so these p-values should be a good approximation. For a small sample it is often better to use resampling to calculate p-values. When you use `manyglm` the summary and anova functions use resampling by default.
 
 
 ```{r}
 anova(ft.crab.many)
 ```
-In this case the results are quite similar, but in small samples it can often make a big difference.
+In this case the results are quite similar, but in small samples it can often make a big difference. (Note on PIT-trap resamping: **bootstrap** method based on probability integral transform)
 
 You can also use `summary` with either the `glm` or `manyglm` function. This is interpreted in a similar manner as for linear regression, but we need to include the link function, `g`.
 
@@ -740,7 +739,9 @@ If $p$ is the probability of crab presence, this output tells us:
 $logit(p) = -3.01 + 0.26 * Time - 0.03 * Dist + 0.01 * Time * Dist$
 
 
-**Conclusion:**  We used a binomial linear model because of binary data (presence/abscence) of crabs. Inference was carried out using bootstrap resampling with 1000 resamples (default when using manyglm). There is strong evidence that the presence of crabs varies with time (p = 0.01). Note that for multiple predictors it’s best to display the results in a table.
+**Conclusion:**  We used a binomial linear model because of binary data (presence/abscence) of crabs. Inference was carried out using bootstrap resampling with 1000 resamples (default when using `manyglm`). There is strong evidence that the presence of crabs varies with time (p = 0.01). Note that for multiple predictors it’s best to display the results in a table.
+
+Confused about bootstrapping. They are quests: https://youtu.be/Xz0x-8-cgaQ?si=6lD6DBluu3y7Vv-g
 
 ## Poisson example
 
@@ -779,7 +780,7 @@ Before we look at the results, we need to look at the residual plot to check the
 plot(ft.sol.pois)
 ```
 
-It’s hard to say whether there is any non-linearity in this plot, this is because the predictor is binary (treatment vs revegetated). Looking at the variance assumption, it does appear as though there is a fan shape. The residuals are more spread out on the right than the left - we call this overdispersion.
+It’s hard to say whether there is any non-linearity in this plot, this is because the predictor is binary (treatment vs revegetated). Looking at the variance assumption, it does appear there is a fan shape. The residuals are more spread out on the right than the left - we call this overdispersion.
 
 This tells us the variance assumption of the Poisson may be too restrictive and we should try a different distribution. We can instead fit a negative-binomial distribution in `manyglm` by changing the family argument to `family="negative binomial"`.
 
@@ -815,18 +816,19 @@ The default link function for Poisson and negative binomial models is $log$. If 
 
 $log(\lambda)=-0.92+2.12 \times Treatment$
 
-**Conclusion:**  We used a negative-binomial generalised linear model due to overdispersion evident in the data. Inference was carried out using bootstrap resampling with 1000 resamples (default when using manyglm). There is strong evidence of positive effect of bush regeneration on the abundance of slugs from the order Soleolifera (p < 0.001).
+**Conclusion:**  We used a negative-binomial generalised linear model due to overdispersion evident in the data. Inference was carried out using bootstrap resampling with 1000 resamples (default when using `manyglm`
+). There is strong evidence of positive effect of bush regeneration on the abundance of slugs from the order Soleolifera (p < 0.001).
 
 ```{r}
 boxplot(Soleolifera ~ Treatment, ylab = "Count", xlab = "Treatment", data = Reveg)
 ```
+
+
 > *Source: Gordana Popovic*
 
 
 
 # Mixed models
-
-
 
 Mixed models are those with a mixture of fixed and random effects. Random effects are categorical factors where the levels have been selected from many possible levels and the investigator would like to make inferences beyond just the levels chosen. Tricky concept, but imagine contrasting two habitat types (forest and grassland) by sampling five sites within each, and five replicate measures within each site. Habitat type is a fixed factor with the researcher only interested in those two levels of habitat type. If the five sites were chosen from a larger collection of possible sites, then site is considered a random effect with 10 levels.
 
@@ -858,7 +860,7 @@ Estuaries <- read.csv("data/estuaries.csv", header = T)
 
 ## Linear Mixed models with one random effect
 
-We aim to investigate the effects of water pollution on the abundance of some subtidal marine invertebrates by comparing samples from altered and pristine estuaries. Since the total counts are large, we  assume the data are continuous. In this dataset, we focus on the effects of modification on invertebrates, regardless of the estuaries. 
+We aim to investigate **the effects of water pollution on the abundance of some subtidal marine invertebrates by comparing samples from altered and pristine estuaries**. Since the total counts are large, we  assume the data are continuous (not skewed to 0). In this dataset, we focus on the effects of modification on invertebrates, regardless of the estuaries. 
 
 
 
@@ -874,7 +876,7 @@ where `Total` is the **dependent variable** (left of the `~`), `Modification` is
 
 Note the syntax for one random effect is `(1|Estuary)` - this is fitting a different intercept (hence `1`) for each Estuary.
 
-This model can be fit by maximum likelihood (`REML=F`) or restricted maximum likelihood (`REML=T`). For fitting models it’s best to use `REML`, as it is less biased (unbiased for balanced samples), particularly in small samples. However to use the `anova` function and/or comparing models we need to refit with maximum likelihood.
+This model can be fit by maximum likelihood (`REML=F`) or restricted maximum likelihood (`REML=T`). For fitting models it’s best to use `REML=T`, as it is less biased (unbiased for balanced samples), particularly in small samples. However to use the `anova` function and/or comparing models we need to refit with maximum likelihood.
 
 ### Model assumptions
 
@@ -892,6 +894,7 @@ This assumption is only critical when we have a small sample size or very skewed
 ```{r}
 qqnorm(residuals(ft.estu))
 ```
+
 We are looking for a straight line relationship. Here, the assumption of normality seems reasonable.
 
 **Assumption 3**: The response $y$ has constant variance, conditional on some fixed effects $x$ and random effects $z$
@@ -901,6 +904,7 @@ Like a linear model, a mixed model assumes constant variance. We can check this 
 ```{r}
 scatter.smooth(residuals(ft.estu) ~ fitted(ft.estu))
 ```
+
 This residual plot seems reasonable, there are differences in variability between estuaries, but variability does not increase with the mean. Note, that the function `scatter.smooth` is just a scatter plot with a fitted, smoothed curve.
 
 **Assumption 4**: There is a straight line relationship between $y$ and the predictor $x$ and random effect $z$
@@ -948,9 +952,8 @@ This also provides evidence for an effect of Modification as this parameter (i.e
 
 #### Hypothesis test for random effects
 
-You can use the `anova` function to test for random effects, but the p-values are very approximate and this procedure is not recommended. Instead we will use a **parametric bootstrap**. This is a simulation based method which involves a fair chunk of code, but there’s not much about the code you have to change for different models, it’s mostly just a matter of copy-paste.
+You can use the `anova` function to test for random effects, but the p-values are very approximate and this procedure is not recommended. Instead we can use a **parametric bootstrap**. This is a simulation based method which involves a fair chunk of code, but there’s not much about the code you have to change for different models, it’s mostly just a matter of copy-paste.
 
-Parametric bootstrap
 
 ```{r, message=F}
 nBoot <- 1000
@@ -970,7 +973,7 @@ mean(lrStat > lrObs) # P-value for test of Estuary effect
 
 There is strong evidence for including estuary in your model (p = 0.001). You could use similar code to test for the effect of Modification with a parametric bootstrap.
 
-In your results, you should mention that you are using mixed models with R package `lme4`. You should also mention how you carried out inference, i.e. likelihood ratio tests (using the `anova` function) or parametric bootstrap. In the results section for one predictor, it suffices to write one line, e.g. “There is strong evidence (p<0.001) of negative effect of modification on total abundance. For multiple predictors it’s best to display the results in a table.
+In your results, you should mention that you are using mixed models with R package `lme4`. You should also mention how you carried out inference, i.e. **likelihood ratio tests** (using the `anova` function) or **parametric bootstrap**. In the results section for one predictor, it suffices to write one line, e.g. “There is strong evidence (p<0.001) of negative effect of modification on total abundance. For multiple predictors it’s best to display the results in a table.
 
 
 ```{r}
@@ -1007,7 +1010,7 @@ No, unbalanced designs are fine. Balanced designs will generally give you better
 
 2. Should I sample many levels of the random effect, or lots of observations within each level?
 
-This depends on what you are interested in. In our example, we are interested in the effect of modification. In the study design, estuaries fall directly below modification, so we need a lot of estuaries within each level of Modification to make good inference about the effects of modification. This is true in general, you need lots of samples in the level below the level you are primarily interested in.
+This depends on what you are interested in. In our example, we are interested in the effect of modification. In the study design, estuaries fall directly below modification, so we need a lot of estuaries within each level of Modification to make good inference about the effects of modification. **This is true in general, you need lots of samples in the level below the level you are primarily interested in.**
 
 3. Does my random factor have to be a random effect?
 
@@ -1017,7 +1020,7 @@ Not necessarily. If you have a random factor (i.e., you have a random sample of 
 
 This might be a problem as assumption 4 may not hold. You should always sample the random effect randomly to avoid bias and incorrect conclusions.
 
-## Crossed and nested Factors
+## Crossed and nested Factors (extra)
 
 Many experimental designs in ecology and environmental sciences require mixed models with several **random effects** (factors). You might have heard of **nested** and **crossed** factors.
 
@@ -1132,7 +1135,7 @@ mean(lrStat > lrObs) # P-value for test of Estuary effect
 The p-value is 0, so very small. We have strong evidence of an effect of Site and should keep it in the model.
 
 
-## Generalised mixed models
+## Generalised mixed models (extra)
 
 This allows to model discrete data (e.g., presence/absence) with random effects using generalised linear mixed models (GLMMs).
 
@@ -1336,7 +1339,7 @@ Many data in the environmental sciences do not fit simple linear models and are 
 
 This is basically all there is too it - an extension of generalised linear models (GLMs) with a **smoothing function**. Of course, there may be many sophisticated things going on when you fit a model with smooth terms, but you only need to understand the rationale and some basic theory.
 
-## GAMs in a nutshells (extra)
+## GAMs in a nutshells
 
 Let’s start with an equation for a Gaussian linear model:
 
@@ -1367,6 +1370,7 @@ Sample_data <- data.frame(y, x)
 ggplot(Sample_data, aes(x, y)) +
   geom_point()
 ```
+
 Let's fit a normal linear model and check residuals:
 
 ```{r}
@@ -1516,7 +1520,7 @@ There’s more to the story - perhaps spatial autocorrelation of some kind - but
 > *Source: Mitchell Lyons*
 
 
-> References:
+# References
 
 Bruce, P., Bruce, A. (2017). Pratical Statistics for Data Scientists. O'Reilly Media, Inc.
 
