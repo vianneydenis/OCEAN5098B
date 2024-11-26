@@ -126,3 +126,7 @@ The content of this class is derived from many online websites and available res
 + Fukami T. & Coyle J. (Standford University) derived itself from Data Carpentry and Software Carpentry materials (Copyright (c) Data Carpentry) under CC-3.0 Attribution License (see http://creativecommons.org/licenses/by/3.0/).
 
 + Bain K., Blakey R., Brodie S., Callaghan C., Cornwell W., Griffin K., Holland M., Lavender J., Letten A.,  Nakagawa S., Nielsen S., Poore A., Popovic G., Robinson F &  Stoklosa J (2016) Environmental computing. School of Biological, Earth and Environmental Sciences at the University of New South Wales. https://environmentalcomputing.net/
+
++ Buttigieg P.L., Ramette A. (2014) A Guide to Statistical Analysis in Microbial Ecology: a community-focused, living review of multivariate data analyses. FEMS Microbiol Ecol. 90: 543–550.  (see https://sites.google.com/site/mb3gustame/home?authuser=0)
+
++ Legendre P., Legendre L. Numerical Ecology. 2nd ed. Amsterdam: Elsevier, 1998. ISBN 978-0444892508.

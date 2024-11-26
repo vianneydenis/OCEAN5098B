@@ -1520,6 +1520,10 @@ There’s more to the story - perhaps spatial autocorrelation of some kind - but
 > *Source: Mitchell Lyons*
 
 
+<center>
+![GLMM by Ben Bolker (https://bbolker.github.io/morelia_2018/notes/glmm.html)](illustrations/GLMM.png)
+</center>
+
 # References
 
 Bruce, P., Bruce, A. (2017). Pratical Statistics for Data Scientists. O'Reilly Media, Inc.
