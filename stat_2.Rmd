@@ -42,6 +42,14 @@ xfun::embed_file('data/crabs.csv')
 xfun::embed_file('data/estuaries.csv')
 ```
 
+```{r echo=FALSE, purl=F}
+xfun::embed_file('data/revegetation.csv')
+```
+
+```{r echo=FALSE, purl=F}
+xfun::embed_file('data/mauna_loa_co2.csv')
+```
+
 -----------------------
 
 ```{r, message=F, warning=F}

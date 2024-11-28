@@ -16,6 +16,10 @@ xaringanExtra::use_clipboard()
 
 
 
+
+
+
+
 library(gvlma)
 library(Hmisc)
 library(corrplot)
