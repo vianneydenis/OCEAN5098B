@@ -27,6 +27,7 @@ library(vegan)
 library(qgraph)
 library(ade4)
 library(mvabund)
+library (pvclust)
 library(factoextra)
 library(ecodist)
 library(tree)
@@ -52,7 +53,7 @@ Ecological phenomena are inherently complex, and it is rare that a single variab
 ![*__Comparaison between univariate and multivariate analyses__: Univariate data sets feature a single response variable (R1). This may be analysed against one or more explanatory variables (E1-E3). Multivariate data sets include multiple response variables (R1...Rn). Multivariate analysis methods allow the evaluation of all response variables simultaneously, rather than requiring multiple executions of univariate methods. In the latter case, multiple testing occurs, which decreases the statistical power of the analysis.*](illustrations/multi_intro.png){width=100%}
 </center>
 
-Multivariate data are common in  environmental sciences, occurring when ever we measure several response variables from each replicate sample. Questions like how does the species composition of a community vary across sites, or how does the shape of trees (as measured by several morphological traits) vary with altitude are multivariate questions.
+Multivariate data are common in  environmental sciences, occurring whe ever we measure several response variables from each replicate sample. Questions like how does the species composition of a community vary across sites, or how does the shape of trees (as measured by several morphological traits) vary with altitude are multivariate questions.
 
 Johnson and Wichern (2002) suggest five types of scientific inquiry most suited to the application of multivariate methods.
 
@@ -62,9 +63,9 @@ Johnson and Wichern (2002) suggest five types of scientific inquiry most suited 
 
 + **Investigation of the dependence among variables**: Dependence among response variables, among response and explanatory variables, or among  explanatory variables is of key interest. Methods that detect dependence, such as *redundancy analysis*, are valuable in detecting influence or covariation.
 
-+ **Prediction**: Once the dependence among variables has been detected and characterised, multivariate models may be constructed to allow prediction.
-
 + **Hypothesis testing**: Exploratory techniques can reveal patterns in data from which hypotheses may be constructed (however, be careful of data dredging). Several methods, such as *MANOVA*, *PERMANOVA*, *ANOSIM*  or the *Mantel test*, allow the testing of statistical hypotheses on multivariate data. Appropriately constructed assertions may thus be tested.
+
++ **Prediction**: Once the dependence among variables has been detected and characterised, multivariate models may be constructed to allow prediction.
 
 Note that according to the field of research there is a trend to favor some tools more than others. 
 
@@ -151,7 +152,7 @@ Most methods of multivariate analysis are **explicitly** or **implicitly** based
 </center>
 
 
-In **R mode** correlation type coefficents are commonly used. In **Q**, the choice of a suitable **association coefficient** is crucial for further analysis. They are **MANY** of such coefficients with many variations. We can distinguished two classes of association measures based on how they deal with the **double-zeros** problem.
+In **R mode** correlation type coefficents are commonly used. In **Q** mode, the choice of a suitable **association coefficient** is crucial for further analysis. They are **MANY** of such coefficients with many variations. We can distinguished two classes of association measures based on how they deal with the **double-zeros** problem.
 
 + The **symmetrical coefficients** will consider the information from the double-zero (also called 'negative matched').
 
@@ -191,7 +192,7 @@ Check you have a triangular matrix.
 ## Asymmetrical coefficient
 
 
-**Bray-Curtis (D~14~)** dissimilarity is the **golden** ditance metric in ecology. At first, you subtract the abundance of one species in a sample from its counterpart in the other sample but ignore the sign. The second component is the abundance of a species in one sample added to the abundance of its counterpart in the second sample. If a species is absent, then its abundance should be recorded as 0 (zero). 
+**Bray-Curtis** dissimilarity is the **golden** ditance metric in ecology. At first, you subtract the abundance of one species in a sample from its counterpart in the other sample but ignore the sign. The second component is the abundance of a species in one sample added to the abundance of its counterpart in the second sample. If a species is absent, then its abundance should be recorded as 0 (zero). 
 
 $BC_d =  \frac {\sum |x_i-x_j|}{\sum(x_i+x_j)}$
 
@@ -265,7 +266,7 @@ The definition of a cluster varies, and different cluster analysis techniques ma
 
 6. **Hard** and **Soft** (may overlap)
 
-Numerical classification often requires two arguments: the matrix of distances among samples (ecological resemblance) and the method to us *e.g.*: name of the clustering algorithm. Common hierarchical clustering methods are available through the function `hclust` from the `stats` package. Again be careful of **data dredging**. Clustering produces tree-like structure. You don't choose clustering method according to how your tree looks like.The suitable method is usually carefully **selected** and/or **evaluated** according to the data set you are dealing with and your initial hypotheses (some may not make sense). Below we will describe two widely-used approaches of clustering. We will aslo plant some seeds ...
+Numerical classification often requires two arguments: the matrix of distances among samples (ecological resemblance) and the method to us *e.g.*: name of the clustering algorithm.  Clustering produces tree-like structure. Again be careful of **data dredging**. You don't choose clustering method according to how your tree looks like.The suitable method is usually carefully **selected** and/or **evaluated** according to the data set you are dealing with and your initial hypotheses (some may not make sense). Below we will describe two widely-used approaches of clustering. We will aslo plant some seeds ...
 
 ## Hierarchical Clustering
 
@@ -278,7 +279,7 @@ In R, the function `hclust()` allows to implement some of the common hierarchica
 ### Common algorithms
 
 
-+ **Single linkage agglomerative clustering** (neighbor sorting)
+**SINGLE LINKAGE AGGLOMERATIVE CLUSTERING** (neighbor sorting)
 
 Single linkage allows object to agglomerate easily to a group since a link to a single object of the group suffices to induce fusion. **This is the 'closest' friend' procedure**.
 
@@ -310,7 +311,7 @@ spe.db.ch.single <-hclust(spe.db.ch,method='single')
 
 Apply well for examining change in species composition along environmental gradients. 
 
-+ **Complete linkage agglomerative clustering** (furthest neighbor sorting)
+**COMPLETE LINKAGE AGGLOMERATIVE CLUSTERING** (furthest neighbor sorting)
 
 A group admits a new member only at the distance corresponding to the furthest object of the group: **one could say that the admission requires unanimity of the group**.
 
@@ -322,7 +323,7 @@ A group admits a new member only at the distance corresponding to the furthest o
 spe.db.ch.complete<-hclust(spe.db.ch,method='complete') 
 ```
 
-+ **Average agglomerative clustering**
+**AVERAGE AGGLOMERATIVE CLUSTERING** (e.g. UPGMA)
 
 The **most common** method in ecology (species data). It comprises **four sub-methods** that are based on **average** or **median** dissimilarities among objects,  **centroids** of cluster, or **McQuitty**'s method. 
   
@@ -334,7 +335,7 @@ The **most common** method in ecology (species data). It comprises **four sub-me
 spe.db.ch.UPGMA<-hclust(spe.db.ch,method='average') 
 ```
 
-+ **Ward's Minimum Variance clustering**
+**WARD'S MINIMUM VARIANCE CLUSTERING**
 
 **Ward** method is also a favorite  clustering method. Unlike the others, instead of measuring the distance directly, it analyzes the variance of clusters. Ward’s is said to be the most suitable method for quantitative variables. It is based on linear model criterion of least square: the within-group sum of square is minimized.
  
@@ -495,6 +496,23 @@ points(k.best,max(kt$r),pch=16,col='red',cex=1.5)
 
 The function `NbClust()`provides 30 indices for determining the number of clusters and proposes to user the best clustering scheme from the different results obtained by varying all combinations of number of clusters, distance measures, and clustering methods (Charrad et al. 2014).
 
+### Bootstrapping trees
+
+A litte handmade add-on to us use `pvclust()` from the package `pvclust` with Bray-Curtis dissimilarity (note that data set need to be transposed for using this function).
+
+```{r}
+pv.results<-pvclust(t(varespec), # to cluster rows - omit t() to cluster columns,
+        method.hclust = "average",
+        method.dist = function(x) vegan::vegdist(t(x), "bray"),
+        n = 1000) # and other arguments you need
+plot(pv.results)
+```
+
+
+
+boston.pv <- pvclust(varesspec, method.dist="correlation",  nboot=100, parallel=FALSE)
+
+
 -------------------
 
 Let's apply this on the `doubs` data set:
@@ -596,7 +614,7 @@ In other words, in non-fuzzy clustering a fruit can be an apple or an orange (ha
 The **fuzzy c-means (FCM)** algorithm is one of the most widely used fuzzy clustering algorithms. The centroid of a cluster is calculated as the mean of all points, weighted by their degree of belonging to the cluster. The function `fanny` [`cluster` package] can be used to compute fuzzy clustering. 'FANNY' stands for *fuzzy analysis clustering* (see `?fanny`).
 
 <p class="comment">
-****Practice 7.7**** Using `iris` data set: (1) make a K-means cascade and use the silhouette width indicator to determine the optimal number of clusters. (2)  since we know that 3 species are involved, group the data into 3 clusters (common sense) using the `kmeans` function. How many points are wrongly classified? Plot both solutions and conclude.
+**Practice 7.7** Using `iris` data set: (1) make a K-means cascade and use the silhouette width indicator to determine the optimal number of clusters. (2)  since we know that 3 species are involved, group the data into 3 clusters (common sense) using the `kmeans` function. How many points are wrongly classified? Plot both solutions and conclude.
 </p>
 
 ```{r,  eval=T, message=F}
@@ -622,7 +640,7 @@ grid.arrange(plot7, plot8, ncol=2)
 
 ## Decision trees
 
-Multiple variables are use to make a decision, but they can be made into multivariate. [HHere](https://www.youtube.com/watch?v=7VeUPuFGJHk&ab_channel=StatQuestwithJoshStarmer) for a basic understanding of decision trees. 
+Multiple variables are use to make a decision, but they can be made into multivariate. [Here](https://www.youtube.com/watch?v=7VeUPuFGJHk&ab_channel=StatQuestwithJoshStarmer) for a basic understanding of decision trees. 
 
 ### Classification And Regression Trees (CART)
 
@@ -642,7 +660,7 @@ tree2 <- rpart(Species ~ ., data=iris, method="class")
 fancyRpartPlot(tree2, main="Iris") # package rattle
 ```
 
-One of the disadvantages of decision trees may be **overfitting** i.e. continually creating partitions to achieve a relatively homogeneous population. This problem can be alleviated by **pruning** the tree (CART), which is basically removing the decisions from the bottom to up. Another way is to **combine several trees** and obtain a consensus, which can be done via a process called **random forests** (bootstrapped version of CART - many trees built based on subsets of the data, in addition not all predictor variables are used every time, rather a random subset). [HOME]
+One of the disadvantages of decision trees may be **overfitting** i.e. continually creating partitions to achieve a relatively homogeneous population. This problem can be alleviated by **pruning** the tree (CART), which is basically removing the decisions from the bottom to up. Another way is to **combine several trees** and obtain a consensus, which can be done via a process called **random forests** (bootstrapped version of CART - many trees built based on subsets of the data, in addition not all predictor variables are used every time, rather a random subset). (extra)
 
 ```{r class.source = "fold-show",  eval=T}
 # Extra to exciting your curiosity
@@ -667,7 +685,7 @@ plot(margin(iris.rf))
 **Multivariate regression trees** (MRT; De’ath 2002) are an extension of univariate regression trees, a method allowing the recursive partitioning of a quantitative response variable under the control of a set of quantitative or categorical explanatory variables (Breiman et al. 1984). Such a procedure is sometimes called **constrained** or **supervised** clustering.The result is a tree whose “leaves” (terminal groups of sites) are composed of subsets of 'sites' chosen to minimize the within-group sums of squares (as in a _k_-means clustering), but where each successive partition is defined by a threshold value or a state of one of the explanatory variables.
 
 
-The only package implementing a complete and handy version of MRT was `mvpart`. Unfortunately, this package is no longer in CRAN, so no update is available for R versions posterior to R 3.0.3 + potential error. Nevertheless, `mvpart` can still be installed via github. 
+The only package implementing a complete and handy version of MRT was `mvpart`. Unfortunately, this package is no longer in CRAN, so no update is available for R versions posterior to R 3.0.3 + potential error. Nevertheless, `mvpart` can still be installed via github - let me know if you have a better option :)
 
 
 ```{r class.source = "fold-show",  eval=T}
@@ -687,8 +705,49 @@ spe.ch.mvpart <-
          )
 ```
 
+# Ordinations
 
-## Machine learning models (extra)
+The aim of ordination methods is to represent the data along a reduced number of orthogonal axes, constructed in such way that they represent, in decreasing order, the **main trends of the data**. In fact, we already used some type of ordinations to visualize non-hierarchical clusters.
+
+ + The renders can be **interpreted visually or in association with other methods** such as clustering or regression
+
+ + Most ordination methods (except nMDS) are based on the extraction of the **eigenvectors** of an association matrix
+ 
+Two families of ordination analyses exist according to how they are dealing with environmental matrix (if any):
+
+  + **unconstrained ordination** (indirect gradient analysis, ordination not constrained by environmental factors).They are descriptive methodologies and describe patterns. It generates hypotheses but cannot test them.
+
+    * uncover main compositional gradients in the species data, 	structuring the community, and these gradients can be 	interpreted by known (estimated or measured) 	environmental factors
+    
+    * environmental variables can be used a posteriori, after the analysis
+    
++ **constrained ordination** (direct gradient analysis, ordination axes are constrained by environmental factors). It tests directly  hypotheses about the influence of environmental factors on species composition*
+
+    * relates the **species composition directly to the 	environmental variables** and extracts the variance in species 	composition which is directly related to these variable*
+
+    * regarding environmental factors, it offers several interesting options such as **step-wise selection** of important environmental 	variables (and excluding those which are not relevant for species composition), test of **significance of the variance 	explained by environmental factors**	and **partitioning variance explained by particular environmental variables**
+
+In addition, based on data input, two types of ordination analyses exist. 
+
+  + **raw data**: based on analysis of raw sample-species matrices with abundance or presence/absence data. Two categories recognized, differing by assumption of species response along environmental gradient:
+  
+    * **linear**, species response linearly along env. gradient, which could be true for rather homogenous ecological data, where ecological gradients are not too long. **Short gradient**.
+
+    * **unimodal**, species response unimodally along gradient, having its optima at certain gradient position. More close to reality of ecological data, more suitable for heterogenous dataset (long gradients + many zeros and turnover). **Long gradient**.
+    
+![](illustrations/multi_linuni.png){width=50%}    
+    
+
+
+  + **distances**: distance matrix  computed by similarity/dissimilarity measures, and projecting these distances into two or more dimensional diagrams</span>
+
+
+![](illustrations/multi_ordi.png)
+-----------------------
+
+
+
+# Predictions (extra)
 
 The process of constructing, evaluating, and validating  classification models, provides basis for machine learning models. Below we explore and compare perfomance four algorithms to classify and **predict** `iris` species (see `caret` package).
 

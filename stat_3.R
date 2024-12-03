@@ -9,6 +9,7 @@ library(vegan)
 library(qgraph)
 library(ade4)
 library(mvabund)
+library (pvclust)
 library(factoextra)
 library(ecodist)
 library(tree)
@@ -173,6 +174,12 @@ plot(kt$k,kt$r,
 axis(1,k.best, 
      paste('optimum', k.best, sep='\n'), col='red',font=2, col.axis='red')
 points(k.best,max(kt$r),pch=16,col='red',cex=1.5)
+
+pv.results<-pvclust(t(varespec), # to cluster rows - omit t() to cluster columns,
+        method.hclust = "average",
+        method.dist = function(x) vegan::vegdist(t(x), "bray"),
+        n = 1000) # and other arguments you need
+plot(pv.results)
 
 # Calculates hierarchical cluster analysis of species data 
 spe.db.ch.UPGMA<-hclust(spe.db.ch,method='average') 
