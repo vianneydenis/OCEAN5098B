@@ -38,11 +38,12 @@ library(caret)
 library(rattle)
 
 # to be careful
-library(mvpart) # install_github("cran/mvpart", force = T) # after devtools
-library(MVPARTwrap) # install_github("cran/MVPARTwrap", force = T) # after devtools
+library(mvpart) # devtools::install_github("cran/mvpart", force = T) 
+library(MVPARTwrap) # devtools::install_github("cran/MVPARTwrap", force = T)
 
 #  functions from Borcard et al. 2011
 source('https://www.dipintothereef.com/uploads/3/7/3/5/37359245/coldiss.r') 
+source ('https://www.dipintothereef.com/uploads/3/7/3/5/37359245/cleanplot.pca.r')
 
 
 ```
@@ -735,17 +736,430 @@ In addition, based on data input, two types of ordination analyses exist.
 
     * **unimodal**, species response unimodally along gradient, having its optima at certain gradient position. More close to reality of ecological data, more suitable for heterogenous dataset (long gradients + many zeros and turnover). **Long gradient**.
     
-![](illustrations/multi_linuni.png){width=50%}    
+    
+
+
+```{r, echo=FALSE, fig.align='center', fig.cap="Linear vs. unimodal", out.width = '75%'}
+knitr::include_graphics("illustrations/multi_linuni.png")
+```
     
 
 
   + **distances**: distance matrix  computed by similarity/dissimilarity measures, and projecting these distances into two or more dimensional diagrams</span>
 
 
-![](illustrations/multi_ordi.png)
------------------------
+```{r, echo=FALSE, fig.align='center', fig.cap="Ordination: general framework", out.width = '75%'}
+knitr::include_graphics("illustrations/multi_ordi.png")
+```
+
+The selection toward linear or unimodal ordination approach is commonly determined by a rule of thumb by performing a **Detrended Correspondence Analysis (DCA)** using `decorana()` on the dataset, then to check the length of the 1st DCA axis. Typically, it says: 
+
++ **length>4**, data are heterogenous and you should use unimodal methods
+
++ **length<3**, data are homogenous and you should use linear methods
+
+There is a **grey zone** between **3 and 4** where both methods are okay - in addition if your data are heterogenous, you still can use PCA/RDA using Hellinger's transformation of species data* (tbPCA)
 
 
+```{r,  eval=T, message=F}
+decorana(varespec)
+```
+
+Today, we will illustrate the most common unconstrained ordination method, PCA, as well as it constrained counterpart, RDA. In addition, we will mention illustrate the use of non-metric Multi-Dimensional Scaling (nMDS). nMDS is an indirect gradient analysis approach which produces an ordination based on a **distance** or **dissimilarity** matrix. Unlike previous methods which attempt to maximise the variance or correspondence between objects in an ordination, nMDS attempts to represent, as closely as possible, the pairwise dissimilarity between objects in a low-dimensional space. Any dissimilarity coefficient or distance measure may be used to build the distance matrix used as input.
+
+## Principal Component Analysis (PCA)
+
+A PCA carries out a **rotation system of axes** defined by the variables, such as new axes (called principal component) are orthogonal to one another, and correspond to the successive dimensions of maximum variance of the scatter plot.
+
+A PCA will find the "best" line (first principal component) according to two different criteria of what is the "best": maximize the variance & minimize the error.
+
+Applied to a 2D example on wine testing, this is like to identify a new property of wine by a combination of two variables (alcohol content and wine darkness) by 'drawing' a line through the center of the wine cloud. 
+
+
+```{r, echo=FALSE, fig.align='center', fig.cap="Scatterplot wine properties: Maximizing Variance and minimizing errors", out.width = '75%'}
+knitr::include_graphics("illustrations/multi_wine.gif")
+```
+
+
+It corresponds to a simple application of the Pythagora theorem.
+
+
+```{r, echo=FALSE, fig.align='center', fig.cap="", out.width = '75%'}
+knitr::include_graphics("illustrations/multi_PCA1.png")
+```
+
+The direction is given by eigenvector, and the strength by the eigenvalues. 
+
+
+```{r, echo=FALSE, fig.align='center', fig.cap="", out.width = '75%'}
+knitr::include_graphics("illustrations/multi_PCA2.png")
+```
+
+
+Check it  [here](http://setosa.io/ev/principal-component-analysis/) for a very simple explanation of how PCA works, and [here](https://www.youtube.com/watch?v=S51bTyIwxFs) for a
+a more detailed example. By the way *TileStats* channel is very good if you are looking at some simple explanation about statistics. It complements very well *StatQuest* explanation on [PCA](https://www.youtube.com/watch?v=FgakZw6K1QQ) for 
+
+
+### Computation
+
+In R, a **PCA** can be computed with the function `rda()` from the `vegan`among many other options.
+
+
+```{r,  eval=T, message=F}
+# PCA on varechem 
+# You can standardize using scale =T
+env.pca<-rda(varechem, scale=T) 
+env.pca
+summary(env.pca) # default scaling 2
+```
+
+**Inertia**: in `vegan`’s language, this is the general term for “variation” in the data
+
+**Constrained and unconstrained**: In PCA, the analysis is unconstrained, i.e. not constrained by a set of explanatory variables, and so are the results
+
+**Eigenvalues**, symbolized $\lambda_j$: these are measures of the importance (variance) of the PCA axes. They can be expressed as the **Proportions Explained**, or proportions of variation accounted for by the axes. It is obtained by dividing each eigenvalue by the “total inertia”.
+
+**Scaling**: not to be confused with the argument “scale” calling for standardization of variables. “Scaling” refers to the way ordination results are projected in the reduced space for graphical display. There is no single way of optimally displaying objects and variables together in a PCA biplot, i.e., a plot showing two types of results, here the sites and the variables. Two main types of scaling are generally used. Each of them has properties that must be kept in mind for proper interpretation of the biplots. Here we give the essential features of each scaling. Please refer to Legendre and Legendre (2012) for a complete description.
+
++ **Scaling 1** = distance biplot: the eigenvectors are scaled to unit length. (1) **Distances among objects in the biplot are approximations of their Euclidean distances in multidimensional space**. (2) The angles among descriptor vectors do not reflect their correlations.
+
++ **Scaling 2** = correlation biplot: each eigenvector is scaled to the square root of its eigenvalue. (1) Distances among objects in the biplot are not approximations of their Euclidean distances in multidimensional space. (2) **The angles between descriptors in the biplot reflect their correlations.**
+
++ The compromise **Scaling 3** has no clear interpretation rules, and therefore we will not discuss it further.
+
+Bottom line: if the main interest of the analysis is to interpret the relationships among **objects**, choose **scaling 1**. If the main interest focuses on the relationships among descriptors, choose **scaling 2**.
+
+```{r,  eval=T, message=F}
+# Plots using biplot
+# To help memorize the meaning of the scalings, vegan now accepts argument scaling = "sites" for scaling 1 and scaling="species" for scaling 2. This is true for all vegan functions involving scalings
+par(mfrow = c(1, 2))
+biplot(env.pca, scaling = "sites", main = "scaling 1 / sites")
+biplot(env.pca, scaling = "species", main = "scaling 2/ species") # Default scaling 2
+```
+
+**Species scores**: coordinates of the arrowheads of the variables. For historical reasons, response variables are always called “species” in vegan, no matter what they represent, because `vegan` is built for vegetation analysis.
+
+```{r,  eval=T, message=F}
+summary(env.pca)$species
+```
+
+**Site scores**: coordinates of the sites in the ordination diagram. Objects are always called “Sites” in vegan output files.
+
+```{r,  eval=T, message=F}
+summary(env.pca)$site
+```
+
+### Eigenvalues
+
+Examine eigenvalues is important to decide how many axes to retain. Usually, we examine the eigenvalues and decide how many axes are worth representing and displaying on the basis of the amount of variance explained. The decision can be completely arbitrary (for
+instance, interpret the number of axes necessary to represent 75% of the variance of the data), or assisted by one of several procedures proposed to set a limit between the axes that represent interesting variation of the data and axes that merely display the remaining, essentially random variance. 
+
+
+One of these procedures consists in computing a **broken stick model**, which randomly divides a stick of unit length into the same number of pieces as there are PCA eigenvalues. One interprets only the axes whose eigenvalues are larger than the length of the corresponding piece of the stick, or, alternately, one may compare the sum of eigenvalues, from 1 to k, to the sum of the values from 1 to k predicted by the broken stick model.
+
+```{r,  eval=T, message=F}
+screeplot(env.pca, bstick = TRUE, npcs = length(env.pca$CA$eig))
+```
+
+### Intepretation
+
+The proportion of variance accounted for by the two axes is about 60 %: relative high value makes us confident that our interpretation of the first pair of axes extracts most relevant information of the data set.
+
+**Scaling 1**: Gradient from left to right with a group of sites displaying higher values of Ca, Mg, K, Zn, S. Gradient from top to down with humpdepth and baresoil.
+
+**Scaling 2**: Humdepth, Baresoil are very highly positively correlated. Those two variables are very highly negatively correlated with pH and Fe.
+
+```{r,  eval=T, message=F}
+# combining clustering and ordination results
+biplot(env.pca, main='PCA - scaling 1',scaling=1) 
+ordicluster(env.pca, 
+            hclust(dist(scale(varechem)), 'ward.D'), 
+            prune=3, col = "blue", scaling=1)
+```
+
+### Transformation based PCA (tb-PCA)
+
+PCA being a linear method preserving the Euclidean distance among sites, it is not naturally adapted to the analysis of species abundance data. Hellinger transformation of the data can solve this problem. 
+
+
+```{r,  eval=T, message=F, warnings=F}
+decorana (varespec.hell)
+spe.h.pca<-rda(varespec.hell)
+screeplot(spe.h.pca,bstick = TRUE, npcs = length(spe.h.pca$CA$eig)) 
+```
+
+### Key points on PCA
+
++ PCA must be computed on **dimensionally homogenous** variables
+
++ data matrix **not transposed** since covariance or correlations among objects are meaningless
+
++ PCA can be applied to **binary** data
+
++ Species Presence-Absence data can be subject to a **Hellinger or chord transformation** prior PCA 
+
++ Interpretation relationship variable based on **angles**
+
+**Note**: Although there are means of incorporating explanatory variables directly in the ordination process (canonical ordination), one may be interested in interpreting a simple ordination by means of external variables. It is possible to get a passive (*post-hoc*) explanation of axes using environmental variables with `env.fit()`. 
+
+`envfit()`  proposes permutation tests to assess the significance of the R^2^ of each explanatory variable regressed on the two axes of the biplot. But this is not, by far, the best way to test the effect of explanatory variables on a table of response variables.
+
+
+```{r,  eval=T, message=F}
+# adding correlation circle
+cleanplot.pca (spe.h.pca) 
+# Scaling 2 is default
+(spe.h.pca.env <- envfit(spe.h.pca, varechem, scaling = 2))
+# plot significant variables with a user -selected colour
+plot(spe.h.pca.env, p.max = 0.05, col = 3)
+# This has added the significant environmental variables to the
+# last biplot drawn by R.
+# BEWARE: envfit() must be given the same scaling as the plot to 
+# which its result is added!
+```
+
+## Redundancy Analysis (RDA & tb-RDA) 
+
+Same kind of formula as used in `lm` and other R functions devoted to regression. Check `?rda` for details. We will base our example on a Hellinger transformed data set such illustrating a **transformation-based RDA**
+
+### Computation
+
+```{r,  eval=T, message=F, results='hide'}
+spe.rda <- rda(varespec.hell~.,varechem.stand) 
+summary (spe.rda) # scaling 2 (default)
+```
+
+
++ **Partitioning of variance**: variance of Y explained by the X variables (constrained proportion, 72.71% here), the unexplained variance of Y (unconstrained proportion, 27.29% here). This R^2^ is biased. 
+
++ **Eigenvalues and their contribution**: Summarize the eigenvalues, the proportions explained and the cumulative proportion of each canonical axis (each canonical axis = each constraining variable, in this case, the environmental variables from env). Cumulative proportion give the biased R^2^.
+
++ **Accumulated constrained eigenvalues**: these are cumulative amounts of variance expressed as proportions of the total *explained* variance, as opposed to their contribution to the *total* variance described before
+
++ **Species scores**: coordinates of the tips of the vector representing the response variables in the bi- or tri- plots. Depending on the scaling chosen
+
++ **Site scores**: coordinates of the sites as expressed in the space of the response variables Y
+
++ **Site constraints**: coordinates of the sites in the space of the explanatory variable X. Fitted site scores
+
++ **Biplot scores**:  coordinates of the tips of the vectors representing explanatory variables. Correlations based. For factors, representation of the centroids of the levels is preferable.
+
++ **Centroids for factor constraints**: coordinates of centroids of levels of factor variables, i.e. means of the scores of the sites possessing state '1' for a given level.
+
+
+In the `rda` output, an interesting information is missing: the canonical coefficients, *i.e.* the **equivalent of regression coefficients for each explanatory variable on each canonical axis**. They can be retrieved using `coef`:
+
+```{r,  eval=T, message=F}
+coef(spe.rda)
+```
+
+In addition like the ordinary R^2^ from multiple regression the R^2^ is biased. It can be cure by adjusting the R^2^ using Ezekiel's formula (Ezekiel 1930). An adjusted R^2^  near 0 indicates that X does not explain more of the variation of Y than random normal variables would do. It can be negative, indicating that the explanatory variables X do worse than random normal variable would. The R^2^ and adjusted-R^2^ can be computed using vegan's function `RsquareAdj` 
+
+```{r,  eval=T, message=F}
+#Retrieval of the adjusted R2
+# Unadjusted R2 retrieve from RDA results
+R2<-RsquareAdj(spe.rda)$r.squared
+# Adjusted R2 retrieve from RDA object
+R2adj<-RsquareAdj(spe.rda)$adj.r.squared
+```
+
+### tb-RDA plots
+
+We can call this a triplot since there are three different entities in the plot: sites, response variables and explanatory variables. To differentiate the latter two, it is good to draw arrowhead only on the vector of the quantitative explanatory variables, not on the response variable vectors
+
+```{r,  eval=T, message=F}
+# triplot of the rda results
+par(mfrow = c(2, 2))
+
+# site scores are weighted by sum of species
+# scaling 1: distance triplot
+plot (spe.rda, scaling=1, main='Triplot RDA spe.hel ~ env – scaling 1 – wa scores')
+spe.sc <- scores (spe.rda, choices=1:2, scaling=1, display='sp') 
+arrows (0,0, spe.sc[,1],spe.sc[,2],length=0,lty=1,col='red') 
+
+# scaling 2 (default)
+plot (spe.rda,main='Triplot RDA spe.hel ~ env – scaling 2 – wa scores')
+spe2.sc <- scores (spe.rda, choices=1:2, display='sp')
+arrows (0,0, spe2.sc[,1],spe2.sc[,2],length=0,lty=1,col='red')
+
+# site scores are linear combinations of the environmental variables
+# scaling 1
+plot (spe.rda,scaling=1,display=c('sp','lc','cn'),main='Triplot RDA spe.hel ~ env – scaling 1 – lc scores')
+arrows (0,0, spe.sc[,1],spe.sc[,2],length=0,lty=1,col='red')
+# scaling 2
+plot (spe.rda,display=c('sp','lc','cn'),main='Triplot RDA spe.hel ~ env – scaling 2 – lc scores') # cn for centroids
+arrows (0,0, spe2.sc[,1],spe2.sc[,2],length=0,lty=1,col='red')
+```
+
+### Interpretation
+
++ Interpretation of the two scaling
+
+  + For the species and the sites the interpretation of the two scalings in the same as in PCA
+  
+  + Presence of vectors and centroids of explanatory variables call for additional rules
+  
++ Let interpret our two last triplots:
+
+  + First two canonical axis alone explaining 58.3% of the total variance of the data, the first axis alone explaining 47.6% (unadjusted values)
+
+  + Since R^2^-adj  = 0.5320, the percentages of accumulated constrained eigenvalues show that the first axis alone explains 0.5224 x 0.643 = 0.336  or 33.6% variance, and the two first 0.5224 x 0.788 = 0.412 or 41.2%
+  
+  + Major trends have been modelled in this analysis ! In ecology, data are quite noisy, so you should never expect a very high value of R2 adj but there is a way to test for the overall significance of the model and RDA axes.
+  
+
+**Overall test**
+
+The overall test function is called `anova.cca`. This name is unfortunate, since it leads to confusion with the classical ANOVA test, which it is not !
+
+```{r,  eval=T, message=F}
+# Global test of the RDA results
+anova.cca(spe.rda,step=1000)
+```
+
+The test of the axes can only be run with the formula synthax. How many canonical axes are significant?
+
+```{r,  eval=T, message=F}
+# Test of all canonical axes
+anova.cca(spe.rda,by='axis',step=1000)
+```
+### Selection explanatory variables 
+
+It happens we wish to reduce the number of explanatory variables. The reasons vary: search for parsimony, rich data set but poor at priori hypotheses, or a method producing a large set of explanatory variables which must be reduced afterwards. 
+
+Linear dependencies can be explored by computing the variables' variance inflation factor. VIFs above 20 indicates strong collinearity. Ideally, VIFs above 10 should be at least examined, and avoid if possible. VIFs can be computed in `vegan` after `rda` using the function `vif.cca`
+
+```{r,  eval=T, message=F}
+vif.cca(spe.rda)
+```
+
+A reduction is justified to find a parsimonious RDA !!! To select the significant explanatory variables, you can then perform a stepwise selection (forward or backward), using the `ordistep` or `ordiR2step` function (or using the `forward.sel` function of package `packfor`) 
+
+### Partial `rda`
+
+**Partial canonical ordination** is the multivariate equivalent of partial linear regression: it is possible to run a RDA of a (transformed) species data matrix **Y**, explained by a matrix of environmental variables **X**, in the presence of covariables **W** (e.g. Display the patterns of the species data uniquely explained by a linear model of the env variables when the effect of another variable is held constant).
+
+See [here](https://r.qcbs.ca/workshop10/book-en/partial-redundancy-analysis.html) for more details and example on `doubs` data.
+
+## non-metric Multidimensional Scaling (nMDS)
+
+nMDS is an indirect gradient analysis approach which produces an ordination based on a distance or dissimilarity matrix.nMDS is a rank-based approach. This means that the original distance data is substituted with ranks.  
+
++ represent as well as possible the ordering relationship among objects in a small and specified number of axes
+
++ nMDS (like PCoA - also called Metric Multidimensional Scaling) can produce ordinations of objects from any distance matrix
+
++ nMDS can cope with missing distances, as long  as there are enough measures left to position each object with respect to each other.
+
+nMDS is **NOT** a eigenvalue based ordination method (unlike MDS), and does not maximize the variability associated with individual axes of the ordination.
+
+### Procedure
+
+Very simple:
+
++ specify the number m of axes (dimensions) – usually 2 !
+
++ construct an initial configuration of the objects in the m dimensions, to be used as a starting point of an iterative adjustment process. This is a tricky step, since the end-results may depend on the starting configuration.
+
++ an iterative procedure tries to position the objects in the requested number of dimensions in such was as to minimize a stress function (scaled from 0 to 1), which measures how far the distances in the reduced-space configuration are from being monotonic to the original distance in the association matrix
+
++ the adjustment goes on until the stress value can no more be lowered, or predetermined value (sometimes never reached)
+
+### Computation
+
+Functions:
+
++ `metaMDS` (library `vegan`) – advanced function, composed of many sub-routine  steps. Species points are added to the ordination plot using `wascores`
+
++ `isoMDS` (library `MASS`) if missing values in the distance matrix and `bestnmds` package `labdsv`
+
+```{r,  eval=T, message=F}
+spe.nmds<-metaMDS(varespec,distance='bray',trymax=999)
+spe.nmds
+spe.nmds$stress
+plot(spe.nmds,type='t',main=paste('NMDS/Bray–Stress =',round(spe.nmds$stress,3)))
+```
+
+### nMDS quality
+
++ A useful way to assess the appropriateness of an nMDS is to compare, in a *Shepard diagram*, the distance among objects in the ordination with the original distances.
+
++ `stressplot()` – draws such a *Shepard stress* plot, which is the relationship between real distances between samples in resulting *m* dimensional ordination solution, and their particular dissimilarities.
+
+```{r,  eval=T, message=F}
+stressplot(spe.nmds, main='Shepard plot')
+```
+
++ In addition, the goodness-of-fit of the ordination is measured as the R^2^  of either a linear or a non-linear regression of the NMDS distances on the original ones
+
+```{r,  eval=T, message=F}
+# goodness of fit
+gof<-goodness(spe.nmds)
+plot(spe.nmds,type='t',main='Goodness of fit')
+points(spe.nmds, display='sites', cex=gof*90)
+```
+
+### Adding cluster
+
+```{r,  eval=T, message=F}
+# UPGMA
+spe.bray.upgma <- hclust(spe.bc,'average')
+# nMDS with labels
+plot(spe.nmds, display="sites")
+orditorp(spe.nmds, display="sites")
+# add and prune tree
+ordicluster(spe.nmds, spe.bray.upgma, prune=5, col = cutree(spe.bray.upgma, 6),lwd=2)
+```
+
+### `ordisurf`
+
+Fits a smooth surface for given variable and plots the result on ordination diagram (Generalized Additive Model)
+
+```{r,  eval=T, message=F}
+ordisurf(spe.nmds ~ Baresoil, varechem, bubble = 5, main="Baresoil GAM")
+```
+
+### `ordihull` & `ordispider`
+
+```{r,  eval=T, message=F}
+data(dune)
+data(dune.env)
+attach(dune.env)
+NMDS.dune<-metaMDS(dune,distance='bray')
+plot(NMDS.dune,type='t',main=paste('NMDS/Bray – Stress =',round(NMDS.dune$stress,3)))
+pl<-ordihull(NMDS.dune, Management, scaling = 3, draw='polygon',col='grey')
+ordispider(pl, col="red", lty=3, label = TRUE)
+```
+
+# Hypothesis testing
+
+## PERMANOVA
+
+Analysis of variance using distance matrices — for partitioning distance matrices among sources of variation and fitting linear models (e.g., factors, polynomial regression) to distance matrices; uses a permutation test with pseudo-F ratios.
+
+Testing management effect:
+
+```{r}
+## default is overall (omnibus) test
+adonis2(dune ~ Management*A1, method='bray', data = dune.env)
+## sequential tests
+adonis2(dune ~ Management*A1, method='bray', data = dune.env, by = "terms")
+```
+
+PERMANOVA is a robust alternative to both parametric MANOVA and to ordination methods for describing how variation is attributed to different experimental treatments or uncontrolled covariates. It is also analogous to redundancy analysis. 
+
+## ANOSIM
+
+Analysis of similarities (ANOSIM) provides a way to test statistically whether there is a significant difference between two or more groups of sampling units.
+
+```{r}
+dune.dist <- vegdist(dune)
+dune.ano <- with(dune.env, anosim(dune.dist, Management))
+summary(dune.ano)
+plot(dune.ano)
+```
+
+Function `adonis2` is a more robust alternative that should preferred.For comparing dissimilarities against continuous variables, see `?vegan::mantel`.
 
 # Predictions (extra)
 
