@@ -20,11 +20,12 @@ library(caret)
 library(rattle)
 
 # to be careful
-library(mvpart) # install_github("cran/mvpart", force = T) # after devtools
-library(MVPARTwrap) # install_github("cran/MVPARTwrap", force = T) # after devtools
+library(mvpart) # devtools::install_github("cran/mvpart", force = T) 
+library(MVPARTwrap) # devtools::install_github("cran/MVPARTwrap", force = T)
 
 #  functions from Borcard et al. 2011
 source('https://www.dipintothereef.com/uploads/3/7/3/5/37359245/coldiss.r') 
+source ('https://www.dipintothereef.com/uploads/3/7/3/5/37359245/cleanplot.pca.r')
 
 
 
@@ -266,6 +267,138 @@ spe.ch.mvpart <-
          xval=nrow(doubs$fish),
          xvmult = 100
          )
+
+knitr::include_graphics("illustrations/multi_linuni.png")
+
+knitr::include_graphics("illustrations/multi_ordi.png")
+
+decorana(varespec)
+
+knitr::include_graphics("illustrations/multi_wine.gif")
+
+knitr::include_graphics("illustrations/multi_PCA1.png")
+
+knitr::include_graphics("illustrations/multi_PCA2.png")
+
+# PCA on varechem 
+# You can standardize using scale =T
+env.pca<-rda(varechem, scale=T) 
+env.pca
+summary(env.pca) # default scaling 2
+
+# Plots using biplot
+# To help memorize the meaning of the scalings, vegan now accepts argument scaling = "sites" for scaling 1 and scaling="species" for scaling 2. This is true for all vegan functions involving scalings
+par(mfrow = c(1, 2))
+biplot(env.pca, scaling = "sites", main = "scaling 1 / sites")
+biplot(env.pca, scaling = "species", main = "scaling 2 / species") # Default scaling 2
+
+summary(env.pca)$species
+
+summary(env.pca)$site
+
+screeplot(env.pca, bstick = TRUE, npcs = length(env.pca$CA$eig))
+
+# combining clustering and ordination results
+biplot(env.pca, main='PCA - scaling 1',scaling=1) 
+ordicluster(env.pca, 
+            hclust(dist(scale(varechem)), 'ward.D'), 
+            prune=3, col = "blue", scaling=1)
+
+decorana (varespec.hell)
+spe.h.pca<-rda(varespec.hell)
+screeplot(spe.h.pca,bstick = TRUE, npcs = length(spe.h.pca$CA$eig)) 
+
+# adding correlation circle
+cleanplot.pca (spe.h.pca) 
+# Scaling 2 is default
+(spe.h.pca.env <- envfit(spe.h.pca, varechem, scaling = 2))
+# plot significant variables with a user -selected colour
+plot(spe.h.pca.env, p.max = 0.05, col = 3)
+# This has added the significant environmental variables to the
+# last biplot drawn by R.
+# BEWARE: envfit() must be given the same scaling as the plot to 
+# which its result is added!
+
+spe.rda <- rda(varespec.hell~.,varechem.stand) 
+summary (spe.rda) # scaling 2 (default)
+
+coef(spe.rda)
+
+#Retrieval of the adjusted R2
+# Unadjusted R2 retrieve from RDA results
+R2<-RsquareAdj(spe.rda)$r.squared
+# Adjusted R2 retrieve from RDA object
+R2adj<-RsquareAdj(spe.rda)$adj.r.squared
+
+# triplot of the rda results
+par(mfrow = c(2, 2))
+
+# site scores are weighted by sum of species
+# scaling 1: distance triplot
+plot (spe.rda, scaling=1, main='Triplot RDA spe.hel ~ env – scaling 1 – wa scores')
+spe.sc <- scores (spe.rda, choices=1:2, scaling=1, display='sp') 
+arrows (0,0, spe.sc[,1],spe.sc[,2],length=0,lty=1,col='red') 
+
+# scaling 2 (default)
+plot (spe.rda,main='Triplot RDA spe.hel ~ env – scaling 2 – wa scores')
+spe2.sc <- scores (spe.rda, choices=1:2, display='sp')
+arrows (0,0, spe2.sc[,1],spe2.sc[,2],length=0,lty=1,col='red')
+
+# site scores are linear combinations of the environmental variables
+# scaling 1
+plot (spe.rda,scaling=1,display=c('sp','lc','cn'),main='Triplot RDA spe.hel ~ env – scaling 1 – lc scores')
+arrows (0,0, spe.sc[,1],spe.sc[,2],length=0,lty=1,col='red')
+# scaling 2
+plot (spe.rda,display=c('sp','lc','cn'),main='Triplot RDA spe.hel ~ env – scaling 2 – lc scores') # cn for centroids
+arrows (0,0, spe2.sc[,1],spe2.sc[,2],length=0,lty=1,col='red')
+
+# Global test of the RDA results
+anova.cca(spe.rda,step=1000)
+
+# Test of all canonical axes
+anova.cca(spe.rda,by='axis',step=1000)
+
+vif.cca(spe.rda)
+
+spe.nmds<-metaMDS(varespec,distance='bray',trymax=999)
+spe.nmds
+spe.nmds$stress
+plot(spe.nmds,type='t',main=paste('NMDS/Bray–Stress =',round(spe.nmds$stress,3)))
+
+stressplot(spe.nmds, main='Shepard plot')
+
+# goodness of fit
+gof<-goodness(spe.nmds)
+plot(spe.nmds,type='t',main='Goodness of fit')
+points(spe.nmds, display='sites', cex=gof*90)
+
+# UPGMA
+spe.bray.upgma <- hclust(spe.bc,'average')
+# nMDS with labels
+plot(spe.nmds, display="sites")
+orditorp(spe.nmds, display="sites")
+# add and prune tree
+ordicluster(spe.nmds, spe.bray.upgma, prune=5, col = cutree(spe.bray.upgma, 6),lwd=2)
+
+ordisurf(spe.nmds ~ Baresoil, varechem, bubble = 5, main="Baresoil GAM")
+
+data(dune)
+data(dune.env)
+attach(dune.env)
+NMDS.dune<-metaMDS(dune,distance='bray')
+plot(NMDS.dune,type='t',main=paste('NMDS/Bray – Stress =',round(NMDS.dune$stress,3)))
+pl<-ordihull(NMDS.dune, Management, scaling = 3, draw='polygon',col='grey')
+ordispider(pl, col="red", lty=3, label = TRUE)
+
+## default is overall (omnibus) test
+adonis2(dune ~ Management*A1, method='bray', data = dune.env)
+## sequential tests
+adonis2(dune ~ Management*A1, method='bray', data = dune.env, by = "terms")
+
+dune.dist <- vegdist(dune)
+dune.ano <- with(dune.env, anosim(dune.dist, Management))
+summary(dune.ano)
+plot(dune.ano)
 
 # create a list of 80% of the rows in the original dataset that we can use for training
 validation_index <- createDataPartition(iris$Species, p=0.80, list=FALSE)

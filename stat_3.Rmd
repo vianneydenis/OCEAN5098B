@@ -834,7 +834,7 @@ Bottom line: if the main interest of the analysis is to interpret the relationsh
 # To help memorize the meaning of the scalings, vegan now accepts argument scaling = "sites" for scaling 1 and scaling="species" for scaling 2. This is true for all vegan functions involving scalings
 par(mfrow = c(1, 2))
 biplot(env.pca, scaling = "sites", main = "scaling 1 / sites")
-biplot(env.pca, scaling = "species", main = "scaling 2/ species") # Default scaling 2
+biplot(env.pca, scaling = "species", main = "scaling 2 / species") # Default scaling 2
 ```
 
 **Species scores**: coordinates of the arrowheads of the variables. For historical reasons, response variables are always called “species” in vegan, no matter what they represent, because `vegan` is built for vegetation analysis.
@@ -877,9 +877,9 @@ ordicluster(env.pca,
             prune=3, col = "blue", scaling=1)
 ```
 
-### Transformation based PCA (tb-PCA)
+### tb-PCA
 
-PCA being a linear method preserving the Euclidean distance among sites, it is not naturally adapted to the analysis of species abundance data. Hellinger transformation of the data can solve this problem. 
+PCA being a linear method preserving the Euclidean distance among sites, it is not naturally adapted to the analysis of species abundance data. Hellinger transformation an the use of a transformation based PCA solves this problem. 
 
 
 ```{r,  eval=T, message=F, warnings=F}
@@ -918,9 +918,9 @@ plot(spe.h.pca.env, p.max = 0.05, col = 3)
 # which its result is added!
 ```
 
-## Redundancy Analysis (RDA & tb-RDA) 
+## RDA & tb-RDA 
 
-Same kind of formula as used in `lm` and other R functions devoted to regression. Check `?rda` for details. We will base our example on a Hellinger transformed data set such illustrating a **transformation-based RDA**
+Redundancy Analysis (RDA & tb-RDA) use the same kind of formula as used in `lm` and other R functions devoted to regression. Check `?rda` for details. We will base our example on a Hellinger transformed data set such illustrating the case of a **transformation-based RDA**
 
 ### Computation
 
@@ -993,9 +993,11 @@ arrows (0,0, spe2.sc[,1],spe2.sc[,2],length=0,lty=1,col='red')
 
 ### Interpretation
 
+**Ordination**
+
 + Interpretation of the two scaling
 
-  + For the species and the sites the interpretation of the two scalings in the same as in PCA
+  + For the species and the sites the interpretation of the two scalings are the same as in a PCA
   
   + Presence of vectors and centroids of explanatory variables call for additional rules
   
@@ -1008,7 +1010,7 @@ arrows (0,0, spe2.sc[,1],spe2.sc[,2],length=0,lty=1,col='red')
   + Major trends have been modelled in this analysis ! In ecology, data are quite noisy, so you should never expect a very high value of R2 adj but there is a way to test for the overall significance of the model and RDA axes.
   
 
-**Overall test**
+**RDA model test**
 
 The overall test function is called `anova.cca`. This name is unfortunate, since it leads to confusion with the classical ANOVA test, which it is not !
 
@@ -1023,7 +1025,7 @@ The test of the axes can only be run with the formula synthax. How many canonica
 # Test of all canonical axes
 anova.cca(spe.rda,by='axis',step=1000)
 ```
-### Selection explanatory variables 
+###  Variables selection
 
 It happens we wish to reduce the number of explanatory variables. The reasons vary: search for parsimony, rich data set but poor at priori hypotheses, or a method producing a large set of explanatory variables which must be reduced afterwards. 
 
@@ -1055,7 +1057,7 @@ nMDS is **NOT** a eigenvalue based ordination method (unlike MDS), and does not 
 
 ### Procedure
 
-Very simple:
+Quiet straightforward:
 
 + specify the number m of axes (dimensions) – usually 2 !
 
@@ -1257,37 +1259,12 @@ We can see that the accuracy is 100% but on a small validation dataset (20%). 95
 
 
 ![Machine Learning vs. Deep Learning](illustrations/multi_MLDL.png)
-# Ordinations
 
-
-
-
-
-
-
-
-
-
-
-dev.off()
-
-
-
-
-Many commonly used analyses for multivariate data sets (e.g. PERMANOVA, ANOSIM, CCA, RDA etc.) are “distance-based analyses”. This means the first step of the analysis is to calculate a measure of similarity between each pair of samples, thus converting a multivariate dataset into a univariate one.
-
-
-There are a couple of problems with these kinds of analysis. First, their statistical power is very low, except for variables with high variance. This means that for variables which are less variable, the analyses are less likely to detect a treatment effect. Second, they do not account for a very important property of multivariate data, which is the mean-variance relationship. Typically, in multivariate datasets like species-abundance data sets, counts for rare species will have many zeros with little variance, and the higher counts for more abundant species will be more variable.
-
-
-The mvabund approach improves power across a range of species with different variances and includes an assumption of a mean-variance relationship. It does this by fitting a single generalised linear model (GLM) to each response variable with a common set of predictor variables. We can then use resampling to test for significant community level or species level responses to our predictors.
-
-Also, the model-based framework makes it easier to check our assumptions and interpret uncertainty around our findings.
-
-If you’re interested in this method, watch the introductory video, Introducing mvabund and why multivariate statistics in ecology is a bit like Rick Astley…
 
 # References
 
 Charrad M., Ghazzali N., Boiteau V., & Niknafs A. (2014). NbClust: An R Package for Determining the Relevant Number of Clusters in a Data Set. Journal of Statistical Software, 61(6), 1–36. https://doi.org/10.18637/jss.v061.i06
 
-Johnson R.A., Wichern D.W. (2007) Applied Multivariate Statistical Analysis. 6th ed. Upper Saddle River: Pearson. 
+Johnson R.A., Wichern D.W. (2007) Applied Multivariate Statistical Analysis. 6th ed. Upper Saddle River: Pearson.
+
+QCBS R Workshop Series (2023) https://r.qcbs.ca/workshop10/book-en/index.html
