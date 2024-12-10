@@ -767,9 +767,9 @@ decorana(varespec)
 
 Today, we will illustrate the most common unconstrained ordination method, PCA, as well as it constrained counterpart, RDA. In addition, we will mention illustrate the use of non-metric Multi-Dimensional Scaling (nMDS). nMDS is an indirect gradient analysis approach which produces an ordination based on a **distance** or **dissimilarity** matrix. Unlike previous methods which attempt to maximise the variance or correspondence between objects in an ordination, nMDS attempts to represent, as closely as possible, the pairwise dissimilarity between objects in a low-dimensional space. Any dissimilarity coefficient or distance measure may be used to build the distance matrix used as input.
 
-## Principal Component Analysis (PCA)
+## PCA
 
-A PCA carries out a **rotation system of axes** defined by the variables, such as new axes (called principal component) are orthogonal to one another, and correspond to the successive dimensions of maximum variance of the scatter plot.
+A Principal Component Analysis (PCA) carries out a **rotation system of axes** defined by the variables, such as new axes (called principal component) are orthogonal to one another, and correspond to the successive dimensions of maximum variance of the scatter plot.
 
 A PCA will find the "best" line (first principal component) according to two different criteria of what is the "best": maximize the variance & minimize the error.
 
@@ -924,7 +924,7 @@ Redundancy Analysis (RDA & tb-RDA) use the same kind of formula as used in `lm` 
 
 ### Computation
 
-```{r,  eval=T, message=F, results='hide'}
+```{r,  eval=T, message=F}
 spe.rda <- rda(varespec.hell~.,varechem.stand) 
 summary (spe.rda) # scaling 2 (default)
 ```
@@ -1108,7 +1108,7 @@ points(spe.nmds, display='sites', cex=gof*90)
 spe.bray.upgma <- hclust(spe.bc,'average')
 # nMDS with labels
 plot(spe.nmds, display="sites")
-orditorp(spe.nmds, display="sites")
+orditorp(spe.nmds, display="sites") # add text / points to ordination
 # add and prune tree
 ordicluster(spe.nmds, spe.bray.upgma, prune=5, col = cutree(spe.bray.upgma, 6),lwd=2)
 ```
@@ -1200,10 +1200,12 @@ We are using the metric of “Accuracy” to evaluate models. This will be the r
 
 We don’t know which algorithms would be good on this problem or what configurations to use, let's evaluate four different algorithms:
 
-    * Random Forest
+
     * Classification and Regression Trees (CART)
-    * k-Nearest Neighbors (kNN)
-    * Linear Discriminant Analysis (LDA)
+    * Random Forest
+    * Linear Discriminant Analysis (LDA) /supervised machine learning to solve multi-class classification problems
+    * k-Nearest Neighbors (kNN) / classification (or regression) algorithm 
+
 
 
 Check this, before `species` was our predictor. We use multiples predictor to model the response. 

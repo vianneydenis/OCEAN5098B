@@ -376,7 +376,7 @@ points(spe.nmds, display='sites', cex=gof*90)
 spe.bray.upgma <- hclust(spe.bc,'average')
 # nMDS with labels
 plot(spe.nmds, display="sites")
-orditorp(spe.nmds, display="sites")
+orditorp(spe.nmds, display="sites") # add text / points to ordination
 # add and prune tree
 ordicluster(spe.nmds, spe.bray.upgma, prune=5, col = cutree(spe.bray.upgma, 6),lwd=2)
 
